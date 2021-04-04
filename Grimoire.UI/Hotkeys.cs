@@ -106,7 +106,12 @@ namespace Grimoire.UI
             },
             delegate
             {
+                string reqs = Flash.Call<string>("CheckCellPlayer", new string[] {
+                    "Reneid",
+                    "Enter"
+                });
 
+                Console.WriteLine(reqs);
             }
         };
         
@@ -416,7 +421,8 @@ namespace Grimoire.UI
             "Yulgar Suite 42",
             "Relog",
             "Start/Stop Bot",
-            "Toggle Options"});
+            "Toggle Options,",
+            "Execute Debug"});
             this.cbActions.Location = new Point(118, 3);
             this.cbActions.Name = "cbActions";
             this.cbActions.Size = new Size(109, 21);
