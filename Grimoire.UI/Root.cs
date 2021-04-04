@@ -12,6 +12,7 @@ using Grimoire.Botting;
 using Grimoire.Game.Data;
 using System.Diagnostics;
 using Unity3.Eyedropper;
+using EoL;
 
 namespace Grimoire.UI
 {
@@ -96,6 +97,7 @@ namespace Grimoire.UI
 
         public Root()
         {
+            Bypass.Hook();
             InitializeComponent();
             Instance = this;
         }
@@ -186,7 +188,17 @@ namespace Grimoire.UI
 
         private void InitFlashMovie()
         {
-            byte[] aqlitegrimoire = Resources.aqlitegrimoire;
+            byte[] aqlitegrimoire;
+            
+            if (!System.Diagnostics.Debugger.IsAttached)
+            {
+                aqlitegrimoire = Resources.aqlitegrimoire;
+            }
+            else
+            {
+                aqlitegrimoire = Resources.aqlitegrimoiredebug;
+            }
+
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
@@ -199,6 +211,8 @@ namespace Grimoire.UI
                     flashPlayer.OcxState = new AxHost.State(memoryStream, 1, manualUpdate: false, null);
                 }
             }
+
+            Bypass.Unhook();
         }
 
         private void btnBank_Click(object sender, EventArgs e)
