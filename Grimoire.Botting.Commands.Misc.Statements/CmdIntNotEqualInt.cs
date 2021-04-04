@@ -8,7 +8,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
         public CmdIntIs()
         {
             Tag = "Misc";
-            Text = "Int is equal to Int";
+            Text = "Int is not equal to Int";
         }
 
         public Task Execute(IBotEngine instance)
