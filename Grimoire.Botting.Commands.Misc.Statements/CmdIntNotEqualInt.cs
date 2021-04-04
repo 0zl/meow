@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace Grimoire.Botting.Commands.Misc.Statements
 {
-    public class CmdIntEqualInt : StatementCommand, IBotCommand
+    public class CmdIntNotEqualInt : StatementCommand, IBotCommand
     {
-        public CmdIntIs()
+        public CmdIntNotEqualInt()
         {
             Tag = "Misc";
             Text = "Int is not equal to Int";
