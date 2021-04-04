@@ -2179,9 +2179,22 @@
       "Description2": "Cell name"
     },
     {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdPlayerIsNotInCell, Grimoire",
+      "Tag": "Player",
+      "Text": "Player is not in cell",
+      "Description1": "Player name",
+      "Description2": "Cell name"
+    },
+    {
       "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdPlayerIsNotInMyCell, Grimoire",
       "Tag": "Player",
       "Text": "Player is not in my cell",
+      "Description1": "Player name"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdPlayerIsInMyCell, Grimoire",
+      "Tag": "Player",
+      "Text": "Player is in my cell",
       "Description1": "Player name"
     },
     {

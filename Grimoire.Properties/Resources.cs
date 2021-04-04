@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.IO;
+using System.Reflection;
 
 namespace Grimoire.Properties
 {
@@ -48,7 +49,7 @@ namespace Grimoire.Properties
         internal static string statementcmds => ResourceManager.GetString("statementcmds", resourceCulture);
 
         //internal static byte[] aqlitegrimoire => (byte[])ResourceManager.GetObject("testgrimoire", resourceCulture);
-        internal static byte[] aqlitegrimoire => (byte[])File.ReadAllBytes(@"D:\gLibrary\Grimoire\catgirl.swf");
+        internal static byte[] aqlitegrimoire => File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "catgirl.swf"));
 
         //internal static byte[] aqlitegrimoire => (byte[])ResourceManager.GetObject("testgrimoire2", resourceCulture);
 

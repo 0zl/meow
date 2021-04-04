@@ -4,9 +4,9 @@
     <ProjectGuid>{16F81920-2DC0-4AAB-AA6C-D9AE599F6367}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <LangVersion>8.0</LangVersion>
-    <AssemblyName>GrimLite</AssemblyName>
+    <AssemblyName>Grimoire</AssemblyName>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <WarningLevel>4</WarningLevel>
@@ -95,14 +95,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\AxInterop.ShockwaveFlashObjects.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.11.7.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.32.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>packages\HtmlAgilityPack.1.11.32\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -200,6 +199,9 @@
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdNotInInventory.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdNotInTemp.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerInRoom.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerIsInCell.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerIsInMyCell.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerIsNotInCell.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerIsNotInMyCell.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerNotInRoom.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayersGreaterThan.cs" />
@@ -442,9 +444,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
     <None Include="Properties\App.config">
       <SubType>Designer</SubType>
     </None>
