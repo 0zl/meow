@@ -5,7 +5,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 {
     public class CmdIntEqualInt : StatementCommand, IBotCommand
     {
-        public CmdIntIs()
+        public CmdIntEqualInt()
         {
             Tag = "Misc";
             Text = "Int is equal to Int";
