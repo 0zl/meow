@@ -2252,6 +2252,20 @@
       "Text": "Int is not",
       "Description1": "Int",
       "Description2": "Value"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdIntEqualInt, Grimoire",
+      "Tag": "Misc",
+      "Text": "Int is equal to Int",
+      "Description1": "Int1",
+      "Description2": "Int2"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdIntNotEqualInt, Grimoire",
+      "Tag": "Misc",
+      "Text": "Int is not equal to Int",
+      "Description1": "Int1",
+      "Description2": "Int2"
     }
   ]
 }</value>
