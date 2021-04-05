@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Grimoire.Botting.Commands.Misc.Statements
 {
-    public class CmdIsMaxStacky : StatementCommand, IBotCommand
+    public class CmdIsMaxStack : StatementCommand, IBotCommand
     {
         public CmdIsMaxStack()
         {
@@ -13,7 +13,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (!Player.Inventory.ContainsItem(Value1))
+            if (Player.Inventory.ContainsMaxItem(Value1))
             {
                 instance.Index++;
             }
