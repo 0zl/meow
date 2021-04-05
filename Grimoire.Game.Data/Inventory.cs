@@ -34,10 +34,7 @@ namespace Grimoire.Game.Data
             InventoryItem inventoryItem = Items.FirstOrDefault((InventoryItem i) => i.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
             if (inventoryItem != null)
             {
-                if (!(quantity == "*"))
-                {
-                    return inventoryItem.Quantity >= inventoryItem.MaxStack
-                }
+                return inventoryItem.Quantity >= inventoryItem.MaxStack;
             }
             return false;
         }
