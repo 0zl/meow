@@ -222,6 +222,8 @@
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdQuestNotAvailable.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdQuestNotCompleted.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdQuestNotInProgress.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdSetVar.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdUpdateVar.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\StatementCommand.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdBankList.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdBeep.cs" />

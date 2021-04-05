@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Grimoire.Tools;
+using System.Text.RegularExpressions;
 
 namespace Grimoire.Botting.Commands.Misc.Statements
 {
@@ -16,7 +17,16 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            string reqs = Flash.Call<string>("GetCellPlayers", new string[] { Value1 });
+            string reqs;
+            if ( IsVar(Value1) )
+            {
+                reqs = Flash.Call<string>("GetCellPlayers", new string[] { Configuration.Tempvariable[GetVar(Value1)] });
+            }
+            else
+            {
+                reqs = Flash.Call<string>("GetCellPlayers", new string[] { Value1 });
+            }
+
             bool isExists = bool.Parse(reqs);
 
             if (!isExists)

@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace Grimoire.Botting.Commands.Misc.Statements
 {
     public class StatementCommand
@@ -36,6 +38,16 @@ namespace Grimoire.Botting.Commands.Misc.Statements
         {
             get;
             set;
+        }
+
+        public bool IsVar(string value)
+        {
+            return Regex.IsMatch(Value1, @"\[([^\)]*)\]");
+        }
+
+        public string GetVar(string value)
+        {
+            return Regex.Replace(value, @"[\[\]']+", "");
         }
     }
 }

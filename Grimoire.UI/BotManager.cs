@@ -637,6 +637,9 @@ namespace Grimoire.UI
                 chkEnsureComplete.Checked = config.EnsureComplete;
                 chkAFK.Checked = config.AFK;
                 numDropDelay.Value = config.DropDelay <= 0 ? 1000 : config.DropDelay;
+
+                Configuration.Tempvalues.Clear();
+                Configuration.Tempvariable.Clear();
             }
         }
 

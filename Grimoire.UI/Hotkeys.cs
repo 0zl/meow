@@ -106,12 +106,10 @@ namespace Grimoire.UI
             },
             delegate
             {
-                string reqs = Flash.Call<string>("CheckCellPlayer", new string[] {
-                    "Reneid",
-                    "Enter"
-                });
+                bool l = System.Text.RegularExpressions.Regex.IsMatch("[Reneid]", @"\[([^\)]*)\]");
+                string r = System.Text.RegularExpressions.Regex.Replace("[Reneid]", @"[\[\]']+", "");
 
-                Console.WriteLine(reqs);
+                MessageBox.Show($"{l} : {r}");
             }
         };
         
