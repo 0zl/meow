@@ -22,7 +22,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public override string ToString()
         {
-            return $"Is maxed out: {Value1}";
+            return $"Is not maxed out: {Value1}";
         }
     }
 }
