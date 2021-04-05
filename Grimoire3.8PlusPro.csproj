@@ -146,6 +146,7 @@
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdRest.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdUseSkill.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdSkillSet.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Item\CmdWhitelist.cs" />
     <Compile Include="Grimoire.Botting.Commands.Item\CmdBankSwap.cs" />
     <Compile Include="Grimoire.Botting.Commands.Item\CmdBankTransfer.cs" />
     <Compile Include="Grimoire.Botting.Commands.Item\CmdBuy.cs" />
@@ -183,7 +184,9 @@
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntIsNot.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntLessThan.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntNotEqualInt.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsMaxStack.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsMember.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsNotMaxStack.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsNotMember.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdItemNotPickupable.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdItemPickupable.cs" />

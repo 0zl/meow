@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Grimoire.UI;
 using System.Drawing.Drawing2D;
+using static Grimoire.Botting.Commands.Item.CmdWhitelist;
 
 namespace Grimoire.UI
 {
@@ -47,7 +48,7 @@ namespace Grimoire.UI
         public ListBox lstCommands;
         private ListBox lstSkills;
         private ListBox lstQuests;
-        private ListBox lstDrops;
+        public ListBox lstDrops;
         private ListBox lstBoosts;
         public static LogForm Log;
         private string _customName;
@@ -105,7 +106,7 @@ namespace Grimoire.UI
         private Button btnSwap;
         private TextBox txtSwapInv;
         private TextBox txtSwapBank;
-        private CheckBox chkPickup;
+        public CheckBox chkPickup;
         private Button btnBoth;
         private TextBox txtWhitelist;
         private Button btnItem;
@@ -295,6 +296,11 @@ namespace Grimoire.UI
         private Label label19;
         private Button btnDecreaseInt;
         private Button btnIncreaseInt;
+        private CheckBox colorfulCommands;
+        private Button btnWhitelistOff;
+        private Button btnWhitelistOn;
+        private Button btnWhitelistToggle;
+        private Label label20;
         private Button btnAttack;
         #endregion
 
@@ -1035,6 +1041,22 @@ namespace Grimoire.UI
                         {
                             ItemName = text,
                             TransferFromBank = true
+                        };
+                        break;
+
+                    case 5:
+                        cmd = new CmdWhitelist
+                        {
+                            ItemName = text,
+                            state = State.Add
+                        };
+                        break;
+
+                    case 6:
+                        cmd = new CmdWhitelist
+                        {
+                            ItemName = text,
+                            state = State.Remove
                         };
                         break;
 
@@ -1817,6 +1839,7 @@ namespace Grimoire.UI
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabCombat = new System.Windows.Forms.TabPage();
             this.pnlCombat = new System.Windows.Forms.Panel();
+            this.colorfulCommands = new System.Windows.Forms.CheckBox();
             this.btnUseSkillSet = new System.Windows.Forms.Button();
             this.btnAddSkillSet = new System.Windows.Forms.Button();
             this.txtSkillSet = new System.Windows.Forms.TextBox();
@@ -1856,6 +1879,10 @@ namespace Grimoire.UI
             this.txtMonster = new System.Windows.Forms.TextBox();
             this.tabItem = new System.Windows.Forms.TabPage();
             this.pnlItem = new System.Windows.Forms.Panel();
+            this.btnWhitelistOff = new System.Windows.Forms.Button();
+            this.btnWhitelistOn = new System.Windows.Forms.Button();
+            this.btnWhitelistToggle = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numDropDelay = new System.Windows.Forms.NumericUpDown();
             this.chkRejectAll = new System.Windows.Forms.CheckBox();
@@ -2238,6 +2265,7 @@ namespace Grimoire.UI
             // 
             // pnlCombat
             // 
+            this.pnlCombat.Controls.Add(this.colorfulCommands);
             this.pnlCombat.Controls.Add(this.btnUseSkillSet);
             this.pnlCombat.Controls.Add(this.btnAddSkillSet);
             this.pnlCombat.Controls.Add(this.txtSkillSet);
@@ -2280,6 +2308,18 @@ namespace Grimoire.UI
             this.pnlCombat.Name = "pnlCombat";
             this.pnlCombat.Size = new System.Drawing.Size(438, 293);
             this.pnlCombat.TabIndex = 103;
+            // 
+            // colorfulCommands
+            // 
+            this.colorfulCommands.AutoSize = true;
+            this.colorfulCommands.Checked = true;
+            this.colorfulCommands.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.colorfulCommands.Location = new System.Drawing.Point(4, 250);
+            this.colorfulCommands.Name = "colorfulCommands";
+            this.colorfulCommands.Size = new System.Drawing.Size(226, 17);
+            this.colorfulCommands.TabIndex = 66;
+            this.colorfulCommands.Text = "Enable custom commands (CPU intensive)";
+            this.colorfulCommands.UseVisualStyleBackColor = true;
             // 
             // btnUseSkillSet
             // 
@@ -2698,6 +2738,10 @@ namespace Grimoire.UI
             // 
             // pnlItem
             // 
+            this.pnlItem.Controls.Add(this.btnWhitelistOff);
+            this.pnlItem.Controls.Add(this.btnWhitelistOn);
+            this.pnlItem.Controls.Add(this.btnWhitelistToggle);
+            this.pnlItem.Controls.Add(this.label20);
             this.pnlItem.Controls.Add(this.label1);
             this.pnlItem.Controls.Add(this.numDropDelay);
             this.pnlItem.Controls.Add(this.chkRejectAll);
@@ -2730,6 +2774,54 @@ namespace Grimoire.UI
             this.pnlItem.Name = "pnlItem";
             this.pnlItem.Size = new System.Drawing.Size(438, 293);
             this.pnlItem.TabIndex = 105;
+            // 
+            // btnWhitelistOff
+            // 
+            this.btnWhitelistOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnWhitelistOff.AutoSize = true;
+            this.btnWhitelistOff.Location = new System.Drawing.Point(359, 213);
+            this.btnWhitelistOff.Name = "btnWhitelistOff";
+            this.btnWhitelistOff.Size = new System.Drawing.Size(64, 23);
+            this.btnWhitelistOff.TabIndex = 156;
+            this.btnWhitelistOff.Text = "Off";
+            this.btnWhitelistOff.UseVisualStyleBackColor = true;
+            this.btnWhitelistOff.Visible = false;
+            // 
+            // btnWhitelistOn
+            // 
+            this.btnWhitelistOn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnWhitelistOn.AutoSize = true;
+            this.btnWhitelistOn.Location = new System.Drawing.Point(296, 213);
+            this.btnWhitelistOn.Name = "btnWhitelistOn";
+            this.btnWhitelistOn.Size = new System.Drawing.Size(64, 23);
+            this.btnWhitelistOn.TabIndex = 155;
+            this.btnWhitelistOn.Text = "On";
+            this.btnWhitelistOn.UseVisualStyleBackColor = true;
+            this.btnWhitelistOn.Visible = false;
+            this.btnWhitelistOn.Click += new System.EventHandler(this.btnWhitelistOn_Click);
+            // 
+            // btnWhitelistToggle
+            // 
+            this.btnWhitelistToggle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnWhitelistToggle.AutoSize = true;
+            this.btnWhitelistToggle.Location = new System.Drawing.Point(296, 190);
+            this.btnWhitelistToggle.Name = "btnWhitelistToggle";
+            this.btnWhitelistToggle.Size = new System.Drawing.Size(127, 23);
+            this.btnWhitelistToggle.TabIndex = 154;
+            this.btnWhitelistToggle.Text = "Toggle";
+            this.btnWhitelistToggle.UseVisualStyleBackColor = true;
+            this.btnWhitelistToggle.Visible = false;
+            // 
+            // label20
+            // 
+            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label20.Location = new System.Drawing.Point(301, 176);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(115, 13);
+            this.label20.TabIndex = 153;
+            this.label20.Text = "Whitelist";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label20.Visible = false;
             // 
             // label1
             // 
@@ -3042,7 +3134,9 @@ namespace Grimoire.UI
             "Equip",
             "To bank from inv",
             "To inv from bank",
-            "Equip Set"});
+            "Equip Set",
+            "Add to Whitelist",
+            "Remove from Whitelist"});
             this.cbItemCmds.Location = new System.Drawing.Point(4, 4);
             this.cbItemCmds.Name = "cbItemCmds";
             this.cbItemCmds.Size = new System.Drawing.Size(139, 21);
@@ -5098,7 +5192,7 @@ namespace Grimoire.UI
             this.panel2.Controls.Add(this.btnUp);
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(116, 22);
+            this.panel2.Size = new System.Drawing.Size(125, 22);
             this.panel2.TabIndex = 147;
             // 
             // btnUp
@@ -5108,7 +5202,7 @@ namespace Grimoire.UI
             this.btnUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUp.Location = new System.Drawing.Point(0, 0);
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(116, 22);
+            this.btnUp.Size = new System.Drawing.Size(125, 22);
             this.btnUp.TabIndex = 165;
             this.btnUp.Text = "▲";
             this.btnUp.UseVisualStyleBackColor = true;
@@ -5121,7 +5215,7 @@ namespace Grimoire.UI
             this.btnRemove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRemove.Location = new System.Drawing.Point(1, 25);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(115, 22);
+            this.btnRemove.Size = new System.Drawing.Size(124, 22);
             this.btnRemove.TabIndex = 166;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -5134,7 +5228,7 @@ namespace Grimoire.UI
             this.btnBotStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStop.Location = new System.Drawing.Point(1, 50);
             this.btnBotStop.Name = "btnBotStop";
-            this.btnBotStop.Size = new System.Drawing.Size(115, 22);
+            this.btnBotStop.Size = new System.Drawing.Size(124, 22);
             this.btnBotStop.TabIndex = 168;
             this.btnBotStop.Text = "Stop";
             this.btnBotStop.UseVisualStyleBackColor = true;
@@ -5148,7 +5242,7 @@ namespace Grimoire.UI
             this.btnBotStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStart.Location = new System.Drawing.Point(1, 50);
             this.btnBotStart.Name = "btnBotStart";
-            this.btnBotStart.Size = new System.Drawing.Size(115, 22);
+            this.btnBotStart.Size = new System.Drawing.Size(124, 22);
             this.btnBotStart.TabIndex = 167;
             this.btnBotStart.Text = "Start";
             this.btnBotStart.UseVisualStyleBackColor = true;
@@ -5750,6 +5844,18 @@ namespace Grimoire.UI
             if (!(e.Index > -1))
                 return;
             e.DrawBackground();
+            if (!colorfulCommands.Checked)
+            {
+                // Define the default color of the brush as black.
+                Brush myBrush = Brushes.Black;
+                // Draw the current item text based on the current Font 
+                // and the custom brush settings.
+                e.Graphics.DrawString(lstCommands.Items[e.Index].ToString(),
+                    e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+                // If the ListBox has focus, draw a focus rectangle around the selected item.
+                e.DrawFocusRectangle();
+                return;
+            }
 
             #region Settings
             IBotCommand cmd = (IBotCommand)lstCommands.Items[e.Index];
@@ -6015,6 +6121,30 @@ namespace Grimoire.UI
         private void lstCommands_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void btnWhitelistOn_Click(object sender, EventArgs e)
+        {
+            AddCommand(new CmdWhitelist
+            {
+                state = CmdWhitelist.State.On
+            }, (ModifierKeys & Keys.Control) == Keys.Control);
+        }
+
+        private void btnWhitelistOff_Click(object sender, EventArgs e)
+        {
+            AddCommand(new CmdWhitelist
+            {
+                state = CmdWhitelist.State.Off
+            }, (ModifierKeys & Keys.Control) == Keys.Control);
+        }
+
+        private void btnWhitelistToggle_Click(object sender, EventArgs e)
+        {
+            AddCommand(new CmdWhitelist
+            {
+                state = CmdWhitelist.State.Toggle
+            }, (ModifierKeys & Keys.Control) == Keys.Control);
         }
     }
 }

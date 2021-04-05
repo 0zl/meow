@@ -293,7 +293,7 @@ namespace Grimoire.Botting
         {
             BlockedPlayers = new List<string>
             {
-                //"yoel8095946447"
+                
             };
         }
     }
