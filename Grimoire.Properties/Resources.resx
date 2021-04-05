@@ -2286,6 +2286,18 @@
       "Text": "Int is not equal to Int",
       "Description1": "Int1",
       "Description2": "Int2"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdIsMaxStack.cs, Grimoire",
+      "Tag": "Item",
+      "Text": "Item is max in inventory",
+      "Description1": "Item name"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdIsNotMaxStack.cs, Grimoire",
+      "Tag": "Item",
+      "Text": "Item is not max in inventory",
+      "Description1": "Item name"
     }
   ]
 }</value>
