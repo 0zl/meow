@@ -2298,6 +2298,20 @@
       "Tag": "Item",
       "Text": "Item is not max in inventory",
       "Description1": "Item name"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdSetVar, Grimoire",
+      "Tag": "Misc",
+      "Text": "Set Temporary Variable",
+      "Description1": "Variable Name",
+      "Description2": "Value"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdUpdateVar, Grimoire",
+      "Tag": "Misc",
+      "Text": "Update Temporary Variable",
+      "Description1": "Variable Name",
+      "Description2": "Value"
     }
   ]
 }</value>
