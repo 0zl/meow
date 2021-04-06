@@ -180,7 +180,7 @@ namespace Grimoire.Game
         /// <summary>
         /// Checks if the player is a member (upgrade).
         /// </summary>
-        public static bool IsMember => Flash.Call<bool>("IsMember", new string[0]);
+        public static bool IsMember => bool.Parse(Flash.Call<string>("IsMember", new string[0]));
             //Flash.Instance.GetGameObject<int>("world.myAvatar.objData.iUpgDays") >= 0;
 
         /// <summary>

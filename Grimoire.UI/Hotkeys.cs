@@ -106,7 +106,7 @@ namespace Grimoire.UI
             },
             delegate
             {
-                
+                Console.WriteLine(Player.IsMember);
             }
         };
         

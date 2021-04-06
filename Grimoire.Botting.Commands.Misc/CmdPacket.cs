@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Grimoire.Botting.Commands.Misc
 {
-    public class CmdPacket : IBotCommand
+    public class CmdPacket : RegularExpression, IBotCommand
     {
         public string Packet
         {
@@ -21,7 +21,18 @@ namespace Grimoire.Botting.Commands.Misc
 
         public async Task Execute(IBotEngine instance)
         {
-            string text = Packet.Replace("{ROOM_ID}", World.RoomId.ToString()).Replace("{ROOM_NUMBER}", World.RoomNumber.ToString()).Replace("PLAYERNAME", Player.Username);
+            string text;
+
+            if ( IsVar(Packet) )
+            {
+                text = Configuration.Tempvariable[GetVar(Packet)];
+            }
+            else
+            {
+                text = Packet;
+            }
+            
+            text = text.Replace("{ROOM_ID}", World.RoomId.ToString()).Replace("{ROOM_NUMBER}", World.RoomNumber.ToString()).Replace("PLAYERNAME", Player.Username);
             text = text.Replace("{GETMAP}", Player.Map);
             while (text.Contains("--"))
             {

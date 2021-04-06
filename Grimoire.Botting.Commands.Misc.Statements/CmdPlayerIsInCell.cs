@@ -16,9 +16,30 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
+            string Val1;
+            string Val2;
+
+            if ( IsVar(Value1) )
+            {
+                Val1 = Configuration.Tempvariable[GetVar(Value1)];
+            } 
+            else
+            {
+                Val1 = Value1;
+            }
+
+            if (IsVar(Value2))
+            {
+                Val2 = Configuration.Tempvariable[GetVar(Value2)];
+            }
+            else
+            {
+                Val2 = Value2;
+            }
+
             string reqs = Flash.Call<string>("CheckCellPlayer", new string[] {
-                Value1,
-                Value2
+                Val1,
+                Val2
             });
             bool isExists = bool.Parse(reqs);
 

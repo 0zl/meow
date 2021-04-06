@@ -4233,6 +4233,7 @@ namespace Grimoire.UI
             this.chkBuff.TabIndex = 158;
             this.chkBuff.Text = "Buff up";
             this.chkBuff.UseVisualStyleBackColor = true;
+            this.chkBuff.Visible = false;
             this.chkBuff.CheckedChanged += new System.EventHandler(this.chkBuffup_CheckedChanged);
             // 
             // label6
@@ -5219,7 +5220,7 @@ namespace Grimoire.UI
             this.panel2.Controls.Add(this.btnUp);
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(131, 22);
+            this.panel2.Size = new System.Drawing.Size(134, 22);
             this.panel2.TabIndex = 147;
             // 
             // btnUp
@@ -5229,7 +5230,7 @@ namespace Grimoire.UI
             this.btnUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUp.Location = new System.Drawing.Point(0, 0);
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(131, 22);
+            this.btnUp.Size = new System.Drawing.Size(134, 22);
             this.btnUp.TabIndex = 165;
             this.btnUp.Text = "▲";
             this.btnUp.UseVisualStyleBackColor = true;
@@ -5242,7 +5243,7 @@ namespace Grimoire.UI
             this.btnRemove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRemove.Location = new System.Drawing.Point(1, 25);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(130, 22);
+            this.btnRemove.Size = new System.Drawing.Size(133, 22);
             this.btnRemove.TabIndex = 166;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -5255,7 +5256,7 @@ namespace Grimoire.UI
             this.btnBotStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStop.Location = new System.Drawing.Point(1, 50);
             this.btnBotStop.Name = "btnBotStop";
-            this.btnBotStop.Size = new System.Drawing.Size(130, 22);
+            this.btnBotStop.Size = new System.Drawing.Size(133, 22);
             this.btnBotStop.TabIndex = 168;
             this.btnBotStop.Text = "Stop";
             this.btnBotStop.UseVisualStyleBackColor = true;
@@ -5269,7 +5270,7 @@ namespace Grimoire.UI
             this.btnBotStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStart.Location = new System.Drawing.Point(1, 50);
             this.btnBotStart.Name = "btnBotStart";
-            this.btnBotStart.Size = new System.Drawing.Size(130, 22);
+            this.btnBotStart.Size = new System.Drawing.Size(133, 22);
             this.btnBotStart.TabIndex = 167;
             this.btnBotStart.Text = "Start";
             this.btnBotStart.UseVisualStyleBackColor = true;

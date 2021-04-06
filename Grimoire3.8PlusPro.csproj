@@ -243,6 +243,7 @@
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdRestart.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdStop.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdToggleProvoke.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc\RegularExpression.cs" />
     <Compile Include="Grimoire.Botting.Commands.Quest\CmdAcceptQuest.cs" />
     <Compile Include="Grimoire.Botting.Commands.Quest\CmdCompleteQuest.cs" />
     <Compile Include="Grimoire.Botting.Commands\ItemType.cs" />

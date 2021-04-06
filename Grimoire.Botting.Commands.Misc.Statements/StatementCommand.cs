@@ -42,7 +42,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public bool IsVar(string value)
         {
-            return Regex.IsMatch(Value1, @"\[([^\)]*)\]");
+            return Regex.IsMatch(value, @"\[([^\)]*)\]");
         }
 
         public string GetVar(string value)
