@@ -301,6 +301,8 @@ namespace Grimoire.UI
         private Button btnWhitelistOn;
         private Button btnWhitelistToggle;
         private Label label20;
+        private Button btnSearchCmd;
+        private TextBox txtSearchCmd;
         private Button btnAttack;
         #endregion
 
@@ -2030,6 +2032,8 @@ namespace Grimoire.UI
             this.label7 = new System.Windows.Forms.Label();
             this.chkGender = new System.Windows.Forms.CheckBox();
             this.tabOptions2 = new System.Windows.Forms.TabPage();
+            this.btnSearchCmd = new System.Windows.Forms.Button();
+            this.txtSearchCmd = new System.Windows.Forms.TextBox();
             this.numSetLevel = new System.Windows.Forms.NumericUpDown();
             this.chkChangeRoomTag = new System.Windows.Forms.CheckBox();
             this.chkChangeChat = new System.Windows.Forms.CheckBox();
@@ -4658,6 +4662,8 @@ namespace Grimoire.UI
             // 
             // tabOptions2
             // 
+            this.tabOptions2.Controls.Add(this.btnSearchCmd);
+            this.tabOptions2.Controls.Add(this.txtSearchCmd);
             this.tabOptions2.Controls.Add(this.numSetLevel);
             this.tabOptions2.Controls.Add(this.chkChangeRoomTag);
             this.tabOptions2.Controls.Add(this.chkChangeChat);
@@ -4679,6 +4685,24 @@ namespace Grimoire.UI
             this.tabOptions2.TabIndex = 7;
             this.tabOptions2.Text = "Client";
             this.tabOptions2.UseVisualStyleBackColor = true;
+            // 
+            // btnSearchCmd
+            // 
+            this.btnSearchCmd.Location = new System.Drawing.Point(189, 36);
+            this.btnSearchCmd.Name = "btnSearchCmd";
+            this.btnSearchCmd.Size = new System.Drawing.Size(108, 23);
+            this.btnSearchCmd.TabIndex = 147;
+            this.btnSearchCmd.Text = "Search";
+            this.btnSearchCmd.UseVisualStyleBackColor = true;
+            this.btnSearchCmd.Click += new System.EventHandler(this.btnSearchCmd_Click);
+            // 
+            // txtSearchCmd
+            // 
+            this.txtSearchCmd.Location = new System.Drawing.Point(190, 13);
+            this.txtSearchCmd.Name = "txtSearchCmd";
+            this.txtSearchCmd.Size = new System.Drawing.Size(106, 20);
+            this.txtSearchCmd.TabIndex = 146;
+            this.txtSearchCmd.Text = "Search Commands";
             // 
             // numSetLevel
             // 
@@ -5195,7 +5219,7 @@ namespace Grimoire.UI
             this.panel2.Controls.Add(this.btnUp);
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(125, 22);
+            this.panel2.Size = new System.Drawing.Size(131, 22);
             this.panel2.TabIndex = 147;
             // 
             // btnUp
@@ -5205,7 +5229,7 @@ namespace Grimoire.UI
             this.btnUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUp.Location = new System.Drawing.Point(0, 0);
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(125, 22);
+            this.btnUp.Size = new System.Drawing.Size(131, 22);
             this.btnUp.TabIndex = 165;
             this.btnUp.Text = "▲";
             this.btnUp.UseVisualStyleBackColor = true;
@@ -5218,7 +5242,7 @@ namespace Grimoire.UI
             this.btnRemove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRemove.Location = new System.Drawing.Point(1, 25);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(124, 22);
+            this.btnRemove.Size = new System.Drawing.Size(130, 22);
             this.btnRemove.TabIndex = 166;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -5231,7 +5255,7 @@ namespace Grimoire.UI
             this.btnBotStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStop.Location = new System.Drawing.Point(1, 50);
             this.btnBotStop.Name = "btnBotStop";
-            this.btnBotStop.Size = new System.Drawing.Size(124, 22);
+            this.btnBotStop.Size = new System.Drawing.Size(130, 22);
             this.btnBotStop.TabIndex = 168;
             this.btnBotStop.Text = "Stop";
             this.btnBotStop.UseVisualStyleBackColor = true;
@@ -5245,7 +5269,7 @@ namespace Grimoire.UI
             this.btnBotStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStart.Location = new System.Drawing.Point(1, 50);
             this.btnBotStart.Name = "btnBotStart";
-            this.btnBotStart.Size = new System.Drawing.Size(124, 22);
+            this.btnBotStart.Size = new System.Drawing.Size(130, 22);
             this.btnBotStart.TabIndex = 167;
             this.btnBotStart.Text = "Start";
             this.btnBotStart.UseVisualStyleBackColor = true;
@@ -6148,6 +6172,55 @@ namespace Grimoire.UI
             {
                 state = CmdWhitelist.State.Toggle
             }, (ModifierKeys & Keys.Control) == Keys.Control);
+        }
+
+        // Experimental!
+        public int LastIndexedSearch = 0;
+        public string SKeyword = "";
+        public List<int> Filtered = new List<int>();
+
+        private void btnSearchCmd_Click(object sender, EventArgs e)
+        {
+            string Keyword = this.txtSearchCmd.Text;
+            ListBox.ObjectCollection lists = lstCommands.Items;
+
+            if (Keyword != SKeyword)
+            {
+                SKeyword = "";
+                Filtered.Clear();
+            }
+
+            // Collect all filtered result
+            for (int i = 0; i < lists.Count; i++)
+            {
+                if (Keyword == SKeyword)
+                {
+                    Console.WriteLine("Using Cached List.");
+                    break;
+                }
+
+                bool KeywordMatch = Regex.IsMatch(lists[i].ToString(), $@"(^|\s){Keyword}(\s|$)");
+
+                // Collect all filtered result
+                if (KeywordMatch)
+                {
+                    Filtered.Add(i);
+                }
+            }
+
+            SKeyword = Keyword;
+            // Use the filtered Index
+            if ( Filtered.Count > 0 )
+            {
+                lstCommands.SelectedIndex = -1;
+                lstCommands.SelectedIndex = Filtered[LastIndexedSearch];
+                LastIndexedSearch++;
+
+                if ( LastIndexedSearch >= Filtered.Count )
+                {
+                    LastIndexedSearch = 0;
+                }
+            }
         }
     }
 }

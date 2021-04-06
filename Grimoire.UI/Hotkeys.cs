@@ -106,10 +106,7 @@ namespace Grimoire.UI
             },
             delegate
             {
-                bool l = System.Text.RegularExpressions.Regex.IsMatch("[Reneid]", @"\[([^\)]*)\]");
-                string r = System.Text.RegularExpressions.Regex.Replace("[Reneid]", @"[\[\]']+", "");
-
-                MessageBox.Show($"{l} : {r}");
+                
             }
         };
         
