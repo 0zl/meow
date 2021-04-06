@@ -711,7 +711,7 @@ namespace Grimoire.UI
 
         private void discordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://discord.com/invite/aqwbots");
+            Process.Start("https://discord.io/AQWBots");
         }
 
         private void botRequestToolStripMenuItem_Click(object sender, EventArgs e)
