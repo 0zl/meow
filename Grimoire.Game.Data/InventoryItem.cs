@@ -49,6 +49,36 @@ namespace Grimoire.Game.Data
             "Pet"
         };
 
+        [JsonProperty("EnhPatternID")]
+        public string EnhPatternId
+        {
+            get;
+            set;
+        }
+        // WIP: complete this list (check for EnhPatternID, e.g. 6 is Mage)
+        public enum Enhancement
+        {
+            Unenhanced, //undefined
+            Mage, //6
+            Lucky //9
+        }
+
+        public Enhancement EnhType {
+            get
+            {
+                switch (EnhPatternId)
+                {
+                    case "6":
+                        return Enhancement.Mage;
+                    case "9":
+                        return Enhancement.Lucky;
+                    default:
+                        return Enhancement.Unenhanced;
+                }
+
+            }
+        }
+
         [JsonProperty("iQty")]
         public int Quantity
         {
