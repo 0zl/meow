@@ -48,9 +48,25 @@ namespace Grimoire.Game.Data
             "Cape",
             "Pet"
         };
-
+        
+        //Obv: the level of the enhancement, 100 is max as of now
+        [JsonProperty("EnhLvl")]
+        public int EnhLevel
+        {
+            get;
+            set;
+        }
+        
+        //Don't know how to use this for anything yet but its here
+        [JsonProperty("EnhID")]
+        public int EnhID
+        {
+            get;
+            set;
+        }
+        
         [JsonProperty("EnhPatternID")]
-        public string EnhPatternId
+        public int EnhPatternId
         {
             get;
             set;
@@ -66,7 +82,7 @@ namespace Grimoire.Game.Data
         public Enhancement EnhType {
             get
             {
-                switch (EnhPatternId)
+                switch (EnhPatternId.toString())
                 {
                     case "6":
                         return Enhancement.Mage;
