@@ -1,5 +1,6 @@
 using Grimoire.Botting;
 using Grimoire.Botting.Commands.Map;
+using Grimoire.Botting.Commands.Item;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,6 +35,16 @@ namespace Grimoire.UI
         private Button btnPolish;
         private Button btnLae;
         private Button btnCarnage;
+        private Button AweTravel;
+        private GroupBox aweGroup;
+        private RadioButton aweWizard;
+        private RadioButton aweLucky;
+        private Panel panel1;
+        private RadioButton aweThief;
+        private RadioButton aweHybrid;
+        private RadioButton aweHealer;
+        private TableLayoutPanel tableLayoutPanel1;
+        private RadioButton aweFigther;
         private Button btnBinky;
 
         public static Travel Instance
@@ -131,9 +142,18 @@ namespace Grimoire.UI
             };
         }
 
+        private CmdLoadTravel CreateShopCommand(int shopid)
+        {
+            return new CmdLoadTravel
+            {
+                ShopId = shopid
+            };
+        }
+
         private async void ExecuteTravel(List<IBotCommand> cmds)
         {
             grpTravel.Enabled = false;
+            aweGroup.Enabled  = false;
             foreach (IBotCommand cmd in cmds)
             {
                 await cmd.Execute(null);
@@ -144,11 +164,13 @@ namespace Grimoire.UI
                 Invoke((Action)delegate
                 {
                     grpTravel.Enabled = true;
+                    aweGroup.Enabled  = true;
                 });
             }
             else
             {
                 grpTravel.Enabled = true;
+                aweGroup.Enabled  = true;
             }
         }
 
@@ -163,23 +185,36 @@ namespace Grimoire.UI
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(Travel));
-            this.btnDage = new Button();
-            this.btnEscherion = new Button();
-            this.btnBinky = new Button();
-            this.btnNulgath = new Button();
-            this.btnSwindle = new Button();
-            this.btnTaro = new Button();
-            this.btnTwins = new Button();
-            this.btnTercess = new Button();
-            this.grpTravel = new GroupBox();
-            this.numPriv = new NumericUpDown();
-            this.chkPriv = new CheckBox();
-            this.btnCarnage = new Button();
-            this.btnLae = new Button();
-            this.btnPolish = new Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Travel));
+            this.btnDage = new System.Windows.Forms.Button();
+            this.btnEscherion = new System.Windows.Forms.Button();
+            this.btnBinky = new System.Windows.Forms.Button();
+            this.btnNulgath = new System.Windows.Forms.Button();
+            this.btnSwindle = new System.Windows.Forms.Button();
+            this.btnTaro = new System.Windows.Forms.Button();
+            this.btnTwins = new System.Windows.Forms.Button();
+            this.btnTercess = new System.Windows.Forms.Button();
+            this.grpTravel = new System.Windows.Forms.GroupBox();
+            this.numPriv = new System.Windows.Forms.NumericUpDown();
+            this.btnPolish = new System.Windows.Forms.Button();
+            this.btnLae = new System.Windows.Forms.Button();
+            this.btnCarnage = new System.Windows.Forms.Button();
+            this.chkPriv = new System.Windows.Forms.CheckBox();
+            this.AweTravel = new System.Windows.Forms.Button();
+            this.aweGroup = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.aweLucky = new System.Windows.Forms.RadioButton();
+            this.aweHybrid = new System.Windows.Forms.RadioButton();
+            this.aweHealer = new System.Windows.Forms.RadioButton();
+            this.aweFigther = new System.Windows.Forms.RadioButton();
+            this.aweThief = new System.Windows.Forms.RadioButton();
+            this.aweWizard = new System.Windows.Forms.RadioButton();
             this.grpTravel.SuspendLayout();
-            ((ISupportInitialize)this.numPriv).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPriv)).BeginInit();
+            this.aweGroup.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnDage
@@ -191,7 +226,7 @@ namespace Grimoire.UI
             this.btnDage.Text = "Dage";
             this.btnDage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDage.UseVisualStyleBackColor = true;
-            this.btnDage.Click += new EventHandler(this.btnDage_Click);
+            this.btnDage.Click += new System.EventHandler(this.btnDage_Click);
             // 
             // btnEscherion
             // 
@@ -202,7 +237,7 @@ namespace Grimoire.UI
             this.btnEscherion.Text = "Escherion";
             this.btnEscherion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEscherion.UseVisualStyleBackColor = true;
-            this.btnEscherion.Click += new EventHandler(this.btnEscherion_Click);
+            this.btnEscherion.Click += new System.EventHandler(this.btnEscherion_Click);
             // 
             // btnBinky
             // 
@@ -213,7 +248,7 @@ namespace Grimoire.UI
             this.btnBinky.Text = "Binky (doomvault)";
             this.btnBinky.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBinky.UseVisualStyleBackColor = true;
-            this.btnBinky.Click += new EventHandler(this.btnBinky_Click);
+            this.btnBinky.Click += new System.EventHandler(this.btnBinky_Click);
             // 
             // btnNulgath
             // 
@@ -224,7 +259,7 @@ namespace Grimoire.UI
             this.btnNulgath.Text = "Nulgath / Skew (tercess)";
             this.btnNulgath.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNulgath.UseVisualStyleBackColor = true;
-            this.btnNulgath.Click += new EventHandler(this.btnNulgath_Click);
+            this.btnNulgath.Click += new System.EventHandler(this.btnNulgath_Click);
             // 
             // btnSwindle
             // 
@@ -235,7 +270,7 @@ namespace Grimoire.UI
             this.btnSwindle.Text = "Swindle (tercess)";
             this.btnSwindle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSwindle.UseVisualStyleBackColor = true;
-            this.btnSwindle.Click += new EventHandler(this.btnSwindle_Click);
+            this.btnSwindle.Click += new System.EventHandler(this.btnSwindle_Click);
             // 
             // btnTaro
             // 
@@ -246,7 +281,7 @@ namespace Grimoire.UI
             this.btnTaro.Text = "VHL/Taro/Zee (tercess)";
             this.btnTaro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnTaro.UseVisualStyleBackColor = true;
-            this.btnTaro.Click += new EventHandler(this.btnTaro_Click);
+            this.btnTaro.Click += new System.EventHandler(this.btnTaro_Click);
             // 
             // btnTwins
             // 
@@ -257,7 +292,7 @@ namespace Grimoire.UI
             this.btnTwins.Text = "Twins (tercess)";
             this.btnTwins.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnTwins.UseVisualStyleBackColor = true;
-            this.btnTwins.Click += new EventHandler(this.btnTwins_Click);
+            this.btnTwins.Click += new System.EventHandler(this.btnTwins_Click);
             // 
             // btnTercess
             // 
@@ -268,7 +303,7 @@ namespace Grimoire.UI
             this.btnTercess.Text = "Oblivion (tercess)";
             this.btnTercess.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnTercess.UseVisualStyleBackColor = true;
-            this.btnTercess.Click += new EventHandler(this.btnTercess_Click);
+            this.btnTercess.Click += new System.EventHandler(this.btnTercess_Click);
             // 
             // grpTravel
             // 
@@ -287,7 +322,7 @@ namespace Grimoire.UI
             this.grpTravel.Controls.Add(this.chkPriv);
             this.grpTravel.Location = new System.Drawing.Point(13, 13);
             this.grpTravel.Name = "grpTravel";
-            this.grpTravel.Size = new System.Drawing.Size(164, 365);
+            this.grpTravel.Size = new System.Drawing.Size(164, 366);
             this.grpTravel.TabIndex = 8;
             this.grpTravel.TabStop = false;
             this.grpTravel.Text = "Fast travels";
@@ -310,27 +345,16 @@ namespace Grimoire.UI
             0,
             0});
             // 
-            // chkPriv
+            // btnPolish
             // 
-            this.chkPriv.AutoSize = true;
-            this.chkPriv.Location = new System.Drawing.Point(6, 19);
-            this.chkPriv.Name = "chkPriv";
-            this.chkPriv.Size = new System.Drawing.Size(59, 17);
-            this.chkPriv.TabIndex = 0;
-            this.chkPriv.Text = "Private";
-            this.chkPriv.UseVisualStyleBackColor = true;
-            this.chkPriv.CheckedChanged += new EventHandler(this.chkPriv_CheckedChanged);
-            // 
-            // btnCarnage
-            // 
-            this.btnCarnage.Location = new System.Drawing.Point(6, 218);
-            this.btnCarnage.Name = "btnCarnage";
-            this.btnCarnage.Size = new System.Drawing.Size(152, 23);
-            this.btnCarnage.TabIndex = 0;
-            this.btnCarnage.Text = "Carnage / Ninja (tercess)";
-            this.btnCarnage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCarnage.UseVisualStyleBackColor = true;
-            this.btnCarnage.Click += new EventHandler(this.btnCarnage_Click);
+            this.btnPolish.Location = new System.Drawing.Point(6, 189);
+            this.btnPolish.Name = "btnPolish";
+            this.btnPolish.Size = new System.Drawing.Size(152, 23);
+            this.btnPolish.TabIndex = 0;
+            this.btnPolish.Text = "Polish (tercess)";
+            this.btnPolish.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPolish.UseVisualStyleBackColor = true;
+            this.btnPolish.Click += new System.EventHandler(this.btnPolish_Click);
             // 
             // btnLae
             // 
@@ -341,36 +365,167 @@ namespace Grimoire.UI
             this.btnLae.Text = "Lae (tercess)";
             this.btnLae.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLae.UseVisualStyleBackColor = true;
-            this.btnLae.Click += new EventHandler(this.btnLae_Click);
+            this.btnLae.Click += new System.EventHandler(this.btnLae_Click);
             // 
-            // btnPolish
+            // btnCarnage
             // 
-            this.btnPolish.Location = new System.Drawing.Point(6, 189);
-            this.btnPolish.Name = "btnPolish";
-            this.btnPolish.Size = new System.Drawing.Size(152, 23);
-            this.btnPolish.TabIndex = 0;
-            this.btnPolish.Text = "Polish (tercess)";
-            this.btnPolish.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPolish.UseVisualStyleBackColor = true;
-            this.btnPolish.Click += new EventHandler(this.btnPolish_Click);
+            this.btnCarnage.Location = new System.Drawing.Point(6, 218);
+            this.btnCarnage.Name = "btnCarnage";
+            this.btnCarnage.Size = new System.Drawing.Size(152, 23);
+            this.btnCarnage.TabIndex = 0;
+            this.btnCarnage.Text = "Carnage / Ninja (tercess)";
+            this.btnCarnage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCarnage.UseVisualStyleBackColor = true;
+            this.btnCarnage.Click += new System.EventHandler(this.btnCarnage_Click);
+            // 
+            // chkPriv
+            // 
+            this.chkPriv.AutoSize = true;
+            this.chkPriv.Location = new System.Drawing.Point(6, 19);
+            this.chkPriv.Name = "chkPriv";
+            this.chkPriv.Size = new System.Drawing.Size(59, 17);
+            this.chkPriv.TabIndex = 0;
+            this.chkPriv.Text = "Private";
+            this.chkPriv.UseVisualStyleBackColor = true;
+            this.chkPriv.CheckedChanged += new System.EventHandler(this.chkPriv_CheckedChanged);
+            // 
+            // AweTravel
+            // 
+            this.AweTravel.Location = new System.Drawing.Point(6, 93);
+            this.AweTravel.Name = "AweTravel";
+            this.AweTravel.Size = new System.Drawing.Size(152, 23);
+            this.AweTravel.TabIndex = 8;
+            this.AweTravel.Text = "Awe Shop (museum)";
+            this.AweTravel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.AweTravel.UseVisualStyleBackColor = true;
+            this.AweTravel.Click += new System.EventHandler(this.AweTravel_Click);
+            // 
+            // aweGroup
+            // 
+            this.aweGroup.Controls.Add(this.panel1);
+            this.aweGroup.Controls.Add(this.AweTravel);
+            this.aweGroup.Location = new System.Drawing.Point(183, 13);
+            this.aweGroup.Name = "aweGroup";
+            this.aweGroup.Size = new System.Drawing.Size(164, 125);
+            this.aweGroup.TabIndex = 9;
+            this.aweGroup.TabStop = false;
+            this.aweGroup.Text = "Awe Enchantment Shop";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 16);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(158, 70);
+            this.panel1.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.40506F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.59494F));
+            this.tableLayoutPanel1.Controls.Add(this.aweLucky, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.aweHybrid, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.aweHealer, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.aweFigther, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.aweThief, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.aweWizard, 1, 3);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(158, 70);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // aweLucky
+            // 
+            this.aweLucky.AutoSize = true;
+            this.aweLucky.Checked = true;
+            this.aweLucky.Location = new System.Drawing.Point(3, 3);
+            this.aweLucky.Name = "aweLucky";
+            this.aweLucky.Size = new System.Drawing.Size(54, 17);
+            this.aweLucky.TabIndex = 9;
+            this.aweLucky.TabStop = true;
+            this.aweLucky.Text = "Lucky";
+            this.aweLucky.UseVisualStyleBackColor = true;
+            // 
+            // aweHybrid
+            // 
+            this.aweHybrid.AutoSize = true;
+            this.aweHybrid.Location = new System.Drawing.Point(3, 26);
+            this.aweHybrid.Name = "aweHybrid";
+            this.aweHybrid.Size = new System.Drawing.Size(55, 17);
+            this.aweHybrid.TabIndex = 14;
+            this.aweHybrid.Text = "Hybrid";
+            this.aweHybrid.UseVisualStyleBackColor = true;
+            // 
+            // aweHealer
+            // 
+            this.aweHealer.AutoSize = true;
+            this.aweHealer.Location = new System.Drawing.Point(70, 26);
+            this.aweHealer.Name = "aweHealer";
+            this.aweHealer.Size = new System.Drawing.Size(56, 17);
+            this.aweHealer.TabIndex = 15;
+            this.aweHealer.Text = "Healer";
+            this.aweHealer.UseVisualStyleBackColor = true;
+            // 
+            // aweFigther
+            // 
+            this.aweFigther.AutoSize = true;
+            this.aweFigther.Location = new System.Drawing.Point(3, 49);
+            this.aweFigther.Name = "aweFigther";
+            this.aweFigther.Size = new System.Drawing.Size(57, 17);
+            this.aweFigther.TabIndex = 11;
+            this.aweFigther.Text = "Fighter";
+            this.aweFigther.UseVisualStyleBackColor = true;
+            // 
+            // aweThief
+            // 
+            this.aweThief.AutoSize = true;
+            this.aweThief.Location = new System.Drawing.Point(70, 3);
+            this.aweThief.Name = "aweThief";
+            this.aweThief.Size = new System.Drawing.Size(49, 17);
+            this.aweThief.TabIndex = 13;
+            this.aweThief.Text = "Thief";
+            this.aweThief.UseVisualStyleBackColor = true;
+            // 
+            // aweWizard
+            // 
+            this.aweWizard.AutoSize = true;
+            this.aweWizard.Location = new System.Drawing.Point(70, 49);
+            this.aweWizard.Name = "aweWizard";
+            this.aweWizard.Size = new System.Drawing.Size(58, 17);
+            this.aweWizard.TabIndex = 10;
+            this.aweWizard.Text = "Wizard";
+            this.aweWizard.UseVisualStyleBackColor = true;
             // 
             // Travel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(189, 390);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(359, 387);
+            this.Controls.Add(this.aweGroup);
             this.Controls.Add(this.grpTravel);
-            this.FormBorderStyle = FormBorderStyle.Fixed3D;
-            this.Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Travel";
             this.Text = "Fast travels";
             this.TopMost = true;
-            this.FormClosing += new FormClosingEventHandler(this.Travel_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Travel_FormClosing);
             this.grpTravel.ResumeLayout(false);
             this.grpTravel.PerformLayout();
-            ((ISupportInitialize)this.numPriv).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPriv)).EndInit();
+            this.aweGroup.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -412,6 +567,33 @@ namespace Grimoire.UI
             {
                 CreateJoinCommand("citadel", "m22", "Left"),
                 CreateJoinCommand("tercessuinotlim", "m12", "Top")
+            });
+        }
+
+        private void AweTravel_Click(object sender, EventArgs e)
+        {
+            // Sorry Satan :*
+            bool IsLucky   = aweLucky.Checked;
+            bool IsWizard  = aweWizard.Checked;
+            bool IsHybrid  = aweHybrid.Checked;
+            bool IsThief   = aweThief.Checked;
+            bool IsFighter = aweFigther.Checked;
+            bool IsHealer  = aweHealer.Checked;
+
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("museum"),
+                
+                // Staircase to hell.
+                // Sorry Satan :3
+                CreateShopCommand(
+                    IsHybrid ? 633 :
+                        IsFighter ? 635 :
+                            IsWizard ? 636 :
+                                IsThief ? 637 :
+                                    IsHealer ? 638 :
+                                        IsLucky ? 639 : 633
+                )
             });
         }
     }

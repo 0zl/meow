@@ -146,6 +146,7 @@
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdRest.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdUseSkill.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdSkillSet.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Item\CmdLoadTravel.cs" />
     <Compile Include="Grimoire.Botting.Commands.Item\CmdWhitelist.cs" />
     <Compile Include="Grimoire.Botting.Commands.Item\CmdBankSwap.cs" />
     <Compile Include="Grimoire.Botting.Commands.Item\CmdBankTransfer.cs" />
