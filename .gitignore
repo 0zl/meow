@@ -8,3 +8,11 @@ dcatgirl
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
+obj/Debug/Grimoire3.8PlusPro.csproj.CoreCompileInputs.cache
+obj/Debug/Grimoire3.8PlusPro.csproj.FileListAbsolute.txt
+obj/Debug/Grimoire3.8PlusPro.csproj.GenerateResource.cache
+obj/Debug/Grimoire3.8PlusPro.csprojAssemblyReference.cache
+.vs/Grimoire3.8PlusPlus/v15/.suo
+.vs/Grimoire3.8PlusPlus/v15/Server/sqlite3/storage.ide
+.vs/Grimoire3.8PlusPlus/v15/Server/sqlite3/storage.ide-shm
+.vs/Grimoire3.8PlusPlus/v15/Server/sqlite3/storage.ide-wal

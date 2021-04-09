@@ -14,44 +14,44 @@ namespace Grimoire.UI
     {
         private IContainer components;
 
-        private ListBox lstPackets;
+        public ListBox lstPackets;
 
-        private TextBox txtPacket;
+        public TextBox txtPacket;
 
-        private Button btnAdd;
+        public Button btnAdd;
 
-        private Button btnClear;
+        public Button btnClear;
 
-        private Button btnLoad;
+        public Button btnLoad;
 
-        private Button btnSave;
+        public Button btnSave;
 
-        private Button btnStart;
+        public Button btnStart;
 
-        private Button btnStop;
+        public Button btnStop;
 
-        private NumericUpDown numDelay;
+        public NumericUpDown numDelay;
 
         private Button btnSend;
         private TableLayoutPanel tableLayoutPanel1;
-        private Button btnRemove;
+        public Button btnRemove;
 
         public static PacketSpammer Instance
         {
             get;
         } = new PacketSpammer();
 
-        private PacketSpammer()
+        public PacketSpammer()
         {
             InitializeComponent();
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        public void btnClear_Click(object sender, EventArgs e)
         {
             lstPackets.Items.Clear();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        public void btnAdd_Click(object sender, EventArgs e)
         {
             if (txtPacket.Text.Length > 0)
             {
@@ -60,7 +60,7 @@ namespace Grimoire.UI
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        public void btnSave_Click(object sender, EventArgs e)
         {
             if (lstPackets.Items.Count > 0)
             {
@@ -68,20 +68,20 @@ namespace Grimoire.UI
             }
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
+        public void btnLoad_Click(object sender, EventArgs e)
         {
             lstPackets.Items.Clear();
             LoadConfig();
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
+        public void btnStop_Click(object sender, EventArgs e)
         {
             Spammer.Instance.Stop();
             Spammer.Instance.IndexChanged -= IndexChanged;
             SetButtonsEnabled(enabled: true);
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        public void btnStart_Click(object sender, EventArgs e)
         {
             if (lstPackets.Items.Count > 0)
             {
@@ -93,7 +93,7 @@ namespace Grimoire.UI
             }
         }
 
-        private async void btnSend_Click(object sender, EventArgs e)
+        public async void btnSend_Click(object sender, EventArgs e)
         {
             if (txtPacket.TextLength > 0)
             {
