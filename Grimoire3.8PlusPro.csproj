@@ -240,6 +240,7 @@
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdLoadBot.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdLog.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdLogout.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc\CmdPacketSpammer.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdPacket.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdRestart.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdStop.cs" />
