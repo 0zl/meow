@@ -58,23 +58,17 @@ namespace Grimoire.UI
 
         private ToolStripMenuItem tampererToolStripMenuItem;
 
-        private ToolStripMenuItem logsToolStripMenuItem;
-
         private Button btnJump;
 
         private ToolStripMenuItem cosmeticsToolStripMenuItem;
 
         private ToolStripMenuItem bankToolStripMenuItem;
 
-        private ToolStripMenuItem notepadToolStripMenuItem;
-
         private ToolStripMenuItem helpToolStripMenuItem;
 
         private ToolStripMenuItem discordToolStripMenuItem;
 
         private ToolStripMenuItem botRequestToolStripMenuItem;
-
-        private ToolStripMenuItem browserToolStripMenuItem;
 
         private ToolStripMenuItem setsToolStripMenuItem;
 
@@ -85,6 +79,16 @@ namespace Grimoire.UI
         private Button btnStart;
         private Unity3.Eyedropper.EyeDropper eyeDropper1;
         private ToolStripMenuItem eyeDropperToolStripMenuItem;
+        private ToolStripMenuItem logsToolStripMenuItem1;
+        private ToolStripMenuItem notepadToolStripMenuItem1;
+        public ToolStripMenuItem optionsToolStripMenuItem;
+        public ToolStripMenuItem infRangeToolStripMenuItem;
+        public ToolStripMenuItem provokeToolStripMenuItem1;
+        public ToolStripMenuItem enemyMagnetToolStripMenuItem;
+        public ToolStripMenuItem lagKillerToolStripMenuItem;
+        public ToolStripMenuItem hidePlayersToolStripMenuItem;
+        public ToolStripMenuItem skipCutscenesToolStripMenuItem;
+        public ToolStripMenuItem disableAnimationsToolStripMenuItem;
         private Button btnBankReload;
 
         public static Root Instance
@@ -126,9 +130,11 @@ namespace Grimoire.UI
             prgLoader.Visible = false;
         }
 
+        public BotManager botManager = BotManager.Instance;
+
         private void botToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowForm(BotManager.Instance);
+            ShowForm(botManager);
         }
 
         private void fastTravelsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -275,18 +281,26 @@ namespace Grimoire.UI
             this.pluginManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cosmeticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bankToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.browserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eyeDropperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.notepadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.packetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.snifferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spammerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tampererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notepadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.discordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.botRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grimoireSuggestionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.infRangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.provokeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.enemyMagnetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lagKillerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hidePlayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.skipCutscenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableAnimationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numFPS = new System.Windows.Forms.NumericUpDown();
             this.btnFPS = new System.Windows.Forms.Button();
             this.flashPlayer = new AxShockwaveFlashObjects.AxShockwaveFlash();
@@ -294,7 +308,6 @@ namespace Grimoire.UI
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.eyeDropper1 = new Unity3.Eyedropper.EyeDropper();
-            this.eyeDropperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
@@ -369,9 +382,8 @@ namespace Grimoire.UI
             this.botToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.packetsToolStripMenuItem,
-            this.logsToolStripMenuItem,
-            this.notepadToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.optionsToolStripMenuItem});
             this.MenuMain.Location = new System.Drawing.Point(0, 0);
             this.MenuMain.Name = "MenuMain";
             this.MenuMain.Size = new System.Drawing.Size(960, 24);
@@ -394,9 +406,10 @@ namespace Grimoire.UI
             this.pluginManagerToolStripMenuItem,
             this.cosmeticsToolStripMenuItem,
             this.bankToolStripMenuItem,
-            this.browserToolStripMenuItem,
             this.setsToolStripMenuItem,
-            this.eyeDropperToolStripMenuItem});
+            this.eyeDropperToolStripMenuItem,
+            this.logsToolStripMenuItem1,
+            this.notepadToolStripMenuItem1});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -404,60 +417,73 @@ namespace Grimoire.UI
             // fastTravelsToolStripMenuItem
             // 
             this.fastTravelsToolStripMenuItem.Name = "fastTravelsToolStripMenuItem";
-            this.fastTravelsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fastTravelsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.fastTravelsToolStripMenuItem.Text = "Fast travels";
             this.fastTravelsToolStripMenuItem.Click += new System.EventHandler(this.fastTravelsToolStripMenuItem_Click);
             // 
             // loadersgrabbersToolStripMenuItem
             // 
             this.loadersgrabbersToolStripMenuItem.Name = "loadersgrabbersToolStripMenuItem";
-            this.loadersgrabbersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadersgrabbersToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.loadersgrabbersToolStripMenuItem.Text = "Loaders/grabbers";
             this.loadersgrabbersToolStripMenuItem.Click += new System.EventHandler(this.loadersgrabbersToolStripMenuItem_Click);
             // 
             // hotkeysToolStripMenuItem
             // 
             this.hotkeysToolStripMenuItem.Name = "hotkeysToolStripMenuItem";
-            this.hotkeysToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hotkeysToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.hotkeysToolStripMenuItem.Text = "Hotkeys";
             this.hotkeysToolStripMenuItem.Click += new System.EventHandler(this.hotkeysToolStripMenuItem_Click);
             // 
             // pluginManagerToolStripMenuItem
             // 
             this.pluginManagerToolStripMenuItem.Name = "pluginManagerToolStripMenuItem";
-            this.pluginManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pluginManagerToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.pluginManagerToolStripMenuItem.Text = "Plugin manager";
             this.pluginManagerToolStripMenuItem.Click += new System.EventHandler(this.pluginManagerToolStripMenuItem_Click);
             // 
             // cosmeticsToolStripMenuItem
             // 
             this.cosmeticsToolStripMenuItem.Name = "cosmeticsToolStripMenuItem";
-            this.cosmeticsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cosmeticsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.cosmeticsToolStripMenuItem.Text = "Cosmetics";
             this.cosmeticsToolStripMenuItem.Click += new System.EventHandler(this.cosmeticsToolStripMenuItem_Click);
             // 
             // bankToolStripMenuItem
             // 
             this.bankToolStripMenuItem.Name = "bankToolStripMenuItem";
-            this.bankToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bankToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.bankToolStripMenuItem.Text = "Bank";
             this.bankToolStripMenuItem.Click += new System.EventHandler(this.bankToolStripMenuItem_Click);
-            // 
-            // browserToolStripMenuItem
-            // 
-            this.browserToolStripMenuItem.Enabled = false;
-            this.browserToolStripMenuItem.Name = "browserToolStripMenuItem";
-            this.browserToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.browserToolStripMenuItem.Text = "Browser";
-            this.browserToolStripMenuItem.Visible = false;
             // 
             // setsToolStripMenuItem
             // 
             this.setsToolStripMenuItem.Enabled = false;
             this.setsToolStripMenuItem.Name = "setsToolStripMenuItem";
-            this.setsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.setsToolStripMenuItem.Text = "Sets";
             this.setsToolStripMenuItem.Click += new System.EventHandler(this.setsToolStripMenuItem_Click);
+            // 
+            // eyeDropperToolStripMenuItem
+            // 
+            this.eyeDropperToolStripMenuItem.Name = "eyeDropperToolStripMenuItem";
+            this.eyeDropperToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.eyeDropperToolStripMenuItem.Text = "Eye Dropper";
+            this.eyeDropperToolStripMenuItem.Click += new System.EventHandler(this.eyeDropperToolStripMenuItem_Click_1);
+            // 
+            // logsToolStripMenuItem1
+            // 
+            this.logsToolStripMenuItem1.Name = "logsToolStripMenuItem1";
+            this.logsToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.logsToolStripMenuItem1.Text = "Logs";
+            this.logsToolStripMenuItem1.Click += new System.EventHandler(this.logsToolStripMenuItem1_Click);
+            // 
+            // notepadToolStripMenuItem1
+            // 
+            this.notepadToolStripMenuItem1.Name = "notepadToolStripMenuItem1";
+            this.notepadToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.notepadToolStripMenuItem1.Text = "Notepad";
+            this.notepadToolStripMenuItem1.Click += new System.EventHandler(this.notepadToolStripMenuItem1_Click);
             // 
             // packetsToolStripMenuItem
             // 
@@ -490,20 +516,6 @@ namespace Grimoire.UI
             this.tampererToolStripMenuItem.Text = "Tamperer";
             this.tampererToolStripMenuItem.Click += new System.EventHandler(this.tampererToolStripMenuItem_Click);
             // 
-            // logsToolStripMenuItem
-            // 
-            this.logsToolStripMenuItem.Name = "logsToolStripMenuItem";
-            this.logsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.logsToolStripMenuItem.Text = "Logs";
-            this.logsToolStripMenuItem.Click += new System.EventHandler(this.logsToolStripMenuItem_Click);
-            // 
-            // notepadToolStripMenuItem
-            // 
-            this.notepadToolStripMenuItem.Name = "notepadToolStripMenuItem";
-            this.notepadToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.notepadToolStripMenuItem.Text = "Notepad";
-            this.notepadToolStripMenuItem.Click += new System.EventHandler(this.notepadToolStripMenuItem_Click);
-            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -534,6 +546,76 @@ namespace Grimoire.UI
             this.grimoireSuggestionsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.grimoireSuggestionsToolStripMenuItem.Text = "Grimoire Suggestions";
             this.grimoireSuggestionsToolStripMenuItem.Click += new System.EventHandler(this.grimoireSuggestionsToolStripMenuItem_Click);
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.infRangeToolStripMenuItem,
+            this.provokeToolStripMenuItem1,
+            this.enemyMagnetToolStripMenuItem,
+            this.lagKillerToolStripMenuItem,
+            this.hidePlayersToolStripMenuItem,
+            this.skipCutscenesToolStripMenuItem,
+            this.disableAnimationsToolStripMenuItem});
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // infRangeToolStripMenuItem
+            // 
+            this.infRangeToolStripMenuItem.CheckOnClick = true;
+            this.infRangeToolStripMenuItem.Name = "infRangeToolStripMenuItem";
+            this.infRangeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.infRangeToolStripMenuItem.Text = "Infinite Range";
+            this.infRangeToolStripMenuItem.Click += new System.EventHandler(this.infRangeToolStripMenuItem_Click);
+            // 
+            // provokeToolStripMenuItem1
+            // 
+            this.provokeToolStripMenuItem1.CheckOnClick = true;
+            this.provokeToolStripMenuItem1.Name = "provokeToolStripMenuItem1";
+            this.provokeToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.provokeToolStripMenuItem1.Text = "Provoke";
+            this.provokeToolStripMenuItem1.Click += new System.EventHandler(this.provokeToolStripMenuItem1_Click);
+            // 
+            // enemyMagnetToolStripMenuItem
+            // 
+            this.enemyMagnetToolStripMenuItem.CheckOnClick = true;
+            this.enemyMagnetToolStripMenuItem.Name = "enemyMagnetToolStripMenuItem";
+            this.enemyMagnetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.enemyMagnetToolStripMenuItem.Text = "Enemy Magnet";
+            this.enemyMagnetToolStripMenuItem.Click += new System.EventHandler(this.enemyMagnetToolStripMenuItem_Click);
+            // 
+            // lagKillerToolStripMenuItem
+            // 
+            this.lagKillerToolStripMenuItem.CheckOnClick = true;
+            this.lagKillerToolStripMenuItem.Name = "lagKillerToolStripMenuItem";
+            this.lagKillerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lagKillerToolStripMenuItem.Text = "Lag Killer";
+            this.lagKillerToolStripMenuItem.Click += new System.EventHandler(this.lagKillerToolStripMenuItem_Click);
+            // 
+            // hidePlayersToolStripMenuItem
+            // 
+            this.hidePlayersToolStripMenuItem.CheckOnClick = true;
+            this.hidePlayersToolStripMenuItem.Name = "hidePlayersToolStripMenuItem";
+            this.hidePlayersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hidePlayersToolStripMenuItem.Text = "Hide Players";
+            this.hidePlayersToolStripMenuItem.Click += new System.EventHandler(this.hidePlayersToolStripMenuItem_Click);
+            // 
+            // skipCutscenesToolStripMenuItem
+            // 
+            this.skipCutscenesToolStripMenuItem.CheckOnClick = true;
+            this.skipCutscenesToolStripMenuItem.Name = "skipCutscenesToolStripMenuItem";
+            this.skipCutscenesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.skipCutscenesToolStripMenuItem.Text = "Skip Cutscenes";
+            this.skipCutscenesToolStripMenuItem.Click += new System.EventHandler(this.skipCutscenesToolStripMenuItem_Click);
+            // 
+            // disableAnimationsToolStripMenuItem
+            // 
+            this.disableAnimationsToolStripMenuItem.CheckOnClick = true;
+            this.disableAnimationsToolStripMenuItem.Name = "disableAnimationsToolStripMenuItem";
+            this.disableAnimationsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.disableAnimationsToolStripMenuItem.Text = "Disable Animations";
+            this.disableAnimationsToolStripMenuItem.Click += new System.EventHandler(this.disableAnimationsToolStripMenuItem_Click);
             // 
             // numFPS
             // 
@@ -632,13 +714,6 @@ namespace Grimoire.UI
             this.eyeDropper1.TabIndex = 29;
             this.eyeDropper1.Text = "eyeDropper1";
             // 
-            // eyeDropperToolStripMenuItem
-            // 
-            this.eyeDropperToolStripMenuItem.Name = "eyeDropperToolStripMenuItem";
-            this.eyeDropperToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.eyeDropperToolStripMenuItem.Text = "Eye Dropper";
-            this.eyeDropperToolStripMenuItem.Click += new System.EventHandler(this.eyeDropperToolStripMenuItem_Click_1);
-            // 
             // Root
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -702,11 +777,6 @@ namespace Grimoire.UI
         private void bankToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowForm(BankForm.Instance);
-        }
-
-        private void notepadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowForm(Notepad.Instance);
         }
 
         private void discordToolStripMenuItem_Click(object sender, EventArgs e)
@@ -786,14 +856,68 @@ namespace Grimoire.UI
             ShowForm(this);
         }
 
-        private void eyeDropperToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void eyeDropperToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             ShowForm(EyeDropper.Instance);
+        }
+
+        private void logsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ShowForm(LogForm.Instance);
+        }
+
+        private void notepadToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ShowForm(Notepad.Instance);
+        }
+
+        private void infRangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool check = infRangeToolStripMenuItem.Checked;
+            OptionsManager.InfiniteRange = check;
+            botManager.chkInfiniteRange.Checked = check;
+        }
+
+        private void provokeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            bool check = provokeToolStripMenuItem1.Checked;
+            OptionsManager.ProvokeMonsters = check;
+            botManager.chkProvoke.Checked = check;
+        }
+
+        private void enemyMagnetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool check = enemyMagnetToolStripMenuItem.Checked;
+            OptionsManager.EnemyMagnet = check;
+            botManager.chkMagnet.Checked = check;
+        }
+
+        private void lagKillerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool check = lagKillerToolStripMenuItem.Checked;
+            OptionsManager.EnemyMagnet = check;
+            botManager.chkLag.Checked = check;
+        }
+
+        private void hidePlayersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool check = hidePlayersToolStripMenuItem.Checked;
+            OptionsManager.EnemyMagnet = check;
+            botManager.chkHidePlayers.Checked = check;
+        }
+
+        private void skipCutscenesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool check = skipCutscenesToolStripMenuItem.Checked;
+            OptionsManager.EnemyMagnet = check;
+            botManager.chkSkipCutscenes.Checked = check;
+        }
+
+        private void disableAnimationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool check = disableAnimationsToolStripMenuItem.Checked;
+            OptionsManager.EnemyMagnet = check;
+            botManager.chkDisableAnims.Checked = check;
         }
     }
 }

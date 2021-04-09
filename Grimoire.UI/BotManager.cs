@@ -170,7 +170,7 @@ namespace Grimoire.UI
         private TabPage tabOptions;
         private Panel pnlOptions;
         private CheckBox chkEnableSettings;
-        private CheckBox chkDisableAnims;
+        public CheckBox chkDisableAnims;
         private TextBox txtSoundItem;
         private Button btnSoundAdd;
         private Button btnSoundDelete;
@@ -179,12 +179,12 @@ namespace Grimoire.UI
         private Label label9;
         private NumericUpDown numWalkSpeed;
         private Label label8;
-        private CheckBox chkSkipCutscenes;
-        private CheckBox chkHidePlayers;
-        private CheckBox chkLag;
-        private CheckBox chkMagnet;
-        private CheckBox chkProvoke;
-        private CheckBox chkInfiniteRange;
+        public CheckBox chkSkipCutscenes;
+        public CheckBox chkHidePlayers;
+        public CheckBox chkLag;
+        public CheckBox chkMagnet;
+        public CheckBox chkProvoke;
+        public CheckBox chkInfiniteRange;
         private GroupBox grpLogin;
         private ComboBox cbServers;
         private CheckBox chkRelogRetry;
@@ -195,7 +195,7 @@ namespace Grimoire.UI
         private TextBox txtGuild;
         private Button btnchangeName;
         private Button btnchangeGuild;
-        private CheckBox chkGender;
+        public CheckBox chkGender;
         private TabPage tabBots;
         private Panel pnlSaved;
         private Label lblBoosts;
@@ -221,7 +221,7 @@ namespace Grimoire.UI
         private Button btnLogDebug;
         private Button btnLog;
         private TextBox txtLog;
-        private CheckBox chkUntarget;
+        public CheckBox chkUntarget;
         private Label label5;
         private NumericUpDown numOptionsTimer;
         private Label label6;
@@ -233,7 +233,7 @@ namespace Grimoire.UI
         private CheckBox chkRejectAll;
         private CheckBox chkPickupAll;
         private CheckBox chkReject;
-        private CheckBox chkBuff;
+        public CheckBox chkBuff;
         private CheckBox chkAFK;
         private SplitContainer splitContainer1;
         private ComboBox cbLists;
@@ -1039,15 +1039,16 @@ namespace Grimoire.UI
                     case 2:
                         cmd = new CmdEquip
                         {
-                            ItemName = text
+                            ItemName = text,
+                            Safe = true
                         };
                         break;
 
                     case 3:
-                        cmd = new CmdBankTransfer
+                        cmd = new CmdEquip
                         {
                             ItemName = text,
-                            TransferFromBank = false
+                            Safe = false
                         };
                         break;
 
@@ -1055,11 +1056,26 @@ namespace Grimoire.UI
                         cmd = new CmdBankTransfer
                         {
                             ItemName = text,
-                            TransferFromBank = true
+                            TransferFromBank = false
                         };
                         break;
 
                     case 5:
+                        cmd = new CmdBankTransfer
+                        {
+                            ItemName = text,
+                            TransferFromBank = true
+                        };
+                        break;
+
+                    case 6:
+                        cmd = new CmdEquipSet
+                        {
+                            ItemName = text
+                        };
+                        break;
+
+                    case 7:
                         cmd = new CmdWhitelist
                         {
                             ItemName = text,
@@ -1067,7 +1083,7 @@ namespace Grimoire.UI
                         };
                         break;
 
-                    case 6:
+                    case 8:
                         cmd = new CmdWhitelist
                         {
                             ItemName = text,
@@ -1076,7 +1092,7 @@ namespace Grimoire.UI
                         break;
 
                     default:
-                        cmd = new CmdEquipSet
+                        cmd = new CmdGetDrop
                         {
                             ItemName = text
                         };
@@ -1513,31 +1529,37 @@ namespace Grimoire.UI
         private void chkInfiniteRange_CheckedChanged(object sender, EventArgs e)
         {
             OptionsManager.InfiniteRange = chkInfiniteRange.Checked;
+            Root.Instance.infRangeToolStripMenuItem.Checked = chkInfiniteRange.Checked;
         }
 
         private void chkProvoke_CheckedChanged(object sender, EventArgs e)
         {
             OptionsManager.ProvokeMonsters = chkProvoke.Checked;
+            Root.Instance.provokeToolStripMenuItem1.Checked = chkProvoke.Checked;
         }
 
         private void chkMagnet_CheckedChanged(object sender, EventArgs e)
         {
             OptionsManager.EnemyMagnet = chkMagnet.Checked;
+            Root.Instance.enemyMagnetToolStripMenuItem.Checked = chkMagnet.Checked;
         }
 
         private void chkLag_CheckedChanged(object sender, EventArgs e)
         {
             OptionsManager.LagKiller = chkLag.Checked;
+            Root.Instance.lagKillerToolStripMenuItem.Checked = chkLag.Checked;
         }
 
         private void chkHidePlayers_CheckedChanged(object sender, EventArgs e)
         {
             OptionsManager.HidePlayers = chkHidePlayers.Checked;
+            Root.Instance.hidePlayersToolStripMenuItem.Checked = chkHidePlayers.Checked;
         }
 
         private void chkSkipCutscenes_CheckedChanged(object sender, EventArgs e)
         {
             OptionsManager.SkipCutscenes = chkSkipCutscenes.Checked;
+            Root.Instance.skipCutscenesToolStripMenuItem.Checked = chkSkipCutscenes.Checked;
         }
 
         private void numWalkSpeed_ValueChanged(object sender, EventArgs e)
@@ -1548,6 +1570,7 @@ namespace Grimoire.UI
         private void chkDisableAnims_CheckedChanged(object sender, EventArgs e)
         {
             OptionsManager.DisableAnimations = chkDisableAnims.Checked;
+            Root.Instance.disableAnimationsToolStripMenuItem.Checked = chkDisableAnims.Checked;
         }
 
         private void OnOptionsStateChanged(bool state)
@@ -2082,12 +2105,14 @@ namespace Grimoire.UI
             this.btnSavedAdd = new System.Windows.Forms.Button();
             this.txtSaved = new System.Windows.Forms.TextBox();
             this.tabForms = new System.Windows.Forms.TabPage();
+            this.numSpammerDelay = new System.Windows.Forms.NumericUpDown();
             this.btnSpammerRefresh = new System.Windows.Forms.Button();
             this.txtPacketSpammer = new System.Windows.Forms.TextBox();
             this.btnSpammerAdd = new System.Windows.Forms.Button();
             this.btnSpammerStop = new System.Windows.Forms.Button();
             this.btnSpammerStart = new System.Windows.Forms.Button();
             this.btnSpammerRemove = new System.Windows.Forms.Button();
+            this.btnSpammerSetDelay = new System.Windows.Forms.Button();
             this.btnSpammerReset = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -2109,8 +2134,6 @@ namespace Grimoire.UI
             this.multilineToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleTabpagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnSpammerSetDelay = new System.Windows.Forms.Button();
-            this.numSpammerDelay = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabCombat.SuspendLayout();
             this.pnlCombat.SuspendLayout();
@@ -2153,6 +2176,7 @@ namespace Grimoire.UI
             this.tabBots.SuspendLayout();
             this.pnlSaved.SuspendLayout();
             this.tabForms.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSpammerDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -2165,7 +2189,6 @@ namespace Grimoire.UI
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.BotManagerMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSpammerDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // lstCommands
@@ -3162,6 +3185,7 @@ namespace Grimoire.UI
             "Get drop",
             "Sell",
             "Equip",
+            "Unsafe Equip",
             "To bank from inv",
             "To inv from bank",
             "Equip Set",
@@ -5160,6 +5184,33 @@ namespace Grimoire.UI
             this.tabForms.Text = "Forms";
             this.tabForms.UseVisualStyleBackColor = true;
             // 
+            // numSpammerDelay
+            // 
+            this.numSpammerDelay.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numSpammerDelay.Location = new System.Drawing.Point(104, 65);
+            this.numSpammerDelay.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numSpammerDelay.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numSpammerDelay.Name = "numSpammerDelay";
+            this.numSpammerDelay.Size = new System.Drawing.Size(44, 20);
+            this.numSpammerDelay.TabIndex = 56;
+            this.numSpammerDelay.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
             // btnSpammerRefresh
             // 
             this.btnSpammerRefresh.Location = new System.Drawing.Point(216, 6);
@@ -5219,6 +5270,16 @@ namespace Grimoire.UI
             this.btnSpammerRemove.Text = "Remove from P. S";
             this.btnSpammerRemove.UseVisualStyleBackColor = true;
             this.btnSpammerRemove.Click += new System.EventHandler(this.btnSpammer_Click);
+            // 
+            // btnSpammerSetDelay
+            // 
+            this.btnSpammerSetDelay.Location = new System.Drawing.Point(6, 62);
+            this.btnSpammerSetDelay.Name = "btnSpammerSetDelay";
+            this.btnSpammerSetDelay.Size = new System.Drawing.Size(92, 23);
+            this.btnSpammerSetDelay.TabIndex = 0;
+            this.btnSpammerSetDelay.Text = "Set P.S. Delay";
+            this.btnSpammerSetDelay.UseVisualStyleBackColor = true;
+            this.btnSpammerSetDelay.Click += new System.EventHandler(this.btnSpammer_Click);
             // 
             // btnSpammerReset
             // 
@@ -5332,7 +5393,7 @@ namespace Grimoire.UI
             this.panel2.Controls.Add(this.btnUp);
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(146, 22);
+            this.panel2.Size = new System.Drawing.Size(149, 22);
             this.panel2.TabIndex = 147;
             // 
             // btnUp
@@ -5342,7 +5403,7 @@ namespace Grimoire.UI
             this.btnUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUp.Location = new System.Drawing.Point(0, 0);
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(146, 22);
+            this.btnUp.Size = new System.Drawing.Size(149, 22);
             this.btnUp.TabIndex = 165;
             this.btnUp.Text = "▲";
             this.btnUp.UseVisualStyleBackColor = true;
@@ -5355,7 +5416,7 @@ namespace Grimoire.UI
             this.btnRemove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRemove.Location = new System.Drawing.Point(1, 25);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(124, 22);
+            this.btnRemove.Size = new System.Drawing.Size(127, 22);
             this.btnRemove.TabIndex = 166;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -5368,7 +5429,7 @@ namespace Grimoire.UI
             this.btnBotStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStop.Location = new System.Drawing.Point(1, 50);
             this.btnBotStop.Name = "btnBotStop";
-            this.btnBotStop.Size = new System.Drawing.Size(124, 22);
+            this.btnBotStop.Size = new System.Drawing.Size(127, 22);
             this.btnBotStop.TabIndex = 168;
             this.btnBotStop.Text = "Stop";
             this.btnBotStop.UseVisualStyleBackColor = true;
@@ -5382,7 +5443,7 @@ namespace Grimoire.UI
             this.btnBotStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStart.Location = new System.Drawing.Point(1, 50);
             this.btnBotStart.Name = "btnBotStart";
-            this.btnBotStart.Size = new System.Drawing.Size(145, 22);
+            this.btnBotStart.Size = new System.Drawing.Size(148, 22);
             this.btnBotStart.TabIndex = 167;
             this.btnBotStart.Text = "Start";
             this.btnBotStart.UseVisualStyleBackColor = true;
@@ -5478,43 +5539,6 @@ namespace Grimoire.UI
             this.commandColorsToolStripMenuItem.Text = "Command Customizer";
             this.commandColorsToolStripMenuItem.Click += new System.EventHandler(this.commandColorsToolStripMenuItem_Click);
             // 
-            // btnSpammerSetDelay
-            // 
-            this.btnSpammerSetDelay.Location = new System.Drawing.Point(6, 62);
-            this.btnSpammerSetDelay.Name = "btnSpammerSetDelay";
-            this.btnSpammerSetDelay.Size = new System.Drawing.Size(92, 23);
-            this.btnSpammerSetDelay.TabIndex = 0;
-            this.btnSpammerSetDelay.Text = "Set P.S. Delay";
-            this.btnSpammerSetDelay.UseVisualStyleBackColor = true;
-            this.btnSpammerSetDelay.Click += new System.EventHandler(this.btnSpammer_Click);
-            // 
-            // numSpammerDelay
-            // 
-            this.numSpammerDelay.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.numSpammerDelay.Location = new System.Drawing.Point(104, 65);
-            this.numSpammerDelay.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numSpammerDelay.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numSpammerDelay.Name = "numSpammerDelay";
-            this.numSpammerDelay.Size = new System.Drawing.Size(44, 20);
-            this.numSpammerDelay.TabIndex = 56;
-            this.numSpammerDelay.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
             // BotManager
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -5587,6 +5611,7 @@ namespace Grimoire.UI
             this.pnlSaved.PerformLayout();
             this.tabForms.ResumeLayout(false);
             this.tabForms.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSpammerDelay)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -5600,7 +5625,6 @@ namespace Grimoire.UI
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.BotManagerMenuStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numSpammerDelay)).EndInit();
             this.ResumeLayout(false);
 
         }

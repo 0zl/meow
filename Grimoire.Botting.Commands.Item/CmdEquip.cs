@@ -14,6 +14,12 @@ namespace Grimoire.Botting.Commands.Item
             set;
         }
 
+        public bool Safe
+        {
+            get;
+            set;
+        }
+
         public async Task Execute(IBotEngine instance)
         {
             InventoryItem item = Player.Inventory.Items.FirstOrDefault((InventoryItem i) => i.Name.Equals(ItemName, StringComparison.OrdinalIgnoreCase) && i.IsEquippable);
@@ -23,6 +29,15 @@ namespace Grimoire.Botting.Commands.Item
             }
             while (instance.IsRunning && !IsEquipped(item.Id))
             {
+                if (!Safe)
+                {
+                    if (item.Category == "Item")
+                        Player.EquipPotion(item.Id, item.Description, item.File, item.Name);
+                    else
+                        Player.Equip(item.Id);
+                    return;
+                }
+
                 BotData.BotState = BotData.State.Transaction;
                 while (instance.IsRunning && Player.CurrentState == Player.State.InCombat)
                 {
@@ -31,13 +46,9 @@ namespace Grimoire.Botting.Commands.Item
                 }
                 await instance.WaitUntil(() => World.IsActionAvailable(LockActions.EquipItem));
                 if (item.Category == "Item")
-                {
                     Player.EquipPotion(item.Id, item.Description, item.File, item.Name);
-                }
                 else
-                {
                     Player.Equip(item.Id);
-                }
             }
         }
 
@@ -48,7 +59,7 @@ namespace Grimoire.Botting.Commands.Item
 
         public override string ToString()
         {
-            return "Equip: " + ItemName;
+            return (Safe ? "Safe" : "Unsafe") + " Equip: " + ItemName;
         }
     }
 }
