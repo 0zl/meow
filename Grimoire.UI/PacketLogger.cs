@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class PacketLogger : Form
+    public class PacketLogger : DarkUI.Forms.DarkForm
     {
         private IContainer components;
 

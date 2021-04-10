@@ -13,7 +13,7 @@ using System.Xml;
 
 namespace Grimoire.UI
 {
-    public class Loaders : Form
+    public class Loaders : DarkUI.Forms.DarkForm
     {
         public enum Type
         {

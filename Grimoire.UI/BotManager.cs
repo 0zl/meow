@@ -24,10 +24,11 @@ using System.Text.RegularExpressions;
 using Grimoire.UI;
 using System.Drawing.Drawing2D;
 using static Grimoire.Botting.Commands.Item.CmdWhitelist;
+using DarkUI.Forms;
 
 namespace Grimoire.UI
 {
-    public class BotManager : Form
+    public class BotManager : DarkForm
     {
         private IBotEngine _activeBotEngine = new Bot();
 
@@ -395,6 +396,8 @@ namespace Grimoire.UI
         private BotManager()
         {
             InitializeComponent();
+
+            
         }
 
         private void BotManager_Load(object sender, EventArgs e)
@@ -5393,7 +5396,7 @@ namespace Grimoire.UI
             this.panel2.Controls.Add(this.btnUp);
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(149, 22);
+            this.panel2.Size = new System.Drawing.Size(152, 22);
             this.panel2.TabIndex = 147;
             // 
             // btnUp
@@ -5403,7 +5406,7 @@ namespace Grimoire.UI
             this.btnUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUp.Location = new System.Drawing.Point(0, 0);
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(149, 22);
+            this.btnUp.Size = new System.Drawing.Size(152, 22);
             this.btnUp.TabIndex = 165;
             this.btnUp.Text = "▲";
             this.btnUp.UseVisualStyleBackColor = true;
@@ -5416,7 +5419,7 @@ namespace Grimoire.UI
             this.btnRemove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRemove.Location = new System.Drawing.Point(1, 25);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(127, 22);
+            this.btnRemove.Size = new System.Drawing.Size(130, 22);
             this.btnRemove.TabIndex = 166;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -5429,7 +5432,7 @@ namespace Grimoire.UI
             this.btnBotStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStop.Location = new System.Drawing.Point(1, 50);
             this.btnBotStop.Name = "btnBotStop";
-            this.btnBotStop.Size = new System.Drawing.Size(127, 22);
+            this.btnBotStop.Size = new System.Drawing.Size(130, 22);
             this.btnBotStop.TabIndex = 168;
             this.btnBotStop.Text = "Stop";
             this.btnBotStop.UseVisualStyleBackColor = true;
@@ -5443,7 +5446,7 @@ namespace Grimoire.UI
             this.btnBotStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStart.Location = new System.Drawing.Point(1, 50);
             this.btnBotStart.Name = "btnBotStart";
-            this.btnBotStart.Size = new System.Drawing.Size(148, 22);
+            this.btnBotStart.Size = new System.Drawing.Size(151, 22);
             this.btnBotStart.TabIndex = 167;
             this.btnBotStart.Text = "Start";
             this.btnBotStart.UseVisualStyleBackColor = true;

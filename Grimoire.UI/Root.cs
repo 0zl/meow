@@ -13,10 +13,11 @@ using Grimoire.Game.Data;
 using System.Diagnostics;
 using Unity3.Eyedropper;
 using EoL;
+using DarkUI.Forms;
 
 namespace Grimoire.UI
 {
-    public class Root : Form
+    public class Root : DarkForm
     {
         private IContainer components;
 

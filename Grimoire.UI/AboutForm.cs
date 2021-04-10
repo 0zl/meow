@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public partial class AboutForm : Form
+    public partial class AboutForm : DarkUI.Forms.DarkForm
     {
         public AboutForm()
         {
