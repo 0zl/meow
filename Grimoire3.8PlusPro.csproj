@@ -231,6 +231,7 @@
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdBlank.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdBotDelay.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdChange.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc\CmdClientMessage.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdDelay.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdGotoLabel.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdGotoPlayer.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdLoadBot.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdLog.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdLogout.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc\CmdPacketDelay.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdPacketSpammer.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdPacket.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdRestart.cs" />
