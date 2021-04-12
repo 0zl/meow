@@ -313,6 +313,8 @@ namespace Grimoire.UI
         private Button btnSpammerRefresh;
         private NumericUpDown numSpammerDelay;
         private Button btnSpammerSetDelay;
+        private NumericUpDown numDelayedPacket;
+        private Button btnDelayedPacket;
         private Button btnAttack;
         #endregion
 
@@ -2134,6 +2136,8 @@ namespace Grimoire.UI
             this.multilineToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleTabpagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDelayedPacket = new System.Windows.Forms.Button();
+            this.numDelayedPacket = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabCombat.SuspendLayout();
             this.pnlCombat.SuspendLayout();
@@ -2189,6 +2193,7 @@ namespace Grimoire.UI
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.BotManagerMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDelayedPacket)).BeginInit();
             this.SuspendLayout();
             // 
             // lstCommands
@@ -5167,6 +5172,8 @@ namespace Grimoire.UI
             // 
             // tabForms
             // 
+            this.tabForms.Controls.Add(this.numDelayedPacket);
+            this.tabForms.Controls.Add(this.btnDelayedPacket);
             this.tabForms.Controls.Add(this.numSpammerDelay);
             this.tabForms.Controls.Add(this.btnSpammerRefresh);
             this.tabForms.Controls.Add(this.txtPacketSpammer);
@@ -5393,7 +5400,7 @@ namespace Grimoire.UI
             this.panel2.Controls.Add(this.btnUp);
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(149, 22);
+            this.panel2.Size = new System.Drawing.Size(152, 22);
             this.panel2.TabIndex = 147;
             // 
             // btnUp
@@ -5403,7 +5410,7 @@ namespace Grimoire.UI
             this.btnUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUp.Location = new System.Drawing.Point(0, 0);
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(149, 22);
+            this.btnUp.Size = new System.Drawing.Size(152, 22);
             this.btnUp.TabIndex = 165;
             this.btnUp.Text = "▲";
             this.btnUp.UseVisualStyleBackColor = true;
@@ -5416,7 +5423,7 @@ namespace Grimoire.UI
             this.btnRemove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRemove.Location = new System.Drawing.Point(1, 25);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(127, 22);
+            this.btnRemove.Size = new System.Drawing.Size(130, 22);
             this.btnRemove.TabIndex = 166;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -5429,7 +5436,7 @@ namespace Grimoire.UI
             this.btnBotStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStop.Location = new System.Drawing.Point(1, 50);
             this.btnBotStop.Name = "btnBotStop";
-            this.btnBotStop.Size = new System.Drawing.Size(127, 22);
+            this.btnBotStop.Size = new System.Drawing.Size(130, 22);
             this.btnBotStop.TabIndex = 168;
             this.btnBotStop.Text = "Stop";
             this.btnBotStop.UseVisualStyleBackColor = true;
@@ -5443,7 +5450,7 @@ namespace Grimoire.UI
             this.btnBotStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStart.Location = new System.Drawing.Point(1, 50);
             this.btnBotStart.Name = "btnBotStart";
-            this.btnBotStart.Size = new System.Drawing.Size(148, 22);
+            this.btnBotStart.Size = new System.Drawing.Size(151, 22);
             this.btnBotStart.TabIndex = 167;
             this.btnBotStart.Text = "Start";
             this.btnBotStart.UseVisualStyleBackColor = true;
@@ -5539,6 +5546,43 @@ namespace Grimoire.UI
             this.commandColorsToolStripMenuItem.Text = "Command Customizer";
             this.commandColorsToolStripMenuItem.Click += new System.EventHandler(this.commandColorsToolStripMenuItem_Click);
             // 
+            // btnDelayedPacket
+            // 
+            this.btnDelayedPacket.Location = new System.Drawing.Point(154, 62);
+            this.btnDelayedPacket.Name = "btnDelayedPacket";
+            this.btnDelayedPacket.Size = new System.Drawing.Size(118, 23);
+            this.btnDelayedPacket.TabIndex = 57;
+            this.btnDelayedPacket.Text = "Set Delayed Packet";
+            this.btnDelayedPacket.UseVisualStyleBackColor = true;
+            this.btnDelayedPacket.Click += btnSpammer_Click;
+            // 
+            // numDelayedPacket
+            // 
+            this.numDelayedPacket.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numDelayedPacket.Location = new System.Drawing.Point(278, 64);
+            this.numDelayedPacket.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numDelayedPacket.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numDelayedPacket.Name = "numDelayedPacket";
+            this.numDelayedPacket.Size = new System.Drawing.Size(48, 20);
+            this.numDelayedPacket.TabIndex = 58;
+            this.numDelayedPacket.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
             // BotManager
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -5625,6 +5669,7 @@ namespace Grimoire.UI
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.BotManagerMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numDelayedPacket)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -6454,6 +6499,13 @@ namespace Grimoire.UI
                         type = CmdPacketSpammer.CommandType.SetDelay,
                         Packet = Packet,
                         Delay = (int)numSpammerDelay.Value
+                    };
+                    break;
+                case "btnDelayedPacket":
+                    cmd = new CmdPacketDelay
+                    {
+                        Packet = Packet,
+                        Delay = (int)numDelayedPacket.Value
                     };
                     break;
                 default:
