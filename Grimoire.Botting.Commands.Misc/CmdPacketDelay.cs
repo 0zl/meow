@@ -54,11 +54,11 @@ namespace Grimoire.Botting.Commands.Misc
             {
                 await Task.Delay(Delay);
                 await Proxy.Instance.SendToServer(text);
-            }
-            if (text.Contains("%xt%zm%gar%"))
-                await Task.Delay(700);
-            else
-                await Task.Delay(2000);
+            } 
+            // commented because useless safemode delay 
+            // if (text.Contains("%xt%zm%gar%"))
+            //    await Task.Delay(700);
+
         }
 
         public override string ToString()
