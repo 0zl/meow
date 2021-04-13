@@ -4776,6 +4776,7 @@ namespace Grimoire.UI
             this.btnAddInfoMsg.TabIndex = 150;
             this.btnAddInfoMsg.Text = "Add Info";
             this.btnAddInfoMsg.UseVisualStyleBackColor = true;
+            this.btnAddInfoMsg.Click += btnClientMessageEvt;
             // 
             // btnAddWarnMsg
             // 
@@ -4785,6 +4786,7 @@ namespace Grimoire.UI
             this.btnAddWarnMsg.TabIndex = 149;
             this.btnAddWarnMsg.Text = "Add Warning";
             this.btnAddWarnMsg.UseVisualStyleBackColor = true;
+            this.btnAddWarnMsg.Click += btnClientMessageEvt;
             // 
             // inputMsgClient
             // 
