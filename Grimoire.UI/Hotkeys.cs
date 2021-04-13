@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class Hotkeys : Form
+    public class Hotkeys : DarkUI.Forms.DarkForm
     {
         public static readonly Action[] Actions = new Action[18]
         {

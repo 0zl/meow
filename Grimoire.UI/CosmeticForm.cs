@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public partial class CosmeticForm : Form
+    public partial class CosmeticForm : DarkUI.Forms.DarkForm
     {
         public static CosmeticForm Instance
         {

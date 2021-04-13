@@ -13,10 +13,11 @@ using Grimoire.Game.Data;
 using System.Diagnostics;
 using Unity3.Eyedropper;
 using EoL;
+using DarkUI.Forms;
 
 namespace Grimoire.UI
 {
-    public class Root : Form
+    public class Root : DarkForm
     {
         private IContainer components;
 
@@ -89,6 +90,7 @@ namespace Grimoire.UI
         public ToolStripMenuItem hidePlayersToolStripMenuItem;
         public ToolStripMenuItem skipCutscenesToolStripMenuItem;
         public ToolStripMenuItem disableAnimationsToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStripMenuItem;
         private Button btnBankReload;
 
         public static Root Instance
@@ -308,6 +310,7 @@ namespace Grimoire.UI
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.eyeDropper1 = new Unity3.Eyedropper.EyeDropper();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
@@ -382,8 +385,9 @@ namespace Grimoire.UI
             this.botToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.packetsToolStripMenuItem,
+            this.optionsToolStripMenuItem,
             this.helpToolStripMenuItem,
-            this.optionsToolStripMenuItem});
+            this.aboutToolStripMenuItem});
             this.MenuMain.Location = new System.Drawing.Point(0, 0);
             this.MenuMain.Name = "MenuMain";
             this.MenuMain.Size = new System.Drawing.Size(960, 24);
@@ -714,6 +718,13 @@ namespace Grimoire.UI
             this.eyeDropper1.TabIndex = 29;
             this.eyeDropper1.Text = "eyeDropper1";
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // Root
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -918,6 +929,11 @@ namespace Grimoire.UI
             bool check = disableAnimationsToolStripMenuItem.Checked;
             OptionsManager.EnemyMagnet = check;
             botManager.chkDisableAnims.Checked = check;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm(AboutForm.Instance);
         }
     }
 }
