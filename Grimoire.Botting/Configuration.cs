@@ -92,6 +92,12 @@ namespace Grimoire.Botting
             set;
         }
 
+        public bool EnablePickupAcTagged
+        {
+            get;
+            set;
+        }
+
         public bool EnableRejectAll
         {
             get;

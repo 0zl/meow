@@ -343,6 +343,16 @@ namespace Grimoire.Botting
                 Task.Delay(DropDelay);
                 World.DropStack.GetDrop(drop.Id);
             }
+
+            if (Configuration.EnablePickupAcTagged)
+            {
+                Task.Delay(DropDelay);
+                if (drop.IsAcItem)
+                {
+                    World.DropStack.GetDrop(drop.Id);
+                }
+            }
+
             //else if (Configuration.EnableRejectAll)
             //{
             //    World.DropStack.RemoveAll(drop.Id);
