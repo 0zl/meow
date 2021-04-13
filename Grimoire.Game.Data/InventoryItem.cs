@@ -82,7 +82,7 @@ namespace Grimoire.Game.Data
         public Enhancement EnhType {
             get
             {
-                switch (EnhPatternId.toString())
+                switch (EnhPatternId.ToString())
                 {
                     case "6":
                         return Enhancement.Mage;
