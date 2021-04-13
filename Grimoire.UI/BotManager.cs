@@ -320,6 +320,7 @@ namespace Grimoire.UI
         private Button btnAddWarnMsg;
         private TextBox inputMsgClient;
         private Panel panel4;
+        public CheckBox chkPickupAcTag;
         private Button btnAttack;
         #endregion
 
@@ -528,6 +529,7 @@ namespace Grimoire.UI
                 EnablePickup = chkPickup.Checked,
                 EnableRejection = chkReject.Checked,
                 EnablePickupAll = chkPickupAll.Checked,
+                EnablePickupAcTagged = chkPickupAcTag.Checked,
                 EnableRejectAll = chkRejectAll.Checked,
                 WaitForAllSkills = chkAllSkillsCD.Checked,
                 WaitForSkill = chkSkillCD.Checked,
@@ -2133,11 +2135,12 @@ namespace Grimoire.UI
             this.cbLists = new System.Windows.Forms.ComboBox();
             this.chkAll = new System.Windows.Forms.CheckBox();
             this.btnClear = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.btnBotStart = new System.Windows.Forms.Button();
+            this.btnBotStop = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnUp = new System.Windows.Forms.Button();
-            this.btnRemove = new System.Windows.Forms.Button();
-            this.btnBotStop = new System.Windows.Forms.Button();
-            this.btnBotStart = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -2147,7 +2150,7 @@ namespace Grimoire.UI
             this.multilineToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleTabpagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.chkPickupAcTag = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabCombat.SuspendLayout();
             this.pnlCombat.SuspendLayout();
@@ -2198,6 +2201,7 @@ namespace Grimoire.UI
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -2205,7 +2209,6 @@ namespace Grimoire.UI
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.BotManagerMenuStrip.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstCommands
@@ -2808,6 +2811,7 @@ namespace Grimoire.UI
             // 
             // pnlItem
             // 
+            this.pnlItem.Controls.Add(this.chkPickupAcTag);
             this.pnlItem.Controls.Add(this.btnWhitelistOff);
             this.pnlItem.Controls.Add(this.btnWhitelistOn);
             this.pnlItem.Controls.Add(this.btnWhitelistToggle);
@@ -2934,7 +2938,7 @@ namespace Grimoire.UI
             // 
             this.chkRejectAll.AutoSize = true;
             this.chkRejectAll.Enabled = false;
-            this.chkRejectAll.Location = new System.Drawing.Point(296, 84);
+            this.chkRejectAll.Location = new System.Drawing.Point(296, 110);
             this.chkRejectAll.Name = "chkRejectAll";
             this.chkRejectAll.Size = new System.Drawing.Size(97, 17);
             this.chkRejectAll.TabIndex = 150;
@@ -2955,7 +2959,7 @@ namespace Grimoire.UI
             // chkBankOnStop
             // 
             this.chkBankOnStop.AutoSize = true;
-            this.chkBankOnStop.Location = new System.Drawing.Point(296, 64);
+            this.chkBankOnStop.Location = new System.Drawing.Point(296, 90);
             this.chkBankOnStop.Name = "chkBankOnStop";
             this.chkBankOnStop.Size = new System.Drawing.Size(94, 17);
             this.chkBankOnStop.TabIndex = 148;
@@ -3116,7 +3120,7 @@ namespace Grimoire.UI
             // chkReject
             // 
             this.chkReject.AutoSize = true;
-            this.chkReject.Location = new System.Drawing.Point(296, 44);
+            this.chkReject.Location = new System.Drawing.Point(296, 70);
             this.chkReject.Name = "chkReject";
             this.chkReject.Size = new System.Drawing.Size(130, 17);
             this.chkReject.TabIndex = 25;
@@ -5477,6 +5481,57 @@ namespace Grimoire.UI
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btnRemove);
+            this.panel4.Controls.Add(this.btnBotStart);
+            this.panel4.Controls.Add(this.btnBotStop);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 22);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(119, 51);
+            this.panel4.TabIndex = 148;
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnRemove.Location = new System.Drawing.Point(0, 3);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(119, 22);
+            this.btnRemove.TabIndex = 166;
+            this.btnRemove.Text = "Remove";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnBotStart
+            // 
+            this.btnBotStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBotStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnBotStart.Location = new System.Drawing.Point(0, 27);
+            this.btnBotStart.Name = "btnBotStart";
+            this.btnBotStart.Size = new System.Drawing.Size(119, 22);
+            this.btnBotStart.TabIndex = 167;
+            this.btnBotStart.Text = "Start";
+            this.btnBotStart.UseVisualStyleBackColor = true;
+            this.btnBotStart.Click += new System.EventHandler(this.btnBotStart_ClickAsync);
+            // 
+            // btnBotStop
+            // 
+            this.btnBotStop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBotStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnBotStop.Location = new System.Drawing.Point(0, 27);
+            this.btnBotStop.Name = "btnBotStop";
+            this.btnBotStop.Size = new System.Drawing.Size(119, 22);
+            this.btnBotStop.TabIndex = 168;
+            this.btnBotStop.Text = "Stop";
+            this.btnBotStop.UseVisualStyleBackColor = true;
+            this.btnBotStop.Visible = false;
+            this.btnBotStop.Click += new System.EventHandler(this.btnBotStop_Click);
+            // 
             // panel2
             // 
             this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -5500,46 +5555,6 @@ namespace Grimoire.UI
             this.btnUp.Text = "▲";
             this.btnUp.UseVisualStyleBackColor = true;
             this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
-            // 
-            // btnRemove
-            // 
-            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnRemove.Location = new System.Drawing.Point(0, 3);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(119, 22);
-            this.btnRemove.TabIndex = 166;
-            this.btnRemove.Text = "Remove";
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
-            // btnBotStop
-            // 
-            this.btnBotStop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBotStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBotStop.Location = new System.Drawing.Point(0, 27);
-            this.btnBotStop.Name = "btnBotStop";
-            this.btnBotStop.Size = new System.Drawing.Size(119, 22);
-            this.btnBotStop.TabIndex = 168;
-            this.btnBotStop.Text = "Stop";
-            this.btnBotStop.UseVisualStyleBackColor = true;
-            this.btnBotStop.Visible = false;
-            this.btnBotStop.Click += new System.EventHandler(this.btnBotStop_Click);
-            // 
-            // btnBotStart
-            // 
-            this.btnBotStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBotStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBotStart.Location = new System.Drawing.Point(0, 27);
-            this.btnBotStart.Name = "btnBotStart";
-            this.btnBotStart.Size = new System.Drawing.Size(119, 22);
-            this.btnBotStart.TabIndex = 167;
-            this.btnBotStart.Text = "Start";
-            this.btnBotStart.UseVisualStyleBackColor = true;
-            this.btnBotStart.Click += new System.EventHandler(this.btnBotStart_ClickAsync);
             // 
             // panel1
             // 
@@ -5631,16 +5646,15 @@ namespace Grimoire.UI
             this.commandColorsToolStripMenuItem.Text = "Command Customizer";
             this.commandColorsToolStripMenuItem.Click += new System.EventHandler(this.commandColorsToolStripMenuItem_Click);
             // 
-            // panel4
+            // chkPickupAcTag
             // 
-            this.panel4.Controls.Add(this.btnRemove);
-            this.panel4.Controls.Add(this.btnBotStart);
-            this.panel4.Controls.Add(this.btnBotStop);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 22);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(119, 51);
-            this.panel4.TabIndex = 148;
+            this.chkPickupAcTag.AutoSize = true;
+            this.chkPickupAcTag.Location = new System.Drawing.Point(296, 47);
+            this.chkPickupAcTag.Name = "chkPickupAcTag";
+            this.chkPickupAcTag.Size = new System.Drawing.Size(135, 17);
+            this.chkPickupAcTag.TabIndex = 157;
+            this.chkPickupAcTag.Text = "Pick up ac-tagged only";
+            this.chkPickupAcTag.UseVisualStyleBackColor = true;
             // 
             // BotManager
             // 
@@ -5724,6 +5738,7 @@ namespace Grimoire.UI
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -5731,7 +5746,6 @@ namespace Grimoire.UI
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.BotManagerMenuStrip.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
