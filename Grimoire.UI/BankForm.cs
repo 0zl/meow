@@ -10,10 +10,11 @@ using System.Windows.Forms;
 using Grimoire.Game;
 using Grimoire;
 using Grimoire.Game.Data;
+using DarkUI.Forms;
 
 namespace Grimoire.UI
 {
-    public partial class BankForm : Form
+    public partial class BankForm : DarkForm
     {
         public BankForm()
         {
