@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DarkUI.Forms;
 using Grimoire.Botting;
 using static Unity3.Eyedropper.EyeDropper;
 
 namespace Grimoire.UI
 {
-    public partial class EyeDropper : Form
+    public partial class EyeDropper : DarkForm
     {
         public EyeDropper()
         {

@@ -8,11 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DarkUI.Forms;
 using Grimoire.UI;
 
 namespace Grimoire.UI
 {
-    public partial class Notepad : Form
+    public partial class Notepad : DarkForm
     {
         public Notepad()
         {

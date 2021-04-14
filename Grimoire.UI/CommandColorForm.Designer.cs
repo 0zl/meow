@@ -1,4 +1,6 @@
-﻿namespace Grimoire.UI
+﻿using DarkUI.Controls;
+
+namespace Grimoire.UI
 {
     partial class CommandColorForm
     {
@@ -32,14 +34,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CommandColorForm));
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.btnSetColor = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new DarkComboBox();
+            this.btnSetColor = new DarkButton();
+            this.checkBox1 = new DarkCheckBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnRandomColors = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.txtRGB = new System.Windows.Forms.TextBox();
+            this.btnSave = new DarkButton();
+            this.btnRandomColors = new DarkButton();
+            this.btnRefresh = new DarkButton();
+            this.txtRGB = new DarkTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 

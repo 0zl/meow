@@ -1,3 +1,5 @@
+using DarkUI.Controls;
+using DarkUI.Forms;
 using Grimoire.Botting;
 using System;
 using System.ComponentModel;
@@ -8,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class LogForm : Form
+    public class LogForm : DarkForm
     {
         public class DebugLogger : TraceListener
         {
@@ -36,25 +38,25 @@ namespace Grimoire.UI
 
         public TextBox iable;
 
-        private Button btnClear;
+        private DarkButton btnClear;
 
-        private Button btnSave;
+        private DarkButton btnSave;
 
-        private TabControl tabLogs;
+        private FlatTabControl.FlatTabControl tabLogs;
 
         private TabPage tabLogDebug;
 
         private TabPage tabLogScript;
 
-        public TextBox txtLogDebug;
+        public DarkTextBox txtLogDebug;
 
-        public TextBox txtLogScript;
+        public DarkTextBox txtLogScript;
 
         private TabPage tabLogDrops;
 
         private TabPage tabLogChat;
 
-        private TextBox txtLogDrops;
+        private DarkTextBox txtLogDrops;
 
         private ContextMenuStrip contextMenuStrip1;
 
@@ -227,23 +229,23 @@ namespace Grimoire.UI
 
         private void InitializeComponent()
         {
-            this.components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(LogForm));
-            this.txtLogDebug = new TextBox();
-            this.btnClear = new Button();
-            this.btnSave = new Button();
-            this.tabLogs = new TabControl();
-            this.contextMenuStrip1 = new ContextMenuStrip(this.components);
-            this.changeFontToolStripMenuItem = new ToolStripMenuItem();
-            this.changeColorToolStripMenuItem = new ToolStripMenuItem();
-            this.tabLogDebug = new TabPage();
-            this.tabLogScript = new TabPage();
-            this.txtLogScript = new TextBox();
-            this.tabLogDrops = new TabPage();
-            this.txtLogDrops = new TextBox();
-            this.tabLogChat = new TabPage();
-            this.txtLogChat = new TextBox();
-            this.colorDialog1 = new ColorDialog();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogForm));
+            this.txtLogDebug = new DarkUI.Controls.DarkTextBox();
+            this.btnClear = new DarkUI.Controls.DarkButton();
+            this.btnSave = new DarkUI.Controls.DarkButton();
+            this.tabLogs = new FlatTabControl.FlatTabControl();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.changeFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabLogDebug = new System.Windows.Forms.TabPage();
+            this.tabLogScript = new System.Windows.Forms.TabPage();
+            this.txtLogScript = new DarkUI.Controls.DarkTextBox();
+            this.tabLogDrops = new System.Windows.Forms.TabPage();
+            this.txtLogDrops = new DarkUI.Controls.DarkTextBox();
+            this.tabLogChat = new System.Windows.Forms.TabPage();
+            this.txtLogChat = new System.Windows.Forms.TextBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.tabLogs.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.tabLogDebug.SuspendLayout();
@@ -254,167 +256,171 @@ namespace Grimoire.UI
             // 
             // txtLogDebug
             // 
-            this.txtLogDebug.Dock = DockStyle.Fill;
-            this.txtLogDebug.Location = new Point(3, 3);
+            this.txtLogDebug.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLogDebug.Location = new System.Drawing.Point(3, 3);
             this.txtLogDebug.Multiline = true;
             this.txtLogDebug.Name = "txtLogDebug";
             this.txtLogDebug.ReadOnly = true;
-            this.txtLogDebug.ScrollBars = ScrollBars.Vertical;
-            this.txtLogDebug.Size = new Size(414, 211);
+            this.txtLogDebug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLogDebug.Size = new System.Drawing.Size(414, 208);
             this.txtLogDebug.TabIndex = 0;
             // 
             // btnClear
             // 
-            this.btnClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            this.btnClear.Location = new Point(12, 249);
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClear.Checked = false;
+            this.btnClear.Location = new System.Drawing.Point(12, 249);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new Size(199, 23);
+            this.btnClear.Size = new System.Drawing.Size(199, 23);
             this.btnClear.TabIndex = 1;
             this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new EventHandler(this.btnClear_Click);
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            this.btnSave.Location = new Point(217, 249);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Checked = false;
+            this.btnSave.Location = new System.Drawing.Point(217, 249);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new Size(199, 23);
+            this.btnSave.Size = new System.Drawing.Size(199, 23);
             this.btnSave.TabIndex = 2;
             this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // tabLogs
             // 
-            this.tabLogs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
-            | AnchorStyles.Left
-            | AnchorStyles.Right;
+            this.tabLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabLogs.ContextMenuStrip = this.contextMenuStrip1;
             this.tabLogs.Controls.Add(this.tabLogDebug);
             this.tabLogs.Controls.Add(this.tabLogScript);
             this.tabLogs.Controls.Add(this.tabLogDrops);
             this.tabLogs.Controls.Add(this.tabLogChat);
-            this.tabLogs.Location = new Point(0, 0);
+            this.tabLogs.Location = new System.Drawing.Point(0, 0);
+            this.tabLogs.myBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.tabLogs.Name = "tabLogs";
             this.tabLogs.SelectedIndex = 0;
-            this.tabLogs.Size = new Size(428, 243);
+            this.tabLogs.Size = new System.Drawing.Size(428, 243);
             this.tabLogs.TabIndex = 3;
             // 
             // contextMenuStrip1
             // 
-            this.contextMenuStrip1.Items.AddRange(new ToolStripItem[] {
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changeFontToolStripMenuItem,
             this.changeColorToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new Size(148, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(148, 48);
             // 
             // changeFontToolStripMenuItem
             // 
             this.changeFontToolStripMenuItem.Name = "changeFontToolStripMenuItem";
-            this.changeFontToolStripMenuItem.Size = new Size(147, 22);
+            this.changeFontToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.changeFontToolStripMenuItem.Text = "Change Font";
-            this.changeFontToolStripMenuItem.Click += new EventHandler(this.changeFontToolStripMenuItem_Click);
+            this.changeFontToolStripMenuItem.Click += new System.EventHandler(this.changeFontToolStripMenuItem_Click);
             // 
             // changeColorToolStripMenuItem
             // 
             this.changeColorToolStripMenuItem.Name = "changeColorToolStripMenuItem";
-            this.changeColorToolStripMenuItem.Size = new Size(147, 22);
+            this.changeColorToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.changeColorToolStripMenuItem.Text = "Change Color";
-            this.changeColorToolStripMenuItem.Click += new EventHandler(this.changeColorToolStripMenuItem_Click);
+            this.changeColorToolStripMenuItem.Click += new System.EventHandler(this.changeColorToolStripMenuItem_Click);
             // 
             // tabLogDebug
             // 
+            this.tabLogDebug.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.tabLogDebug.Controls.Add(this.txtLogDebug);
-            this.tabLogDebug.Location = new Point(4, 22);
+            this.tabLogDebug.ForeColor = System.Drawing.Color.Gainsboro;
+            this.tabLogDebug.Location = new System.Drawing.Point(4, 25);
             this.tabLogDebug.Name = "tabLogDebug";
-            this.tabLogDebug.Padding = new Padding(3);
-            this.tabLogDebug.Size = new Size(420, 217);
+            this.tabLogDebug.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLogDebug.Size = new System.Drawing.Size(420, 214);
             this.tabLogDebug.TabIndex = 0;
             this.tabLogDebug.Text = "Debug";
-            this.tabLogDebug.UseVisualStyleBackColor = true;
             // 
             // tabLogScript
             // 
+            this.tabLogScript.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.tabLogScript.Controls.Add(this.txtLogScript);
-            this.tabLogScript.Location = new Point(4, 22);
+            this.tabLogScript.ForeColor = System.Drawing.Color.Gainsboro;
+            this.tabLogScript.Location = new System.Drawing.Point(4, 25);
             this.tabLogScript.Name = "tabLogScript";
-            this.tabLogScript.Padding = new Padding(3);
-            this.tabLogScript.Size = new Size(420, 217);
+            this.tabLogScript.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLogScript.Size = new System.Drawing.Size(420, 214);
             this.tabLogScript.TabIndex = 1;
             this.tabLogScript.Text = "Script";
-            this.tabLogScript.UseVisualStyleBackColor = true;
             // 
             // txtLogScript
             // 
-            this.txtLogScript.Dock = DockStyle.Fill;
-            this.txtLogScript.ForeColor = SystemColors.WindowText;
-            this.txtLogScript.Location = new Point(3, 3);
+            this.txtLogScript.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLogScript.Location = new System.Drawing.Point(3, 3);
             this.txtLogScript.Multiline = true;
             this.txtLogScript.Name = "txtLogScript";
             this.txtLogScript.ReadOnly = true;
-            this.txtLogScript.ScrollBars = ScrollBars.Vertical;
-            this.txtLogScript.Size = new Size(414, 211);
+            this.txtLogScript.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLogScript.Size = new System.Drawing.Size(414, 208);
             this.txtLogScript.TabIndex = 1;
             // 
             // tabLogDrops
             // 
+            this.tabLogDrops.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.tabLogDrops.Controls.Add(this.txtLogDrops);
-            this.tabLogDrops.Location = new Point(4, 22);
+            this.tabLogDrops.ForeColor = System.Drawing.Color.Gainsboro;
+            this.tabLogDrops.Location = new System.Drawing.Point(4, 25);
             this.tabLogDrops.Name = "tabLogDrops";
-            this.tabLogDrops.Padding = new Padding(3);
-            this.tabLogDrops.Size = new Size(420, 217);
+            this.tabLogDrops.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLogDrops.Size = new System.Drawing.Size(420, 214);
             this.tabLogDrops.TabIndex = 2;
             this.tabLogDrops.Text = "Drops";
-            this.tabLogDrops.UseVisualStyleBackColor = true;
             // 
             // txtLogDrops
             // 
-            this.txtLogDrops.Dock = DockStyle.Fill;
-            this.txtLogDrops.Location = new Point(3, 3);
+            this.txtLogDrops.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLogDrops.Location = new System.Drawing.Point(3, 3);
             this.txtLogDrops.Multiline = true;
             this.txtLogDrops.Name = "txtLogDrops";
             this.txtLogDrops.ReadOnly = true;
-            this.txtLogDrops.ScrollBars = ScrollBars.Vertical;
-            this.txtLogDrops.Size = new Size(414, 211);
+            this.txtLogDrops.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLogDrops.Size = new System.Drawing.Size(414, 208);
             this.txtLogDrops.TabIndex = 2;
             // 
             // tabLogChat
             // 
+            this.tabLogChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.tabLogChat.Controls.Add(this.txtLogChat);
-            this.tabLogChat.Location = new Point(4, 22);
+            this.tabLogChat.ForeColor = System.Drawing.Color.Gainsboro;
+            this.tabLogChat.Location = new System.Drawing.Point(4, 25);
             this.tabLogChat.Name = "tabLogChat";
-            this.tabLogChat.Padding = new Padding(3);
-            this.tabLogChat.Size = new Size(420, 217);
+            this.tabLogChat.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLogChat.Size = new System.Drawing.Size(420, 214);
             this.tabLogChat.TabIndex = 3;
             this.tabLogChat.Text = "Chat";
-            this.tabLogChat.UseVisualStyleBackColor = true;
             // 
             // txtLogChat
             // 
-            this.txtLogChat.Dock = DockStyle.Fill;
-            this.txtLogChat.Location = new Point(3, 3);
+            this.txtLogChat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLogChat.Location = new System.Drawing.Point(3, 3);
             this.txtLogChat.Multiline = true;
             this.txtLogChat.Name = "txtLogChat";
             this.txtLogChat.ReadOnly = true;
-            this.txtLogChat.ScrollBars = ScrollBars.Vertical;
-            this.txtLogChat.Size = new Size(414, 211);
+            this.txtLogChat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLogChat.Size = new System.Drawing.Size(414, 208);
             this.txtLogChat.TabIndex = 2;
             // 
             // LogForm
             // 
-            this.AutoScaleDimensions = new SizeF(6F, 13F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(428, 284);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(428, 284);
             this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.tabLogs);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClear);
-            this.Icon = (Icon)resources.GetObject("$this.Icon");
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LogForm";
             this.Text = "Debug Log";
             this.TopMost = true;
-            this.Load += new EventHandler(this.LogForm_Load);
+            this.Load += new System.EventHandler(this.LogForm_Load);
             this.tabLogs.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabLogDebug.ResumeLayout(false);

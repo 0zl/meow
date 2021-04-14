@@ -12,10 +12,11 @@ using System.Windows.Forms;
 using Grimoire.Game;
 using Grimoire;
 using Grimoire.Game.Data;
+using DarkUI.Forms;
 
 namespace Grimoire.UI
 {
-    public partial class Set : Form
+    public partial class Set : DarkForm
     {
         private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
         {

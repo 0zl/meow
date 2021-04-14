@@ -1,4 +1,7 @@
-﻿namespace Grimoire.UI
+﻿using DarkUI.Controls;
+using System.Windows.Forms;
+
+namespace Grimoire.UI
 {
     partial class Set
     {
@@ -32,15 +35,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Set));
-            this.btnSave = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnLoad = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
+            this.btnSave = new DarkButton();
+            this.listBox1 = new DarkListBox();
+            this.comboBox1 = new DarkComboBox();
+            this.saveFileDialog1 = new SaveFileDialog();
+            this.openFileDialog1 = new OpenFileDialog();
+            this.btnAdd = new DarkButton();
+            this.btnRefresh = new DarkButton();
+            this.btnLoad = new DarkButton();
+            this.btnClear = new DarkButton();
             this.SuspendLayout();
             // 
             // btnSave
