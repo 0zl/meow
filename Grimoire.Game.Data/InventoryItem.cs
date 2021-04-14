@@ -48,52 +48,6 @@ namespace Grimoire.Game.Data
             "Cape",
             "Pet"
         };
-        
-        //Obv: the level of the enhancement, 100 is max as of now
-        [JsonProperty("EnhLvl")]
-        public int EnhLevel
-        {
-            get;
-            set;
-        }
-        
-        //Don't know how to use this for anything yet but its here
-        [JsonProperty("EnhID")]
-        public int EnhID
-        {
-            get;
-            set;
-        }
-        
-        [JsonProperty("EnhPatternID")]
-        public int EnhPatternId
-        {
-            get;
-            set;
-        }
-        // WIP: complete this list (check for EnhPatternID, e.g. 6 is Mage)
-        public enum Enhancement
-        {
-            Unenhanced, //undefined
-            Mage, //6
-            Lucky //9
-        }
-
-        public Enhancement EnhType {
-            get
-            {
-                switch (EnhPatternId.ToString())
-                {
-                    case "6":
-                        return Enhancement.Mage;
-                    case "9":
-                        return Enhancement.Lucky;
-                    default:
-                        return Enhancement.Unenhanced;
-                }
-
-            }
-        }
 
         [JsonProperty("iQty")]
         public int Quantity

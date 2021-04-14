@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DarkUI.Forms;
 
 namespace Grimoire.UI
 {
-    public partial class AboutForm : Form
+    public partial class AboutForm : DarkForm
     {
         public AboutForm()
         {
