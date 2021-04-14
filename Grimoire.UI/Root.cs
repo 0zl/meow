@@ -302,6 +302,7 @@ namespace Grimoire.UI
             // 
             // cbPads
             // 
+            this.cbPads.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbPads.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.cbPads.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbPads.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -322,6 +323,7 @@ namespace Grimoire.UI
             // 
             // cbCells
             // 
+            this.cbCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCells.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.cbCells.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbCells.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -354,6 +356,7 @@ namespace Grimoire.UI
             // 
             // btnJump
             // 
+            this.btnJump.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnJump.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.btnJump.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJump.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -672,7 +675,7 @@ namespace Grimoire.UI
             // reloadToolStripMenuItem
             // 
             this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.reloadToolStripMenuItem.Text = "Reload";
             this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
             // 
@@ -685,6 +688,7 @@ namespace Grimoire.UI
             // 
             // btnMax
             // 
+            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(32)))), ((int)(((byte)(71)))));
             this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMax.ForeColor = System.Drawing.Color.Black;
@@ -698,6 +702,7 @@ namespace Grimoire.UI
             // 
             // btnExit
             // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(32)))), ((int)(((byte)(71)))));
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -712,6 +717,7 @@ namespace Grimoire.UI
             // 
             // btnMin
             // 
+            this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(32)))), ((int)(((byte)(71)))));
             this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMin.ForeColor = System.Drawing.Color.Black;
@@ -1035,7 +1041,7 @@ namespace Grimoire.UI
 
         private void btnMax_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
+            this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
         }
 
         private void btnMin_Click(object sender, EventArgs e)
