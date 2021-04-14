@@ -1283,9 +1283,15 @@ namespace Grimoire.UI
 
         private bool TryDeserialize(string json, out Configuration config)
         {
+            try
+            {
                 config = JsonConvert.DeserializeObject<Configuration>(json, _serializerSettings);
                 return true;
-            
+            }
+            catch
+            {
+
+            }
             config = null;
             return false;
         }
@@ -1922,7 +1928,6 @@ namespace Grimoire.UI
             this.txtMonster = new System.Windows.Forms.TextBox();
             this.tabItem = new System.Windows.Forms.TabPage();
             this.pnlItem = new System.Windows.Forms.Panel();
-            this.chkPickupAcTag = new System.Windows.Forms.CheckBox();
             this.btnWhitelistOff = new System.Windows.Forms.Button();
             this.btnWhitelistOn = new System.Windows.Forms.Button();
             this.btnWhitelistToggle = new System.Windows.Forms.Button();
@@ -2147,6 +2152,7 @@ namespace Grimoire.UI
             this.multilineToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleTabpagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkPickupAcTag = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabCombat.SuspendLayout();
             this.pnlCombat.SuspendLayout();
@@ -2844,16 +2850,6 @@ namespace Grimoire.UI
             this.pnlItem.Name = "pnlItem";
             this.pnlItem.Size = new System.Drawing.Size(438, 293);
             this.pnlItem.TabIndex = 105;
-            // 
-            // chkPickupAcTag
-            // 
-            this.chkPickupAcTag.AutoSize = true;
-            this.chkPickupAcTag.Location = new System.Drawing.Point(296, 47);
-            this.chkPickupAcTag.Name = "chkPickupAcTag";
-            this.chkPickupAcTag.Size = new System.Drawing.Size(135, 17);
-            this.chkPickupAcTag.TabIndex = 157;
-            this.chkPickupAcTag.Text = "Pick up ac-tagged only";
-            this.chkPickupAcTag.UseVisualStyleBackColor = true;
             // 
             // btnWhitelistOff
             // 
@@ -4782,6 +4778,7 @@ namespace Grimoire.UI
             this.btnAddInfoMsg.TabIndex = 150;
             this.btnAddInfoMsg.Text = "Add Info";
             this.btnAddInfoMsg.UseVisualStyleBackColor = true;
+            this.btnAddInfoMsg.Click += btnClientMessageEvt;
             // 
             // btnAddWarnMsg
             // 
@@ -4791,6 +4788,7 @@ namespace Grimoire.UI
             this.btnAddWarnMsg.TabIndex = 149;
             this.btnAddWarnMsg.Text = "Add Warning";
             this.btnAddWarnMsg.UseVisualStyleBackColor = true;
+            this.btnAddWarnMsg.Click += btnClientMessageEvt;
             // 
             // inputMsgClient
             // 
@@ -5651,6 +5649,16 @@ namespace Grimoire.UI
             this.commandColorsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.commandColorsToolStripMenuItem.Text = "Command Customizer";
             this.commandColorsToolStripMenuItem.Click += new System.EventHandler(this.commandColorsToolStripMenuItem_Click);
+            // 
+            // chkPickupAcTag
+            // 
+            this.chkPickupAcTag.AutoSize = true;
+            this.chkPickupAcTag.Location = new System.Drawing.Point(296, 47);
+            this.chkPickupAcTag.Name = "chkPickupAcTag";
+            this.chkPickupAcTag.Size = new System.Drawing.Size(135, 17);
+            this.chkPickupAcTag.TabIndex = 157;
+            this.chkPickupAcTag.Text = "Pick up ac-tagged only";
+            this.chkPickupAcTag.UseVisualStyleBackColor = true;
             // 
             // BotManager
             // 
