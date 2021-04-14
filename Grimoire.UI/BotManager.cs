@@ -24,11 +24,10 @@ using System.Text.RegularExpressions;
 using Grimoire.UI;
 using System.Drawing.Drawing2D;
 using static Grimoire.Botting.Commands.Item.CmdWhitelist;
-using DarkUI.Forms;
 
 namespace Grimoire.UI
 {
-    public class BotManager : DarkForm
+    public class BotManager : Form
     {
         private IBotEngine _activeBotEngine = new Bot();
 
@@ -6263,22 +6262,20 @@ namespace Grimoire.UI
                     try
                     {
                         string[] rgbarray = txt.Replace("[", "").Split(']')[0].Split(',');
-                        SolidBrush b2b = new SolidBrush(Color.FromArgb(int.Parse(rgbarray[0]), int.Parse(rgbarray[1]), int.Parse(rgbarray[2])));
+                        SolidBrush b2b = new SolidBrush(Color.Black);
+                        if (rgbarray.Length == 3)
+                            b2b = new SolidBrush(Color.FromArgb(int.Parse(rgbarray[0]), int.Parse(rgbarray[1]), int.Parse(rgbarray[2])));
+                        else if (rgbarray.Length == 4)
+                            b2b = new SolidBrush(Color.FromArgb(int.Parse(rgbarray[0]), int.Parse(rgbarray[1]), int.Parse(rgbarray[2]), int.Parse(rgbarray[3])));
                         txt = Regex.Replace(txt, @"\[.*?\]", "");
                         if (txt.Contains("(TROLL)"))
-                        {
                             e.Graphics.DrawString(txt.Replace("(TROLL)", ""), e.Font, b2b, e.Bounds, StringFormat.GenericDefault);
-                        }
                         else
-                        {
                             e.Graphics.DrawString(txt, b2, b2b, e.Bounds, centered);
-                        }
                     }catch{}
                 }
                 else if (txt.Contains("(TROLL)"))
-                {
                     e.Graphics.DrawString(txt.Replace("(TROLL)", ""), e.Font, new SolidBrush(Color.White), e.Bounds, StringFormat.GenericDefault);
-                }
                 return;
             }
 

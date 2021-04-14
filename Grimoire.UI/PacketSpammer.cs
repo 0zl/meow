@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Grimoire.UI
 {
-    public class PacketSpammer : DarkUI.Forms.DarkForm
+    public class PacketSpammer : Form
     {
         private IContainer components;
 

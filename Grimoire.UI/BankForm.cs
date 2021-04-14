@@ -13,7 +13,7 @@ using Grimoire.Game.Data;
 
 namespace Grimoire.UI
 {
-    public partial class BankForm : DarkUI.Forms.DarkForm
+    public partial class BankForm : Form
     {
         public BankForm()
         {

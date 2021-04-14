@@ -12,7 +12,7 @@ using static Unity3.Eyedropper.EyeDropper;
 
 namespace Grimoire.UI
 {
-    public partial class EyeDropper : DarkUI.Forms.DarkForm
+    public partial class EyeDropper : Form
     {
         public EyeDropper()
         {

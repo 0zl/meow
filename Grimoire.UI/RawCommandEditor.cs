@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class RawCommandEditor : DarkUI.Forms.DarkForm
+    public class RawCommandEditor : Form
     {
         private IContainer components;
 

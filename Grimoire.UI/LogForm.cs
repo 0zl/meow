@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class LogForm : DarkUI.Forms.DarkForm
+    public class LogForm : Form
     {
         public class DebugLogger : TraceListener
         {

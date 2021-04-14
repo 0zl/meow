@@ -486,8 +486,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="big.Ico" />
-    <None Include="Resources\join.png" />
-    <None Include="Resources\server.png" />
     <Content Include="EasyHook32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -506,11 +504,6 @@
     <Content Include="EasyLoad64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\nav_left_green.png" />
-    <Content Include="Resources\nav_plain_green.png" />
-    <Content Include="Resources\nav_plain_red.png" />
-    <Content Include="Resources\nav_right_green.png" />
-    <Content Include="Resources\yulgar.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
