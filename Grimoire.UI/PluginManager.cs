@@ -1,3 +1,5 @@
+using DarkUI.Controls;
+using DarkUI.Forms;
 using Grimoire.Tools.Plugins;
 using System;
 using System.ComponentModel;
@@ -7,27 +9,19 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class PluginManager : Form
+    public class PluginManager : DarkForm
     {
         private IContainer components;
-
-        public GroupBox gbLoaded;
-
-        public Button btnUnload;
-
-        public TextBox txtDesc;
-
-        public Label lblAuthor;
-
-        public ListBox lstLoaded;
-
-        public GroupBox gbLoad;
-
-        public Button btnBrowse;
-
-        public Button btnLoad;
+        public DarkGroupBox gbLoaded;
+        public DarkButton btnUnload;
+        public DarkTextBox txtDesc;
+        public DarkLabel lblAuthor;
+        public DarkListBox lstLoaded;
+        public DarkGroupBox gbLoad;
+        public DarkButton btnBrowse;
+        public DarkButton btnLoad;
         private TreeView treePlugins;
-        public TextBox txtPlugin;
+        public DarkTextBox txtPlugin;
 
         public static PluginManager Instance
         {
@@ -219,17 +213,18 @@ namespace Grimoire.UI
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(PluginManager));
-            this.gbLoaded = new GroupBox();
-            this.btnUnload = new Button();
-            this.txtDesc = new TextBox();
-            this.lblAuthor = new Label();
-            this.lstLoaded = new ListBox();
-            this.gbLoad = new GroupBox();
-            this.btnBrowse = new Button();
-            this.btnLoad = new Button();
-            this.txtPlugin = new TextBox();
-            this.treePlugins = new TreeView();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginManager));
+            this.gbLoaded = new DarkUI.Controls.DarkGroupBox();
+            this.btnUnload = new DarkUI.Controls.DarkButton();
+            this.txtDesc = new DarkUI.Controls.DarkTextBox();
+            this.lblAuthor = new DarkUI.Controls.DarkLabel();
+            this.lstLoaded = new DarkUI.Controls.DarkListBox(this.components);
+            this.gbLoad = new DarkUI.Controls.DarkGroupBox();
+            this.btnBrowse = new DarkUI.Controls.DarkButton();
+            this.btnLoad = new DarkUI.Controls.DarkButton();
+            this.txtPlugin = new DarkUI.Controls.DarkTextBox();
+            this.treePlugins = new System.Windows.Forms.TreeView();
             this.gbLoaded.SuspendLayout();
             this.gbLoad.SuspendLayout();
             this.SuspendLayout();
@@ -249,26 +244,27 @@ namespace Grimoire.UI
             // 
             // btnUnload
             // 
+            this.btnUnload.Checked = false;
             this.btnUnload.Location = new System.Drawing.Point(155, 238);
             this.btnUnload.Name = "btnUnload";
             this.btnUnload.Size = new System.Drawing.Size(128, 23);
             this.btnUnload.TabIndex = 3;
             this.btnUnload.Text = "Unload selected plugin";
-            this.btnUnload.UseVisualStyleBackColor = true;
-            this.btnUnload.Click += new EventHandler(this.btnUnload_Click);
+            this.btnUnload.Click += new System.EventHandler(this.btnUnload_Click);
             // 
             // txtDesc
             // 
             this.txtDesc.Location = new System.Drawing.Point(6, 120);
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
-            this.txtDesc.ScrollBars = ScrollBars.Both;
+            this.txtDesc.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtDesc.Size = new System.Drawing.Size(277, 112);
             this.txtDesc.TabIndex = 2;
             // 
             // lblAuthor
             // 
             this.lblAuthor.AutoSize = true;
+            this.lblAuthor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.lblAuthor.Location = new System.Drawing.Point(6, 104);
             this.lblAuthor.Name = "lblAuthor";
             this.lblAuthor.Size = new System.Drawing.Size(92, 13);
@@ -277,13 +273,18 @@ namespace Grimoire.UI
             // 
             // lstLoaded
             // 
+            this.lstLoaded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.lstLoaded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstLoaded.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lstLoaded.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.lstLoaded.FormattingEnabled = true;
+            this.lstLoaded.ItemHeight = 18;
             this.lstLoaded.Location = new System.Drawing.Point(6, 19);
             this.lstLoaded.Name = "lstLoaded";
             this.lstLoaded.ScrollAlwaysVisible = true;
-            this.lstLoaded.Size = new System.Drawing.Size(277, 82);
+            this.lstLoaded.Size = new System.Drawing.Size(277, 74);
             this.lstLoaded.TabIndex = 0;
-            this.lstLoaded.SelectedIndexChanged += new EventHandler(this.lstLoaded_SelectedIndexChanged);
+            this.lstLoaded.SelectedIndexChanged += new System.EventHandler(this.lstLoaded_SelectedIndexChanged);
             // 
             // gbLoad
             // 
@@ -299,23 +300,23 @@ namespace Grimoire.UI
             // 
             // btnBrowse
             // 
+            this.btnBrowse.Checked = false;
             this.btnBrowse.Location = new System.Drawing.Point(200, 17);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(25, 23);
             this.btnBrowse.TabIndex = 7;
             this.btnBrowse.Text = "...";
-            this.btnBrowse.UseVisualStyleBackColor = true;
-            this.btnBrowse.Click += new EventHandler(this.btnBrowse_Click);
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // btnLoad
             // 
+            this.btnLoad.Checked = false;
             this.btnLoad.Location = new System.Drawing.Point(231, 17);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(55, 23);
             this.btnLoad.TabIndex = 8;
             this.btnLoad.Text = "Load";
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new EventHandler(this.btnLoad_Click);
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // txtPlugin
             // 
@@ -326,29 +327,31 @@ namespace Grimoire.UI
             // 
             // treePlugins
             // 
+            this.treePlugins.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.treePlugins.ForeColor = System.Drawing.Color.Gainsboro;
             this.treePlugins.Location = new System.Drawing.Point(12, 70);
             this.treePlugins.Name = "treePlugins";
             this.treePlugins.Size = new System.Drawing.Size(292, 136);
             this.treePlugins.TabIndex = 13;
-            this.treePlugins.AfterExpand += new TreeViewEventHandler(this.treePlugins_AfterExpand);
-            this.treePlugins.AfterSelect += new TreeViewEventHandler(this.treePlugins_AfterSelect);
+            this.treePlugins.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treePlugins_AfterExpand);
+            this.treePlugins.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treePlugins_AfterSelect);
             // 
             // PluginManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(316, 485);
             this.Controls.Add(this.treePlugins);
             this.Controls.Add(this.gbLoaded);
             this.Controls.Add(this.gbLoad);
-            this.FormBorderStyle = FormBorderStyle.Fixed3D;
-            this.Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "PluginManager";
             this.Text = "Plugin Manager";
             this.TopMost = true;
-            this.FormClosing += new FormClosingEventHandler(this.PluginManager_FormClosing);
-            this.Load += new EventHandler(this.PluginManager_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PluginManager_FormClosing);
+            this.Load += new System.EventHandler(this.PluginManager_Load);
             this.gbLoaded.ResumeLayout(false);
             this.gbLoaded.PerformLayout();
             this.gbLoad.ResumeLayout(false);

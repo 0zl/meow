@@ -1,3 +1,5 @@
+using DarkUI.Controls;
+using DarkUI.Forms;
 using Grimoire.Networking;
 using System;
 using System.ComponentModel;
@@ -5,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class PacketTamperer : Form
+    public class PacketTamperer : DarkForm
     {
         private IContainer components;
 
@@ -13,16 +15,16 @@ namespace Grimoire.UI
 
         private RichTextBox txtReceive;
 
-        private Button btnToServer;
+        private DarkButton btnToServer;
 
-        private CheckBox chkFromClient;
+        private DarkCheckBox chkFromClient;
 
-        private CheckBox chkFromServer;
+        private DarkCheckBox chkFromServer;
         private SplitContainer splitContainer1;
-        private Panel panel1;
-        private Panel panel2;
+        private DarkPanel panel1;
+        private DarkPanel panel2;
         private TableLayoutPanel tableLayoutPanel1;
-        private Button btnToClient;
+        private DarkButton btnToClient;
 
         public static PacketTamperer Instance
         {
@@ -119,18 +121,18 @@ namespace Grimoire.UI
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(PacketTamperer));
-            this.txtSend = new RichTextBox();
-            this.txtReceive = new RichTextBox();
-            this.btnToServer = new Button();
-            this.chkFromClient = new CheckBox();
-            this.chkFromServer = new CheckBox();
-            this.btnToClient = new Button();
-            this.splitContainer1 = new SplitContainer();
-            this.panel1 = new Panel();
-            this.panel2 = new Panel();
-            this.tableLayoutPanel1 = new TableLayoutPanel();
-            ((ISupportInitialize)this.splitContainer1).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PacketTamperer));
+            this.txtSend = new System.Windows.Forms.RichTextBox();
+            this.txtReceive = new System.Windows.Forms.RichTextBox();
+            this.btnToServer = new DarkButton();
+            this.chkFromClient = new DarkCheckBox();
+            this.chkFromServer = new DarkCheckBox();
+            this.btnToClient = new DarkButton();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.panel1 = new DarkPanel();
+            this.panel2 = new DarkPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -140,7 +142,9 @@ namespace Grimoire.UI
             // 
             // txtSend
             // 
-            this.txtSend.Dock = DockStyle.Fill;
+            this.txtSend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.txtSend.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSend.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtSend.Location = new System.Drawing.Point(0, 0);
             this.txtSend.Name = "txtSend";
             this.txtSend.Size = new System.Drawing.Size(536, 99);
@@ -149,7 +153,9 @@ namespace Grimoire.UI
             // 
             // txtReceive
             // 
-            this.txtReceive.Dock = DockStyle.Fill;
+            this.txtReceive.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.txtReceive.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtReceive.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtReceive.Location = new System.Drawing.Point(0, 0);
             this.txtReceive.Name = "txtReceive";
             this.txtReceive.Size = new System.Drawing.Size(536, 212);
@@ -158,58 +164,58 @@ namespace Grimoire.UI
             // 
             // btnToServer
             // 
-            this.btnToServer.Dock = DockStyle.Fill;
-            this.btnToServer.Location = new System.Drawing.Point(448, 3);
+            this.btnToServer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnToServer.Location = new System.Drawing.Point(449, 3);
             this.btnToServer.Name = "btnToServer";
-            this.btnToServer.Size = new System.Drawing.Size(85, 23);
+            this.btnToServer.Size = new System.Drawing.Size(84, 23);
             this.btnToServer.TabIndex = 3;
             this.btnToServer.Text = "Send to server";
-            this.btnToServer.UseVisualStyleBackColor = true;
-            this.btnToServer.Click += new EventHandler(this.btnToServer_Click);
+            //this.btnToServer.UseVisualStyleBackColor = true;
+            this.btnToServer.Click += new System.EventHandler(this.btnToServer_Click);
             // 
             // chkFromClient
             // 
             this.chkFromClient.AutoSize = true;
-            this.chkFromClient.Dock = DockStyle.Fill;
-            this.chkFromClient.Location = new System.Drawing.Point(127, 3);
+            this.chkFromClient.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkFromClient.Location = new System.Drawing.Point(133, 3);
             this.chkFromClient.Name = "chkFromClient";
-            this.chkFromClient.Size = new System.Drawing.Size(120, 23);
+            this.chkFromClient.Size = new System.Drawing.Size(114, 23);
             this.chkFromClient.TabIndex = 4;
             this.chkFromClient.Text = "Capture from client";
-            this.chkFromClient.UseVisualStyleBackColor = true;
-            this.chkFromClient.CheckedChanged += new EventHandler(this.chkFromClient_CheckedChanged);
+            //this.chkFromClient.UseVisualStyleBackColor = true;
+            this.chkFromClient.CheckedChanged += new System.EventHandler(this.chkFromClient_CheckedChanged);
             // 
             // chkFromServer
             // 
             this.chkFromServer.AutoSize = true;
-            this.chkFromServer.Dock = DockStyle.Fill;
+            this.chkFromServer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkFromServer.Location = new System.Drawing.Point(0, 0);
             this.chkFromServer.Name = "chkFromServer";
-            this.chkFromServer.Size = new System.Drawing.Size(118, 23);
+            this.chkFromServer.Size = new System.Drawing.Size(124, 23);
             this.chkFromServer.TabIndex = 5;
             this.chkFromServer.Text = "Capture from server";
-            this.chkFromServer.UseVisualStyleBackColor = true;
-            this.chkFromServer.CheckedChanged += new EventHandler(this.chkFromServer_CheckedChanged);
+            //this.chkFromServer.UseVisualStyleBackColor = true;
+            this.chkFromServer.CheckedChanged += new System.EventHandler(this.chkFromServer_CheckedChanged);
             // 
             // btnToClient
             // 
-            this.btnToClient.Dock = DockStyle.Fill;
-            this.btnToClient.Location = new System.Drawing.Point(358, 3);
+            this.btnToClient.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnToClient.Location = new System.Drawing.Point(359, 3);
             this.btnToClient.Name = "btnToClient";
             this.btnToClient.Size = new System.Drawing.Size(84, 23);
             this.btnToClient.TabIndex = 6;
             this.btnToClient.Text = "Send to client";
-            this.btnToClient.UseVisualStyleBackColor = true;
-            this.btnToClient.Click += new EventHandler(this.btnToClient_Click);
+            //this.btnToClient.UseVisualStyleBackColor = true;
+            this.btnToClient.Click += new System.EventHandler(this.btnToClient_Click);
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
-            | AnchorStyles.Left
-            | AnchorStyles.Right;
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(16, 41);
             this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = Orientation.Horizontal;
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
@@ -225,30 +231,30 @@ namespace Grimoire.UI
             // panel1
             // 
             this.panel1.Controls.Add(this.chkFromServer);
-            this.panel1.Dock = DockStyle.Fill;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(118, 23);
+            this.panel1.Size = new System.Drawing.Size(124, 23);
             this.panel1.TabIndex = 10;
             // 
             // panel2
             // 
-            this.panel2.Dock = DockStyle.Fill;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(253, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(99, 23);
+            this.panel2.Size = new System.Drawing.Size(100, 23);
             this.panel2.TabIndex = 11;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Left
-            | AnchorStyles.Right;
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 90F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 90F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel1.Controls.Add(this.btnToClient, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 2, 0);
@@ -257,25 +263,25 @@ namespace Grimoire.UI
             this.tableLayoutPanel1.Location = new System.Drawing.Point(16, 6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(536, 29);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
             // PacketTamperer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 368);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.splitContainer1);
-            this.Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PacketTamperer";
             this.Text = "Packet Tamperer";
             this.TopMost = true;
-            this.FormClosing += new FormClosingEventHandler(this.PacketTamperer_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PacketTamperer_FormClosing);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            ((ISupportInitialize)this.splitContainer1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

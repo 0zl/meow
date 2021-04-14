@@ -1,4 +1,6 @@
-﻿namespace Grimoire.UI
+﻿using DarkUI.Controls;
+
+namespace Grimoire.UI
 {
     partial class EyeDropper
     {
@@ -31,7 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EyeDropper));
             this.eyeDropper1 = new Unity3.Eyedropper.EyeDropper();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new DarkUI.Controls.DarkTextBox();
             this.SuspendLayout();
             // 
             // eyeDropper1
@@ -57,6 +59,7 @@
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.richTextBox1.Location = new System.Drawing.Point(0, 34);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(235, 104);
@@ -93,7 +96,7 @@
 
         #endregion
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TextBox textBox1;
         public Unity3.Eyedropper.EyeDropper eyeDropper1;
+        private DarkTextBox textBox1;
     }
 }

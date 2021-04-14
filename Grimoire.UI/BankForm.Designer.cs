@@ -1,4 +1,6 @@
-﻿namespace Grimoire.UI
+﻿using DarkUI.Controls;
+
+namespace Grimoire.UI
 {
     partial class BankForm
     {
@@ -30,13 +32,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BankForm));
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label1 = new DarkLabel();
+            this.comboBox1 = new DarkComboBox();
+            this.button1 = new DarkButton();
+            this.comboBox2 = new DarkComboBox();
+            this.label2 = new DarkLabel();
+            this.button2 = new DarkButton();
+            this.checkBox1 = new DarkCheckBox();
             this.SuspendLayout();
             // 
             // label1

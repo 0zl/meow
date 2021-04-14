@@ -1,3 +1,5 @@
+using DarkUI.Controls;
+using DarkUI.Forms;
 using Grimoire.Networking;
 using System;
 using System.ComponentModel;
@@ -5,19 +7,19 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class PacketLogger : Form
+    public class PacketLogger : DarkForm
     {
         private IContainer components;
 
-        private TextBox txtPackets;
+        private DarkTextBox txtPackets;
 
-        private Button btnStart;
+        private DarkButton btnStart;
 
-        private Button btnStop;
+        private DarkButton btnStop;
 
-        private Button btnCopy;
+        private DarkButton btnCopy;
         private TableLayoutPanel tableLayoutPanel1;
-        private Button btnClear;
+        private DarkButton btnClear;
 
         public static PacketLogger Instance
         {
@@ -86,11 +88,11 @@ namespace Grimoire.UI
         private void InitializeComponent()
         {
             ComponentResourceManager resources = new ComponentResourceManager(typeof(PacketLogger));
-            this.txtPackets = new TextBox();
-            this.btnStart = new Button();
-            this.btnStop = new Button();
-            this.btnCopy = new Button();
-            this.btnClear = new Button();
+            this.txtPackets = new DarkTextBox();
+            this.btnStart = new DarkButton();
+            this.btnStop = new DarkButton();
+            this.btnCopy = new DarkButton();
+            this.btnClear = new DarkButton();
             this.tableLayoutPanel1 = new TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -114,7 +116,7 @@ namespace Grimoire.UI
             this.btnStart.Size = new System.Drawing.Size(99, 24);
             this.btnStart.TabIndex = 16;
             this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
+            //this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new EventHandler(this.btnStart_Click);
             // 
             // btnStop
@@ -125,7 +127,7 @@ namespace Grimoire.UI
             this.btnStop.Size = new System.Drawing.Size(99, 24);
             this.btnStop.TabIndex = 17;
             this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
+            //this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new EventHandler(this.btnStop_Click);
             // 
             // btnCopy
@@ -136,7 +138,7 @@ namespace Grimoire.UI
             this.btnCopy.Size = new System.Drawing.Size(99, 24);
             this.btnCopy.TabIndex = 18;
             this.btnCopy.Text = "Copy";
-            this.btnCopy.UseVisualStyleBackColor = true;
+            //this.btnCopy.UseVisualStyleBackColor = true;
             this.btnCopy.Click += new EventHandler(this.btnCopy_Click);
             // 
             // btnClear
@@ -147,7 +149,7 @@ namespace Grimoire.UI
             this.btnClear.Size = new System.Drawing.Size(99, 24);
             this.btnClear.TabIndex = 19;
             this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
+            //this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new EventHandler(this.btnClear_Click);
             // 
             // tableLayoutPanel1

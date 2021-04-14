@@ -1,4 +1,5 @@
-﻿using Grimoire.Botting;
+﻿using DarkUI.Forms;
+using Grimoire.Botting;
 using Grimoire.Game;
 using Grimoire.Tools;
 using Grimoire.Utils;
@@ -12,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public partial class CosmeticForm : Form
+    public partial class CosmeticForm : DarkForm
     {
         public static CosmeticForm Instance
         {
