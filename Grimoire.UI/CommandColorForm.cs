@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public partial class CommandColorForm : Form
+    public partial class CommandColorForm : DarkUI.Forms.DarkForm
     {
         public CommandColorForm()
         {

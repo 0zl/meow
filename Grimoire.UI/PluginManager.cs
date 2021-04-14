@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class PluginManager : Form
+    public class PluginManager : DarkUI.Forms.DarkForm
     {
         private IContainer components;
 

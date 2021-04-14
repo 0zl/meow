@@ -24,10 +24,11 @@ using System.Text.RegularExpressions;
 using Grimoire.UI;
 using System.Drawing.Drawing2D;
 using static Grimoire.Botting.Commands.Item.CmdWhitelist;
+using DarkUI.Forms;
 
 namespace Grimoire.UI
 {
-    public class BotManager : Form
+    public class BotManager : DarkForm
     {
         private IBotEngine _activeBotEngine = new Bot();
 
@@ -403,6 +404,8 @@ namespace Grimoire.UI
         private BotManager()
         {
             InitializeComponent();
+
+            
         }
 
         private void BotManager_Load(object sender, EventArgs e)

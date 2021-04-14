@@ -16,10 +16,11 @@ using EoL;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Drawing;
+using DarkUI.Forms;
 
 namespace Grimoire.UI
 {
-    public class Root : Form
+    public class Root : DarkForm
     {
         private IContainer components;
 
@@ -723,6 +724,13 @@ namespace Grimoire.UI
             this.btnMin.UseVisualStyleBackColor = false;
             this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // Root
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -914,7 +922,7 @@ namespace Grimoire.UI
             OptionsManager.EnemyMagnet = check;
             botManager.chkDisableAnims.Checked = check;
         }
-
+        
         [DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
