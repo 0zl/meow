@@ -16,11 +16,10 @@ using EoL;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Drawing;
-using DarkUI.Forms;
 
 namespace Grimoire.UI
 {
-    public class Root : DarkForm
+    public class Root : Form
     {
         private IContainer components;
 
@@ -68,7 +67,7 @@ namespace Grimoire.UI
         private ToolStripMenuItem startToolStripMenuItem;
         private ToolStripMenuItem stopToolStripMenuItem;
         private ToolStripMenuItem grimliteToolStripMenuItem;
-        private ToolStripMenuItem pluginsToolStripMenuItem;
+        public ToolStripMenuItem pluginsStrip;
         private Button btnMax;
         private Button btnExit;
         private Button btnMin;
@@ -286,7 +285,7 @@ namespace Grimoire.UI
             this.grimliteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bankToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pluginsStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMax = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
@@ -641,7 +640,7 @@ namespace Grimoire.UI
             this.packetsToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.bankToolStripMenuItem1,
-            this.pluginsToolStripMenuItem,
+            this.pluginsStrip,
             this.helpToolStripMenuItem});
             this.MenuMain.Location = new System.Drawing.Point(2, 2);
             this.MenuMain.Name = "MenuMain";
@@ -673,16 +672,16 @@ namespace Grimoire.UI
             // reloadToolStripMenuItem
             // 
             this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.reloadToolStripMenuItem.Text = "Reload";
             this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
             // 
-            // pluginsToolStripMenuItem
+            // pluginsStrip
             // 
-            this.pluginsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.pluginsToolStripMenuItem.Name = "pluginsToolStripMenuItem";
-            this.pluginsToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
-            this.pluginsToolStripMenuItem.Text = "Plugins";
+            this.pluginsStrip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.pluginsStrip.Name = "pluginsStrip";
+            this.pluginsStrip.Size = new System.Drawing.Size(58, 24);
+            this.pluginsStrip.Text = "Plugins";
             // 
             // btnMax
             // 
@@ -723,13 +722,6 @@ namespace Grimoire.UI
             this.btnMin.Text = "🗕";
             this.btnMin.UseVisualStyleBackColor = false;
             this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // Root
             // 

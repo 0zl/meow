@@ -12,7 +12,7 @@ using Grimoire.UI;
 
 namespace Grimoire.UI
 {
-    public partial class Notepad : DarkUI.Forms.DarkForm
+    public partial class Notepad : Form
     {
         public Notepad()
         {

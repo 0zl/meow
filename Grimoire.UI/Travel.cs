@@ -10,7 +10,7 @@ using System.Drawing;
 
 namespace Grimoire.UI
 {
-    public class Travel : DarkUI.Forms.DarkForm
+    public class Travel : Form
     {
         private IContainer components;
 
