@@ -97,14 +97,14 @@
     </Reference>
     <Reference Include="DarkUI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DarkUI.dll</HintPath>
+      <HintPath>Dependency\DarkUI.dll</HintPath>
     </Reference>
     <Reference Include="EasyHook, Version=2.7.7097.0, Culture=neutral, PublicKeyToken=4b580fca19d0b0c5, processorArchitecture=MSIL">
       <HintPath>packages\EasyHook.2.7.7097\lib\net40\EasyHook.dll</HintPath>
     </Reference>
     <Reference Include="FlatTabControl, Version=1.0.7774.42107, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\FlatTabControl.dll</HintPath>
+      <HintPath>Dependency\FlatTabControl.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.11.32.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>packages\HtmlAgilityPack.1.11.32\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -275,6 +275,7 @@
     <Compile Include="Grimoire.Game.Data\House.cs" />
     <Compile Include="Grimoire.Game.Data\Inventory.cs" />
     <Compile Include="Grimoire.Game.Data\InventoryItem.cs" />
+    <Compile Include="Grimoire.Game.Data\BankItem.cs" />
     <Compile Include="Grimoire.Game.Data\InventoryItemCombined.cs" />
     <Compile Include="Grimoire.Game.Data\ItemBase.cs" />
     <Compile Include="Grimoire.Game.Data\Monster.cs" />
@@ -326,6 +327,7 @@
     <Compile Include="Grimoire.Tools.Plugins\IGrimoirePlugin.cs" />
     <Compile Include="Grimoire.Tools\AutoRelogin.cs" />
     <Compile Include="Grimoire.Tools\BoolConverter.cs" />
+    <Compile Include="Grimoire.Tools\IntStringConverter.cs" />
     <Compile Include="Grimoire.Tools\Flash.cs" />
     <Compile Include="Grimoire.Tools\Grabber.cs" />
     <Compile Include="Grimoire.Tools\Hotkey.cs" />
