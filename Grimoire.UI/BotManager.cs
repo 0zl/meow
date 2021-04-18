@@ -1733,7 +1733,7 @@ namespace Grimoire.UI
             }
         }
 
-        private void AddCommand(IBotCommand cmd, bool Insert)
+        public void AddCommand(IBotCommand cmd, bool Insert = false)
         {
             if (Insert)
             {
@@ -1821,11 +1821,6 @@ namespace Grimoire.UI
             btnDown.Enabled = !IsRunning;
             btnClear.Enabled = !IsRunning;
             btnRemove.Enabled = !IsRunning;
-        }
-
-        public void AddCommand(IBotCommand cmd)
-        {
-            lstCommands.Items.Add(cmd);
         }
 
         public void AddQuest(int QuestID, string ItemID = null)
