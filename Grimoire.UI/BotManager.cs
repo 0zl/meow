@@ -324,6 +324,10 @@ namespace Grimoire.UI
         private Panel panel4;
         public DarkCheckBox chkPickupAcTag;
         private DarkButton btnSpammerAdd;
+        private DarkGroupBox darkGroupBox1;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Label label21;
+        private DarkButton btnReturnCmd;
         private DarkButton btnAttack;
         #endregion
 
@@ -2155,6 +2159,10 @@ namespace Grimoire.UI
             this.toggleTabpagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSpammerAdd = new DarkUI.Controls.DarkButton();
+            this.darkGroupBox1 = new DarkUI.Controls.DarkGroupBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label21 = new System.Windows.Forms.Label();
+            this.btnReturnCmd = new DarkUI.Controls.DarkButton();
             this.tabControl1.SuspendLayout();
             this.tabCombat.SuspendLayout();
             this.pnlCombat.SuspendLayout();
@@ -2213,6 +2221,8 @@ namespace Grimoire.UI
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.BotManagerMenuStrip.SuspendLayout();
+            this.darkGroupBox1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstCommands
@@ -3732,6 +3742,7 @@ namespace Grimoire.UI
             // pnlMisc
             // 
             this.pnlMisc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.pnlMisc.Controls.Add(this.btnReturnCmd);
             this.pnlMisc.Controls.Add(this.label19);
             this.pnlMisc.Controls.Add(this.btnDecreaseInt);
             this.pnlMisc.Controls.Add(this.btnIncreaseInt);
@@ -5379,17 +5390,7 @@ namespace Grimoire.UI
             // tabMisc2
             // 
             this.tabMisc2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.tabMisc2.Controls.Add(this.numDelayedPacket);
-            this.tabMisc2.Controls.Add(this.btnDelayedPacket);
-            this.tabMisc2.Controls.Add(this.numSpammerDelay);
-            this.tabMisc2.Controls.Add(this.btnSpammerRefresh);
-            this.tabMisc2.Controls.Add(this.txtPacketSpammer);
-            this.tabMisc2.Controls.Add(this.btnSpammerAdd);
-            this.tabMisc2.Controls.Add(this.btnSpammerStop);
-            this.tabMisc2.Controls.Add(this.btnSpammerStart);
-            this.tabMisc2.Controls.Add(this.btnSpammerRemove);
-            this.tabMisc2.Controls.Add(this.btnSpammerSetDelay);
-            this.tabMisc2.Controls.Add(this.btnSpammerReset);
+            this.tabMisc2.Controls.Add(this.darkGroupBox1);
             this.tabMisc2.ForeColor = System.Drawing.Color.Gainsboro;
             this.tabMisc2.Location = new System.Drawing.Point(4, 23);
             this.tabMisc2.Margin = new System.Windows.Forms.Padding(0);
@@ -5411,7 +5412,7 @@ namespace Grimoire.UI
             0,
             0,
             65536});
-            this.numDelayedPacket.Location = new System.Drawing.Point(278, 64);
+            this.numDelayedPacket.Location = new System.Drawing.Point(129, 90);
             this.numDelayedPacket.LoopValues = false;
             this.numDelayedPacket.Maximum = new decimal(new int[] {
             100000,
@@ -5424,7 +5425,7 @@ namespace Grimoire.UI
             0,
             0});
             this.numDelayedPacket.Name = "numDelayedPacket";
-            this.numDelayedPacket.Size = new System.Drawing.Size(48, 20);
+            this.numDelayedPacket.Size = new System.Drawing.Size(50, 20);
             this.numDelayedPacket.TabIndex = 58;
             this.numDelayedPacket.Value = new decimal(new int[] {
             1000,
@@ -5435,9 +5436,9 @@ namespace Grimoire.UI
             // btnDelayedPacket
             // 
             this.btnDelayedPacket.Checked = false;
-            this.btnDelayedPacket.Location = new System.Drawing.Point(154, 62);
+            this.btnDelayedPacket.Location = new System.Drawing.Point(3, 90);
             this.btnDelayedPacket.Name = "btnDelayedPacket";
-            this.btnDelayedPacket.Size = new System.Drawing.Size(118, 23);
+            this.btnDelayedPacket.Size = new System.Drawing.Size(120, 23);
             this.btnDelayedPacket.TabIndex = 57;
             this.btnDelayedPacket.Text = "Add Delayed Packet";
             // 
@@ -5453,7 +5454,7 @@ namespace Grimoire.UI
             0,
             0,
             65536});
-            this.numSpammerDelay.Location = new System.Drawing.Point(104, 65);
+            this.numSpammerDelay.Location = new System.Drawing.Point(46, 61);
             this.numSpammerDelay.LoopValues = false;
             this.numSpammerDelay.Maximum = new decimal(new int[] {
             100000,
@@ -5466,7 +5467,7 @@ namespace Grimoire.UI
             0,
             0});
             this.numSpammerDelay.Name = "numSpammerDelay";
-            this.numSpammerDelay.Size = new System.Drawing.Size(44, 20);
+            this.numSpammerDelay.Size = new System.Drawing.Size(50, 20);
             this.numSpammerDelay.TabIndex = 56;
             this.numSpammerDelay.Value = new decimal(new int[] {
             100,
@@ -5477,9 +5478,9 @@ namespace Grimoire.UI
             // btnSpammerRefresh
             // 
             this.btnSpammerRefresh.Checked = false;
-            this.btnSpammerRefresh.Location = new System.Drawing.Point(216, 6);
+            this.btnSpammerRefresh.Location = new System.Drawing.Point(79, 3);
             this.btnSpammerRefresh.Name = "btnSpammerRefresh";
-            this.btnSpammerRefresh.Size = new System.Drawing.Size(86, 23);
+            this.btnSpammerRefresh.Size = new System.Drawing.Size(70, 23);
             this.btnSpammerRefresh.TabIndex = 55;
             this.btnSpammerRefresh.Text = "Restart";
             this.btnSpammerRefresh.Click += new System.EventHandler(this.btnSpammer_Click);
@@ -5488,18 +5489,18 @@ namespace Grimoire.UI
             // 
             this.txtPacketSpammer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPacketSpammer.Location = new System.Drawing.Point(154, 38);
+            this.txtPacketSpammer.Location = new System.Drawing.Point(3, 119);
             this.txtPacketSpammer.Name = "txtPacketSpammer";
-            this.txtPacketSpammer.Size = new System.Drawing.Size(284, 20);
+            this.txtPacketSpammer.Size = new System.Drawing.Size(222, 20);
             this.txtPacketSpammer.TabIndex = 54;
             this.txtPacketSpammer.Text = "%xt%zm%cmd%1%tfer%PLAYERNAME%MAP-1e99%";
             // 
             // btnSpammerStop
             // 
             this.btnSpammerStop.Checked = false;
-            this.btnSpammerStop.Location = new System.Drawing.Point(376, 6);
+            this.btnSpammerStop.Location = new System.Drawing.Point(155, 3);
             this.btnSpammerStop.Name = "btnSpammerStop";
-            this.btnSpammerStop.Size = new System.Drawing.Size(65, 23);
+            this.btnSpammerStop.Size = new System.Drawing.Size(70, 23);
             this.btnSpammerStop.TabIndex = 0;
             this.btnSpammerStop.Text = "Stop";
             this.btnSpammerStop.Click += new System.EventHandler(this.btnSpammer_Click);
@@ -5507,9 +5508,9 @@ namespace Grimoire.UI
             // btnSpammerStart
             // 
             this.btnSpammerStart.Checked = false;
-            this.btnSpammerStart.Location = new System.Drawing.Point(308, 6);
+            this.btnSpammerStart.Location = new System.Drawing.Point(3, 3);
             this.btnSpammerStart.Name = "btnSpammerStart";
-            this.btnSpammerStart.Size = new System.Drawing.Size(62, 23);
+            this.btnSpammerStart.Size = new System.Drawing.Size(70, 23);
             this.btnSpammerStart.TabIndex = 0;
             this.btnSpammerStart.Text = "Start";
             this.btnSpammerStart.Click += new System.EventHandler(this.btnSpammer_Click);
@@ -5517,9 +5518,9 @@ namespace Grimoire.UI
             // btnSpammerRemove
             // 
             this.btnSpammerRemove.Checked = false;
-            this.btnSpammerRemove.Location = new System.Drawing.Point(95, 6);
+            this.btnSpammerRemove.Location = new System.Drawing.Point(79, 32);
             this.btnSpammerRemove.Name = "btnSpammerRemove";
-            this.btnSpammerRemove.Size = new System.Drawing.Size(115, 23);
+            this.btnSpammerRemove.Size = new System.Drawing.Size(70, 23);
             this.btnSpammerRemove.TabIndex = 0;
             this.btnSpammerRemove.Text = "Remove";
             this.btnSpammerRemove.Click += new System.EventHandler(this.btnSpammer_Click);
@@ -5527,9 +5528,9 @@ namespace Grimoire.UI
             // btnSpammerSetDelay
             // 
             this.btnSpammerSetDelay.Checked = false;
-            this.btnSpammerSetDelay.Location = new System.Drawing.Point(6, 62);
+            this.btnSpammerSetDelay.Location = new System.Drawing.Point(155, 32);
             this.btnSpammerSetDelay.Name = "btnSpammerSetDelay";
-            this.btnSpammerSetDelay.Size = new System.Drawing.Size(92, 23);
+            this.btnSpammerSetDelay.Size = new System.Drawing.Size(70, 23);
             this.btnSpammerSetDelay.TabIndex = 0;
             this.btnSpammerSetDelay.Text = "Set Delay";
             this.btnSpammerSetDelay.Click += new System.EventHandler(this.btnSpammer_Click);
@@ -5537,9 +5538,9 @@ namespace Grimoire.UI
             // btnSpammerReset
             // 
             this.btnSpammerReset.Checked = false;
-            this.btnSpammerReset.Location = new System.Drawing.Point(6, 6);
+            this.btnSpammerReset.Location = new System.Drawing.Point(3, 32);
             this.btnSpammerReset.Name = "btnSpammerReset";
-            this.btnSpammerReset.Size = new System.Drawing.Size(83, 23);
+            this.btnSpammerReset.Size = new System.Drawing.Size(70, 23);
             this.btnSpammerReset.TabIndex = 0;
             this.btnSpammerReset.Text = "Clear";
             this.btnSpammerReset.Click += new System.EventHandler(this.btnSpammer_Click);
@@ -5802,12 +5803,62 @@ namespace Grimoire.UI
             // btnSpammerAdd
             // 
             this.btnSpammerAdd.Checked = false;
-            this.btnSpammerAdd.Location = new System.Drawing.Point(6, 91);
+            this.btnSpammerAdd.Location = new System.Drawing.Point(102, 61);
             this.btnSpammerAdd.Name = "btnSpammerAdd";
-            this.btnSpammerAdd.Size = new System.Drawing.Size(142, 23);
+            this.btnSpammerAdd.Size = new System.Drawing.Size(120, 23);
             this.btnSpammerAdd.TabIndex = 0;
             this.btnSpammerAdd.Text = "Add Packet";
             this.btnSpammerAdd.Click += new System.EventHandler(this.btnSpammer_Click);
+            // 
+            // darkGroupBox1
+            // 
+            this.darkGroupBox1.Controls.Add(this.flowLayoutPanel1);
+            this.darkGroupBox1.Location = new System.Drawing.Point(6, 6);
+            this.darkGroupBox1.Name = "darkGroupBox1";
+            this.darkGroupBox1.Size = new System.Drawing.Size(234, 165);
+            this.darkGroupBox1.TabIndex = 59;
+            this.darkGroupBox1.TabStop = false;
+            this.darkGroupBox1.Text = "Packet Spammer";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.btnSpammerStart);
+            this.flowLayoutPanel1.Controls.Add(this.btnSpammerRefresh);
+            this.flowLayoutPanel1.Controls.Add(this.btnSpammerStop);
+            this.flowLayoutPanel1.Controls.Add(this.btnSpammerReset);
+            this.flowLayoutPanel1.Controls.Add(this.btnSpammerRemove);
+            this.flowLayoutPanel1.Controls.Add(this.btnSpammerSetDelay);
+            this.flowLayoutPanel1.Controls.Add(this.label21);
+            this.flowLayoutPanel1.Controls.Add(this.numSpammerDelay);
+            this.flowLayoutPanel1.Controls.Add(this.btnSpammerAdd);
+            this.flowLayoutPanel1.Controls.Add(this.btnDelayedPacket);
+            this.flowLayoutPanel1.Controls.Add(this.numDelayedPacket);
+            this.flowLayoutPanel1.Controls.Add(this.txtPacketSpammer);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(228, 146);
+            this.flowLayoutPanel1.TabIndex = 60;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(3, 58);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(37, 13);
+            this.label21.TabIndex = 59;
+            this.label21.Text = "Delay:";
+            // 
+            // btnReturnCmd
+            // 
+            this.btnReturnCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReturnCmd.Checked = false;
+            this.btnReturnCmd.Location = new System.Drawing.Point(177, 263);
+            this.btnReturnCmd.Name = "btnReturnCmd";
+            this.btnReturnCmd.Size = new System.Drawing.Size(128, 22);
+            this.btnReturnCmd.TabIndex = 160;
+            this.btnReturnCmd.Text = "Return (command)";
+            this.btnReturnCmd.Click += new System.EventHandler(this.btnReturnCmd_Click);
             // 
             // BotManager
             // 
@@ -5882,7 +5933,6 @@ namespace Grimoire.UI
             this.pnlSaved.ResumeLayout(false);
             this.pnlSaved.PerformLayout();
             this.tabMisc2.ResumeLayout(false);
-            this.tabMisc2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDelayedPacket)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSpammerDelay)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -5899,6 +5949,9 @@ namespace Grimoire.UI
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.BotManagerMenuStrip.ResumeLayout(false);
+            this.darkGroupBox1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -6774,6 +6827,11 @@ namespace Grimoire.UI
             };
 
             AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
+        }
+
+        private void btnReturnCmd_Click(object sender, EventArgs e)
+        {
+            AddCommand(new CmdReturn(), (ModifierKeys & Keys.Control) == Keys.Control);
         }
     }
 }
