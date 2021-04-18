@@ -1,3 +1,5 @@
+using DarkUI.Controls;
+using DarkUI.Forms;
 using Grimoire.Botting;
 using Grimoire.Botting.Commands.Map;
 using Grimoire.Game;
@@ -17,7 +19,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class Hotkeys : Form
+    public class Hotkeys : DarkForm
     {
         public static readonly Action[] Actions = new Action[18]
         {
@@ -149,19 +151,19 @@ namespace Grimoire.UI
 
         private IContainer components;
 
-        private ListBox lstKeys;
+        private DarkListBox lstKeys;
 
-        private ComboBox cbKeys;
+        private DarkComboBox cbKeys;
 
-        private ComboBox cbActions;
+        private DarkComboBox cbActions;
 
-        private Button btnAdd;
+        private DarkButton btnAdd;
 
-        private Button btnRemove;
+        private DarkButton btnRemove;
 
         private TableLayoutPanel tableLayoutPanel1;
 
-        private Button btnSave;
+        private DarkButton btnSave;
 
         public static Hotkeys Instance
         {
@@ -309,12 +311,12 @@ namespace Grimoire.UI
         private void InitializeComponent()
         {
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Hotkeys));
-            this.lstKeys = new ListBox();
-            this.cbKeys = new ComboBox();
-            this.cbActions = new ComboBox();
-            this.btnAdd = new Button();
-            this.btnRemove = new Button();
-            this.btnSave = new Button();
+            this.lstKeys = new DarkListBox();
+            this.cbKeys = new DarkComboBox();
+            this.cbActions = new DarkComboBox();
+            this.btnAdd = new DarkButton();
+            this.btnRemove = new DarkButton();
+            this.btnSave = new DarkButton();
             this.tableLayoutPanel1 = new TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -431,7 +433,7 @@ namespace Grimoire.UI
             this.btnAdd.Size = new Size(109, 21);
             this.btnAdd.TabIndex = 31;
             this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            //this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new EventHandler(this.btnAdd_Click);
             // 
             // btnRemove
@@ -442,7 +444,7 @@ namespace Grimoire.UI
             this.btnRemove.Size = new Size(109, 21);
             this.btnRemove.TabIndex = 32;
             this.btnRemove.Text = "Remove";
-            this.btnRemove.UseVisualStyleBackColor = true;
+            //this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new EventHandler(this.btnRemove_Click);
             // 
             // btnSave
@@ -454,7 +456,7 @@ namespace Grimoire.UI
             this.btnSave.Size = new Size(230, 23);
             this.btnSave.TabIndex = 33;
             this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
+            //this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new EventHandler(this.btnSave_Click);
             // 
             // tableLayoutPanel1

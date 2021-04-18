@@ -1,3 +1,5 @@
+using DarkUI.Controls;
+using DarkUI.Forms;
 using Grimoire.Networking;
 using Grimoire.Tools;
 using System;
@@ -10,31 +12,31 @@ using System.Xml.Linq;
 
 namespace Grimoire.UI
 {
-    public class PacketSpammer : Form
+    public class PacketSpammer : DarkForm
     {
         private IContainer components;
 
-        public ListBox lstPackets;
+        public DarkListBox lstPackets;
 
-        public TextBox txtPacket;
+        public DarkTextBox txtPacket;
 
-        public Button btnAdd;
+        public DarkButton btnAdd;
 
-        public Button btnClear;
+        public DarkButton btnClear;
 
-        public Button btnLoad;
+        public DarkButton btnLoad;
 
-        public Button btnSave;
+        public DarkButton btnSave;
 
-        public Button btnStart;
+        public DarkButton btnStart;
 
-        public Button btnStop;
+        public DarkButton btnStop;
 
-        public NumericUpDown numDelay;
+        public DarkNumericUpDown numDelay;
 
-        private Button btnSend;
+        private DarkButton btnSend;
         private TableLayoutPanel tableLayoutPanel1;
-        public Button btnRemove;
+        public DarkButton btnRemove;
 
         public static PacketSpammer Instance
         {
@@ -196,40 +198,45 @@ namespace Grimoire.UI
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(PacketSpammer));
-            this.lstPackets = new ListBox();
-            this.txtPacket = new TextBox();
-            this.btnAdd = new Button();
-            this.btnClear = new Button();
-            this.btnLoad = new Button();
-            this.btnSave = new Button();
-            this.btnStart = new Button();
-            this.btnStop = new Button();
-            this.numDelay = new NumericUpDown();
-            this.btnSend = new Button();
-            this.btnRemove = new Button();
-            this.tableLayoutPanel1 = new TableLayoutPanel();
-            ((ISupportInitialize)this.numDelay).BeginInit();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PacketSpammer));
+            this.lstPackets = new DarkUI.Controls.DarkListBox(this.components);
+            this.txtPacket = new DarkUI.Controls.DarkTextBox();
+            this.btnAdd = new DarkUI.Controls.DarkButton();
+            this.btnClear = new DarkUI.Controls.DarkButton();
+            this.btnLoad = new DarkUI.Controls.DarkButton();
+            this.btnSave = new DarkUI.Controls.DarkButton();
+            this.btnStart = new DarkUI.Controls.DarkButton();
+            this.btnStop = new DarkUI.Controls.DarkButton();
+            this.numDelay = new DarkUI.Controls.DarkNumericUpDown();
+            this.btnSend = new DarkUI.Controls.DarkButton();
+            this.btnRemove = new DarkUI.Controls.DarkButton();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            ((System.ComponentModel.ISupportInitialize)(this.numDelay)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstPackets
             // 
-            this.lstPackets.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
-            | AnchorStyles.Left
-            | AnchorStyles.Right;
-            this.lstPackets.BorderStyle = BorderStyle.FixedSingle;
-            this.lstPackets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            this.lstPackets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstPackets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.lstPackets.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstPackets.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lstPackets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstPackets.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.lstPackets.FormattingEnabled = true;
+            this.lstPackets.ItemHeight = 18;
             this.lstPackets.Location = new System.Drawing.Point(12, 12);
             this.lstPackets.Name = "lstPackets";
-            this.lstPackets.Size = new System.Drawing.Size(276, 93);
+            this.lstPackets.Size = new System.Drawing.Size(276, 92);
             this.lstPackets.TabIndex = 0;
             // 
             // txtPacket
             // 
-            this.txtPacket.Anchor = AnchorStyles.Bottom | AnchorStyles.Left
-            | AnchorStyles.Right;
+            this.txtPacket.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPacket.Location = new System.Drawing.Point(12, 111);
             this.txtPacket.Name = "txtPacket";
             this.txtPacket.Size = new System.Drawing.Size(276, 20);
@@ -237,74 +244,80 @@ namespace Grimoire.UI
             // 
             // btnAdd
             // 
-            this.btnAdd.Dock = DockStyle.Fill;
+            this.btnAdd.Checked = false;
+            this.btnAdd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAdd.Location = new System.Drawing.Point(208, 3);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(64, 23);
             this.btnAdd.TabIndex = 28;
             this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnClear
             // 
-            this.btnClear.Dock = DockStyle.Fill;
+            this.btnClear.Checked = false;
+            this.btnClear.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnClear.Location = new System.Drawing.Point(140, 3);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(62, 23);
             this.btnClear.TabIndex = 29;
             this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new EventHandler(this.btnClear_Click);
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnLoad
             // 
-            this.btnLoad.Dock = DockStyle.Fill;
+            this.btnLoad.Checked = false;
+            this.btnLoad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLoad.Location = new System.Drawing.Point(140, 32);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(62, 23);
             this.btnLoad.TabIndex = 30;
             this.btnLoad.Text = "Load";
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new EventHandler(this.btnLoad_Click);
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Dock = DockStyle.Fill;
+            this.btnSave.Checked = false;
+            this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.Location = new System.Drawing.Point(208, 32);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(64, 23);
             this.btnSave.TabIndex = 31;
             this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnStart
             // 
-            this.btnStart.Dock = DockStyle.Fill;
+            this.btnStart.Checked = false;
+            this.btnStart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStart.Location = new System.Drawing.Point(208, 61);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(64, 25);
             this.btnStart.TabIndex = 32;
             this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new EventHandler(this.btnStart_Click);
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // btnStop
             // 
-            this.btnStop.Dock = DockStyle.Fill;
+            this.btnStop.Checked = false;
+            this.btnStop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStop.Location = new System.Drawing.Point(140, 61);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(62, 25);
             this.btnStop.TabIndex = 33;
             this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new EventHandler(this.btnStop_Click);
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // numDelay
             // 
-            this.numDelay.Dock = DockStyle.Fill;
+            this.numDelay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numDelay.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
             this.numDelay.Location = new System.Drawing.Point(3, 3);
+            this.numDelay.LoopValues = false;
             this.numDelay.Maximum = new decimal(new int[] {
             61000,
             0,
@@ -326,36 +339,35 @@ namespace Grimoire.UI
             // 
             // btnSend
             // 
-            this.btnSend.Dock = DockStyle.Fill;
-            this.btnSend.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSend.Checked = false;
+            this.btnSend.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSend.Location = new System.Drawing.Point(3, 61);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(68, 25);
             this.btnSend.TabIndex = 35;
             this.btnSend.Text = "Send once";
-            this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new EventHandler(this.btnSend_Click);
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // btnRemove
             // 
-            this.btnRemove.Dock = DockStyle.Fill;
+            this.btnRemove.Checked = false;
+            this.btnRemove.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRemove.Location = new System.Drawing.Point(77, 3);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(57, 23);
             this.btnRemove.TabIndex = 36;
             this.btnRemove.Text = "Remove";
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new EventHandler(this.btnRemove_Click);
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left
-            | AnchorStyles.Right;
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Controls.Add(this.btnAdd, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnRemove, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnSave, 3, 1);
@@ -368,27 +380,27 @@ namespace Grimoire.UI
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 137);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(275, 89);
             this.tableLayoutPanel1.TabIndex = 37;
             // 
             // PacketSpammer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(299, 228);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.txtPacket);
             this.Controls.Add(this.lstPackets);
-            this.Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "PacketSpammer";
             this.Text = "Packet spammer";
             this.TopMost = true;
-            this.FormClosing += new FormClosingEventHandler(this.PacketSpammer_FormClosing);
-            ((ISupportInitialize)this.numDelay).EndInit();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PacketSpammer_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.numDelay)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

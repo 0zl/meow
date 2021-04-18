@@ -1,4 +1,5 @@
-﻿using Grimoire.Botting;
+﻿using DarkUI.Forms;
+using Grimoire.Botting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public partial class CommandColorForm : Form
+    public partial class CommandColorForm : DarkForm
     {
         public CommandColorForm()
         {

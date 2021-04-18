@@ -1,10 +1,12 @@
+using DarkUI.Controls;
+using DarkUI.Forms;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class RawCommandEditor : Form
+    public class RawCommandEditor : DarkForm
     {
         private IContainer components;
 
@@ -71,9 +73,9 @@ namespace Grimoire.UI
         private void InitializeComponent()
         {
             ComponentResourceManager resources = new ComponentResourceManager(typeof(RawCommandEditor));
-            btnOK = new Button();
-            btnCancel = new Button();
-            txtCmd = new TextBox();
+            btnOK = new DarkButton();
+            btnCancel = new DarkButton();
+            txtCmd = new DarkTextBox();
             SuspendLayout();
             btnOK.DialogResult = DialogResult.OK;
             btnOK.Location = new System.Drawing.Point(197, 166);

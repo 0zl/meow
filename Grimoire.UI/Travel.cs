@@ -7,10 +7,12 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using DarkUI.Forms;
+using DarkUI.Controls;
 
 namespace Grimoire.UI
 {
-    public class Travel : Form
+    public class Travel : DarkForm
     {
         private IContainer components;
 
@@ -187,23 +189,23 @@ namespace Grimoire.UI
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Travel));
-            this.btnDage = new Button();
-            this.btnEscherion = new Button();
-            this.btnBinky = new Button();
-            this.btnNulgath = new Button();
-            this.btnSwindle = new Button();
-            this.btnTaro = new Button();
-            this.btnTwins = new Button();
-            this.btnTercess = new Button();
-            this.grpTravel = new GroupBox();
-            this.numPriv = new NumericUpDown();
-            this.btnPolish = new Button();
-            this.btnLae = new Button();
-            this.btnCarnage = new Button();
-            this.chkPriv = new CheckBox();
-            this.AweTravel = new Button();
-            this.aweGroup = new GroupBox();
-            this.panel1 = new Panel();
+            this.btnDage = new DarkButton();
+            this.btnEscherion = new DarkButton();
+            this.btnBinky = new DarkButton();
+            this.btnNulgath = new DarkButton();
+            this.btnSwindle = new DarkButton();
+            this.btnTaro = new DarkButton();
+            this.btnTwins = new DarkButton();
+            this.btnTercess = new DarkButton();
+            this.grpTravel = new DarkGroupBox();
+            this.numPriv = new DarkNumericUpDown();
+            this.btnPolish = new DarkButton();
+            this.btnLae = new DarkButton();
+            this.btnCarnage = new DarkButton();
+            this.chkPriv = new DarkCheckBox();
+            this.AweTravel = new DarkButton();
+            this.aweGroup = new DarkGroupBox();
+            this.panel1 = new DarkPanel();
             this.tableLayoutPanel1 = new TableLayoutPanel();
             this.aweLucky = new RadioButton();
             this.aweHybrid = new RadioButton();
