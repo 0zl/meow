@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>WinExe</OutputType>
     <LangVersion>8.0</LangVersion>
-    <AssemblyName>Grimlite</AssemblyName>
+    <AssemblyName>Grimoire</AssemblyName>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <WarningLevel>4</WarningLevel>
@@ -247,6 +247,7 @@
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdInt.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdLabel.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdLoadBot.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc\CmdReturn.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdLog.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdLogout.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdPacketDelay.cs" />

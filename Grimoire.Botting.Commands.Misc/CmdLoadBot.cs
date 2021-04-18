@@ -32,15 +32,18 @@ namespace Grimoire.Botting.Commands.Misc
                     {
                         value = await reader.ReadToEndAsync();
                     }
-                    Configuration configuration = JsonConvert.DeserializeObject<Configuration>(value, new JsonSerializerSettings
+                    JsonSerializerSettings serializerSettings = new JsonSerializerSettings
                     {
                         DefaultValueHandling = DefaultValueHandling.Ignore,
                         NullValueHandling = NullValueHandling.Ignore,
                         TypeNameHandling = TypeNameHandling.All
-                    });
-                    if (configuration != null && configuration.Commands.Count > 0)
+                    };
+                    Configuration newConfiguration = JsonConvert.DeserializeObject<Configuration>(value, serializerSettings);
+                    if (newConfiguration != null && newConfiguration.Commands.Count > 0)
                     {
-                        instance.Configuration = configuration;
+                        instance.OldConfiguration = instance.Configuration;
+                        instance.Configuration = newConfiguration;
+                        instance.OldIndex = instance.Index;
                         instance.Index = -1;
                         instance.LoadBankItems();
                         instance.LoadAllQuests();

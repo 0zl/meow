@@ -18,8 +18,10 @@ namespace Grimoire.Botting
 
         private int _index;
 
-        private Configuration _config;
+        private int _Oldindex;
 
+        private Configuration _config;
+        
         private bool _isRunning;
 
         private CancellationTokenSource _ctsBot;
@@ -40,7 +42,35 @@ namespace Grimoire.Botting
             }
         }
 
+        public int OldIndex
+        {
+            get
+            {
+                return _Oldindex;
+            }
+            set
+            {
+                _Oldindex = (value < OldConfiguration.Commands.Count) ? value : 0;
+            }
+        }
+
         public Configuration Configuration
+        {
+            get
+            {
+                return _config;
+            }
+            set
+            {
+                if (value != _config)
+                {
+                    _config = value;
+                    this.ConfigurationChanged?.Invoke(_config);
+                }
+            }
+        }
+
+        public Configuration OldConfiguration
         {
             get
             {
