@@ -10,7 +10,19 @@ namespace Grimoire.Botting
             set;
         }
 
+        int OldIndex
+        {
+            get;
+            set;
+        }
+
         int Index
+        {
+            get;
+            set;
+        }
+
+        Configuration OldConfiguration
         {
             get;
             set;
