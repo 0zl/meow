@@ -27,26 +27,37 @@ namespace Grimoire.Botting.Commands.Item
             set;
         }
 
+        private bool ItemNameOrNot()
+        {
+            if (state == State.On || state == State.Off || state == State.Toggle) return false;
+            else return true;
+        }
+
         public async Task Execute(IBotEngine instance)
         {
             switch (state)
             {
                 case State.On:
+                    instance.Configuration.EnablePickup = true;
                     break;
                 case State.Off:
+                    instance.Configuration.EnablePickup = true;
                     break;
                 case State.Toggle:
+                    instance.Configuration.EnablePickup = !instance.Configuration.EnablePickup;
                     break;
                 case State.Add:
+                    instance.Configuration.Drops.Add(ItemName); 
                     break;
                 case State.Remove:
+                    instance.Configuration.Drops.Remove(ItemName);
                     break;
             }
         }
 
         public override string ToString()
         {
-            return "Bank swap {" + state + "}";
+            return $"Whitelist {(ItemNameOrNot() ? $"{state.ToString()}: {ItemName}" : state.ToString())}";
         }
     }
 }
