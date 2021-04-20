@@ -6392,14 +6392,35 @@ namespace Grimoire.UI
             }
         }
 
-        private Dictionary<string, Color> CurrentColors = new Dictionary<string, Color>();
+        public Dictionary<string, Color> CurrentColors = new Dictionary<string, Color>();
 
-        private Color GetCurrentColor(string cmd)
+        public Color GetCurrentColor(string cmd)
         {
             if (!CurrentColors.ContainsKey(cmd))
-                CurrentColors[cmd] = Color.FromArgb(GetColor(cmd));
+                CurrentColors[cmd] = GetColor(cmd);
             return CurrentColors[cmd];
-        } 
+        }
+
+        public Color GetColor(string name)
+        {
+            Config c = Config.Load(Application.StartupPath + "\\config.cfg");
+            return Color.FromArgb(int.Parse(c.Get(name + "Color") ?? "FFDCDCDC", System.Globalization.NumberStyles.HexNumber));
+        }
+
+        public Dictionary<string, bool> CurrentCentered = new Dictionary<string, bool>();
+
+        private bool GetCurrentBoolCentered(string cmd)
+        {
+            if (!CurrentCentered.ContainsKey(cmd))
+                CurrentCentered[cmd] = GetBoolCentered(cmd);
+            return CurrentCentered[cmd];
+        }
+
+        private bool GetBoolCentered(string name)
+        {
+            Config c = Config.Load(Application.StartupPath + "\\config.cfg");
+            return bool.Parse(c.Get(name + "Centered") ?? "false");
+        }
 
         private void lstCommands_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -6423,8 +6444,10 @@ namespace Grimoire.UI
             IBotCommand cmd = (IBotCommand)lstCommands.Items[e.Index];
             string[] count = cmd.GetType().ToString().Split('.');
             string scmd = count[count.Count() - 1].Replace("Cmd", "");
-            string WindowText = SystemColors.WindowText.ToArgb().ToString();
+            //string WindowText = SystemColors.WindowText.ToArgb().ToString();
             SolidBrush color = new SolidBrush(GetCurrentColor(scmd));
+            SolidBrush varColor = new SolidBrush(GetCurrentColor("Variable"));
+            SolidBrush eVarColor = new SolidBrush(GetCurrentColor("ExtendedVariable"));
             SolidBrush indexcolor = new SolidBrush(GetCurrentColor("Index"));
             RectangleF region = e.Bounds;
             Font font = new Font(e.Font.FontFamily, e.Font.Size, FontStyle.Regular);
@@ -6521,27 +6544,26 @@ namespace Grimoire.UI
                 region = new RectangleF(region.X + first.GetBounds(e.Graphics).Width + 3, region.Y, region.Width, region.Height);
             }
 
-            if (GetBoolCentered(scmd))
-            {
-                e.Graphics.DrawString(lstCommands.Items[e.Index].ToString(), font, color, e.Bounds, centered);
-                return;
+            // Draw the second string (rest of the string, in this case Command type).
+            string cmdText = lstCommands.Items[e.Index].ToString();
+            string[] toDraw;
+            if (cmdText.Contains(':')) {
+                toDraw = lstCommands.Items[e.Index].ToString().Split(':');
+                Region second = DrawString(e.Graphics, toDraw[0], font, color, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
+                region = new RectangleF(region.X + second.GetBounds(e.Graphics).Width + 3, region.Y, region.Width, region.Height);
+                if(toDraw[1].Contains(","))
+                {
+                    toDraw = toDraw[1].Split(',');
+                    Region third = DrawString(e.Graphics, toDraw[0], font, varColor, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
+                    region = new RectangleF(region.X + third.GetBounds(e.Graphics).Width + 3, region.Y, region.Width, region.Height);
+                    DrawString(e.Graphics, toDraw[1], font, eVarColor, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
+                }
+                else
+                    DrawString(e.Graphics, toDraw[1], font, varColor, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
             }
+            else
+                DrawString(e.Graphics, cmdText, font, color, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
 
-            // Draw the second string (rest of the string, in this case Command text).
-            DrawString(e.Graphics, lstCommands.Items[e.Index].ToString(), font, color, region, StringFormat.GenericDefault);
-        }
-
-        private int GetColor(string name)
-        {
-            Config c = Config.Load(Application.StartupPath + "\\config.cfg");
-            string WindowText = SystemColors.WindowText.ToArgb().ToString("X");
-            return int.Parse(c.Get(name + "Color") ?? WindowText, System.Globalization.NumberStyles.HexNumber);
-        }
-
-        private bool GetBoolCentered(string name)
-        {
-            Config c = Config.Load(Application.StartupPath + "\\config.cfg");
-            return bool.Parse(c.Get(name + "Centered") ?? "false");
         }
 
         private Region DrawString(Graphics g, string s, Font font, Brush brush, RectangleF layoutRectangle, StringFormat format)

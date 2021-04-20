@@ -34,14 +34,15 @@ namespace Grimoire.UI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CommandColorForm));
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.comboBox1 = new DarkComboBox();
-            this.btnSetColor = new DarkButton();
-            this.checkBox1 = new DarkCheckBox();
+            this.comboBox1 = new DarkUI.Controls.DarkComboBox();
+            this.btnSetColor = new DarkUI.Controls.DarkButton();
+            this.checkBox1 = new DarkUI.Controls.DarkCheckBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.btnSave = new DarkButton();
-            this.btnRandomColors = new DarkButton();
-            this.btnRefresh = new DarkButton();
-            this.txtRGB = new DarkTextBox();
+            this.btnSave = new DarkUI.Controls.DarkButton();
+            this.btnRandomColors = new DarkUI.Controls.DarkButton();
+            this.btnRefresh = new DarkUI.Controls.DarkButton();
+            this.txtRGB = new DarkUI.Controls.DarkTextBox();
+            this.btnReloadColors = new DarkUI.Controls.DarkButton();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,10 +52,10 @@ namespace Grimoire.UI
             // 
             // comboBox1
             // 
-            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(20, 30);
+            this.comboBox1.Location = new System.Drawing.Point(20, 32);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(186, 21);
             this.comboBox1.TabIndex = 3;
@@ -63,32 +64,31 @@ namespace Grimoire.UI
             // 
             // btnSetColor
             // 
-            this.btnSetColor.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSetColor.Location = new System.Drawing.Point(20, 57);
+            this.btnSetColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSetColor.Checked = false;
+            this.btnSetColor.Location = new System.Drawing.Point(20, 59);
             this.btnSetColor.Name = "btnSetColor";
             this.btnSetColor.Size = new System.Drawing.Size(209, 21);
             this.btnSetColor.TabIndex = 4;
             this.btnSetColor.Text = "Set Color of Selected";
-            this.btnSetColor.UseVisualStyleBackColor = true;
             this.btnSetColor.Click += new System.EventHandler(this.btnLabelColor_Click);
             // 
             // checkBox1
             // 
             this.checkBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(54, 86);
+            this.checkBox1.Location = new System.Drawing.Point(54, 88);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(145, 17);
             this.checkBox1.TabIndex = 5;
             this.checkBox1.Text = "Set Selected to Centered";
-            this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // trackBar1
             // 
-            this.trackBar1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar1.Cursor = System.Windows.Forms.Cursors.SizeWE;
-            this.trackBar1.Location = new System.Drawing.Point(20, 114);
+            this.trackBar1.Location = new System.Drawing.Point(20, 116);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Minimum = 20;
             this.trackBar1.Name = "trackBar1";
@@ -100,53 +100,65 @@ namespace Grimoire.UI
             // 
             // btnSave
             // 
-            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSave.Location = new System.Drawing.Point(20, 153);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Checked = false;
+            this.btnSave.Location = new System.Drawing.Point(20, 155);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(209, 23);
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save Size";
-            this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnRandomColors
             // 
-            this.btnRandomColors.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnRandomColors.Location = new System.Drawing.Point(20, 182);
+            this.btnRandomColors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRandomColors.Checked = false;
+            this.btnRandomColors.Location = new System.Drawing.Point(20, 184);
             this.btnRandomColors.Name = "btnRandomColors";
             this.btnRandomColors.Size = new System.Drawing.Size(209, 23);
             this.btnRandomColors.TabIndex = 7;
             this.btnRandomColors.Text = "Random Colors based on RGB";
-            this.btnRandomColors.UseVisualStyleBackColor = true;
             this.btnRandomColors.Click += new System.EventHandler(this.btnRandomColors_Click);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnRefresh.Location = new System.Drawing.Point(209, 30);
+            this.btnRefresh.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnRefresh.Checked = false;
+            this.btnRefresh.Location = new System.Drawing.Point(209, 32);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(20, 21);
             this.btnRefresh.TabIndex = 8;
             this.btnRefresh.Text = "R";
-            this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // txtRGB
             // 
-            this.txtRGB.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtRGB.Location = new System.Drawing.Point(20, 210);
+            this.txtRGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRGB.Location = new System.Drawing.Point(20, 212);
             this.txtRGB.Name = "txtRGB";
             this.txtRGB.Size = new System.Drawing.Size(209, 20);
             this.txtRGB.TabIndex = 9;
             this.txtRGB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // btnReloadColors
+            // 
+            this.btnReloadColors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReloadColors.Checked = false;
+            this.btnReloadColors.Location = new System.Drawing.Point(21, 238);
+            this.btnReloadColors.Name = "btnReloadColors";
+            this.btnReloadColors.Size = new System.Drawing.Size(209, 23);
+            this.btnReloadColors.TabIndex = 7;
+            this.btnReloadColors.Text = "Reload Colors";
+            this.btnReloadColors.Click += new System.EventHandler(this.btnReloadColors_Click);
+            // 
             // CommandColorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(245, 256);
+            this.ClientSize = new System.Drawing.Size(245, 286);
             this.Controls.Add(this.txtRGB);
             this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.btnReloadColors);
             this.Controls.Add(this.btnRandomColors);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.trackBar1);
@@ -169,13 +181,14 @@ namespace Grimoire.UI
 
         #endregion
         private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button btnSetColor;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnRandomColors;
-        private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.TextBox txtRGB;
+        private DarkButton btnReloadColors;
+        private DarkComboBox comboBox1;
+        private DarkButton btnSetColor;
+        private DarkCheckBox checkBox1;
+        private DarkButton btnSave;
+        private DarkButton btnRandomColors;
+        private DarkButton btnRefresh;
+        private DarkTextBox txtRGB;
     }
 }
