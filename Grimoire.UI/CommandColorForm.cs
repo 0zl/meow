@@ -21,12 +21,15 @@ namespace Grimoire.UI
 
         private void btnLabelColor_Click(object sender, EventArgs e)
         {
-            if(colorDialog1.ShowDialog() == DialogResult.OK)
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 Config c = Config.Load(Application.StartupPath + "\\config.cfg");
-                string x = comboBox1.SelectedItem.ToString().Replace("Cmd","") + "Color";
+                string x = comboBox1.SelectedItem.ToString().Replace("Cmd", "") + "Color";
                 c.Set(x, colorDialog1.Color.ToArgb().ToString("X"));
                 c.Save();
+                Dictionary<string, Color> allColors = BotManager.Instance.CurrentColors;
+                if (allColors.ContainsKey(x))
+                    allColors[x] = colorDialog1.Color;
             }
         }
 
@@ -39,6 +42,9 @@ namespace Grimoire.UI
 
             var typeList = types as Type[] ?? types.ToArray(); // Convert to an array
             comboBox1.Items.Clear();
+            comboBox1.Items.Add("Index");
+            comboBox1.Items.Add("Variable");
+            comboBox1.Items.Add("ExtendedVariable");
             foreach (var t in typeList)
             {
                 var i = t.ToString().Split('.');
@@ -50,7 +56,7 @@ namespace Grimoire.UI
             if (font != null)
                 this.Font = new Font(font, 8.25f, FontStyle.Regular, GraphicsUnit.Point, 0);
             trackBar1.Value = int.Parse(c.Get("lstCommandsFontSize") ?? "60");
-            
+
         }
 
         private int GetColor(Control ctr)
@@ -136,7 +142,7 @@ namespace Grimoire.UI
             try
             {
                 e.DrawBackground();
-                SolidBrush color = new SolidBrush(Color.FromArgb(GetColor(comboBox1.Items[Index].ToString().Replace("Cmd","") + "Color")));
+                SolidBrush color = new SolidBrush(BotManager.Instance.GetCurrentColor(comboBox1.Items[Index].ToString().Replace("Cmd", "") + "Color"));
                 e.Graphics.DrawString(comboBox1.Items[Index].ToString(), this.Font, color, e.Bounds);
             }
             catch
@@ -163,6 +169,9 @@ namespace Grimoire.UI
             string x = comboBox1.SelectedItem.ToString().Replace("Cmd", "") + "Centered";
             c.Set(x, ((CheckBox)sender).Checked.ToString());
             c.Save();
+            Dictionary<string, bool> allCentered = BotManager.Instance.CurrentCentered;
+            if (allCentered.ContainsKey(x))
+                allCentered[x] = ((CheckBox)sender).Checked;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -206,6 +215,8 @@ namespace Grimoire.UI
             int mixR = 255;
             int mixG = 255;
             int mixB = 255;
+            if (string.IsNullOrEmpty(txtRGB.Text))
+                txtRGB.Text = "255, 255, 255";
             try
             {
                 if (txtRGB.Text.Contains("#"))
@@ -232,7 +243,7 @@ namespace Grimoire.UI
             }
             catch (Exception E)
             {
-                
+
             }
             foreach (var t in typeList)
             {
@@ -254,11 +265,20 @@ namespace Grimoire.UI
 
             var typeList = types as Type[] ?? types.ToArray(); // Convert to an array
             comboBox1.Items.Clear();
+            comboBox1.Items.Add("Index");
+            comboBox1.Items.Add("Variable");
+            comboBox1.Items.Add("ExtendedVariable");
             foreach (var t in typeList)
             {
                 var i = t.ToString().Split('.');
                 comboBox1.Items.Add(i[i.Count() - 1]);
             }
+        }
+
+        private void btnReloadColors_Click(object sender, EventArgs e)
+        {
+            BotManager.Instance.CurrentCentered.Clear();
+            BotManager.Instance.CurrentColors.Clear();
         }
     }
 }
