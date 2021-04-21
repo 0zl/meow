@@ -17,11 +17,10 @@ namespace Grimoire.Botting.Commands.Combat
         {
             Player.AttackMonster(Monster);
         }
-
-        // Token: 0x0600000C RID: 12 RVA: 0x000020ED File Offset: 0x000002ED
+        
         public override string ToString()
         {
-            return "Attack " + this.Monster;
+            return "Attack: " + this.Monster;
         }
     }
 }

@@ -143,7 +143,7 @@ namespace Grimoire.Botting.Commands.Combat
 
         public override string ToString()
         {
-            return "Kill " + Monster;
+            return "Kill: " + Monster;
         }
     }
 }
