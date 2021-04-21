@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using Grimoire.Botting;
 using Grimoire.Game.Data;
 using System.Diagnostics;
-using Unity3.Eyedropper;
 using EoL;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
@@ -916,17 +915,16 @@ namespace Grimoire.UI
 
         public void BotStateChanged(bool IsRunning)
         {
-            return;
-            //if (IsRunning)
-            //{
-            //    btnStart.Hide();
-            //    btnStop.Show();
-            //}
-            //else
-            //{
-            //    btnStop.Hide();
-            //    btnStart.Show();
-            //}
+            if (IsRunning)
+            {
+                startToolStripMenuItem.Enabled = false;
+                stopToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                startToolStripMenuItem.Enabled = true;
+                stopToolStripMenuItem.Enabled = false;
+            }
         }
 
         private void nTray_MouseClick(object sender, MouseEventArgs e)
