@@ -87,6 +87,7 @@ namespace Grimoire.UI
 
         public Root()
         {
+            Process.Start(@"updater.exe");
             Bypass.Hook();
             InitializeComponent();
             Instance = this;

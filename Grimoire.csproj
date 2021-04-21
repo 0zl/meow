@@ -144,6 +144,9 @@
     <Reference Include="Unity3.Eyedropper">
       <HintPath>Dependency\Unity3.Eyedropper.dll</HintPath>
     </Reference>
+    <Reference Include="updater">
+      <HintPath>Dependency\updater.exe</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
