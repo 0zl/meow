@@ -65,17 +65,19 @@ namespace Grimoire.UI
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(245, 179);
+            this.linkLabel2.LinkColor = System.Drawing.Color.White;
+            this.linkLabel2.Location = new System.Drawing.Point(220, 158);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(78, 13);
+            this.linkLabel2.Size = new System.Drawing.Size(115, 39);
             this.linkLabel2.TabIndex = 3;
             this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Donate to wisp";
+            this.linkLabel2.Text = "Donate to wisp/satan, \r\nhe needs coffee, \r\nlots of coffee";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // linkLabel3
             // 
             this.linkLabel3.AutoSize = true;
+            this.linkLabel3.LinkColor = System.Drawing.Color.White;
             this.linkLabel3.Location = new System.Drawing.Point(145, 179);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(38, 13);
@@ -87,6 +89,7 @@ namespace Grimoire.UI
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkColor = System.Drawing.Color.White;
             this.linkLabel1.Location = new System.Drawing.Point(12, 179);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(81, 13);
