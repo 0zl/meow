@@ -32,8 +32,6 @@ namespace Grimoire.UI
 
         private DarkComboBox cbCells;
 
-        private ProgressBar prgLoader;
-
         private DarkButton btnJump;
         private ToolStripMenuItem botToolStripMenuItem;
         private ToolStripMenuItem toolsToolStripMenuItem;
@@ -100,7 +98,7 @@ namespace Grimoire.UI
             Task.Factory.StartNew(Proxy.Instance.Start, TaskCreationOptions.LongRunning);
             Flash.flash = flashPlayer;
             flashPlayer.FlashCall += Flash.ProcessFlashCall;
-            this.OnLoadProgress(100);
+            //this.OnLoadProgress(100);
             //Flash.SwfLoadProgress += OnLoadProgress;
             Hotkeys.Instance.LoadHotkeys();
             InitFlashMovie();
@@ -109,6 +107,7 @@ namespace Grimoire.UI
 
         private void OnLoadProgress(int progress)
         {
+            /* Deprecated
             if (progress < prgLoader.Maximum)
             {
                 prgLoader.Value = progress;
@@ -117,6 +116,7 @@ namespace Grimoire.UI
             Flash.SwfLoadProgress -= OnLoadProgress;
             flashPlayer.Visible = true;
             prgLoader.Visible = false;
+            */
         }
 
         public BotManager botManager = BotManager.Instance;
@@ -253,7 +253,6 @@ namespace Grimoire.UI
             this.nTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.cbPads = new DarkUI.Controls.DarkComboBox();
             this.cbCells = new DarkUI.Controls.DarkComboBox();
-            this.prgLoader = new System.Windows.Forms.ProgressBar();
             this.flashPlayer = new AxShockwaveFlashObjects.AxShockwaveFlash();
             this.btnJump = new DarkUI.Controls.DarkButton();
             this.botToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -338,13 +337,6 @@ namespace Grimoire.UI
             this.cbCells.TabIndex = 18;
             this.cbCells.Click += new System.EventHandler(this.cbCells_Click);
             // 
-            // prgLoader
-            // 
-            this.prgLoader.Location = new System.Drawing.Point(12, 276);
-            this.prgLoader.Name = "prgLoader";
-            this.prgLoader.Size = new System.Drawing.Size(936, 23);
-            this.prgLoader.TabIndex = 21;
-            // 
             // flashPlayer
             // 
             this.flashPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -356,7 +348,6 @@ namespace Grimoire.UI
             this.flashPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("flashPlayer.OcxState")));
             this.flashPlayer.Size = new System.Drawing.Size(956, 546);
             this.flashPlayer.TabIndex = 2;
-            this.flashPlayer.Visible = false;
             // 
             // btnJump
             // 
@@ -838,7 +829,6 @@ namespace Grimoire.UI
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnMax);
             this.Controls.Add(this.btnJump);
-            this.Controls.Add(this.prgLoader);
             this.Controls.Add(this.cbCells);
             this.Controls.Add(this.cbPads);
             this.Controls.Add(this.flashPlayer);
