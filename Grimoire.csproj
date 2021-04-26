@@ -238,6 +238,7 @@
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdUpdateVar.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\StatementCommand.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdBankList.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc\CmdSetFPS.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdClearTemp.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdBeep.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdBlank.cs" />

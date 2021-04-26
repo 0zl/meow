@@ -331,6 +331,8 @@ namespace Grimoire.UI
         private DarkTextBox txtItem;
         private DarkComboBox cbItemCmds;
         private DarkButton btnSaveAllCommands;
+        private DarkButton btnSetFPSCmd;
+        private DarkNumericUpDown numSetFPS;
         private DarkButton btnAttack;
         #endregion
 
@@ -2161,6 +2163,8 @@ namespace Grimoire.UI
             this.multilineToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleTabpagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSetFPSCmd = new DarkUI.Controls.DarkButton();
+            this.numSetFPS = new DarkUI.Controls.DarkNumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabCombat.SuspendLayout();
             this.pnlCombat.SuspendLayout();
@@ -2224,6 +2228,7 @@ namespace Grimoire.UI
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.BotManagerMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSetFPS)).BeginInit();
             this.SuspendLayout();
             // 
             // lstCommands
@@ -4406,6 +4411,8 @@ namespace Grimoire.UI
             // tabMisc2
             // 
             this.tabMisc2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.tabMisc2.Controls.Add(this.numSetFPS);
+            this.tabMisc2.Controls.Add(this.btnSetFPSCmd);
             this.tabMisc2.Controls.Add(this.btnSaveAllCommands);
             this.tabMisc2.Controls.Add(this.darkGroupBox1);
             this.tabMisc2.ForeColor = System.Drawing.Color.Gainsboro;
@@ -4420,11 +4427,13 @@ namespace Grimoire.UI
             // btnSaveAllCommands
             // 
             this.btnSaveAllCommands.Checked = false;
-            this.btnSaveAllCommands.Location = new System.Drawing.Point(274, 22);
+            this.btnSaveAllCommands.Enabled = false;
+            this.btnSaveAllCommands.Location = new System.Drawing.Point(300, 272);
             this.btnSaveAllCommands.Name = "btnSaveAllCommands";
             this.btnSaveAllCommands.Size = new System.Drawing.Size(144, 23);
             this.btnSaveAllCommands.TabIndex = 60;
             this.btnSaveAllCommands.Text = "save every cmd lol";
+            this.btnSaveAllCommands.Visible = false;
             this.btnSaveAllCommands.Click += new System.EventHandler(this.btnSaveAllCommands_Click);
             // 
             // darkGroupBox1
@@ -5889,6 +5898,29 @@ namespace Grimoire.UI
             this.commandColorsToolStripMenuItem.Text = "Command Customizer";
             this.commandColorsToolStripMenuItem.Click += new System.EventHandler(this.commandColorsToolStripMenuItem_Click);
             // 
+            // btnSetFPSCmd
+            // 
+            this.btnSetFPSCmd.Checked = false;
+            this.btnSetFPSCmd.Location = new System.Drawing.Point(12, 177);
+            this.btnSetFPSCmd.Name = "btnSetFPSCmd";
+            this.btnSetFPSCmd.Size = new System.Drawing.Size(88, 23);
+            this.btnSetFPSCmd.TabIndex = 61;
+            this.btnSetFPSCmd.Text = "Set FPS (cmd)";
+            this.btnSetFPSCmd.Click += new System.EventHandler(this.btnSetFPSCmd_Click);
+            // 
+            // numSetFPS
+            // 
+            this.numSetFPS.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+            this.numSetFPS.Location = new System.Drawing.Point(106, 180);
+            this.numSetFPS.LoopValues = false;
+            this.numSetFPS.Name = "numSetFPS";
+            this.numSetFPS.Size = new System.Drawing.Size(52, 20);
+            this.numSetFPS.TabIndex = 62;
+            // 
             // BotManager
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -5987,6 +6019,7 @@ namespace Grimoire.UI
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.BotManagerMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numSetFPS)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -6949,6 +6982,13 @@ namespace Grimoire.UI
                 }
             }
             
+        }
+
+        private void btnSetFPSCmd_Click(object sender, EventArgs e)
+        {
+            AddCommand(new CmdSetFPS {
+                FPS = (int)numSetFPS.Value
+            }, (ModifierKeys & Keys.Control) == Keys.Control);
         }
     }
 }
