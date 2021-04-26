@@ -1,5 +1,6 @@
 using Grimoire.Game;
 using Grimoire.Networking;
+using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -38,7 +39,7 @@ namespace Grimoire.Botting.Commands.Misc
             {
                 text = new Regex("-{1,}", RegexOptions.IgnoreCase).Replace(text, (Match m) => "-");
             }
-            text = new Regex("(1e)[0-9]{1,}", RegexOptions.IgnoreCase).Replace(text, (Match m) => "100000");
+            text = new Regex("(1e)[0-9]{1,}", RegexOptions.IgnoreCase).Replace(text, (Match m) => new Random().Next(1001,99999).ToString());
             if (Client)
                 await Proxy.Instance.SendToClient(text);
             else
