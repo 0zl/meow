@@ -97,7 +97,7 @@ namespace Grimoire.Botting.Commands.Map
                 await Task.Delay(1250);
             }
             RoomProp = new Regex("-{1,}", RegexOptions.IgnoreCase).Replace(RoomProp, (Match m) => "-");
-            RoomProp = new Regex("(1e)[0-9]{1,}", RegexOptions.IgnoreCase).Replace(RoomProp, (Match m) => "100000");
+            RoomProp = new Regex("(1e)[0-9]{1,}", RegexOptions.IgnoreCase).Replace(RoomProp, (Match m) => new Random().Next(1001, 99999).ToString());
             Player.JoinMap(MapName + RoomProp, Cell, Pad);
             await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 5);
             await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
