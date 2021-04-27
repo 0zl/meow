@@ -76,6 +76,7 @@ namespace Grimoire.UI
         private ToolStripMenuItem FPSToolStripMenuItem;
         private ToolStripTextBox toolStripTextBox2;
         private ToolStripMenuItem getBotsToolStripMenuItem;
+        private ToolStripMenuItem managerToolStripMenuItem;
         private ToolStripMenuItem reloadToolStripMenuItem;
         
         public static Root Instance
@@ -125,7 +126,7 @@ namespace Grimoire.UI
 
         private void botToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowForm(botManager);
+            
         }
 
         private void fastTravelsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -301,6 +302,7 @@ namespace Grimoire.UI
             this.btnMin = new System.Windows.Forms.Button();
             this.darkMenuStrip1 = new DarkUI.Controls.DarkMenuStrip();
             this.getBotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.managerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
             this.darkMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -370,7 +372,8 @@ namespace Grimoire.UI
             this.botToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.botToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startToolStripMenuItem,
-            this.stopToolStripMenuItem});
+            this.stopToolStripMenuItem,
+            this.managerToolStripMenuItem});
             this.botToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.botToolStripMenuItem.Name = "botToolStripMenuItem";
             this.botToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
@@ -832,6 +835,15 @@ namespace Grimoire.UI
             this.getBotsToolStripMenuItem.Text = "Get Bots";
             this.getBotsToolStripMenuItem.Click += new System.EventHandler(this.getBotsToolStripMenuItem_Click);
             // 
+            // managerToolStripMenuItem
+            // 
+            this.managerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.managerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.managerToolStripMenuItem.Name = "managerToolStripMenuItem";
+            this.managerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.managerToolStripMenuItem.Text = "Manager";
+            this.managerToolStripMenuItem.Click += new System.EventHandler(this.managerToolStripMenuItem_Click);
+            // 
             // Root
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -936,7 +948,6 @@ namespace Grimoire.UI
             await Task.Delay(2000);
             BotManager.Instance.BotStateChanged(IsRunning: false);
             this.BotStateChanged(IsRunning: false);
-            startToolStripMenuItem.Enabled = true;
         }
 
         public void BotStateChanged(bool IsRunning)
@@ -1126,13 +1137,12 @@ namespace Grimoire.UI
                 }
                 LogForm.Instance.AppendDebug("Banked all AC Items in Items list \r\n");
             }
-            startToolStripMenuItem.Enabled = false;
             BotManager.Instance.ActiveBotEngine.Stop();
+            this.stopToolStripMenuItem.Enabled = false;
             BotManager.Instance.MultiMode();
             await Task.Delay(2000);
             BotManager.Instance.BotStateChanged(IsRunning: false);
             this.BotStateChanged(IsRunning: false);
-            startToolStripMenuItem.Enabled = true;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -1176,6 +1186,11 @@ namespace Grimoire.UI
         private void getBotsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://adventurequest.life/");
+        }
+
+        private void managerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm(botManager);
         }
     }
 }
