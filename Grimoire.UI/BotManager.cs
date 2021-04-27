@@ -1645,6 +1645,21 @@ namespace Grimoire.UI
                 }
                 e.Handled = true;
             }
+            else if ((ModifierKeys == (Keys.Control | Keys.Shift) && e.KeyCode == Keys.C && SelectedList.SelectedIndex > -1))
+            {
+                Clipboard.Clear();
+                Configuration items = new Configuration
+                {
+                    Commands = lstCommands.SelectedItems.Cast<IBotCommand>().ToList()
+                };
+                string[] itemsString = new string[items.Commands.Count];
+                for (int i = 0; i < items.Commands.Count; i++)
+                {
+                    itemsString[i] = items.Commands[i].ToString();
+                }
+                Clipboard.SetText(String.Join(Environment.NewLine, itemsString));
+                e.Handled = true;
+            }
             else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.C && SelectedList.SelectedIndex > -1)
             {
                 Clipboard.Clear();
