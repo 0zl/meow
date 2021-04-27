@@ -14,7 +14,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (Player.Factions.Find((Faction m) => m.Name == Value1).Rank < int.Parse(Value2))
+            if (Player.Factions.Find((Faction m) => m.Name == (IsVar(Value1)  ? Configuration.Tempvariable[GetVar(Value1)] : Value1)).Rank < int.Parse((IsVar(Value2)  ? Configuration.Tempvariable[GetVar(Value2)] : Value2)))
             {
                 instance.Index++;
             }

@@ -13,7 +13,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (!Player.Inventory.ContainsMaxItem(Value1))
+            if (!Player.Inventory.ContainsMaxItem((IsVar(Value1)  ? Configuration.Tempvariable[GetVar(Value1)] : Value1)))
             {
                 instance.Index++;
             }

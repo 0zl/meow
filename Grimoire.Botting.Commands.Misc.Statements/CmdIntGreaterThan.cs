@@ -13,7 +13,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (Configuration.Tempvalues[Value1] < int.Parse(Value2))
+            if (Configuration.Tempvalues[(IsVar(Value1)  ? Configuration.Tempvariable[GetVar(Value1)] : Value1)] < int.Parse((IsVar(Value2)  ? Configuration.Tempvariable[GetVar(Value2)] : Value2)))
             {
                 instance.Index++;
             }
