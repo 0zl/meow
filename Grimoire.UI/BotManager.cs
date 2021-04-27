@@ -171,7 +171,7 @@ namespace Grimoire.UI
         public DarkCheckBox chkProvoke;
         public DarkCheckBox chkInfiniteRange;
         private DarkGroupBox grpLogin;
-        private DarkComboBox cbServers;
+        private ComboBox cbServers;
         private DarkCheckBox chkRelogRetry;
         private DarkCheckBox chkRelog;
         private DarkNumericUpDown numRelogDelay;
@@ -226,7 +226,6 @@ namespace Grimoire.UI
         private DarkButton btnBotStart;
         private Panel panel1;
         private SplitContainer splitContainer2;
-        private DarkButton DarkButton2;
         private DarkButton btnCurrBlank;
         private DarkButton btnSetSpawn;
         private DarkButton btnBeep;
@@ -2112,7 +2111,7 @@ namespace Grimoire.UI
             this.chkInfiniteRange = new DarkUI.Controls.DarkCheckBox();
             this.grpLogin = new DarkUI.Controls.DarkGroupBox();
             this.chkAFK = new DarkUI.Controls.DarkCheckBox();
-            this.cbServers = new DarkUI.Controls.DarkComboBox();
+            this.cbServers = new System.Windows.Forms.ComboBox();
             this.chkRelogRetry = new DarkUI.Controls.DarkCheckBox();
             this.chkRelog = new DarkUI.Controls.DarkCheckBox();
             this.numRelogDelay = new DarkUI.Controls.DarkNumericUpDown();
@@ -2750,9 +2749,9 @@ namespace Grimoire.UI
             // btnAddSkill
             // 
             this.btnAddSkill.Checked = false;
-            this.btnAddSkill.Location = new System.Drawing.Point(162, 4);
+            this.btnAddSkill.Location = new System.Drawing.Point(160, 4);
             this.btnAddSkill.Name = "btnAddSkill";
-            this.btnAddSkill.Size = new System.Drawing.Size(62, 21);
+            this.btnAddSkill.Size = new System.Drawing.Size(64, 21);
             this.btnAddSkill.TabIndex = 38;
             this.btnAddSkill.Text = "Add skill";
             this.btnAddSkill.Click += new System.EventHandler(this.btnAddSkill_Click);
@@ -4366,6 +4365,7 @@ namespace Grimoire.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbStatement.FormattingEnabled = true;
             this.cbStatement.Location = new System.Drawing.Point(5, 55);
+            this.cbStatement.MaxDropDownItems = 15;
             this.cbStatement.MaximumSize = new System.Drawing.Size(197, 0);
             this.cbStatement.MinimumSize = new System.Drawing.Size(167, 0);
             this.cbStatement.Name = "cbStatement";
@@ -4400,7 +4400,7 @@ namespace Grimoire.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPacket.Location = new System.Drawing.Point(4, 4);
             this.txtPacket.Name = "txtPacket";
-            this.txtPacket.Size = new System.Drawing.Size(254, 20);
+            this.txtPacket.Size = new System.Drawing.Size(258, 20);
             this.txtPacket.TabIndex = 53;
             this.txtPacket.Text = "%xt%zm%cmd%1%tfer%PLAYERNAME%MAP-1e99%";
             // 
@@ -4880,7 +4880,7 @@ namespace Grimoire.UI
             this.txtLog.Location = new System.Drawing.Point(281, 5);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(147, 78);
+            this.txtLog.Size = new System.Drawing.Size(147, 77);
             this.txtLog.TabIndex = 147;
             this.txtLog.Text = "Logs";
             // 
@@ -5091,11 +5091,15 @@ namespace Grimoire.UI
             // 
             // cbServers
             // 
+            this.cbServers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.cbServers.DisplayMember = "Name";
+            this.cbServers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbServers.FormattingEnabled = true;
             this.cbServers.Location = new System.Drawing.Point(4, 17);
             this.cbServers.Name = "cbServers";
             this.cbServers.Size = new System.Drawing.Size(123, 21);
             this.cbServers.TabIndex = 0;
+            this.cbServers.ValueMember = "Name";
             // 
             // chkRelogRetry
             // 
@@ -5612,7 +5616,7 @@ namespace Grimoire.UI
             this.txtSavedDesc.Location = new System.Drawing.Point(253, 90);
             this.txtSavedDesc.Multiline = true;
             this.txtSavedDesc.Name = "txtSavedDesc";
-            this.txtSavedDesc.Size = new System.Drawing.Size(188, 165);
+            this.txtSavedDesc.Size = new System.Drawing.Size(188, 169);
             this.txtSavedDesc.TabIndex = 20;
             this.txtSavedDesc.Text = "Description";
             // 

@@ -13,7 +13,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (Player.Mana <= int.Parse((IsVar(Value1)  ? Configuration.Tempvariable[GetVar(Value1)] : Value1)))
+            if (Player.Mana <= int.Parse((instance.IsVar(Value1)  ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1)))
             {
                 instance.Index++;
             }

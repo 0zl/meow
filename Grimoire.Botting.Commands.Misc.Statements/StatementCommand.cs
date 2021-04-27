@@ -39,15 +39,5 @@ namespace Grimoire.Botting.Commands.Misc.Statements
             get;
             set;
         }
-
-        public bool IsVar(string value)
-        {
-            return Regex.IsMatch(value, @"\[([^\)]*)\]");
-        }
-
-        public string GetVar(string value)
-        {
-            return Regex.Replace(value, @"[\[\]']+", "");
-        }
     }
 }

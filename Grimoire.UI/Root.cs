@@ -328,6 +328,7 @@ namespace Grimoire.UI
             "Up",
             "Down"});
             this.cbPads.Location = new System.Drawing.Point(657, 5);
+            this.cbPads.MaxDropDownItems = 50;
             this.cbPads.Name = "cbPads";
             this.cbPads.Size = new System.Drawing.Size(91, 21);
             this.cbPads.TabIndex = 17;
@@ -337,6 +338,7 @@ namespace Grimoire.UI
             this.cbCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCells.FormattingEnabled = true;
             this.cbCells.Location = new System.Drawing.Point(563, 5);
+            this.cbCells.MaxDropDownItems = 50;
             this.cbCells.Name = "cbCells";
             this.cbCells.Size = new System.Drawing.Size(91, 21);
             this.cbCells.TabIndex = 18;

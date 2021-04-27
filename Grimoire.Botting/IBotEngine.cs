@@ -28,11 +28,15 @@ namespace Grimoire.Botting
             set;
         }
 
+        bool IsVar(string value);
+
         Configuration Configuration
         {
             get;
             set;
         }
+
+        string GetVar(string value);
 
         event Action<bool> IsRunningChanged;
 
