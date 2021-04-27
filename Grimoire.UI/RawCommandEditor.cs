@@ -26,7 +26,7 @@ namespace Grimoire.UI
             }
         }
 
-        private RawCommandEditor()
+        public RawCommandEditor()
         {
             InitializeComponent();
         }
