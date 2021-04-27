@@ -75,6 +75,7 @@ namespace Grimoire.UI
         private DarkMenuStrip darkMenuStrip1;
         private ToolStripMenuItem FPSToolStripMenuItem;
         private ToolStripTextBox toolStripTextBox2;
+        private ToolStripMenuItem getBotsToolStripMenuItem;
         private ToolStripMenuItem reloadToolStripMenuItem;
         
         public static Root Instance
@@ -298,6 +299,7 @@ namespace Grimoire.UI
             this.btnExit = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
             this.darkMenuStrip1 = new DarkUI.Controls.DarkMenuStrip();
+            this.getBotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
             this.darkMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -810,7 +812,8 @@ namespace Grimoire.UI
             this.optionsToolStripMenuItem,
             this.bankToolStripMenuItem1,
             this.helpToolStripMenuItem,
-            this.pluginsStrip});
+            this.pluginsStrip,
+            this.getBotsToolStripMenuItem});
             this.darkMenuStrip1.Location = new System.Drawing.Point(2, 2);
             this.darkMenuStrip1.Name = "darkMenuStrip1";
             this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
@@ -818,6 +821,15 @@ namespace Grimoire.UI
             this.darkMenuStrip1.TabIndex = 35;
             this.darkMenuStrip1.Text = "darkMenuStrip1";
             this.darkMenuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuMain_MouseDown);
+            // 
+            // getBotsToolStripMenuItem
+            // 
+            this.getBotsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.getBotsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.getBotsToolStripMenuItem.Name = "getBotsToolStripMenuItem";
+            this.getBotsToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
+            this.getBotsToolStripMenuItem.Text = "Get Bots";
+            this.getBotsToolStripMenuItem.Click += new System.EventHandler(this.getBotsToolStripMenuItem_Click);
             // 
             // Root
             // 
@@ -1158,6 +1170,11 @@ namespace Grimoire.UI
                 Flash.Call("SetFPS", FPSToolStripMenuItem.DropDownItems[0].Text);
              else
                 Flash.Call("SetFPS", 24);
+        }
+
+        private void getBotsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://adventurequest.life/");
         }
     }
 }
