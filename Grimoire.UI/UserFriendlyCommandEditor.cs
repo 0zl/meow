@@ -1,11 +1,15 @@
 using DarkUI.Controls;
 using DarkUI.Forms;
+using Grimoire.Botting.Commands.Misc.Statements;
+using Grimoire.Properties;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Grimoire.UI
@@ -37,9 +41,19 @@ namespace Grimoire.UI
             set;
         }
 
+        private static readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
+        {
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            NullValueHandling = NullValueHandling.Ignore,
+            TypeNameHandling = TypeNameHandling.All
+        };
+
+        private List<StatementCommand> statementCommands;
+        
         private UserFriendlyCommandEditor()
         {
             InitializeComponent();
+            statementCommands = JsonConvert.DeserializeObject<List<StatementCommand>>(Resources.statementcmds, _serializerSettings);
         }
 
         private void RawCommandEditor_Load(object sender, EventArgs e)
@@ -60,53 +74,60 @@ namespace Grimoire.UI
                     break;
             }
         }
-
-        private static readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
-        {
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
-            TypeNameHandling = TypeNameHandling.All
-        };
-
+        
         public static string Show(object obj)
         {
             cmdObj = obj;
-            JObject content = JObject.Parse(JsonConvert.SerializeObject(obj));
+            JObject content = JObject.Parse(JsonConvert.SerializeObject(obj, _serializerSettings));
             using (commandEditor = new UserFriendlyCommandEditor())
             {
                 int currentY = 13;
                 int count = 0;
-                string[] skip = { "Tag", "Text", "Description1", "Description2" };
+                string[] skip = { "Tag", "Description1", "Description2", "$type" };
                 Dictionary<string, KeyValuePair<DarkLabel, DarkTextBox>> currentVars = new Dictionary<string, KeyValuePair<DarkLabel, DarkTextBox>>();
                 foreach (KeyValuePair<string, JToken> item in content)
                 {
-                    if (Array.IndexOf(skip, item.Key) == -1 && !string.IsNullOrEmpty(item.Value.ToString()))
+                    
+                    if (!string.IsNullOrEmpty(item.Key) && Array.IndexOf(skip, item.Key) == -1 && commandEditor.statementCommands.Find((StatementCommand s) => s.GetType() == content.GetType())?.Text != item.Key)
                     {
+                        string lblText = item.Key;
+                        string tbText = item.Value.ToString();
+                        switch (item.Key)
+                        {
+                            case "Value1":
+                                lblText = commandEditor.statementCommands.Find((StatementCommand s) => s.GetType() == obj.GetType()).Description1;
+                                tbText = tbText == lblText ? "" : tbText;
+                                break;
+                            case "Value2":
+                                lblText = commandEditor.statementCommands.Find((StatementCommand s) => s.GetType() == obj.GetType()).Description2;
+                                tbText = tbText == lblText ? "" : tbText;
+                                break;
+                        }
                         currentVars.Add(item.Key, new KeyValuePair<DarkLabel, DarkTextBox>(
                             new DarkLabel()
                             {
                                 Name = $"lbl{item.Key}{count}",
-                                Text = item.Key,
-                                Size = new System.Drawing.Size(70, 20),
-                                Location = new System.Drawing.Point(13, currentY),
+                                Text = lblText,
+                                Size = new System.Drawing.Size(90, 20),
+                                Location = new System.Drawing.Point(25, currentY+2),
                                 Anchor = AnchorStyles.Left | AnchorStyles.Top
                             },
                             new DarkTextBox()
                             {
                                 Name = $"tb{item.Key}{count}",
-                                Text = item.Value.ToString(),
-                                Size = new System.Drawing.Size(180, 20),
-                                Location = new System.Drawing.Point(105, currentY),
+                                Text = tbText,
+                                Size = new System.Drawing.Size(160, 20),
+                                Location = new System.Drawing.Point(125, currentY),
                                 Anchor = AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Left
                             }));
                         commandEditor.Controls.Add(currentVars[item.Key].Key);
                         commandEditor.Controls.Add(currentVars[item.Key].Value);
                         count++;
-                        commandEditor.Size = new Size(commandEditor.Size.Width, commandEditor.Size.Height + currentY);
                         currentY += 30;
                     }
                     //honestly i have no fucking idea how to implement this properly
                 }
+                commandEditor.Size = new Size(commandEditor.Size.Width, commandEditor.Size.Height + currentY - 13);
                 DialogResult results = commandEditor.ShowDialog();
                 bool dialog = results == DialogResult.OK;
                 bool dialog2 = results == DialogResult.Abort;

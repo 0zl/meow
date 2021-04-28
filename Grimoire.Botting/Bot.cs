@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,16 @@ namespace Grimoire.Botting
 {
     public class Bot : IBotEngine
     {
+        public bool IsVar(string value)
+        {
+            return Regex.IsMatch(value, @"\[([^\)]*)\]");
+        }
+
+        public string GetVar(string value)
+        {
+            return Regex.Replace(value, @"[\[\]']+", "");
+        }
+
         public static Bot Instance = new Bot();
 
         private int _index;

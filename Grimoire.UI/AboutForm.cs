@@ -19,19 +19,9 @@ namespace Grimoire.UI
             InitializeComponent();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://discord.io/AQWBots");
-        }
-
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://paypal.me/wispsatan");
-        }
-
-        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/0zl/meow");
         }
 
         private void AboutForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -41,6 +31,16 @@ namespace Grimoire.UI
                 e.Cancel = true;
                 Hide();
             }
+        }
+
+        private void pbCatGithub_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/0zl");
+        }
+
+        private void pbsatanGithub_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/wispie");
         }
     }
 }

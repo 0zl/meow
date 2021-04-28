@@ -72,7 +72,7 @@ namespace Grimoire.UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(480, 227);
             this.Controls.Add(this.panel1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Properties.Resources.GrimoireIcon;
             this.MinimizeBox = false;
             this.Name = "Notepad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -345,7 +345,7 @@ namespace Grimoire.UI
             this.Controls.Add(this.gbLoaded);
             this.Controls.Add(this.gbLoad);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Properties.Resources.GrimoireIcon;
             this.MaximizeBox = false;
             this.Name = "PluginManager";
             this.Text = "Plugin Manager";

@@ -29,6 +29,7 @@ using DarkUI.Forms;
 using DarkUI.Controls;
 using Newtonsoft.Json.Linq;
 using Extensions = Grimoire.Botting.Extensions;
+using Properties;
 
 namespace Grimoire.UI
 {
@@ -43,7 +44,7 @@ namespace Grimoire.UI
         private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
         {
             DefaultValueHandling = DefaultValueHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
+            //NullValueHandling = NullValueHandling.Ignore,
             TypeNameHandling = TypeNameHandling.All
         };
         
@@ -171,7 +172,7 @@ namespace Grimoire.UI
         public DarkCheckBox chkProvoke;
         public DarkCheckBox chkInfiniteRange;
         private DarkGroupBox grpLogin;
-        private DarkComboBox cbServers;
+        private ComboBox cbServers;
         private DarkCheckBox chkRelogRetry;
         private DarkCheckBox chkRelog;
         private DarkNumericUpDown numRelogDelay;
@@ -226,7 +227,6 @@ namespace Grimoire.UI
         private DarkButton btnBotStart;
         private Panel panel1;
         private SplitContainer splitContainer2;
-        private DarkButton DarkButton2;
         private DarkButton btnCurrBlank;
         private DarkButton btnSetSpawn;
         private DarkButton btnBeep;
@@ -1645,6 +1645,21 @@ namespace Grimoire.UI
                 }
                 e.Handled = true;
             }
+            else if ((ModifierKeys == (Keys.Control | Keys.Shift) && e.KeyCode == Keys.C && SelectedList.SelectedIndex > -1))
+            {
+                Clipboard.Clear();
+                Configuration items = new Configuration
+                {
+                    Commands = lstCommands.SelectedItems.Cast<IBotCommand>().ToList()
+                };
+                string[] itemsString = new string[items.Commands.Count];
+                for (int i = 0; i < items.Commands.Count; i++)
+                {
+                    itemsString[i] = items.Commands[i].ToString();
+                }
+                Clipboard.SetText(String.Join(Environment.NewLine, itemsString));
+                e.Handled = true;
+            }
             else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.C && SelectedList.SelectedIndex > -1)
             {
                 Clipboard.Clear();
@@ -1885,7 +1900,6 @@ namespace Grimoire.UI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BotManager));
             this.lstCommands = new System.Windows.Forms.ListBox();
             this.lstBoosts = new System.Windows.Forms.ListBox();
             this.lstDrops = new System.Windows.Forms.ListBox();
@@ -2097,7 +2111,7 @@ namespace Grimoire.UI
             this.chkInfiniteRange = new DarkUI.Controls.DarkCheckBox();
             this.grpLogin = new DarkUI.Controls.DarkGroupBox();
             this.chkAFK = new DarkUI.Controls.DarkCheckBox();
-            this.cbServers = new DarkUI.Controls.DarkComboBox();
+            this.cbServers = new System.Windows.Forms.ComboBox();
             this.chkRelogRetry = new DarkUI.Controls.DarkCheckBox();
             this.chkRelog = new DarkUI.Controls.DarkCheckBox();
             this.numRelogDelay = new DarkUI.Controls.DarkNumericUpDown();
@@ -2735,9 +2749,9 @@ namespace Grimoire.UI
             // btnAddSkill
             // 
             this.btnAddSkill.Checked = false;
-            this.btnAddSkill.Location = new System.Drawing.Point(162, 4);
+            this.btnAddSkill.Location = new System.Drawing.Point(160, 4);
             this.btnAddSkill.Name = "btnAddSkill";
-            this.btnAddSkill.Size = new System.Drawing.Size(62, 21);
+            this.btnAddSkill.Size = new System.Drawing.Size(64, 21);
             this.btnAddSkill.TabIndex = 38;
             this.btnAddSkill.Text = "Add skill";
             this.btnAddSkill.Click += new System.EventHandler(this.btnAddSkill_Click);
@@ -4351,6 +4365,7 @@ namespace Grimoire.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbStatement.FormattingEnabled = true;
             this.cbStatement.Location = new System.Drawing.Point(5, 55);
+            this.cbStatement.MaxDropDownItems = 15;
             this.cbStatement.MaximumSize = new System.Drawing.Size(197, 0);
             this.cbStatement.MinimumSize = new System.Drawing.Size(167, 0);
             this.cbStatement.Name = "cbStatement";
@@ -4385,7 +4400,7 @@ namespace Grimoire.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPacket.Location = new System.Drawing.Point(4, 4);
             this.txtPacket.Name = "txtPacket";
-            this.txtPacket.Size = new System.Drawing.Size(254, 20);
+            this.txtPacket.Size = new System.Drawing.Size(258, 20);
             this.txtPacket.TabIndex = 53;
             this.txtPacket.Text = "%xt%zm%cmd%1%tfer%PLAYERNAME%MAP-1e99%";
             // 
@@ -4865,7 +4880,7 @@ namespace Grimoire.UI
             this.txtLog.Location = new System.Drawing.Point(281, 5);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(147, 78);
+            this.txtLog.Size = new System.Drawing.Size(147, 77);
             this.txtLog.TabIndex = 147;
             this.txtLog.Text = "Logs";
             // 
@@ -5076,11 +5091,15 @@ namespace Grimoire.UI
             // 
             // cbServers
             // 
+            this.cbServers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.cbServers.DisplayMember = "Name";
+            this.cbServers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbServers.FormattingEnabled = true;
             this.cbServers.Location = new System.Drawing.Point(4, 17);
             this.cbServers.Name = "cbServers";
             this.cbServers.Size = new System.Drawing.Size(123, 21);
             this.cbServers.TabIndex = 0;
+            this.cbServers.ValueMember = "Name";
             // 
             // chkRelogRetry
             // 
@@ -5597,7 +5616,7 @@ namespace Grimoire.UI
             this.txtSavedDesc.Location = new System.Drawing.Point(253, 90);
             this.txtSavedDesc.Multiline = true;
             this.txtSavedDesc.Name = "txtSavedDesc";
-            this.txtSavedDesc.Size = new System.Drawing.Size(188, 165);
+            this.txtSavedDesc.Size = new System.Drawing.Size(188, 169);
             this.txtSavedDesc.TabIndex = 20;
             this.txtSavedDesc.Text = "Description";
             // 
@@ -5737,7 +5756,7 @@ namespace Grimoire.UI
             // 
             this.chkAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAll.AutoSize = true;
-            this.chkAll.Location = new System.Drawing.Point(82, 28);
+            this.chkAll.Location = new System.Drawing.Point(81, 28);
             this.chkAll.Name = "chkAll";
             this.chkAll.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkAll.Size = new System.Drawing.Size(36, 17);
@@ -5749,7 +5768,7 @@ namespace Grimoire.UI
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClear.Checked = false;
-            this.btnClear.Location = new System.Drawing.Point(0, 26);
+            this.btnClear.Location = new System.Drawing.Point(1, 25);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(79, 22);
             this.btnClear.TabIndex = 167;
@@ -5931,7 +5950,7 @@ namespace Grimoire.UI
             this.Controls.Add(this.splitContainer2);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Properties.Resources.GrimoireIcon;
             this.Name = "BotManager";
             this.Padding = new System.Windows.Forms.Padding(7);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
@@ -6261,7 +6280,7 @@ namespace Grimoire.UI
 
         private void btnBlank_Click(object sender, EventArgs e)
         {
-            AddCommand(new CmdBlank2 { Text = " " }, (ModifierKeys & Keys.Control) == Keys.Control);
+            AddCommand(new CmdBlank3 { Text = "(Write Text Here)", Alpha = 1, R = 220, G = 220, B = 220 }, (ModifierKeys & Keys.Control) == Keys.Control);
         }
 
         private void chkAFK_CheckedChanged(object sender, EventArgs e)
@@ -6515,10 +6534,10 @@ namespace Grimoire.UI
                 "SkillSet"
             };
 
-            if (cmd is CmdBlank || cmd is CmdBlank2)
+            if (cmd is CmdBlank || cmd is CmdBlank2 || cmd is CmdBlank3)
             {
                 string txt = lstCommands.Items[e.Index].ToString();
-                Font b2 = new Font("Arial", e.Font.Size + (float)6.5, FontStyle.Bold, GraphicsUnit.Pixel);
+                Font cmdFont = new Font("Arial", e.Font.Size + (float)6.5, FontStyle.Bold, GraphicsUnit.Pixel);
                 if (cmd is CmdBlank2 && txt.Contains("[RGB]"))
                     using (Font the_font = new Font("Times New Roman", e.Font.Size + (float)6.5, FontStyle.Bold, GraphicsUnit.Pixel))
                     {
@@ -6573,8 +6592,18 @@ namespace Grimoire.UI
                         if (txt.Contains("(TROLL)"))
                             e.Graphics.DrawString(txt.Replace("(TROLL)", ""), e.Font, b2b, e.Bounds, StringFormat.GenericDefault);
                         else
-                            e.Graphics.DrawString(txt, b2, b2b, e.Bounds, centered);
+                            e.Graphics.DrawString(txt, cmdFont, b2b, e.Bounds, centered);
                     }catch{}
+                }
+                else if(cmd is CmdBlank3)
+                {
+                    var jsonObj = JsonConvert.DeserializeObject<CmdBlank3>(JsonConvert.SerializeObject(cmd));
+                    try
+                    {
+                        SolidBrush colorBrush = new SolidBrush(jsonObj.Argb());
+                        e.Graphics.DrawString(txt, cmdFont, colorBrush, e.Bounds, centered);
+                    }
+                    catch { }
                 }
                 else if (txt.Contains("(TROLL)"))
                     e.Graphics.DrawString(txt.Replace("(TROLL)", ""), e.Font, new SolidBrush(Color.White), e.Bounds, StringFormat.GenericDefault);

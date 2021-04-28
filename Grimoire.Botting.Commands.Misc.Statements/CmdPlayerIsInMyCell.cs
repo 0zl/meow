@@ -18,9 +18,9 @@ namespace Grimoire.Botting.Commands.Misc.Statements
         public Task Execute(IBotEngine instance)
         {
             string reqs;
-            if ( IsVar(Value1) )
+            if ( instance.IsVar(Value1) )
             {
-                reqs = Flash.Call<string>("GetCellPlayers", new string[] { Configuration.Tempvariable[GetVar(Value1)] });
+                reqs = Flash.Call<string>("GetCellPlayers", new string[] { Configuration.Tempvariable[instance.GetVar(Value1)] });
             }
             else
             {

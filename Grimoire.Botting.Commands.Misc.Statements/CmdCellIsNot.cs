@@ -14,7 +14,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (Value1.Equals(Player.Cell, StringComparison.OrdinalIgnoreCase))
+            if ((instance.IsVar(Value1)  ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1).Equals(Player.Cell, StringComparison.OrdinalIgnoreCase))
             {
                 instance.Index++;
             }

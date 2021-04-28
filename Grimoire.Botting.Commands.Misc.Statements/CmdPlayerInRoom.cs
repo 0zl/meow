@@ -16,9 +16,9 @@ namespace Grimoire.Botting.Commands.Misc.Statements
         public Task Execute(IBotEngine instance)
         {
             string PlayerName = "";
-            if ( IsVar(Value1) )
+            if ( instance.IsVar(Value1) )
             {
-                PlayerName = Configuration.Tempvariable[GetVar(Value1)];
+                PlayerName = Configuration.Tempvariable[instance.GetVar(Value1)];
             }
             else
             {
