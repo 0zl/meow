@@ -59,7 +59,8 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>big.Ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -324,7 +325,11 @@
     <Compile Include="Grimoire.Networking\Proxy.cs" />
     <Compile Include="Grimoire.Networking\XmlMessage.cs" />
     <Compile Include="Grimoire.Networking\XtMessage.cs" />
-    <Compile Include="Grimoire.Properties\Resources.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Grimoire.Properties\Settings.cs" />
     <Compile Include="Grimoire.Tools.Buyback\AutoBuyBack.cs" />
     <Compile Include="Grimoire.Tools.Buyback\BuyBackPage.cs" />
@@ -429,11 +434,6 @@
     <Compile Include="Grimoire.Utils\TypedValueProvider.cs" />
     <Compile Include="Grimoire\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -441,8 +441,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Grimoire.Properties\Resources.resx">
+    <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Grimoire.UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -477,11 +479,6 @@
     <EmbeddedResource Include="Grimoire.UI\UserFriendlyCommandEditor.resx">
       <DependentUpon>UserFriendlyCommandEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -500,10 +497,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\big.Ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="big.Ico" />
     <Content Include="EasyHook32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -522,6 +517,9 @@
     <Content Include="EasyLoad64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\GrimoireIconBig.png" />
+    <None Include="Resources\GitHub.png" />
+    <None Include="Resources\big.Ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

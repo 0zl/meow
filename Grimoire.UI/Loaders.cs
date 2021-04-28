@@ -453,7 +453,7 @@ namespace Grimoire.UI
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.cbLoad);
             this.Controls.Add(this.txtLoaders);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Properties.Resources.GrimoireIcon;
             this.MinimizeBox = false;
             this.Name = "Loaders";
             this.Text = "Loaders and grabbers";

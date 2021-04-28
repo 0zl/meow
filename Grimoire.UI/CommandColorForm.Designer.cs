@@ -165,7 +165,7 @@ namespace Grimoire.UI
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.btnSetColor);
             this.Controls.Add(this.comboBox1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Properties.Resources.GrimoireIcon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CommandColorForm";

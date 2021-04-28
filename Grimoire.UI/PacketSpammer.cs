@@ -394,7 +394,7 @@ namespace Grimoire.UI
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.txtPacket);
             this.Controls.Add(this.lstPackets);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Properties.Resources.GrimoireIcon;
             this.MaximizeBox = false;
             this.Name = "PacketSpammer";
             this.Text = "Packet spammer";

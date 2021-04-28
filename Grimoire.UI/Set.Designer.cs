@@ -130,7 +130,7 @@ namespace Grimoire.UI
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.btnSave);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Properties.Resources.GrimoireIcon;
             this.Name = "Set";
             this.Text = "Set";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Set_FormClosing);

@@ -416,7 +416,7 @@ namespace Grimoire.UI
             this.Controls.Add(this.tabLogs);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClear);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Properties.Resources.GrimoireIcon;
             this.Name = "LogForm";
             this.Text = "Debug Log";
             this.TopMost = true;

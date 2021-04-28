@@ -686,7 +686,7 @@ namespace Grimoire.UI
             this.Controls.Add(this.lbItems);
             this.Controls.Add(this.btnGrabCosm);
             this.Controls.Add(this.cbPlayer);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Properties.Resources.GrimoireIcon;
             this.Name = "CosmeticForm";
             this.Text = "SWF Cosmetics";
             this.TopMost = true;

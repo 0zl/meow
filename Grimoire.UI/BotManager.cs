@@ -29,6 +29,7 @@ using DarkUI.Forms;
 using DarkUI.Controls;
 using Newtonsoft.Json.Linq;
 using Extensions = Grimoire.Botting.Extensions;
+using Properties;
 
 namespace Grimoire.UI
 {
@@ -43,7 +44,7 @@ namespace Grimoire.UI
         private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
         {
             DefaultValueHandling = DefaultValueHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
+            //NullValueHandling = NullValueHandling.Ignore,
             TypeNameHandling = TypeNameHandling.All
         };
         
@@ -1899,7 +1900,6 @@ namespace Grimoire.UI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BotManager));
             this.lstCommands = new System.Windows.Forms.ListBox();
             this.lstBoosts = new System.Windows.Forms.ListBox();
             this.lstDrops = new System.Windows.Forms.ListBox();
@@ -5756,7 +5756,7 @@ namespace Grimoire.UI
             // 
             this.chkAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAll.AutoSize = true;
-            this.chkAll.Location = new System.Drawing.Point(82, 28);
+            this.chkAll.Location = new System.Drawing.Point(81, 28);
             this.chkAll.Name = "chkAll";
             this.chkAll.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkAll.Size = new System.Drawing.Size(36, 17);
@@ -5768,7 +5768,7 @@ namespace Grimoire.UI
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClear.Checked = false;
-            this.btnClear.Location = new System.Drawing.Point(0, 26);
+            this.btnClear.Location = new System.Drawing.Point(1, 25);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(79, 22);
             this.btnClear.TabIndex = 167;
@@ -5950,7 +5950,7 @@ namespace Grimoire.UI
             this.Controls.Add(this.splitContainer2);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Properties.Resources.GrimoireIcon;
             this.Name = "BotManager";
             this.Padding = new System.Windows.Forms.Padding(7);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;

@@ -4,6 +4,7 @@ using Grimoire.Botting.Commands.Misc.Statements;
 using Grimoire.Properties;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -87,7 +88,7 @@ namespace Grimoire.UI
                 foreach (KeyValuePair<string, JToken> item in content)
                 {
                     
-                    if (Array.IndexOf(skip, item.Key) == -1 && commandEditor.statementCommands.Find((StatementCommand s) => s.GetType() == content.GetType())?.Text != item.Key)
+                    if (!string.IsNullOrEmpty(item.Key) && Array.IndexOf(skip, item.Key) == -1 && commandEditor.statementCommands.Find((StatementCommand s) => s.GetType() == content.GetType())?.Text != item.Key)
                     {
                         string lblText = item.Key;
                         string tbText = item.Value.ToString();

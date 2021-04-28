@@ -22,7 +22,7 @@ namespace Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,12 +61,122 @@ namespace Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] aqlitegrimoire {
+            get {
+                object obj = ResourceManager.GetObject("aqlitegrimoire", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;txtMonster&quot;: &quot;Monster (*  = random)&quot;,
+        ///  &quot;txtKillFMon&quot;: &quot;Monster (* = random)&quot;,
+        ///  &quot;txtKillFItem&quot;: &quot;Item name&quot;,
+        ///  &quot;txtKillFQ&quot;: &quot;Quantity (* = any)&quot;,
+        ///  &quot;txtPacket&quot;: &quot;%xt%zm%.........&quot;,
+        ///  &quot;txtPlayer&quot;: &quot;Player name&quot;,
+        ///  &quot;txtAuthor&quot;: &quot;Author&quot;,
+        ///  &quot;txtDescription&quot;: &quot;Description&quot;,
+        ///  &quot;txtJoin&quot;: &quot;battleon-1e99&quot;,
+        ///  &quot;txtJoinCell&quot;: &quot;Enter&quot;,
+        ///  &quot;txtJoinPad&quot;: &quot;Spawn&quot;,
+        ///  &quot;txtCell&quot;: &quot;Cell&quot;,
+        ///  &quot;txtPad&quot;: &quot;Pad&quot;,
+        ///  &quot;txtItem&quot;: &quot;Item name&quot;,
+        ///  &quot;txtSwapBank&quot;: &quot;Bank item name&quot;,
+        ///  &quot;txtSwapInv&quot;: &quot;Inventory item name&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string defaulttext {
+            get {
+                return ResourceManager.GetString("defaulttext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap GitHub {
+            get {
+                object obj = ResourceManager.GetObject("GitHub", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon big {
+        public static System.Drawing.Icon GrimoireIcon {
             get {
-                object obj = ResourceManager.GetObject("big", resourceCulture);
+                object obj = ResourceManager.GetObject("GrimoireIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap GrimoireIconBig {
+            get {
+                object obj = ResourceManager.GetObject("GrimoireIconBig", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap GrimoireIconBig1 {
+            get {
+                object obj = ResourceManager.GetObject("GrimoireIconBig1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] private1 {
+            get {
+                object obj = ResourceManager.GetObject("private1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;$type&quot;: &quot;System.Collections.Generic.List`1[[Grimoire.Botting.Commands.Misc.Statements.StatementCommand, Grimoire]], mscorlib&quot;,
+        ///  &quot;$values&quot;: [
+        ///    {
+        ///      &quot;$type&quot;: &quot;Grimoire.Botting.Commands.Misc.Statements.CmdCellIs, Grimoire&quot;,
+        ///      &quot;Tag&quot;: &quot;Map&quot;,
+        ///      &quot;Text&quot;: &quot;Cell is&quot;,
+        ///      &quot;Description1&quot;: &quot;Cell&quot;
+        ///    },
+        ///    {
+        ///      &quot;$type&quot;: &quot;Grimoire.Botting.Commands.Misc.Statements.CmdCellIsNot, Grimoire&quot;,
+        ///      &quot;Tag&quot;: &quot;Map&quot;,
+        ///      &quot;Text&quot;: &quot;Cell is not&quot;,
+        ///      &quot;Description1&quot;: &quot;Cell&quot;
+        ///    },
+        ///    {
+        ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string statementcmds {
+            get {
+                return ResourceManager.GetString("statementcmds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] testgrimoire {
+            get {
+                object obj = ResourceManager.GetObject("testgrimoire", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
