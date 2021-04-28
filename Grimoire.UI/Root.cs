@@ -236,6 +236,7 @@ namespace Grimoire.UI
             KeyboardHook.Instance.Dispose();
             Proxy.Instance.Stop(appClosing: true);
             CommandColorForm.Instance.Dispose();
+            nTray.Visible = false;
             nTray.Icon.Dispose();
             nTray.Dispose();
         }

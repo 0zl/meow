@@ -6280,7 +6280,7 @@ namespace Grimoire.UI
 
         private void btnBlank_Click(object sender, EventArgs e)
         {
-            AddCommand(new CmdBlank2 { Text = " " }, (ModifierKeys & Keys.Control) == Keys.Control);
+            AddCommand(new CmdBlank3 { Text = "(Write Text Here)", Alpha = 1, R = 220, G = 220, B = 220 }, (ModifierKeys & Keys.Control) == Keys.Control);
         }
 
         private void chkAFK_CheckedChanged(object sender, EventArgs e)
@@ -6534,10 +6534,10 @@ namespace Grimoire.UI
                 "SkillSet"
             };
 
-            if (cmd is CmdBlank || cmd is CmdBlank2)
+            if (cmd is CmdBlank || cmd is CmdBlank2 || cmd is CmdBlank3)
             {
                 string txt = lstCommands.Items[e.Index].ToString();
-                Font b2 = new Font("Arial", e.Font.Size + (float)6.5, FontStyle.Bold, GraphicsUnit.Pixel);
+                Font cmdFont = new Font("Arial", e.Font.Size + (float)6.5, FontStyle.Bold, GraphicsUnit.Pixel);
                 if (cmd is CmdBlank2 && txt.Contains("[RGB]"))
                     using (Font the_font = new Font("Times New Roman", e.Font.Size + (float)6.5, FontStyle.Bold, GraphicsUnit.Pixel))
                     {
@@ -6592,8 +6592,18 @@ namespace Grimoire.UI
                         if (txt.Contains("(TROLL)"))
                             e.Graphics.DrawString(txt.Replace("(TROLL)", ""), e.Font, b2b, e.Bounds, StringFormat.GenericDefault);
                         else
-                            e.Graphics.DrawString(txt, b2, b2b, e.Bounds, centered);
+                            e.Graphics.DrawString(txt, cmdFont, b2b, e.Bounds, centered);
                     }catch{}
+                }
+                else if(cmd is CmdBlank3)
+                {
+                    var jsonObj = JsonConvert.DeserializeObject<CmdBlank3>(JsonConvert.SerializeObject(cmd));
+                    try
+                    {
+                        SolidBrush colorBrush = new SolidBrush(jsonObj.Argb());
+                        e.Graphics.DrawString(txt, cmdFont, colorBrush, e.Bounds, centered);
+                    }
+                    catch { }
                 }
                 else if (txt.Contains("(TROLL)"))
                     e.Graphics.DrawString(txt.Replace("(TROLL)", ""), e.Font, new SolidBrush(Color.White), e.Bounds, StringFormat.GenericDefault);

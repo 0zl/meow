@@ -77,16 +77,17 @@ namespace Grimoire.UI
         public static string Show(object obj)
         {
             cmdObj = obj;
-            JObject content = JObject.Parse(JsonConvert.SerializeObject(obj));
+            JObject content = JObject.Parse(JsonConvert.SerializeObject(obj, _serializerSettings));
             using (commandEditor = new UserFriendlyCommandEditor())
             {
                 int currentY = 13;
                 int count = 0;
-                string[] skip = { "Tag", "Text", "Description1", "Description2" };
+                string[] skip = { "Tag", "Description1", "Description2", "$type" };
                 Dictionary<string, KeyValuePair<DarkLabel, DarkTextBox>> currentVars = new Dictionary<string, KeyValuePair<DarkLabel, DarkTextBox>>();
                 foreach (KeyValuePair<string, JToken> item in content)
                 {
-                    if (Array.IndexOf(skip, item.Key) == -1 && !string.IsNullOrEmpty(item.Value.ToString()))
+                    
+                    if (Array.IndexOf(skip, item.Key) == -1 && commandEditor.statementCommands.Find((StatementCommand s) => s.GetType() == content.GetType())?.Text != item.Key)
                     {
                         string lblText = item.Key;
                         string tbText = item.Value.ToString();
