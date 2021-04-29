@@ -3580,7 +3580,7 @@ namespace Grimoire.UI
             this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
             this.tabQuest.Name = "tabQuest";
             this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabQuest.Size = new System.Drawing.Size(450, 301);
+            this.tabQuest.Size = new System.Drawing.Size(192, 73);
             this.tabQuest.TabIndex = 3;
             this.tabQuest.Text = "Quest";
             // 
@@ -3601,7 +3601,7 @@ namespace Grimoire.UI
             this.pnlQuest.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlQuest.Location = new System.Drawing.Point(3, 3);
             this.pnlQuest.Name = "pnlQuest";
-            this.pnlQuest.Size = new System.Drawing.Size(444, 295);
+            this.pnlQuest.Size = new System.Drawing.Size(186, 67);
             this.pnlQuest.TabIndex = 106;
             // 
             // label14
@@ -5205,7 +5205,7 @@ namespace Grimoire.UI
             this.tabOptions2.Margin = new System.Windows.Forms.Padding(0);
             this.tabOptions2.Name = "tabOptions2";
             this.tabOptions2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions2.Size = new System.Drawing.Size(192, 73);
+            this.tabOptions2.Size = new System.Drawing.Size(450, 301);
             this.tabOptions2.TabIndex = 7;
             this.tabOptions2.Text = "Client";
             // 
