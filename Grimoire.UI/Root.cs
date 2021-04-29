@@ -18,6 +18,7 @@ using System.Drawing;
 using DarkUI.Controls;
 using DarkUI.Forms;
 using Properties;
+using System.Reflection;
 
 namespace Grimoire.UI
 {
@@ -199,8 +200,10 @@ namespace Grimoire.UI
                 aqlitegrimoire = Resources.aqlitegrimoiredebug;
             }
             */
-            
-            aqlitegrimoire = Resources.aqlitegrimoire;
+
+            //aqlitegrimoire = Resources.aqlitegrimoire;
+
+            aqlitegrimoire = File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "catgirl.swf"));
 
             using (MemoryStream memoryStream = new MemoryStream())
             {

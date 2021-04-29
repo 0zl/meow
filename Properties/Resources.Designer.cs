@@ -10,8 +10,10 @@
 
 namespace Properties {
     using System;
-    
-    
+    using System.IO;
+    using System.Reflection;
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -57,16 +59,6 @@ namespace Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] aqlitegrimoire {
-            get {
-                object obj = ResourceManager.GetObject("aqlitegrimoire", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -156,16 +148,6 @@ namespace Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] private1 {
-            get {
-                object obj = ResourceManager.GetObject("private1", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {
         ///  &quot;$type&quot;: &quot;System.Collections.Generic.List`1[[Grimoire.Botting.Commands.Misc.Statements.StatementCommand, Grimoire]], mscorlib&quot;,
         ///  &quot;$values&quot;: [
@@ -187,16 +169,6 @@ namespace Properties {
         public static string statementcmds {
             get {
                 return ResourceManager.GetString("statementcmds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] testgrimoire {
-            get {
-                object obj = ResourceManager.GetObject("testgrimoire", resourceCulture);
-                return ((byte[])(obj));
             }
         }
     }
