@@ -276,6 +276,7 @@ namespace Grimoire.Botting
             get;
             set;
         }
+
         public int DropDelay
         { 
             get; 
