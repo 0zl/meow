@@ -105,7 +105,7 @@ namespace Grimoire.Botting.Commands.Map
 
         public override string ToString()
         {
-            return "Join: " + Map + ", " + Cell + ", " + Pad;
+            return $"Join: {Map}, {Cell}, {Pad}";
         }
     }
 }
