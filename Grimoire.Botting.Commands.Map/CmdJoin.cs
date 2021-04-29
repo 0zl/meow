@@ -3,6 +3,7 @@ using Grimoire.Networking;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Grimoire.Botting.Commands.Map
 {
@@ -32,6 +33,7 @@ namespace Grimoire.Botting.Commands.Map
             await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer));
             string cmdMap = Map.Contains("-") ? Map.Split('-')[0] : Map;
             string text = Map.Substring(cmdMap.Length);
+            bool checkVar = instance.IsVar(text.Replace("-", ""));
             if (text.Contains("Packet"))
             {
                 await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer));
@@ -46,11 +48,7 @@ namespace Grimoire.Botting.Commands.Map
             }
             if (!cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
             {
-                if (!text.Contains("Glitch"))
-                {
-                    await TryJoin(instance, cmdMap, text);
-                }
-                else
+                if (text.Contains("Glitch"))
                 {
                     int Max = 9999;
                     int Min = 9990;
@@ -73,6 +71,14 @@ namespace Grimoire.Botting.Commands.Map
                         await TryJoin(instance, cmdMap);
                     }
                 }
+                else if (checkVar)
+                {
+                    text = "-" + Configuration.Tempvariable[instance.GetVar(text.Replace("-", ""))];
+                    MessageBox.Show(text);
+                    await TryJoin(instance, cmdMap, text);
+                }
+                else
+                    await TryJoin(instance, cmdMap, text);
             }
             if (cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
             {
@@ -105,7 +111,79 @@ namespace Grimoire.Botting.Commands.Map
 
         public override string ToString()
         {
-            return "Join: " + Map + ", " + Cell + ", " + Pad;
+            return $"Join: {Map}, {Cell}, {Pad}";
+        }
+    }
+
+    public class CmdJoin2 : IBotCommand
+    {
+        public string Map
+        {
+            get;
+            set;
+        }
+
+        public string Room
+        {
+            get;
+            set;
+        }
+
+        public string Cell
+        {
+            get;
+            set;
+        }
+
+        public string Pad
+        {
+            get;
+            set;
+        }
+
+        public async Task Execute(IBotEngine instance)
+        {
+            BotData.BotState = BotData.State.Move;
+            await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer));
+            bool checkVar = instance.IsVar(Room);
+            if (!Map.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
+            {
+                if (checkVar)
+                    await TryJoin(instance, Map, Configuration.Tempvariable[instance.GetVar(Room)]);
+                else
+                    await TryJoin(instance, Map, Room);
+            }
+            if (Map.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
+            {
+                if (!Player.Cell.Equals(Cell, StringComparison.OrdinalIgnoreCase))
+                {
+                    Player.MoveToCell(Cell, Pad);
+                    await Task.Delay(500);
+                }
+                World.SetSpawnPoint();
+                BotData.BotMap = Map;
+                BotData.BotCell = Cell;
+                BotData.BotPad = Pad;
+            }
+        }
+
+        public async Task TryJoin(IBotEngine instance, string MapName, string RoomProp = "")
+        {
+            await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer));
+            if (Player.CurrentState == Player.State.InCombat)
+            {
+                Player.MoveToCell(Player.Cell, Player.Pad);
+                await Task.Delay(1250);
+            }
+            RoomProp = new Regex("(1e)[0-9]{1,}", RegexOptions.IgnoreCase).Replace(RoomProp, (Match m) => new Random().Next(1001, 99999).ToString());
+            Player.JoinMap($"{MapName}-{RoomProp}", Cell, Pad);
+            await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 5);
+            await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
+        }
+
+        public override string ToString()
+        {
+            return $"Join: {Map}, {Room}, {Cell}, {Pad}";
         }
     }
 }

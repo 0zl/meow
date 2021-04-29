@@ -10,28 +10,20 @@ namespace EoL
 
         public struct _SYSTEMTIME
         {
-            // Token: 0x040006C3 RID: 1731
             public ushort wYear;
-
-            // Token: 0x040006C4 RID: 1732
+            
             public ushort wMonth;
-
-            // Token: 0x040006C5 RID: 1733
+            
             public ushort wDayOfWeek;
-
-            // Token: 0x040006C6 RID: 1734
+            
             public ushort wDay;
-
-            // Token: 0x040006C7 RID: 1735
+            
             public ushort wHour;
-
-            // Token: 0x040006C8 RID: 1736
+            
             public ushort wMinute;
-
-            // Token: 0x040006C9 RID: 1737
+            
             public ushort wSecond;
-
-            // Token: 0x040006CA RID: 1738
+            
             public ushort wMilliseconds;
         }
 

@@ -517,6 +517,8 @@
     <Content Include="EasyLoad64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\MPGHfavicon16.png" />
+    <None Include="Resources\MPGHfavicon.png" />
     <None Include="Resources\GrimoireIconBig.png" />
     <None Include="Resources\GitHub.png" />
     <None Include="Resources\big.Ico" />

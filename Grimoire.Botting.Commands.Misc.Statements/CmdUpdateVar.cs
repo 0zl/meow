@@ -14,13 +14,9 @@ namespace Grimoire.Botting.Commands.Misc.Statements
         public Task Execute(IBotEngine instance)
         {
             if (Configuration.Tempvariable.ContainsKey(Value1))
-            {
                 Configuration.Tempvariable[Value1] = Value2;
-            }
             else
-            {
                 instance.Index++;
-            }
 
             return Task.FromResult<object>(null);
         }

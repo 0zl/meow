@@ -996,8 +996,8 @@
   "txtGuild":"Guild"
 }</value>
   </data>
-  <data name="GitHub" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GitHub.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="GrimoireIconBig1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GrimoireIconBig.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="private1" type="System.Byte[], mscorlib">
     <value>
@@ -2323,10 +2323,16 @@
         BBp6dzg+/eqzlq0+g0S/2arVN47GgPw/rz2ioA==
 </value>
   </data>
+  <data name="MPGHfavicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MPGHfavicon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="GrimoireIconBig" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GrimoireIconBig.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GrimoireIconBig1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GrimoireIconBig.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="GitHub" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GitHub.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MPGHfavicon16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MPGHfavicon16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

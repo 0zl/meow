@@ -31,7 +31,7 @@ namespace Grimoire.Botting.Commands.Misc
         {
             string text = Text;
             text = text.Replace("{USERNAME}", Player.Username);
-            text = text.Replace("{MAP}", Player.Map).Replace("{ROOM_ID}", World.RoomId.ToString());
+            text = text.Replace("{MAP}", Player.Map).Replace("{ROOM_ID}", World.RoomId.ToString()).Replace("{ROOM_NUM}", World.RoomNumber.ToString());
             text = text.Replace("{GOLD}", Player.Gold.ToString());
             text = text.Replace("{LEVEL}", Player.Level.ToString());
             text = text.Replace("{CELL}", Player.Cell).Replace("{PAD}", Player.Pad);

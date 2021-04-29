@@ -42,5 +42,15 @@ namespace Grimoire.UI
         {
             Process.Start("https://github.com/wispie");
         }
+
+        private void pbBineyMPGH_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.mpgh.net/forum/member.php?u=4062680");
+        }
+
+        private void pbEmperorMPGH_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.mpgh.net/forum/member.php?u=2374072");
+        }
     }
 }
