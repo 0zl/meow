@@ -662,17 +662,16 @@ namespace Grimoire.UI
                 chkEnsureComplete.Checked = config.EnsureComplete;
                 chkAFK.Checked = config.AFK;
                 numDropDelay.Value = config.DropDelay <= 0 ? 1000 : config.DropDelay;
-                try
+                var description = config.Description ?? "Description";
+                if (description.StartsWith("{\\rtf") || description.StartsWith("{\rtf"))
                 {
-                    if ((config.Description ?? "Description").StartsWith("{\rtf"))
-                    {
-                        rtbInfo.Rtf = config.Description;
-                        mainTabControl.SelectedTab = tabInfo;
-                    }
-                }
-                catch
+                    rtbInfo.Rtf = config.Description;
+                    //MessageBox.Show(config.Description);
+                    mainTabControl.SelectedTab = tabInfo;
+                } else
                 {
-
+                    rtbInfo.Text = config.Description;
+                    mainTabControl.SelectedTab = tabInfo;
                 }
             }
         }
@@ -6597,7 +6596,7 @@ namespace Grimoire.UI
             if (!colorfulCommands.Checked)
             {
                 // Define the default color of the brush as black.
-                Brush myBrush = Brushes.Black;
+                Brush myBrush = Brushes.Gainsboro;
                 // Draw the current item text based on the current Font 
                 // and the custom brush settings.
                 e.Graphics.DrawString(lstCommands.Items[e.Index].ToString(),

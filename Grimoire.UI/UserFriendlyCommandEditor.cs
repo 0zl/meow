@@ -236,12 +236,27 @@ namespace Grimoire.UI
             this.Text = "Command Editor";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.RawCommandEditor_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UserFriendlyCommandEditor_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
+        }
+
+        private void UserFriendlyCommandEditor_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Return:
+                    btnOK.PerformClick();
+                    break;
+
+                case Keys.Escape:
+                    btnCancel.PerformClick();
+                    break;
+            }
         }
     }
 }
