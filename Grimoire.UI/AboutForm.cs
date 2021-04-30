@@ -52,5 +52,24 @@ namespace Grimoire.UI
         {
             Process.Start("https://www.mpgh.net/forum/member.php?u=2374072");
         }
+
+        private void AboutForm_Load(object sender, EventArgs e)
+        {
+            bool latest = false;
+            //int version = version whatever  
+            if (latest)
+            {
+                //lblUpdate = $"Grimlite is up to date ({version})"
+            }
+            else
+            {
+                //int latestVersion = latest version or whatever
+                //bool latestStatus
+                //lblUpdate = $"Latest {latestVersion}, status: {latestStatus ? "Released" : "Unreleased"}"
+                
+                // I'll handle the Released or Unreleased with color (green = released, red = unreleased)
+            }
+
+        }
     }
 }

@@ -49,6 +49,7 @@ namespace Grimoire.UI
             this.darkLabel1 = new DarkUI.Controls.DarkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.lblUpdate = new DarkUI.Controls.DarkLabel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrimoireBig)).BeginInit();
@@ -60,6 +61,7 @@ namespace Grimoire.UI
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblUpdate);
             this.panel1.Controls.Add(this.rtbCredits);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.darkLabel5);
@@ -79,7 +81,7 @@ namespace Grimoire.UI
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(551, 427);
+            this.panel1.Size = new System.Drawing.Size(551, 440);
             this.panel1.TabIndex = 3;
             // 
             // rtbCredits
@@ -89,7 +91,7 @@ namespace Grimoire.UI
             this.rtbCredits.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.rtbCredits.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbCredits.ForeColor = System.Drawing.Color.Gainsboro;
-            this.rtbCredits.Location = new System.Drawing.Point(16, 285);
+            this.rtbCredits.Location = new System.Drawing.Point(16, 298);
             this.rtbCredits.Name = "rtbCredits";
             this.rtbCredits.Size = new System.Drawing.Size(523, 130);
             this.rtbCredits.TabIndex = 13;
@@ -118,7 +120,7 @@ namespace Grimoire.UI
             // 
             this.darkLabel5.AutoSize = true;
             this.darkLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.darkLabel5.Location = new System.Drawing.Point(14, 211);
+            this.darkLabel5.Location = new System.Drawing.Point(14, 215);
             this.darkLabel5.Name = "darkLabel5";
             this.darkLabel5.Size = new System.Drawing.Size(141, 13);
             this.darkLabel5.TabIndex = 11;
@@ -129,7 +131,7 @@ namespace Grimoire.UI
             this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.richTextBox1.Location = new System.Drawing.Point(16, 44);
+            this.richTextBox1.Location = new System.Drawing.Point(16, 48);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(258, 71);
             this.richTextBox1.TabIndex = 10;
@@ -141,7 +143,7 @@ namespace Grimoire.UI
             this.darkLabel4.AutoSize = true;
             this.darkLabel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.darkLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.darkLabel4.Location = new System.Drawing.Point(12, 14);
+            this.darkLabel4.Location = new System.Drawing.Point(12, 12);
             this.darkLabel4.Name = "darkLabel4";
             this.darkLabel4.Size = new System.Drawing.Size(73, 24);
             this.darkLabel4.TabIndex = 9;
@@ -151,7 +153,7 @@ namespace Grimoire.UI
             // 
             this.pbCatGithub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pbCatGithub.Image = global::Properties.Resources.GitHub;
-            this.pbCatGithub.Location = new System.Drawing.Point(22, 185);
+            this.pbCatGithub.Location = new System.Drawing.Point(22, 189);
             this.pbCatGithub.Name = "pbCatGithub";
             this.pbCatGithub.Size = new System.Drawing.Size(16, 16);
             this.pbCatGithub.TabIndex = 7;
@@ -162,7 +164,7 @@ namespace Grimoire.UI
             // 
             this.pbEmperorMPGH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pbEmperorMPGH.Image = global::Properties.Resources.MPGHfavicon16;
-            this.pbEmperorMPGH.Location = new System.Drawing.Point(22, 252);
+            this.pbEmperorMPGH.Location = new System.Drawing.Point(22, 256);
             this.pbEmperorMPGH.Name = "pbEmperorMPGH";
             this.pbEmperorMPGH.Size = new System.Drawing.Size(16, 16);
             this.pbEmperorMPGH.TabIndex = 7;
@@ -173,7 +175,7 @@ namespace Grimoire.UI
             // 
             this.pbBineyMPGH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pbBineyMPGH.Image = global::Properties.Resources.MPGHfavicon16;
-            this.pbBineyMPGH.Location = new System.Drawing.Point(22, 231);
+            this.pbBineyMPGH.Location = new System.Drawing.Point(22, 235);
             this.pbBineyMPGH.Name = "pbBineyMPGH";
             this.pbBineyMPGH.Size = new System.Drawing.Size(16, 16);
             this.pbBineyMPGH.TabIndex = 7;
@@ -184,7 +186,7 @@ namespace Grimoire.UI
             // 
             this.pbsatanGithub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pbsatanGithub.Image = global::Properties.Resources.GitHub;
-            this.pbsatanGithub.Location = new System.Drawing.Point(22, 163);
+            this.pbsatanGithub.Location = new System.Drawing.Point(22, 167);
             this.pbsatanGithub.Name = "pbsatanGithub";
             this.pbsatanGithub.Size = new System.Drawing.Size(16, 16);
             this.pbsatanGithub.TabIndex = 7;
@@ -195,7 +197,7 @@ namespace Grimoire.UI
             // 
             this.lblCat.AutoSize = true;
             this.lblCat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblCat.Location = new System.Drawing.Point(40, 186);
+            this.lblCat.Location = new System.Drawing.Point(40, 190);
             this.lblCat.Name = "lblCat";
             this.lblCat.Size = new System.Drawing.Size(22, 13);
             this.lblCat.TabIndex = 6;
@@ -205,7 +207,7 @@ namespace Grimoire.UI
             // 
             this.lblEmperorAnts.AutoSize = true;
             this.lblEmperorAnts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblEmperorAnts.Location = new System.Drawing.Point(40, 254);
+            this.lblEmperorAnts.Location = new System.Drawing.Point(40, 258);
             this.lblEmperorAnts.Name = "lblEmperorAnts";
             this.lblEmperorAnts.Size = new System.Drawing.Size(64, 13);
             this.lblEmperorAnts.TabIndex = 6;
@@ -215,7 +217,7 @@ namespace Grimoire.UI
             // 
             this.lblBiney.AutoSize = true;
             this.lblBiney.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblBiney.Location = new System.Drawing.Point(40, 233);
+            this.lblBiney.Location = new System.Drawing.Point(40, 237);
             this.lblBiney.Name = "lblBiney";
             this.lblBiney.Size = new System.Drawing.Size(33, 13);
             this.lblBiney.TabIndex = 6;
@@ -225,7 +227,7 @@ namespace Grimoire.UI
             // 
             this.lblWisp.AutoSize = true;
             this.lblWisp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblWisp.Location = new System.Drawing.Point(40, 164);
+            this.lblWisp.Location = new System.Drawing.Point(40, 168);
             this.lblWisp.Name = "lblWisp";
             this.lblWisp.Size = new System.Drawing.Size(59, 13);
             this.lblWisp.TabIndex = 6;
@@ -235,7 +237,7 @@ namespace Grimoire.UI
             // 
             this.darkLabel1.AutoSize = true;
             this.darkLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.darkLabel1.Location = new System.Drawing.Point(14, 142);
+            this.darkLabel1.Location = new System.Drawing.Point(14, 146);
             this.darkLabel1.Name = "darkLabel1";
             this.darkLabel1.Size = new System.Drawing.Size(93, 13);
             this.darkLabel1.TabIndex = 5;
@@ -246,7 +248,7 @@ namespace Grimoire.UI
             this.label1.AutoSize = true;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.label1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label1.Location = new System.Drawing.Point(34, 142);
+            this.label1.Location = new System.Drawing.Point(34, 146);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 4;
@@ -256,7 +258,7 @@ namespace Grimoire.UI
             // 
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.LinkColor = System.Drawing.Color.White;
-            this.linkLabel2.Location = new System.Drawing.Point(14, 113);
+            this.linkLabel2.Location = new System.Drawing.Point(14, 117);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(259, 13);
             this.linkLabel2.TabIndex = 3;
@@ -264,17 +266,28 @@ namespace Grimoire.UI
             this.linkLabel2.Text = "Donate to wisp/satan, he needs coffee, lots of coffee";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
+            // lblUpdate
+            // 
+            this.lblUpdate.AutoSize = true;
+            this.lblUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.lblUpdate.Location = new System.Drawing.Point(14, 37);
+            this.lblUpdate.Name = "lblUpdate";
+            this.lblUpdate.Size = new System.Drawing.Size(112, 13);
+            this.lblUpdate.TabIndex = 15;
+            this.lblUpdate.Text = "Checking for update...";
+            // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 427);
+            this.ClientSize = new System.Drawing.Size(551, 440);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(449, 342);
             this.Name = "AboutForm";
             this.Text = "About";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AboutForm_FormClosing);
+            this.Load += new System.EventHandler(this.AboutForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -306,5 +319,6 @@ namespace Grimoire.UI
         private System.Windows.Forms.RichTextBox rtbCredits;
         private System.Windows.Forms.PictureBox pbEmperorMPGH;
         private System.Windows.Forms.PictureBox pbBineyMPGH;
+        private DarkUI.Controls.DarkLabel lblUpdate;
     }
 }
