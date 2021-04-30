@@ -43,7 +43,7 @@ namespace Grimoire.UI
 
         private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
         {
-            DefaultValueHandling = DefaultValueHandling.Ignore,
+            DefaultValueHandling = DefaultValueHandling.Include,
             //NullValueHandling = NullValueHandling.Ignore,
             TypeNameHandling = TypeNameHandling.All
         };

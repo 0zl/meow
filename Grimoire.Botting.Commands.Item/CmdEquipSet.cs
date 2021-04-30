@@ -19,8 +19,8 @@ namespace Grimoire.Botting.Commands.Item
 
         private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
         {
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
+            DefaultValueHandling = DefaultValueHandling.Include,
+            //NullValueHandling = NullValueHandling.Ignore,
             TypeNameHandling = TypeNameHandling.All
         };
 
