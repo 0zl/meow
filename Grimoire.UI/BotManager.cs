@@ -3645,7 +3645,7 @@ namespace Grimoire.UI
             this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
             this.tabQuest.Name = "tabQuest";
             this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabQuest.Size = new System.Drawing.Size(497, 301);
+            this.tabQuest.Size = new System.Drawing.Size(192, 73);
             this.tabQuest.TabIndex = 3;
             this.tabQuest.Text = "Quest";
             // 
@@ -3912,7 +3912,7 @@ namespace Grimoire.UI
             this.darkGroupBox11.Controls.Add(this.btnGotoLabel);
             this.darkGroupBox11.Location = new System.Drawing.Point(324, 6);
             this.darkGroupBox11.Name = "darkGroupBox11";
-            this.darkGroupBox11.Size = new System.Drawing.Size(141, 173);
+            this.darkGroupBox11.Size = new System.Drawing.Size(150, 171);
             this.darkGroupBox11.TabIndex = 163;
             this.darkGroupBox11.TabStop = false;
             this.darkGroupBox11.Text = "Labels";
@@ -3928,9 +3928,9 @@ namespace Grimoire.UI
             this.lbLabels.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.lbLabels.FormattingEnabled = true;
             this.lbLabels.ItemHeight = 18;
-            this.lbLabels.Location = new System.Drawing.Point(6, 18);
+            this.lbLabels.Location = new System.Drawing.Point(6, 23);
             this.lbLabels.Name = "lbLabels";
-            this.lbLabels.Size = new System.Drawing.Size(124, 92);
+            this.lbLabels.Size = new System.Drawing.Size(138, 92);
             this.lbLabels.TabIndex = 114;
             this.lbLabels.DoubleClick += new System.EventHandler(this.lbLabels_DoubleClick);
             // 
@@ -3938,9 +3938,9 @@ namespace Grimoire.UI
             // 
             this.txtLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLabel.Location = new System.Drawing.Point(8, 123);
+            this.txtLabel.Location = new System.Drawing.Point(8, 121);
             this.txtLabel.Name = "txtLabel";
-            this.txtLabel.Size = new System.Drawing.Size(126, 20);
+            this.txtLabel.Size = new System.Drawing.Size(136, 20);
             this.txtLabel.TabIndex = 113;
             this.txtLabel.Text = "Label name";
             // 
@@ -3949,9 +3949,9 @@ namespace Grimoire.UI
             this.btnAddLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddLabel.Checked = false;
-            this.btnAddLabel.Location = new System.Drawing.Point(73, 147);
+            this.btnAddLabel.Location = new System.Drawing.Point(76, 145);
             this.btnAddLabel.Name = "btnAddLabel";
-            this.btnAddLabel.Size = new System.Drawing.Size(61, 22);
+            this.btnAddLabel.Size = new System.Drawing.Size(68, 22);
             this.btnAddLabel.TabIndex = 111;
             this.btnAddLabel.Text = "Add";
             this.btnAddLabel.Click += new System.EventHandler(this.btnAddLabel_Click);
@@ -3961,9 +3961,9 @@ namespace Grimoire.UI
             this.btnGotoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGotoLabel.Checked = false;
-            this.btnGotoLabel.Location = new System.Drawing.Point(8, 147);
+            this.btnGotoLabel.Location = new System.Drawing.Point(8, 145);
             this.btnGotoLabel.Name = "btnGotoLabel";
-            this.btnGotoLabel.Size = new System.Drawing.Size(64, 22);
+            this.btnGotoLabel.Size = new System.Drawing.Size(62, 22);
             this.btnGotoLabel.TabIndex = 112;
             this.btnGotoLabel.Text = "Goto";
             this.btnGotoLabel.Click += new System.EventHandler(this.btnGotoLabel_Click);
@@ -4363,7 +4363,7 @@ namespace Grimoire.UI
             this.chkSkip.AutoSize = true;
             this.chkSkip.Checked = true;
             this.chkSkip.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSkip.Location = new System.Drawing.Point(3, 43);
+            this.chkSkip.Location = new System.Drawing.Point(7, 43);
             this.chkSkip.Name = "chkSkip";
             this.chkSkip.Size = new System.Drawing.Size(146, 17);
             this.chkSkip.TabIndex = 62;
@@ -4412,7 +4412,7 @@ namespace Grimoire.UI
             this.chkRestartDeath.AutoSize = true;
             this.chkRestartDeath.Checked = true;
             this.chkRestartDeath.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRestartDeath.Location = new System.Drawing.Point(3, 62);
+            this.chkRestartDeath.Location = new System.Drawing.Point(7, 62);
             this.chkRestartDeath.Name = "chkRestartDeath";
             this.chkRestartDeath.Size = new System.Drawing.Size(133, 17);
             this.chkRestartDeath.TabIndex = 116;
@@ -4460,9 +4460,9 @@ namespace Grimoire.UI
             this.darkGroupBox9.Controls.Add(this.splitContainer3);
             this.darkGroupBox9.Controls.Add(this.txtAuthor);
             this.darkGroupBox9.Controls.Add(this.txtDescription);
-            this.darkGroupBox9.Location = new System.Drawing.Point(246, 8);
+            this.darkGroupBox9.Location = new System.Drawing.Point(246, 6);
             this.darkGroupBox9.Name = "darkGroupBox9";
-            this.darkGroupBox9.Size = new System.Drawing.Size(245, 163);
+            this.darkGroupBox9.Size = new System.Drawing.Size(239, 165);
             this.darkGroupBox9.TabIndex = 116;
             this.darkGroupBox9.TabStop = false;
             this.darkGroupBox9.Text = "Save/Load";
@@ -4483,10 +4483,8 @@ namespace Grimoire.UI
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.btnLoad);
-            this.splitContainer3.Panel2MinSize = 59;
-            this.splitContainer3.Size = new System.Drawing.Size(232, 22);
-            this.splitContainer3.SplitterDistance = 116;
-            this.splitContainer3.SplitterWidth = 2;
+            this.splitContainer3.Size = new System.Drawing.Size(226, 22);
+            this.splitContainer3.SplitterDistance = 110;
             this.splitContainer3.TabIndex = 118;
             // 
             // btnSave
@@ -4495,7 +4493,7 @@ namespace Grimoire.UI
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.Location = new System.Drawing.Point(0, 0);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(116, 22);
+            this.btnSave.Size = new System.Drawing.Size(110, 22);
             this.btnSave.TabIndex = 75;
             this.btnSave.Text = "Save bot";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -4506,7 +4504,7 @@ namespace Grimoire.UI
             this.btnLoad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLoad.Location = new System.Drawing.Point(0, 0);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(114, 22);
+            this.btnLoad.Size = new System.Drawing.Size(112, 22);
             this.btnLoad.TabIndex = 67;
             this.btnLoad.Text = "Load bot";
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
@@ -4518,7 +4516,7 @@ namespace Grimoire.UI
             this.txtAuthor.Location = new System.Drawing.Point(8, 45);
             this.txtAuthor.Multiline = true;
             this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.Size = new System.Drawing.Size(239, 20);
+            this.txtAuthor.Size = new System.Drawing.Size(225, 20);
             this.txtAuthor.TabIndex = 110;
             this.txtAuthor.Text = "Author";
             this.txtAuthor.Enter += new System.EventHandler(this.TextboxEnter);
@@ -4532,7 +4530,7 @@ namespace Grimoire.UI
             this.txtDescription.Location = new System.Drawing.Point(7, 68);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(232, 84);
+            this.txtDescription.Size = new System.Drawing.Size(226, 87);
             this.txtDescription.TabIndex = 109;
             this.txtDescription.Text = "Description (Write in RTF)";
             this.txtDescription.Enter += new System.EventHandler(this.TextboxEnter);
@@ -5620,7 +5618,7 @@ namespace Grimoire.UI
             this.tabBots.Margin = new System.Windows.Forms.Padding(0);
             this.tabBots.Name = "tabBots";
             this.tabBots.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBots.Size = new System.Drawing.Size(192, 73);
+            this.tabBots.Size = new System.Drawing.Size(497, 301);
             this.tabBots.TabIndex = 6;
             this.tabBots.Text = "Bots";
             // 
@@ -5629,7 +5627,7 @@ namespace Grimoire.UI
             this.lblBoosts.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblBoosts.AutoSize = true;
             this.lblBoosts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblBoosts.Location = new System.Drawing.Point(125, 34);
+            this.lblBoosts.Location = new System.Drawing.Point(277, 262);
             this.lblBoosts.Name = "lblBoosts";
             this.lblBoosts.Size = new System.Drawing.Size(42, 13);
             this.lblBoosts.TabIndex = 25;
@@ -5641,7 +5639,7 @@ namespace Grimoire.UI
             this.lblDrops.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblDrops.AutoSize = true;
             this.lblDrops.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblDrops.Location = new System.Drawing.Point(69, 34);
+            this.lblDrops.Location = new System.Drawing.Point(221, 262);
             this.lblDrops.Name = "lblDrops";
             this.lblDrops.Size = new System.Drawing.Size(38, 13);
             this.lblDrops.TabIndex = 24;
@@ -5653,7 +5651,7 @@ namespace Grimoire.UI
             this.lblQuests.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblQuests.AutoSize = true;
             this.lblQuests.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblQuests.Location = new System.Drawing.Point(11, 34);
+            this.lblQuests.Location = new System.Drawing.Point(163, 262);
             this.lblQuests.Name = "lblQuests";
             this.lblQuests.Size = new System.Drawing.Size(43, 13);
             this.lblQuests.TabIndex = 23;
@@ -5665,7 +5663,7 @@ namespace Grimoire.UI
             this.lblSkills.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblSkills.AutoSize = true;
             this.lblSkills.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblSkills.Location = new System.Drawing.Point(-39, 34);
+            this.lblSkills.Location = new System.Drawing.Point(113, 262);
             this.lblSkills.Name = "lblSkills";
             this.lblSkills.Size = new System.Drawing.Size(34, 13);
             this.lblSkills.TabIndex = 22;
@@ -5677,7 +5675,7 @@ namespace Grimoire.UI
             this.lblCommands.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblCommands.AutoSize = true;
             this.lblCommands.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblCommands.Location = new System.Drawing.Point(-120, 21);
+            this.lblCommands.Location = new System.Drawing.Point(32, 249);
             this.lblCommands.Name = "lblCommands";
             this.lblCommands.Size = new System.Drawing.Size(62, 26);
             this.lblCommands.TabIndex = 21;
@@ -5689,7 +5687,7 @@ namespace Grimoire.UI
             this.lblItems.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblItems.AutoSize = true;
             this.lblItems.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblItems.Location = new System.Drawing.Point(187, 34);
+            this.lblItems.Location = new System.Drawing.Point(339, 262);
             this.lblItems.Name = "lblItems";
             this.lblItems.Size = new System.Drawing.Size(35, 13);
             this.lblItems.TabIndex = 146;
@@ -5700,10 +5698,10 @@ namespace Grimoire.UI
             // 
             this.txtSavedDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSavedDesc.Location = new System.Drawing.Point(-10, 90);
+            this.txtSavedDesc.Location = new System.Drawing.Point(295, 90);
             this.txtSavedDesc.Multiline = true;
             this.txtSavedDesc.Name = "txtSavedDesc";
-            this.txtSavedDesc.Size = new System.Drawing.Size(193, 0);
+            this.txtSavedDesc.Size = new System.Drawing.Size(193, 164);
             this.txtSavedDesc.TabIndex = 20;
             this.txtSavedDesc.Text = "Description";
             // 
@@ -5711,7 +5709,7 @@ namespace Grimoire.UI
             // 
             this.txtSavedAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSavedAuthor.Location = new System.Drawing.Point(-10, 64);
+            this.txtSavedAuthor.Location = new System.Drawing.Point(295, 64);
             this.txtSavedAuthor.Name = "txtSavedAuthor";
             this.txtSavedAuthor.Size = new System.Drawing.Size(193, 20);
             this.txtSavedAuthor.TabIndex = 19;
@@ -5722,7 +5720,7 @@ namespace Grimoire.UI
             this.lblBots.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBots.AutoSize = true;
             this.lblBots.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblBots.Location = new System.Drawing.Point(-15, 50);
+            this.lblBots.Location = new System.Drawing.Point(290, 50);
             this.lblBots.Name = "lblBots";
             this.lblBots.Size = new System.Drawing.Size(83, 13);
             this.lblBots.TabIndex = 18;
@@ -5735,9 +5733,11 @@ namespace Grimoire.UI
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeBots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.treeBots.ForeColor = System.Drawing.Color.Gainsboro;
+            this.treeBots.LineColor = System.Drawing.Color.DarkGray;
             this.treeBots.Location = new System.Drawing.Point(4, 27);
             this.treeBots.Name = "treeBots";
-            this.treeBots.Size = new System.Drawing.Size(0, 0);
+            this.treeBots.Size = new System.Drawing.Size(285, 228);
             this.treeBots.TabIndex = 17;
             this.treeBots.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeBots_AfterExpand);
             this.treeBots.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeBots_AfterSelect);
@@ -5745,7 +5745,7 @@ namespace Grimoire.UI
             // txtSavedAdd
             // 
             this.txtSavedAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSavedAdd.Location = new System.Drawing.Point(-10, 27);
+            this.txtSavedAdd.Location = new System.Drawing.Point(295, 27);
             this.txtSavedAdd.Name = "txtSavedAdd";
             this.txtSavedAdd.Size = new System.Drawing.Size(126, 20);
             this.txtSavedAdd.TabIndex = 16;
@@ -5754,7 +5754,7 @@ namespace Grimoire.UI
             // 
             this.btnSavedAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSavedAdd.Checked = false;
-            this.btnSavedAdd.Location = new System.Drawing.Point(114, 27);
+            this.btnSavedAdd.Location = new System.Drawing.Point(419, 27);
             this.btnSavedAdd.Name = "btnSavedAdd";
             this.btnSavedAdd.Size = new System.Drawing.Size(69, 22);
             this.btnSavedAdd.TabIndex = 15;
@@ -5767,7 +5767,7 @@ namespace Grimoire.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSaved.Location = new System.Drawing.Point(4, 4);
             this.txtSaved.Name = "txtSaved";
-            this.txtSaved.Size = new System.Drawing.Size(179, 20);
+            this.txtSaved.Size = new System.Drawing.Size(484, 20);
             this.txtSaved.TabIndex = 13;
             this.txtSaved.TextChanged += new System.EventHandler(this.txtSaved_TextChanged);
             // 
@@ -5795,7 +5795,7 @@ namespace Grimoire.UI
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Panel2MinSize = 0;
             this.splitContainer1.Size = new System.Drawing.Size(263, 75);
-            this.splitContainer1.SplitterDistance = 129;
+            this.splitContainer1.SplitterDistance = 131;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 149;
             // 
@@ -5806,7 +5806,7 @@ namespace Grimoire.UI
             this.panel3.Controls.Add(this.btnDown);
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(127, 22);
+            this.panel3.Size = new System.Drawing.Size(129, 22);
             this.panel3.TabIndex = 148;
             // 
             // btnDown
@@ -5816,7 +5816,7 @@ namespace Grimoire.UI
             this.btnDown.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDown.Location = new System.Drawing.Point(0, 0);
             this.btnDown.Name = "btnDown";
-            this.btnDown.Size = new System.Drawing.Size(127, 22);
+            this.btnDown.Size = new System.Drawing.Size(129, 22);
             this.btnDown.TabIndex = 166;
             this.btnDown.Text = "▼";
             this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
@@ -5835,7 +5835,7 @@ namespace Grimoire.UI
             "Items"});
             this.cbLists.Location = new System.Drawing.Point(1, 51);
             this.cbLists.Name = "cbLists";
-            this.cbLists.Size = new System.Drawing.Size(126, 21);
+            this.cbLists.Size = new System.Drawing.Size(128, 21);
             this.cbLists.TabIndex = 169;
             this.cbLists.SelectedIndexChanged += new System.EventHandler(this.cbLists_SelectedIndexChanged);
             // 
@@ -5843,7 +5843,7 @@ namespace Grimoire.UI
             // 
             this.chkAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAll.AutoSize = true;
-            this.chkAll.Location = new System.Drawing.Point(92, 28);
+            this.chkAll.Location = new System.Drawing.Point(94, 28);
             this.chkAll.Name = "chkAll";
             this.chkAll.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkAll.Size = new System.Drawing.Size(36, 17);
@@ -5857,7 +5857,7 @@ namespace Grimoire.UI
             this.btnClear.Checked = false;
             this.btnClear.Location = new System.Drawing.Point(1, 25);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(90, 22);
+            this.btnClear.Size = new System.Drawing.Size(92, 22);
             this.btnClear.TabIndex = 167;
             this.btnClear.Text = "Clear";
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -5871,7 +5871,7 @@ namespace Grimoire.UI
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 22);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(133, 51);
+            this.panel4.Size = new System.Drawing.Size(131, 51);
             this.panel4.TabIndex = 148;
             // 
             // btnRemove
@@ -5882,20 +5882,18 @@ namespace Grimoire.UI
             this.btnRemove.Checked = false;
             this.btnRemove.Location = new System.Drawing.Point(0, 3);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(133, 22);
+            this.btnRemove.Size = new System.Drawing.Size(131, 22);
             this.btnRemove.TabIndex = 166;
             this.btnRemove.Text = "Remove";
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnBotStart
             // 
-            this.btnBotStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBotStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBotStart.Checked = false;
             this.btnBotStart.Location = new System.Drawing.Point(0, 27);
             this.btnBotStart.Name = "btnBotStart";
-            this.btnBotStart.Size = new System.Drawing.Size(133, 22);
+            this.btnBotStart.Size = new System.Drawing.Size(131, 22);
             this.btnBotStart.TabIndex = 167;
             this.btnBotStart.Text = "Start";
             this.btnBotStart.Click += new System.EventHandler(this.btnBotStart_ClickAsync);
@@ -5908,7 +5906,7 @@ namespace Grimoire.UI
             this.btnBotStop.Checked = false;
             this.btnBotStop.Location = new System.Drawing.Point(0, 27);
             this.btnBotStop.Name = "btnBotStop";
-            this.btnBotStop.Size = new System.Drawing.Size(133, 22);
+            this.btnBotStop.Size = new System.Drawing.Size(131, 22);
             this.btnBotStop.TabIndex = 168;
             this.btnBotStop.Text = "Stop";
             this.btnBotStop.Visible = false;
@@ -5921,18 +5919,17 @@ namespace Grimoire.UI
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(133, 22);
+            this.panel2.Size = new System.Drawing.Size(131, 22);
             this.panel2.TabIndex = 147;
             // 
             // btnUp
             // 
-            this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnUp.Checked = false;
+            this.btnUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnUp.Location = new System.Drawing.Point(0, 0);
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(133, 22);
+            this.btnUp.Size = new System.Drawing.Size(131, 22);
             this.btnUp.TabIndex = 165;
             this.btnUp.Text = "▲";
             this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
