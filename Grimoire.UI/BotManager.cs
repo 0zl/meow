@@ -664,8 +664,15 @@ namespace Grimoire.UI
                 numDropDelay.Value = config.DropDelay <= 0 ? 1000 : config.DropDelay;
                 if(config.Description != null)
                 {
-                    mainTabControl.SelectedTab = tabInfo;
-                    rtbInfo.Rtf = config.Description;
+                    try
+                    {
+                        rtbInfo.Rtf = config.Description;
+                        mainTabControl.SelectedTab = tabInfo;
+                    }
+                    catch
+                    {
+
+                    }
                 }
             }
         }
