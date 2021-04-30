@@ -72,8 +72,6 @@ namespace Grimoire.UI
         private Button btnExit;
         private Button btnMin;
         private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem setFPSToolStripMenuItem;
-        private ToolStripTextBox toolStripTextBox1;
         private DarkMenuStrip darkMenuStrip1;
         private ToolStripMenuItem FPSToolStripMenuItem;
         private ToolStripTextBox toolStripTextBox2;
@@ -301,8 +299,6 @@ namespace Grimoire.UI
             this.hidePlayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skipCutscenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableAnimationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setFPSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.grimliteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bankToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -396,7 +392,7 @@ namespace Grimoire.UI
             this.startToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.startToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -406,7 +402,7 @@ namespace Grimoire.UI
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -415,7 +411,7 @@ namespace Grimoire.UI
             this.managerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.managerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.managerToolStripMenuItem.Name = "managerToolStripMenuItem";
-            this.managerToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.managerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.managerToolStripMenuItem.Text = "Manager";
             this.managerToolStripMenuItem.Click += new System.EventHandler(this.managerToolStripMenuItem_Click);
             // 
@@ -444,7 +440,7 @@ namespace Grimoire.UI
             this.fastTravelsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.fastTravelsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.fastTravelsToolStripMenuItem.Name = "fastTravelsToolStripMenuItem";
-            this.fastTravelsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.fastTravelsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.fastTravelsToolStripMenuItem.Text = "Fast travels";
             this.fastTravelsToolStripMenuItem.Click += new System.EventHandler(this.fastTravelsToolStripMenuItem_Click);
             // 
@@ -453,7 +449,7 @@ namespace Grimoire.UI
             this.loadersgrabbersToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.loadersgrabbersToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.loadersgrabbersToolStripMenuItem.Name = "loadersgrabbersToolStripMenuItem";
-            this.loadersgrabbersToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.loadersgrabbersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadersgrabbersToolStripMenuItem.Text = "Loaders/grabbers";
             this.loadersgrabbersToolStripMenuItem.Click += new System.EventHandler(this.loadersgrabbersToolStripMenuItem_Click);
             // 
@@ -462,7 +458,7 @@ namespace Grimoire.UI
             this.hotkeysToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.hotkeysToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.hotkeysToolStripMenuItem.Name = "hotkeysToolStripMenuItem";
-            this.hotkeysToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.hotkeysToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hotkeysToolStripMenuItem.Text = "Hotkeys";
             this.hotkeysToolStripMenuItem.Click += new System.EventHandler(this.hotkeysToolStripMenuItem_Click);
             // 
@@ -471,7 +467,7 @@ namespace Grimoire.UI
             this.pluginManagerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.pluginManagerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.pluginManagerToolStripMenuItem.Name = "pluginManagerToolStripMenuItem";
-            this.pluginManagerToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.pluginManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pluginManagerToolStripMenuItem.Text = "Plugin manager";
             this.pluginManagerToolStripMenuItem.Click += new System.EventHandler(this.pluginManagerToolStripMenuItem_Click);
             // 
@@ -480,7 +476,7 @@ namespace Grimoire.UI
             this.cosmeticsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.cosmeticsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.cosmeticsToolStripMenuItem.Name = "cosmeticsToolStripMenuItem";
-            this.cosmeticsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.cosmeticsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cosmeticsToolStripMenuItem.Text = "Cosmetics";
             this.cosmeticsToolStripMenuItem.Click += new System.EventHandler(this.cosmeticsToolStripMenuItem_Click);
             // 
@@ -489,7 +485,7 @@ namespace Grimoire.UI
             this.bankToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.bankToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.bankToolStripMenuItem.Name = "bankToolStripMenuItem";
-            this.bankToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.bankToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.bankToolStripMenuItem.Text = "Bank";
             this.bankToolStripMenuItem.Click += new System.EventHandler(this.bankToolStripMenuItem_Click);
             // 
@@ -499,7 +495,7 @@ namespace Grimoire.UI
             this.setsToolStripMenuItem.Enabled = false;
             this.setsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
             this.setsToolStripMenuItem.Name = "setsToolStripMenuItem";
-            this.setsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.setsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.setsToolStripMenuItem.Text = "Sets";
             this.setsToolStripMenuItem.Click += new System.EventHandler(this.setsToolStripMenuItem_Click);
             // 
@@ -508,7 +504,7 @@ namespace Grimoire.UI
             this.eyeDropperToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.eyeDropperToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.eyeDropperToolStripMenuItem.Name = "eyeDropperToolStripMenuItem";
-            this.eyeDropperToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.eyeDropperToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eyeDropperToolStripMenuItem.Text = "Eye Dropper";
             this.eyeDropperToolStripMenuItem.Click += new System.EventHandler(this.eyeDropperToolStripMenuItem_Click_1);
             // 
@@ -517,7 +513,7 @@ namespace Grimoire.UI
             this.logsToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.logsToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.logsToolStripMenuItem1.Name = "logsToolStripMenuItem1";
-            this.logsToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.logsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.logsToolStripMenuItem1.Text = "Logs";
             this.logsToolStripMenuItem1.Click += new System.EventHandler(this.logsToolStripMenuItem1_Click);
             // 
@@ -526,7 +522,7 @@ namespace Grimoire.UI
             this.notepadToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.notepadToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.notepadToolStripMenuItem1.Name = "notepadToolStripMenuItem1";
-            this.notepadToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.notepadToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.notepadToolStripMenuItem1.Text = "Notepad";
             this.notepadToolStripMenuItem1.Click += new System.EventHandler(this.notepadToolStripMenuItem1_Click);
             // 
@@ -538,7 +534,7 @@ namespace Grimoire.UI
             this.toolStripTextBox2});
             this.FPSToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.FPSToolStripMenuItem.Name = "FPSToolStripMenuItem";
-            this.FPSToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.FPSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.FPSToolStripMenuItem.Text = "Set FPS";
             this.FPSToolStripMenuItem.Click += new System.EventHandler(this.FPSToolStripMenuItem_Click);
             // 
@@ -648,8 +644,7 @@ namespace Grimoire.UI
             this.lagKillerToolStripMenuItem,
             this.hidePlayersToolStripMenuItem,
             this.skipCutscenesToolStripMenuItem,
-            this.disableAnimationsToolStripMenuItem,
-            this.setFPSToolStripMenuItem});
+            this.disableAnimationsToolStripMenuItem});
             this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 23);
@@ -661,7 +656,7 @@ namespace Grimoire.UI
             this.infRangeToolStripMenuItem.CheckOnClick = true;
             this.infRangeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.infRangeToolStripMenuItem.Name = "infRangeToolStripMenuItem";
-            this.infRangeToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.infRangeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.infRangeToolStripMenuItem.Text = "Infinite Range";
             this.infRangeToolStripMenuItem.Click += new System.EventHandler(this.infRangeToolStripMenuItem_Click);
             // 
@@ -671,7 +666,7 @@ namespace Grimoire.UI
             this.provokeToolStripMenuItem1.CheckOnClick = true;
             this.provokeToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.provokeToolStripMenuItem1.Name = "provokeToolStripMenuItem1";
-            this.provokeToolStripMenuItem1.Size = new System.Drawing.Size(176, 22);
+            this.provokeToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.provokeToolStripMenuItem1.Text = "Provoke";
             this.provokeToolStripMenuItem1.Click += new System.EventHandler(this.provokeToolStripMenuItem1_Click);
             // 
@@ -681,7 +676,7 @@ namespace Grimoire.UI
             this.enemyMagnetToolStripMenuItem.CheckOnClick = true;
             this.enemyMagnetToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.enemyMagnetToolStripMenuItem.Name = "enemyMagnetToolStripMenuItem";
-            this.enemyMagnetToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.enemyMagnetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.enemyMagnetToolStripMenuItem.Text = "Enemy Magnet";
             this.enemyMagnetToolStripMenuItem.Click += new System.EventHandler(this.enemyMagnetToolStripMenuItem_Click);
             // 
@@ -691,7 +686,7 @@ namespace Grimoire.UI
             this.lagKillerToolStripMenuItem.CheckOnClick = true;
             this.lagKillerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.lagKillerToolStripMenuItem.Name = "lagKillerToolStripMenuItem";
-            this.lagKillerToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.lagKillerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.lagKillerToolStripMenuItem.Text = "Lag Killer";
             this.lagKillerToolStripMenuItem.Click += new System.EventHandler(this.lagKillerToolStripMenuItem_Click);
             // 
@@ -701,7 +696,7 @@ namespace Grimoire.UI
             this.hidePlayersToolStripMenuItem.CheckOnClick = true;
             this.hidePlayersToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.hidePlayersToolStripMenuItem.Name = "hidePlayersToolStripMenuItem";
-            this.hidePlayersToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.hidePlayersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hidePlayersToolStripMenuItem.Text = "Hide Players";
             this.hidePlayersToolStripMenuItem.Click += new System.EventHandler(this.hidePlayersToolStripMenuItem_Click);
             // 
@@ -711,7 +706,7 @@ namespace Grimoire.UI
             this.skipCutscenesToolStripMenuItem.CheckOnClick = true;
             this.skipCutscenesToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.skipCutscenesToolStripMenuItem.Name = "skipCutscenesToolStripMenuItem";
-            this.skipCutscenesToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.skipCutscenesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.skipCutscenesToolStripMenuItem.Text = "Skip Cutscenes";
             this.skipCutscenesToolStripMenuItem.Click += new System.EventHandler(this.skipCutscenesToolStripMenuItem_Click);
             // 
@@ -721,26 +716,9 @@ namespace Grimoire.UI
             this.disableAnimationsToolStripMenuItem.CheckOnClick = true;
             this.disableAnimationsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.disableAnimationsToolStripMenuItem.Name = "disableAnimationsToolStripMenuItem";
-            this.disableAnimationsToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.disableAnimationsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.disableAnimationsToolStripMenuItem.Text = "Disable Animations";
             this.disableAnimationsToolStripMenuItem.Click += new System.EventHandler(this.disableAnimationsToolStripMenuItem_Click);
-            // 
-            // setFPSToolStripMenuItem
-            // 
-            this.setFPSToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.setFPSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripTextBox1});
-            this.setFPSToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.setFPSToolStripMenuItem.Name = "setFPSToolStripMenuItem";
-            this.setFPSToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.setFPSToolStripMenuItem.Text = "Set FPS";
-            this.setFPSToolStripMenuItem.Click += new System.EventHandler(this.setFPSToolStripMenuItem_Click);
-            // 
-            // toolStripTextBox1
-            // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
-            this.toolStripTextBox1.Text = "24";
             // 
             // grimliteToolStripMenuItem
             // 
@@ -768,7 +746,7 @@ namespace Grimoire.UI
             this.reloadToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.reloadToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.reloadToolStripMenuItem.Text = "Reload";
             this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
             // 
@@ -1179,11 +1157,6 @@ namespace Grimoire.UI
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Process.Start("https://adventurequest.life/");
-        }
-
-        private void setFPSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Flash.Call("SetFPS", int.Parse(toolStripTextBox1.Text));
         }
 
         private void FPSToolStripMenuItem_Click(object sender, EventArgs e)
