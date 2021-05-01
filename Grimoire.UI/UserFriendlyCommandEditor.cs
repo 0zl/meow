@@ -1,6 +1,7 @@
 using DarkUI.Controls;
 using DarkUI.Forms;
 using Grimoire.Botting.Commands.Misc.Statements;
+using Grimoire.Game.Data;
 using Grimoire.Properties;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -43,8 +44,8 @@ namespace Grimoire.UI
 
         private static readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
         {
-            DefaultValueHandling = DefaultValueHandling.Include,
-            //NullValueHandling = NullValueHandling.Ignore,
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            NullValueHandling = NullValueHandling.Include,
             TypeNameHandling = TypeNameHandling.All
         };
 
@@ -101,6 +102,9 @@ namespace Grimoire.UI
                             case "Value2":
                                 lblText = commandEditor.statementCommands.Find((StatementCommand s) => s.GetType() == obj.GetType()).Description2;
                                 tbText = tbText == lblText ? "" : tbText;
+                                break;
+                            case "Quest":
+                                tbText = JsonConvert.DeserializeObject<Quest>(item.Value.ToString()).Id.ToString() + " (use Raw Editor)";
                                 break;
                         }
                         currentVars.Add(item.Key, new KeyValuePair<DarkLabel, DarkTextBox>(

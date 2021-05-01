@@ -44,11 +44,18 @@ namespace Grimoire.UI
 
         private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
         {
-            DefaultValueHandling = DefaultValueHandling.Include,
-            //NullValueHandling = NullValueHandling.Ignore,
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            NullValueHandling = NullValueHandling.Ignore,
             TypeNameHandling = TypeNameHandling.All
         };
-        
+
+        private readonly JsonSerializerSettings _serializerSettings2 = new JsonSerializerSettings
+        {
+            DefaultValueHandling = DefaultValueHandling.Include,
+            NullValueHandling = NullValueHandling.Ignore,
+            TypeNameHandling = TypeNameHandling.All
+        };
+
         #region Definitions
         private IContainer components;
         private Panel[] _panels;
@@ -1306,15 +1313,11 @@ namespace Grimoire.UI
 
         private bool TryDeserialize(string json, out Configuration config)
         {
-            try
-            {
-                config = JsonConvert.DeserializeObject<Configuration>(json, _serializerSettings);
+            try {
+                config = JsonConvert.DeserializeObject<Configuration>(json, _serializerSettings2);
                 return true;
             }
-            catch
-            {
-
-            }
+            catch (Exception e) { MessageBox.Show(e.ToString()); }
             config = null;
             return false;
         }
@@ -1333,7 +1336,7 @@ namespace Grimoire.UI
                     Configuration value = GenerateConfiguration();
                     try
                     {
-                        File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _serializerSettings));
+                        File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _serializerSettings2));
                     }
                     catch (Exception ex)
                     {
@@ -1694,7 +1697,7 @@ namespace Grimoire.UI
                     Drops = lstDrops.SelectedItems.Cast<string>().ToList(),
                     Items = lstItems.SelectedItems.Cast<string>().ToList()
                 };
-                Clipboard.SetText(JsonConvert.SerializeObject(items, Formatting.Indented, _serializerSettings));
+                Clipboard.SetText(JsonConvert.SerializeObject(items, Formatting.Indented, _serializerSettings2));
                 e.Handled = true;
             }
             else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.V)
@@ -1703,6 +1706,16 @@ namespace Grimoire.UI
                 List<IBotCommand> commands = config.Commands;
                 if (commands != null && commands.Count > 0)
                 {
+                    List<IBotCommand> items = lstCommands.Items.Cast<IBotCommand>().ToList();
+                    int selectedIndex = lstCommands.SelectedIndex;
+                    lstCommands.SelectedIndex = -1;
+                    items.InsertRange(++selectedIndex, commands);
+                    lstCommands.Items.Clear();
+                    lstCommands.Items.AddRange(items.ToArray());
+                    for (int i = 0; i < commands.Count; i++)
+                        lstCommands.SelectedIndex = selectedIndex + i;
+                    
+                    /* Deprecated
                     ListBox.ObjectCollection items = lstCommands.Items;
                     object[] array = config.Commands.ToArray();
                     int selectedIndex = lstCommands.SelectedIndex;
@@ -1712,6 +1725,7 @@ namespace Grimoire.UI
                         items.Insert(selectedIndex + i + 1, array[i]);
                         lstCommands.SelectedIndex = selectedIndex + i + 1;
                     }
+                    */
                 }
                 List<Skill> skills = config.Skills;
                 if (skills != null && skills.Count > 0)
@@ -1764,7 +1778,7 @@ namespace Grimoire.UI
                         Configuration value = GenerateConfiguration();
                         try
                         {
-                            File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _serializerSettings));
+                            File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _serializerSettings2));
                         }
                         catch (Exception ex)
                         {
@@ -2302,6 +2316,7 @@ namespace Grimoire.UI
             this.lstCommands.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.lstCommands.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstCommands.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lstCommands.ForeColor = System.Drawing.Color.Gainsboro;
             this.lstCommands.FormattingEnabled = true;
             this.lstCommands.HorizontalScrollbar = true;
             this.lstCommands.IntegralHeight = false;
@@ -7169,7 +7184,7 @@ namespace Grimoire.UI
                     Configuration value = GenerateConfiguration();
                     try
                     {
-                        File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _serializerSettings));
+                        File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _serializerSettings2));
                     }
                     catch (Exception ex)
                     {
