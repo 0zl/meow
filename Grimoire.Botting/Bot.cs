@@ -29,8 +29,6 @@ namespace Grimoire.Botting
 
         private int _index;
 
-        private int _Oldindex;
-
         private Configuration _config;
         
         private bool _isRunning;
@@ -53,18 +51,6 @@ namespace Grimoire.Botting
             }
         }
 
-        public int OldIndex
-        {
-            get
-            {
-                return _Oldindex;
-            }
-            set
-            {
-                _Oldindex = (value < OldConfiguration.Commands.Count) ? value : 0;
-            }
-        }
-
         public Configuration Configuration
         {
             get
@@ -81,21 +67,11 @@ namespace Grimoire.Botting
             }
         }
 
-        public Configuration OldConfiguration
-        {
-            get
-            {
-                return _config;
-            }
-            set
-            {
-                if (value != _config)
-                {
-                    _config = value;
-                    this.ConfigurationChanged?.Invoke(_config);
-                }
-            }
-        }
+        public static Dictionary<int, Configuration> Configurations = new Dictionary<int, Configuration>();
+
+        public static Dictionary<int, int> OldIndex = new Dictionary<int, int>();
+
+        public int CurrentConfiguration { get; set; } = 0;
 
         public bool IsRunning
         {
@@ -369,7 +345,7 @@ namespace Grimoire.Botting
         }
 
         public int DropDelay { get; set; } = 1000;
-
+        
         private void OnItemDropped(InventoryItem drop)
         {
             NotifyDrop(drop);

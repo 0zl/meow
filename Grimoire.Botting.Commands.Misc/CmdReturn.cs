@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,18 +12,20 @@ namespace Grimoire.Botting.Commands.Misc
         {
             try
             {
-                Configuration oldConfig = instance.OldConfiguration;
-                if (oldConfig != null && oldConfig.Commands.Count > 0)
+                int i = --instance.CurrentConfiguration;
+                Configuration oldConfig = Bot.Configurations[i];
+                int oldIndex = Bot.OldIndex[i];
+                if (oldConfig != null && oldConfig.Commands.Count > 0 && oldIndex > -1)
                 {
                     instance.Configuration = oldConfig;
-                    instance.Index = instance.OldIndex;
+                    instance.Index = oldIndex;
                     instance.LoadBankItems();
                     instance.LoadAllQuests();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show("broken return");
+                MessageBox.Show(e.ToString());
             }
         }
 

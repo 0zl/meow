@@ -30,6 +30,7 @@ using DarkUI.Controls;
 using Newtonsoft.Json.Linq;
 using Extensions = Grimoire.Botting.Extensions;
 using Properties;
+using System.Diagnostics;
 
 namespace Grimoire.UI
 {
@@ -343,6 +344,8 @@ namespace Grimoire.UI
         private DarkPanel darkPanel1;
         private Panel panel6;
         private DarkPanel darkPanel2;
+        private DarkGroupBox darkGroupBox14;
+        private Panel panel7;
         private DarkButton btnAttack;
         #endregion
 
@@ -2210,6 +2213,8 @@ namespace Grimoire.UI
             this.panel6 = new System.Windows.Forms.Panel();
             this.darkPanel1 = new DarkUI.Controls.DarkPanel();
             this.darkPanel2 = new DarkUI.Controls.DarkPanel();
+            this.darkGroupBox14 = new DarkUI.Controls.DarkGroupBox();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.mainTabControl.SuspendLayout();
             this.tabInfo.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -2285,6 +2290,8 @@ namespace Grimoire.UI
             this.panel6.SuspendLayout();
             this.darkPanel1.SuspendLayout();
             this.darkPanel2.SuspendLayout();
+            this.darkGroupBox14.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstCommands
@@ -2459,6 +2466,7 @@ namespace Grimoire.UI
             this.rtbInfo.Size = new System.Drawing.Size(491, 295);
             this.rtbInfo.TabIndex = 0;
             this.rtbInfo.Text = "This is where information about a bot will be shown in RichTextFormat";
+            this.rtbInfo.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtbInfo_LinkClicked);
             // 
             // tabCombat
             // 
@@ -2980,7 +2988,7 @@ namespace Grimoire.UI
             this.tabItem.Margin = new System.Windows.Forms.Padding(0);
             this.tabItem.Name = "tabItem";
             this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabItem.Size = new System.Drawing.Size(192, 73);
+            this.tabItem.Size = new System.Drawing.Size(497, 301);
             this.tabItem.TabIndex = 1;
             this.tabItem.Text = "Item";
             // 
@@ -3426,7 +3434,7 @@ namespace Grimoire.UI
             this.tabMap.Margin = new System.Windows.Forms.Padding(0);
             this.tabMap.Name = "tabMap";
             this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMap.Size = new System.Drawing.Size(192, 73);
+            this.tabMap.Size = new System.Drawing.Size(497, 301);
             this.tabMap.TabIndex = 2;
             this.tabMap.Text = "Map";
             // 
@@ -3654,7 +3662,7 @@ namespace Grimoire.UI
             this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
             this.tabQuest.Name = "tabQuest";
             this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabQuest.Size = new System.Drawing.Size(192, 73);
+            this.tabQuest.Size = new System.Drawing.Size(497, 301);
             this.tabQuest.TabIndex = 3;
             this.tabQuest.Text = "Quest";
             // 
@@ -3815,8 +3823,10 @@ namespace Grimoire.UI
             // tabMisc
             // 
             this.tabMisc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.tabMisc.Controls.Add(this.darkGroupBox14);
             this.tabMisc.Controls.Add(this.darkPanel2);
             this.tabMisc.Controls.Add(this.darkGroupBox12);
+            this.tabMisc.Controls.Add(this.btnReturnCmd);
             this.tabMisc.Controls.Add(this.darkGroupBox8);
             this.tabMisc.Controls.Add(this.darkGroupBox7);
             this.tabMisc.Controls.Add(this.btnBlank);
@@ -3825,8 +3835,6 @@ namespace Grimoire.UI
             this.tabMisc.Controls.Add(this.numBeepTimes);
             this.tabMisc.Controls.Add(this.btnDelay);
             this.tabMisc.Controls.Add(this.numDelay);
-            this.tabMisc.Controls.Add(this.txtPlayer);
-            this.tabMisc.Controls.Add(this.btnGoto);
             this.tabMisc.Controls.Add(this.btnStatementAdd);
             this.tabMisc.Controls.Add(this.txtStatement2);
             this.tabMisc.Controls.Add(this.txtStatement1);
@@ -3912,10 +3920,9 @@ namespace Grimoire.UI
             // 
             // darkGroupBox11
             // 
+            this.darkGroupBox11.Controls.Add(this.panel7);
             this.darkGroupBox11.Controls.Add(this.lbLabels);
             this.darkGroupBox11.Controls.Add(this.txtLabel);
-            this.darkGroupBox11.Controls.Add(this.btnAddLabel);
-            this.darkGroupBox11.Controls.Add(this.btnGotoLabel);
             this.darkGroupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.darkGroupBox11.Location = new System.Drawing.Point(0, 0);
             this.darkGroupBox11.Name = "darkGroupBox11";
@@ -3953,24 +3960,22 @@ namespace Grimoire.UI
             // 
             // btnAddLabel
             // 
-            this.btnAddLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddLabel.Checked = false;
-            this.btnAddLabel.Location = new System.Drawing.Point(76, 147);
+            this.btnAddLabel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnAddLabel.Location = new System.Drawing.Point(80, 0);
             this.btnAddLabel.Name = "btnAddLabel";
-            this.btnAddLabel.Size = new System.Drawing.Size(91, 22);
+            this.btnAddLabel.Size = new System.Drawing.Size(79, 22);
             this.btnAddLabel.TabIndex = 111;
             this.btnAddLabel.Text = "Add";
             this.btnAddLabel.Click += new System.EventHandler(this.btnAddLabel_Click);
             // 
             // btnGotoLabel
             // 
-            this.btnGotoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGotoLabel.Checked = false;
-            this.btnGotoLabel.Location = new System.Drawing.Point(8, 147);
+            this.btnGotoLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnGotoLabel.Location = new System.Drawing.Point(0, 0);
             this.btnGotoLabel.Name = "btnGotoLabel";
-            this.btnGotoLabel.Size = new System.Drawing.Size(94, 22);
+            this.btnGotoLabel.Size = new System.Drawing.Size(79, 22);
             this.btnGotoLabel.TabIndex = 112;
             this.btnGotoLabel.Text = "Goto";
             this.btnGotoLabel.Click += new System.EventHandler(this.btnGotoLabel_Click);
@@ -4036,6 +4041,8 @@ namespace Grimoire.UI
             // 
             // btnGoUpIndex
             // 
+            this.btnGoUpIndex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGoUpIndex.Checked = false;
             this.btnGoUpIndex.Location = new System.Drawing.Point(5, 43);
             this.btnGoUpIndex.Name = "btnGoUpIndex";
@@ -4060,11 +4067,10 @@ namespace Grimoire.UI
             this.darkGroupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.darkGroupBox7.Controls.Add(this.btnProvokeOff);
             this.darkGroupBox7.Controls.Add(this.btnProvoke);
-            this.darkGroupBox7.Controls.Add(this.btnReturnCmd);
             this.darkGroupBox7.Controls.Add(this.btnProvokeOn);
             this.darkGroupBox7.Location = new System.Drawing.Point(178, 185);
             this.darkGroupBox7.Name = "darkGroupBox7";
-            this.darkGroupBox7.Size = new System.Drawing.Size(140, 100);
+            this.darkGroupBox7.Size = new System.Drawing.Size(140, 69);
             this.darkGroupBox7.TabIndex = 161;
             this.darkGroupBox7.TabStop = false;
             this.darkGroupBox7.Text = "Provoke";
@@ -4093,11 +4099,10 @@ namespace Grimoire.UI
             // 
             // btnReturnCmd
             // 
-            this.btnReturnCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnReturnCmd.Checked = false;
-            this.btnReturnCmd.Location = new System.Drawing.Point(7, 66);
+            this.btnReturnCmd.Location = new System.Drawing.Point(178, 104);
             this.btnReturnCmd.Name = "btnReturnCmd";
-            this.btnReturnCmd.Size = new System.Drawing.Size(127, 22);
+            this.btnReturnCmd.Size = new System.Drawing.Size(135, 22);
             this.btnReturnCmd.TabIndex = 160;
             this.btnReturnCmd.Text = "Return (command)";
             this.btnReturnCmd.Click += new System.EventHandler(this.btnReturnCmd_Click);
@@ -4126,9 +4131,9 @@ namespace Grimoire.UI
             // btnLogout
             // 
             this.btnLogout.Checked = false;
-            this.btnLogout.Location = new System.Drawing.Point(250, 127);
+            this.btnLogout.Location = new System.Drawing.Point(178, 129);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(63, 22);
+            this.btnLogout.Size = new System.Drawing.Size(135, 22);
             this.btnLogout.TabIndex = 114;
             this.btnLogout.Text = "Logout";
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
@@ -4136,7 +4141,7 @@ namespace Grimoire.UI
             // btnBeep
             // 
             this.btnBeep.Checked = false;
-            this.btnBeep.Location = new System.Drawing.Point(178, 152);
+            this.btnBeep.Location = new System.Drawing.Point(178, 154);
             this.btnBeep.Name = "btnBeep";
             this.btnBeep.Size = new System.Drawing.Size(75, 22);
             this.btnBeep.TabIndex = 74;
@@ -4150,7 +4155,7 @@ namespace Grimoire.UI
             0,
             0,
             65536});
-            this.numBeepTimes.Location = new System.Drawing.Point(258, 153);
+            this.numBeepTimes.Location = new System.Drawing.Point(258, 155);
             this.numBeepTimes.LoopValues = false;
             this.numBeepTimes.Minimum = new decimal(new int[] {
             1,
@@ -4206,9 +4211,9 @@ namespace Grimoire.UI
             // 
             // txtPlayer
             // 
-            this.txtPlayer.Location = new System.Drawing.Point(178, 104);
+            this.txtPlayer.Location = new System.Drawing.Point(6, 19);
             this.txtPlayer.Name = "txtPlayer";
-            this.txtPlayer.Size = new System.Drawing.Size(135, 20);
+            this.txtPlayer.Size = new System.Drawing.Size(84, 20);
             this.txtPlayer.TabIndex = 69;
             this.txtPlayer.Text = "Player name";
             this.txtPlayer.Enter += new System.EventHandler(this.TextboxEnter);
@@ -4217,7 +4222,7 @@ namespace Grimoire.UI
             // btnGoto
             // 
             this.btnGoto.Checked = false;
-            this.btnGoto.Location = new System.Drawing.Point(178, 127);
+            this.btnGoto.Location = new System.Drawing.Point(94, 18);
             this.btnGoto.Name = "btnGoto";
             this.btnGoto.Size = new System.Drawing.Size(66, 22);
             this.btnGoto.TabIndex = 68;
@@ -4756,7 +4761,7 @@ namespace Grimoire.UI
             0,
             0});
             this.numDelayedPacket.Name = "numDelayedPacket";
-            this.numDelayedPacket.Size = new System.Drawing.Size(50, 20);
+            this.numDelayedPacket.Size = new System.Drawing.Size(96, 20);
             this.numDelayedPacket.TabIndex = 58;
             this.numDelayedPacket.Value = new decimal(new int[] {
             1000,
@@ -4805,7 +4810,7 @@ namespace Grimoire.UI
             this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions.Size = new System.Drawing.Size(192, 73);
+            this.tabOptions.Size = new System.Drawing.Size(497, 301);
             this.tabOptions.TabIndex = 5;
             this.tabOptions.Text = "Options";
             // 
@@ -5304,7 +5309,7 @@ namespace Grimoire.UI
             this.tabOptions2.Margin = new System.Windows.Forms.Padding(0);
             this.tabOptions2.Name = "tabOptions2";
             this.tabOptions2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions2.Size = new System.Drawing.Size(192, 73);
+            this.tabOptions2.Size = new System.Drawing.Size(497, 301);
             this.tabOptions2.TabIndex = 7;
             this.tabOptions2.Text = "Client";
             // 
@@ -6043,6 +6048,9 @@ namespace Grimoire.UI
             // 
             // darkPanel1
             // 
+            this.darkPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.darkPanel1.Controls.Add(this.treeBots);
             this.darkPanel1.Location = new System.Drawing.Point(4, 30);
             this.darkPanel1.Name = "darkPanel1";
@@ -6056,6 +6064,28 @@ namespace Grimoire.UI
             this.darkPanel2.Name = "darkPanel2";
             this.darkPanel2.Size = new System.Drawing.Size(173, 173);
             this.darkPanel2.TabIndex = 165;
+            // 
+            // darkGroupBox14
+            // 
+            this.darkGroupBox14.Controls.Add(this.txtPlayer);
+            this.darkGroupBox14.Controls.Add(this.btnGoto);
+            this.darkGroupBox14.Location = new System.Drawing.Point(7, 254);
+            this.darkGroupBox14.Name = "darkGroupBox14";
+            this.darkGroupBox14.Size = new System.Drawing.Size(166, 45);
+            this.darkGroupBox14.TabIndex = 166;
+            this.darkGroupBox14.TabStop = false;
+            this.darkGroupBox14.Text = "Player";
+            // 
+            // panel7
+            // 
+            this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel7.Controls.Add(this.btnGotoLabel);
+            this.panel7.Controls.Add(this.btnAddLabel);
+            this.panel7.Location = new System.Drawing.Point(8, 145);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(159, 22);
+            this.panel7.TabIndex = 161;
             // 
             // BotManager
             // 
@@ -6174,6 +6204,9 @@ namespace Grimoire.UI
             this.panel6.PerformLayout();
             this.darkPanel1.ResumeLayout(false);
             this.darkPanel2.ResumeLayout(false);
+            this.darkGroupBox14.ResumeLayout(false);
+            this.darkGroupBox14.PerformLayout();
+            this.panel7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -7168,6 +7201,11 @@ namespace Grimoire.UI
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
             try { rtbInfo.Rtf = richTextBox2.Text; } catch { }
+        }
+
+        private void rtbInfo_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start(e.LinkText);
         }
     }
 }

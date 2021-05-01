@@ -1216,7 +1216,7 @@ namespace Grimoire.UI
 
         private void loadBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            botManager.btnLoad.PerformClick();
+            BotManager.Instance.btnLoad.PerformClick();
         }
 
         private void googleDocsToolStripMenuItem_Click(object sender, EventArgs e)

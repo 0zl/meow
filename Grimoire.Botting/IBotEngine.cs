@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Grimoire.Botting
 {
@@ -10,19 +11,7 @@ namespace Grimoire.Botting
             set;
         }
 
-        int OldIndex
-        {
-            get;
-            set;
-        }
-
         int Index
-        {
-            get;
-            set;
-        }
-
-        Configuration OldConfiguration
         {
             get;
             set;
@@ -35,6 +24,8 @@ namespace Grimoire.Botting
             get;
             set;
         }
+
+        int CurrentConfiguration { get; set; }
 
         string GetVar(string value);
 

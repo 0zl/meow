@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -34,24 +35,28 @@ namespace Grimoire.Botting.Commands.Misc
                     }
                     JsonSerializerSettings serializerSettings = new JsonSerializerSettings
                     {
-                        DefaultValueHandling = DefaultValueHandling.Ignore,
-                        NullValueHandling = NullValueHandling.Ignore,
+                        DefaultValueHandling = DefaultValueHandling.Include,
+                        //NullValueHandling = NullValueHandling.Ignore,
                         TypeNameHandling = TypeNameHandling.All
                     };
                     Configuration newConfiguration = JsonConvert.DeserializeObject<Configuration>(value, serializerSettings);
+                    int i = instance.CurrentConfiguration;
                     if (newConfiguration != null && newConfiguration.Commands.Count > 0)
                     {
-                        instance.OldConfiguration = instance.Configuration;
+                        if (!Bot.Configurations.ContainsKey(i))
+                            Bot.Configurations.Add(i, instance.Configuration);
+                        else Bot.Configurations[i] = instance.Configuration;
+                        if (!Bot.OldIndex.ContainsKey(i))
+                            Bot.OldIndex.Add(i, instance.Index);
+                        else Bot.OldIndex[i] = instance.Index;
                         instance.Configuration = newConfiguration;
-                        instance.OldIndex = instance.Index;
                         instance.Index = -1;
                         instance.LoadBankItems();
                         instance.LoadAllQuests();
+                        instance.CurrentConfiguration++;
                     }
                 }
-                catch
-                {
-                }
+                catch (Exception e) { MessageBox.Show(e.ToString()); }
             }
         }
 
