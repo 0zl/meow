@@ -22,8 +22,8 @@ namespace Grimoire.Botting.Commands.Misc
 
         public async Task Execute(IBotEngine instance)
         {
-            string name = BotFileName;
-            string path = BotFilePath;
+            string name = instance.IsVar(BotFileName) ? Configuration.Tempvariable[instance.GetVar(BotFileName)] : BotFileName;
+            string path = instance.IsVar(BotFilePath) ? Configuration.Tempvariable[instance.GetVar(BotFilePath)] : BotFilePath;
             if (File.Exists(path))
             {
                 try
