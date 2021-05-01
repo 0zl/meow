@@ -1288,7 +1288,7 @@ namespace Grimoire.UI
             AddCommand(new CmdRestart(), (ModifierKeys & Keys.Control) == Keys.Control);
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
+        public void btnLoad_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {

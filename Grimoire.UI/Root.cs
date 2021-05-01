@@ -1214,7 +1214,9 @@ namespace Grimoire.UI
             ShowForm(botManager);
         }
 
-        private void loadBotToolStripMenuItem_Click(object sender, EventArgs e)
+        EventHandler loadBotToolStripMenuItem_Click = BotManager.Instance.btnLoad_Click;
+
+        private void _loadBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BotManager.Instance.btnLoad.PerformClick();
         }
