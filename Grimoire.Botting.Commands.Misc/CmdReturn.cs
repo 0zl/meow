@@ -25,7 +25,7 @@ namespace Grimoire.Botting.Commands.Misc
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                //MessageBox.Show(e.ToString());
             }
         }
 
