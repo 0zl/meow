@@ -3905,6 +3905,9 @@ namespace Grimoire.UI
             // 
             // darkPanel2
             // 
+            this.darkPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.darkPanel2.Controls.Add(this.darkGroupBox11);
             this.darkPanel2.Location = new System.Drawing.Point(318, 6);
             this.darkPanel2.Name = "darkPanel2";
@@ -3967,10 +3970,9 @@ namespace Grimoire.UI
             this.lbLabels.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lbLabels.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.lbLabels.FormattingEnabled = true;
-            this.lbLabels.ItemHeight = 18;
-            this.lbLabels.Location = new System.Drawing.Point(8, 23);
+            this.lbLabels.Location = new System.Drawing.Point(8, 15);
             this.lbLabels.Name = "lbLabels";
-            this.lbLabels.Size = new System.Drawing.Size(159, 92);
+            this.lbLabels.Size = new System.Drawing.Size(159, 106);
             this.lbLabels.TabIndex = 114;
             this.lbLabels.DoubleClick += new System.EventHandler(this.lbLabels_DoubleClick);
             // 
@@ -4069,7 +4071,7 @@ namespace Grimoire.UI
             this.darkGroupBox8.Controls.Add(this.btnGoDownIndex);
             this.darkGroupBox8.Location = new System.Drawing.Point(324, 185);
             this.darkGroupBox8.Name = "darkGroupBox8";
-            this.darkGroupBox8.Size = new System.Drawing.Size(161, 100);
+            this.darkGroupBox8.Size = new System.Drawing.Size(161, 92);
             this.darkGroupBox8.TabIndex = 162;
             this.darkGroupBox8.TabStop = false;
             this.darkGroupBox8.Text = "Index";
@@ -4525,7 +4527,7 @@ namespace Grimoire.UI
             this.darkGroupBox9.Controls.Add(this.txtDescription);
             this.darkGroupBox9.Location = new System.Drawing.Point(246, 6);
             this.darkGroupBox9.Name = "darkGroupBox9";
-            this.darkGroupBox9.Size = new System.Drawing.Size(245, 162);
+            this.darkGroupBox9.Size = new System.Drawing.Size(245, 165);
             this.darkGroupBox9.TabIndex = 116;
             this.darkGroupBox9.TabStop = false;
             this.darkGroupBox9.Text = "Save/Load";
@@ -4578,7 +4580,7 @@ namespace Grimoire.UI
             this.txtAuthor.Location = new System.Drawing.Point(8, 45);
             this.txtAuthor.Multiline = true;
             this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.Size = new System.Drawing.Size(239, 20);
+            this.txtAuthor.Size = new System.Drawing.Size(231, 20);
             this.txtAuthor.TabIndex = 110;
             this.txtAuthor.Text = "Author";
             this.txtAuthor.Enter += new System.EventHandler(this.TextboxEnter);
@@ -4593,7 +4595,7 @@ namespace Grimoire.UI
             this.txtDescription.MaxLength = 2147483647;
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(232, 85);
+            this.txtDescription.Size = new System.Drawing.Size(232, 88);
             this.txtDescription.TabIndex = 109;
             this.txtDescription.Text = "Description (Write in RTF)";
             this.txtDescription.Enter += new System.EventHandler(this.TextboxEnter);
@@ -6388,6 +6390,10 @@ namespace Grimoire.UI
             {
                 this.txtSaved.Text = Path.Combine(Application.StartupPath, "Bots");
                 UpdateTree();
+            }
+            else if (e.TabPage == tabMisc)
+            {
+                GetAllCommands<CmdLabel>(lbLabels);
             }
         }
 
