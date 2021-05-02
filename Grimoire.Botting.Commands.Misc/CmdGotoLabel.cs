@@ -13,7 +13,8 @@ namespace Grimoire.Botting.Commands.Misc
 
         public Task Execute(IBotEngine instance)
         {
-            int num = instance.Configuration.Commands.FindIndex((IBotCommand c) => c is CmdLabel && ((CmdLabel)c).Name.Equals(Label, StringComparison.OrdinalIgnoreCase));
+            string Value1 = Label;
+            int num = instance.Configuration.Commands.FindIndex((IBotCommand c) => c is CmdLabel && ((CmdLabel)c).Name.Equals((instance.IsVar(Value1) ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1), StringComparison.OrdinalIgnoreCase));
             if (num > -1)
             {
                 instance.Index = num;
