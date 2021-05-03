@@ -33,6 +33,7 @@ using Properties;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Text;
+using Message = System.Windows.Forms.Message;
 
 namespace Grimoire.UI
 {
