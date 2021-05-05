@@ -402,7 +402,7 @@ namespace Grimoire.UI
             this.startToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.startToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -412,7 +412,7 @@ namespace Grimoire.UI
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -421,7 +421,7 @@ namespace Grimoire.UI
             this.managerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.managerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.managerToolStripMenuItem.Name = "managerToolStripMenuItem";
-            this.managerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.managerToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.managerToolStripMenuItem.Text = "Manager";
             this.managerToolStripMenuItem.Click += new System.EventHandler(this.managerToolStripMenuItem_Click);
             // 
@@ -430,7 +430,7 @@ namespace Grimoire.UI
             this.loadBotToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.loadBotToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.loadBotToolStripMenuItem.Name = "loadBotToolStripMenuItem";
-            this.loadBotToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadBotToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.loadBotToolStripMenuItem.Text = "Load bot";
             // 
             // toolsToolStripMenuItem
@@ -862,6 +862,7 @@ namespace Grimoire.UI
             this.darkMenuStrip1.TabIndex = 35;
             this.darkMenuStrip1.Text = "darkMenuStrip1";
             this.darkMenuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuMain_MouseDown);
+            this.darkMenuStrip1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.darkMenuStrip1_MouseUp);
             // 
             // getBotsToolStripMenuItem
             // 
@@ -1103,9 +1104,11 @@ namespace Grimoire.UI
             public int x, y, cx, cy, flags;
         }
 
+        private int h = 30;
+
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
-            var h = 30;
+            
             switch (m.Msg)
             {
                 case WM_NCCALCSIZE:
@@ -1237,7 +1240,18 @@ namespace Grimoire.UI
 
         private void btnMax_Click(object sender, EventArgs e)
         {
-            this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                h = 5;
+                Root.Instance.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Maximized;
+            }
+            else if (this.WindowState == FormWindowState.Maximized)
+            {
+                h = 30;
+                Root.Instance.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = FormWindowState.Normal;
+            }
         }
 
         private void btnMin_Click(object sender, EventArgs e)
@@ -1316,6 +1330,23 @@ namespace Grimoire.UI
         private void Root_KeyPress(object sender, KeyPressEventArgs e)
         {
             
+        }
+
+        private void darkMenuStrip1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                if (this.WindowState == FormWindowState.Maximized)
+                {
+                    h = 0;
+                    Root.Instance.FormBorderStyle = FormBorderStyle.None;
+                }
+                else if (this.WindowState == FormWindowState.Normal)
+                {
+                    h = 30;
+                    Root.Instance.FormBorderStyle = FormBorderStyle.Sizable;
+                }
+            }
         }
     }
 }
