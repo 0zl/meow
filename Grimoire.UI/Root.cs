@@ -19,6 +19,8 @@ using DarkUI.Controls;
 using DarkUI.Forms;
 using Properties;
 using System.Reflection;
+using Message = System.Windows.Forms.Message;
+using System.Windows;
 
 namespace Grimoire.UI
 {
@@ -82,7 +84,7 @@ namespace Grimoire.UI
         private ToolStripMenuItem googleDocsToolStripMenuItem;
         private Panel panel1;
         private ToolStripMenuItem reloadToolStripMenuItem;
-
+        
         public static Root Instance
         {
             get;
@@ -93,7 +95,7 @@ namespace Grimoire.UI
 
         public Root()
         {
-            if (!System.Diagnostics.Debugger.IsAttached)
+            if (!System.Diagnostics.Debugger.IsAttached && false)
                 Process.Start(@"updater.exe");
             Bypass.Hook();
             InitializeComponent();
@@ -102,14 +104,14 @@ namespace Grimoire.UI
 
         private void Root_Load(object sender, EventArgs e)
         {
-            Task.Factory.StartNew(Proxy.Instance.Start, TaskCreationOptions.LongRunning);
             Flash.flash = flashPlayer;
+            Task.Factory.StartNew(Proxy.Instance.Start, TaskCreationOptions.LongRunning);
             flashPlayer.FlashCall += Flash.ProcessFlashCall;
             //this.OnLoadProgress(100);
             //Flash.SwfLoadProgress += OnLoadProgress;
             Hotkeys.Instance.LoadHotkeys();
             InitFlashMovie();
-            Config c = Config.Load(Application.StartupPath + "\\config.cfg");
+            Config c = Config.Load(System.Windows.Forms.Application.StartupPath + "\\config.cfg");
         }
 
         private void OnLoadProgress(int progress)
@@ -130,7 +132,7 @@ namespace Grimoire.UI
 
         private void botToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void fastTravelsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -400,7 +402,7 @@ namespace Grimoire.UI
             this.startToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.startToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -410,7 +412,7 @@ namespace Grimoire.UI
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -419,7 +421,7 @@ namespace Grimoire.UI
             this.managerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.managerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.managerToolStripMenuItem.Name = "managerToolStripMenuItem";
-            this.managerToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.managerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.managerToolStripMenuItem.Text = "Manager";
             this.managerToolStripMenuItem.Click += new System.EventHandler(this.managerToolStripMenuItem_Click);
             // 
@@ -428,7 +430,7 @@ namespace Grimoire.UI
             this.loadBotToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.loadBotToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.loadBotToolStripMenuItem.Name = "loadBotToolStripMenuItem";
-            this.loadBotToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.loadBotToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadBotToolStripMenuItem.Text = "Load bot";
             // 
             // toolsToolStripMenuItem
@@ -803,7 +805,7 @@ namespace Grimoire.UI
             this.btnMax.ForeColor = System.Drawing.Color.Black;
             this.btnMax.Location = new System.Drawing.Point(49, 0);
             this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(51, 27);
+            this.btnMax.Size = new System.Drawing.Size(52, 27);
             this.btnMax.TabIndex = 32;
             this.btnMax.Text = "🗖";
             this.btnMax.UseVisualStyleBackColor = false;
@@ -816,7 +818,7 @@ namespace Grimoire.UI
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.Black;
-            this.btnExit.Location = new System.Drawing.Point(100, 0);
+            this.btnExit.Location = new System.Drawing.Point(101, 0);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(49, 27);
             this.btnExit.TabIndex = 33;
@@ -842,7 +844,7 @@ namespace Grimoire.UI
             // 
             this.darkMenuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.darkMenuStrip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.darkMenuStrip1.GripMargin = new System.Windows.Forms.Padding(2);
+            this.darkMenuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
             this.darkMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.grimliteToolStripMenuItem,
             this.botToolStripMenuItem,
@@ -855,7 +857,7 @@ namespace Grimoire.UI
             this.getBotsToolStripMenuItem});
             this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.darkMenuStrip1.Name = "darkMenuStrip1";
-            this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(2);
             this.darkMenuStrip1.Size = new System.Drawing.Size(960, 27);
             this.darkMenuStrip1.TabIndex = 35;
             this.darkMenuStrip1.Text = "darkMenuStrip1";
@@ -876,9 +878,9 @@ namespace Grimoire.UI
             this.panel1.Controls.Add(this.btnMax);
             this.panel1.Controls.Add(this.btnMin);
             this.panel1.Controls.Add(this.btnExit);
-            this.panel1.Location = new System.Drawing.Point(811, 0);
+            this.panel1.Location = new System.Drawing.Point(810, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(149, 27);
+            this.panel1.Size = new System.Drawing.Size(150, 27);
             this.panel1.TabIndex = 36;
             // 
             // Root
@@ -887,19 +889,21 @@ namespace Grimoire.UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
             this.ClientSize = new System.Drawing.Size(960, 575);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnJump);
             this.Controls.Add(this.cbCells);
             this.Controls.Add(this.cbPads);
             this.Controls.Add(this.flashPlayer);
             this.Controls.Add(this.darkMenuStrip1);
+            this.FlatBorder = true;
             this.Icon = global::Properties.Resources.GrimoireIcon;
             this.Name = "Root";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "GrimLite";
+            this.Text = "Grimlite";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Root_FormClosing);
             this.Load += new System.EventHandler(this.Root_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Root_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).EndInit();
             this.darkMenuStrip1.ResumeLayout(false);
             this.darkMenuStrip1.PerformLayout();
@@ -958,7 +962,7 @@ namespace Grimoire.UI
 
         private void grimoireSuggestionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private async void btnStop_ClickAsync(object sender, EventArgs e)
@@ -1066,7 +1070,7 @@ namespace Grimoire.UI
             OptionsManager.EnemyMagnet = check;
             botManager.chkDisableAnims.Checked = check;
         }
-
+        
         [DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
@@ -1081,15 +1085,60 @@ namespace Grimoire.UI
             {
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                //Message.Create(Handle, WM_NCLBUTTONDOWN, (IntPtr)HT_CAPTION, IntPtr.Zero);
             }
         }
 
-        /*
+        [StructLayout(LayoutKind.Sequential)]
+        private struct NCCALCSIZE_PARAMS
+        {
+            public RECT rgrc0, rgrc1, rgrc2;
+            public WINDOWPOS lppos;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct WINDOWPOS
+        {
+            public IntPtr hWnd, hWndInsertAfter;
+            public int x, y, cx, cy, flags;
+        }
+
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
+            var h = 27;
+            if (this.Size.Width == SystemParameters.PrimaryScreenWidth && this.Size.Height == SystemParameters.PrimaryScreenHeight) h -= 3;
+            switch (m.Msg)
+            {
+                case WM_NCCALCSIZE:
+                    if (m.WParam.Equals(IntPtr.Zero))
+                    {
+                        RECT rc = (RECT)m.GetLParam(typeof(RECT));
+                        Rectangle r = rc.ToRectangle();
+                        //with text = "GrimLite"
+                        r.Inflate(0, h); 
+                        //without text
+                        //r.Inflate(0, 6);
+                        Marshal.StructureToPtr(new RECT(r), m.LParam, true);
+                    }
+                    else
+                    {
+                        NCCALCSIZE_PARAMS csp = (NCCALCSIZE_PARAMS)m.GetLParam(typeof(NCCALCSIZE_PARAMS));
+                        Rectangle r = csp.rgrc0.ToRectangle();
+                        //with text = "GrimLite"
+                        r.Inflate(0, h); 
+                        //without text
+                        //r.Inflate(0, 6);
+                        csp.rgrc0 = new RECT(r);
+                        Marshal.StructureToPtr(csp, m.LParam, true);
+                    }
+                    m.Result = IntPtr.Zero;
+                    break;
+            }
+            base.WndProc(ref m);
+            /*
+            Int32 WM_NCLBUTTONUP = 0x00A2;
             const UInt32 WM_NCHITTEST = 0x0084;
             const UInt32 WM_MOUSEMOVE = 0x0200;
-
             const UInt32 HTLEFT = 10;
             const UInt32 HTRIGHT = 11;
             const UInt32 HTBOTTOMRIGHT = 17;
@@ -1101,6 +1150,7 @@ namespace Grimoire.UI
 
             const int RESIZE_HANDLE_SIZE = 10;
             bool handled = false;
+
             if (m.Msg == WM_NCHITTEST || m.Msg == WM_MOUSEMOVE)
             {
                 Size formSize = this.Size;
@@ -1116,7 +1166,7 @@ namespace Grimoire.UI
             {HTTOP, new Rectangle(RESIZE_HANDLE_SIZE, 0, formSize.Width - 2*RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE) },
             {HTTOPLEFT, new Rectangle(0, 0, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE) },
             {HTLEFT, new Rectangle(0, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE, formSize.Height - 2*RESIZE_HANDLE_SIZE) }
-        };
+            };
 
                 foreach (KeyValuePair<UInt32, Rectangle> hitBox in boxes)
                 {
@@ -1131,7 +1181,8 @@ namespace Grimoire.UI
 
             if (!handled)
                 base.WndProc(ref m);
-        }*/
+            */
+        }
 
         private void bankToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -1209,7 +1260,7 @@ namespace Grimoire.UI
         {
             if (FPSToolStripMenuItem.Checked)
                 Flash.Call("SetFPS", FPSToolStripMenuItem.DropDownItems[0].Text);
-            else
+             else
                 Flash.Call("SetFPS", 24);
         }
 
@@ -1239,7 +1290,7 @@ namespace Grimoire.UI
         {
             Process.Start("https://docs.google.com/forms/d/e/1FAIpQLSetfV9zl18G9s7w_XReJ1yJNT9aZwxB1FLzU0l1UhdmXv5rIw/viewform?usp=sf_link");
         }
-
+        
         const int WM_NCHITTEST = 0x84;
         const int WM_NCCALCSIZE = 0x83;
 
@@ -1263,52 +1314,9 @@ namespace Grimoire.UI
 
         }
 
-        [StructLayout(LayoutKind.Sequential)]
-        private struct NCCALCSIZE_PARAMS
+        private void Root_KeyPress(object sender, KeyPressEventArgs e)
         {
-            public RECT rgrc0, rgrc1, rgrc2;
-            public WINDOWPOS lppos;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct WINDOWPOS
-        {
-            public IntPtr hWnd, hWndInsertAfter;
-            public int x, y, cx, cy, flags;
-
-        }
-
-        protected override void WndProc(ref System.Windows.Forms.Message m)
-        {
-            var h = 30;
-            switch (m.Msg)
-            {
-                case WM_NCCALCSIZE:
-                    if (m.WParam.Equals(IntPtr.Zero))
-                    {
-                        RECT rc = (RECT)m.GetLParam(typeof(RECT));
-                        Rectangle r = rc.ToRectangle();
-                        //with text = "GrimLite"
-                        r.Inflate(0, h);
-                        //without text
-                        //r.Inflate(0, 6);
-                        Marshal.StructureToPtr(new RECT(r), m.LParam, true);
-                    }
-                    else
-                    {
-                        NCCALCSIZE_PARAMS csp = (NCCALCSIZE_PARAMS)m.GetLParam(typeof(NCCALCSIZE_PARAMS));
-                        Rectangle r = csp.rgrc0.ToRectangle();
-                        //with text = "GrimLite"
-                        r.Inflate(0, h);
-                        //without text
-                        //r.Inflate(0, 6);
-                        csp.rgrc0 = new RECT(r);
-                        Marshal.StructureToPtr(csp, m.LParam, true);
-                    }
-                    m.Result = IntPtr.Zero;
-                    break;
-            }
-            base.WndProc(ref m);
+            
         }
     }
 }
