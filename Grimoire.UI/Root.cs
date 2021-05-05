@@ -95,7 +95,7 @@ namespace Grimoire.UI
 
         public Root()
         {
-            if (!System.Diagnostics.Debugger.IsAttached)
+            if (!System.Diagnostics.Debugger.IsAttached && false)
                 Process.Start(@"updater.exe");
             Bypass.Hook();
             InitializeComponent();
@@ -104,8 +104,8 @@ namespace Grimoire.UI
 
         private void Root_Load(object sender, EventArgs e)
         {
-            Task.Factory.StartNew(Proxy.Instance.Start, TaskCreationOptions.LongRunning);
             Flash.flash = flashPlayer;
+            Task.Factory.StartNew(Proxy.Instance.Start, TaskCreationOptions.LongRunning);
             flashPlayer.FlashCall += Flash.ProcessFlashCall;
             //this.OnLoadProgress(100);
             //Flash.SwfLoadProgress += OnLoadProgress;
@@ -402,7 +402,7 @@ namespace Grimoire.UI
             this.startToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.startToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -412,7 +412,7 @@ namespace Grimoire.UI
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -421,7 +421,7 @@ namespace Grimoire.UI
             this.managerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.managerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.managerToolStripMenuItem.Name = "managerToolStripMenuItem";
-            this.managerToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.managerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.managerToolStripMenuItem.Text = "Manager";
             this.managerToolStripMenuItem.Click += new System.EventHandler(this.managerToolStripMenuItem_Click);
             // 
@@ -430,7 +430,7 @@ namespace Grimoire.UI
             this.loadBotToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.loadBotToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.loadBotToolStripMenuItem.Name = "loadBotToolStripMenuItem";
-            this.loadBotToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.loadBotToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadBotToolStripMenuItem.Text = "Load bot";
             // 
             // toolsToolStripMenuItem
@@ -898,13 +898,12 @@ namespace Grimoire.UI
             this.Controls.Add(this.darkMenuStrip1);
             this.FlatBorder = true;
             this.Icon = global::Properties.Resources.GrimoireIcon;
-            this.MainMenuStrip = this.darkMenuStrip1;
             this.Name = "Root";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Grimlite";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Root_FormClosing);
             this.Load += new System.EventHandler(this.Root_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Root_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).EndInit();
             this.darkMenuStrip1.ResumeLayout(false);
             this.darkMenuStrip1.PerformLayout();
@@ -1313,6 +1312,11 @@ namespace Grimoire.UI
                 return Rectangle.FromLTRB(left, top, right, bottom);
             }
 
+        }
+
+        private void Root_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
         }
     }
 }
