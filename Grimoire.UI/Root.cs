@@ -1105,7 +1105,7 @@ namespace Grimoire.UI
 
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
-            var h = 27;
+            var h = 30;
             if (this.Size.Width == SystemParameters.PrimaryScreenWidth && this.Size.Height == SystemParameters.PrimaryScreenHeight) h -= 3;
             switch (m.Msg)
             {
