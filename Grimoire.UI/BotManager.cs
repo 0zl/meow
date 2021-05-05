@@ -684,11 +684,11 @@ namespace Grimoire.UI
                     rtbInfo.Rtf = description;
                     MessageBox.Show(config.Description);
                     MessageBox.Show(description);
-                    mainTabControl.SelectedTab = tabInfo;
+                    //mainTabControl.SelectedTab = tabInfo;
                 } else
                 {
                     rtbInfo.Text = config.Description;
-                    mainTabControl.SelectedTab = tabInfo;
+                    //mainTabControl.SelectedTab = tabInfo;
                 }
             }
         }
@@ -2314,6 +2314,7 @@ namespace Grimoire.UI
             // 
             // lstCommands
             // 
+            this.lstCommands.AllowDrop = true;
             this.lstCommands.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -2333,6 +2334,8 @@ namespace Grimoire.UI
             this.lstCommands.TabIndex = 1;
             this.lstCommands.Click += new System.EventHandler(this.lstCommands_Click);
             this.lstCommands.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstCommands_DrawItem);
+            this.lstCommands.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCommands_DragDrop);
+            this.lstCommands.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCommands_DragEnter);
             this.lstCommands.DoubleClick += new System.EventHandler(this.lstCommands_DoubleClick);
             this.lstCommands.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstBoxs_KeyPress);
             this.lstCommands.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstCommands_KeyPress);
@@ -2533,7 +2536,7 @@ namespace Grimoire.UI
             this.tabCombat.Margin = new System.Windows.Forms.Padding(0);
             this.tabCombat.Name = "tabCombat";
             this.tabCombat.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCombat.Size = new System.Drawing.Size(497, 301);
+            this.tabCombat.Size = new System.Drawing.Size(192, 73);
             this.tabCombat.TabIndex = 0;
             this.tabCombat.Text = "Combat";
             // 
@@ -3007,7 +3010,7 @@ namespace Grimoire.UI
             this.tabItem.Margin = new System.Windows.Forms.Padding(0);
             this.tabItem.Name = "tabItem";
             this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabItem.Size = new System.Drawing.Size(497, 301);
+            this.tabItem.Size = new System.Drawing.Size(192, 73);
             this.tabItem.TabIndex = 1;
             this.tabItem.Text = "Item";
             // 
@@ -3868,7 +3871,7 @@ namespace Grimoire.UI
             this.tabMisc.Margin = new System.Windows.Forms.Padding(0);
             this.tabMisc.Name = "tabMisc";
             this.tabMisc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMisc.Size = new System.Drawing.Size(497, 301);
+            this.tabMisc.Size = new System.Drawing.Size(192, 73);
             this.tabMisc.TabIndex = 4;
             this.tabMisc.Text = "Misc";
             // 
@@ -3911,7 +3914,7 @@ namespace Grimoire.UI
             this.darkPanel2.Controls.Add(this.darkGroupBox11);
             this.darkPanel2.Location = new System.Drawing.Point(318, 6);
             this.darkPanel2.Name = "darkPanel2";
-            this.darkPanel2.Size = new System.Drawing.Size(173, 173);
+            this.darkPanel2.Size = new System.Drawing.Size(0, 0);
             this.darkPanel2.TabIndex = 165;
             // 
             // darkGroupBox11
@@ -3922,7 +3925,7 @@ namespace Grimoire.UI
             this.darkGroupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.darkGroupBox11.Location = new System.Drawing.Point(0, 0);
             this.darkGroupBox11.Name = "darkGroupBox11";
-            this.darkGroupBox11.Size = new System.Drawing.Size(173, 173);
+            this.darkGroupBox11.Size = new System.Drawing.Size(0, 0);
             this.darkGroupBox11.TabIndex = 163;
             this.darkGroupBox11.TabStop = false;
             this.darkGroupBox11.Text = "Labels";
@@ -3933,9 +3936,9 @@ namespace Grimoire.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.Controls.Add(this.btnGotoLabel);
             this.panel7.Controls.Add(this.btnAddLabel);
-            this.panel7.Location = new System.Drawing.Point(8, 145);
+            this.panel7.Location = new System.Drawing.Point(8, -9);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(159, 22);
+            this.panel7.Size = new System.Drawing.Size(0, 22);
             this.panel7.TabIndex = 161;
             // 
             // btnGotoLabel
@@ -3953,7 +3956,7 @@ namespace Grimoire.UI
             // 
             this.btnAddLabel.Checked = false;
             this.btnAddLabel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnAddLabel.Location = new System.Drawing.Point(80, 0);
+            this.btnAddLabel.Location = new System.Drawing.Point(-79, 0);
             this.btnAddLabel.Name = "btnAddLabel";
             this.btnAddLabel.Size = new System.Drawing.Size(79, 22);
             this.btnAddLabel.TabIndex = 111;
@@ -3970,9 +3973,10 @@ namespace Grimoire.UI
             this.lbLabels.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lbLabels.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.lbLabels.FormattingEnabled = true;
-            this.lbLabels.Location = new System.Drawing.Point(8, 15);
+            this.lbLabels.ItemHeight = 18;
+            this.lbLabels.Location = new System.Drawing.Point(8, 14);
             this.lbLabels.Name = "lbLabels";
-            this.lbLabels.Size = new System.Drawing.Size(159, 106);
+            this.lbLabels.Size = new System.Drawing.Size(0, 2);
             this.lbLabels.TabIndex = 114;
             this.lbLabels.DoubleClick += new System.EventHandler(this.lbLabels_DoubleClick);
             // 
@@ -3980,9 +3984,9 @@ namespace Grimoire.UI
             // 
             this.txtLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLabel.Location = new System.Drawing.Point(8, 123);
+            this.txtLabel.Location = new System.Drawing.Point(8, -31);
             this.txtLabel.Name = "txtLabel";
-            this.txtLabel.Size = new System.Drawing.Size(159, 20);
+            this.txtLabel.Size = new System.Drawing.Size(0, 20);
             this.txtLabel.TabIndex = 113;
             this.txtLabel.Text = "Label name";
             // 
@@ -3994,7 +3998,7 @@ namespace Grimoire.UI
             this.darkGroupBox12.Controls.Add(this.numSetInt);
             this.darkGroupBox12.Controls.Add(this.btnIncreaseInt);
             this.darkGroupBox12.Controls.Add(this.btnDecreaseInt);
-            this.darkGroupBox12.Location = new System.Drawing.Point(7, 185);
+            this.darkGroupBox12.Location = new System.Drawing.Point(7, -43);
             this.darkGroupBox12.Name = "darkGroupBox12";
             this.darkGroupBox12.Size = new System.Drawing.Size(165, 69);
             this.darkGroupBox12.TabIndex = 164;
@@ -4069,7 +4073,7 @@ namespace Grimoire.UI
             this.darkGroupBox8.Controls.Add(this.btnClearTempVar);
             this.darkGroupBox8.Controls.Add(this.btnGoUpIndex);
             this.darkGroupBox8.Controls.Add(this.btnGoDownIndex);
-            this.darkGroupBox8.Location = new System.Drawing.Point(324, 185);
+            this.darkGroupBox8.Location = new System.Drawing.Point(324, -43);
             this.darkGroupBox8.Name = "darkGroupBox8";
             this.darkGroupBox8.Size = new System.Drawing.Size(161, 92);
             this.darkGroupBox8.TabIndex = 162;
@@ -4149,7 +4153,7 @@ namespace Grimoire.UI
             this.darkGroupBox7.Controls.Add(this.btnProvokeOff);
             this.darkGroupBox7.Controls.Add(this.btnProvoke);
             this.darkGroupBox7.Controls.Add(this.btnProvokeOn);
-            this.darkGroupBox7.Location = new System.Drawing.Point(178, 185);
+            this.darkGroupBox7.Location = new System.Drawing.Point(178, -43);
             this.darkGroupBox7.Name = "darkGroupBox7";
             this.darkGroupBox7.Size = new System.Drawing.Size(140, 69);
             this.darkGroupBox7.TabIndex = 161;
@@ -4394,7 +4398,7 @@ namespace Grimoire.UI
             this.tabMisc2.Margin = new System.Windows.Forms.Padding(0);
             this.tabMisc2.Name = "tabMisc2";
             this.tabMisc2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMisc2.Size = new System.Drawing.Size(497, 301);
+            this.tabMisc2.Size = new System.Drawing.Size(192, 73);
             this.tabMisc2.TabIndex = 8;
             this.tabMisc2.Text = "Misc 2";
             // 
@@ -4406,7 +4410,7 @@ namespace Grimoire.UI
             this.darkGroupBox13.Controls.Add(this.btnBotDelay);
             this.darkGroupBox13.Controls.Add(this.numBotDelay);
             this.darkGroupBox13.Controls.Add(this.chkRestartDeath);
-            this.darkGroupBox13.Location = new System.Drawing.Point(9, 202);
+            this.darkGroupBox13.Location = new System.Drawing.Point(9, -26);
             this.darkGroupBox13.Name = "darkGroupBox13";
             this.darkGroupBox13.Size = new System.Drawing.Size(166, 93);
             this.darkGroupBox13.TabIndex = 161;
@@ -4488,7 +4492,7 @@ namespace Grimoire.UI
             this.darkGroupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.darkGroupBox10.Controls.Add(this.btnStop);
             this.darkGroupBox10.Controls.Add(this.btnRestart);
-            this.darkGroupBox10.Location = new System.Drawing.Point(359, 247);
+            this.darkGroupBox10.Location = new System.Drawing.Point(359, 19);
             this.darkGroupBox10.Name = "darkGroupBox10";
             this.darkGroupBox10.Size = new System.Drawing.Size(132, 51);
             this.darkGroupBox10.TabIndex = 117;
@@ -4527,7 +4531,7 @@ namespace Grimoire.UI
             this.darkGroupBox9.Controls.Add(this.txtDescription);
             this.darkGroupBox9.Location = new System.Drawing.Point(246, 6);
             this.darkGroupBox9.Name = "darkGroupBox9";
-            this.darkGroupBox9.Size = new System.Drawing.Size(245, 165);
+            this.darkGroupBox9.Size = new System.Drawing.Size(0, 0);
             this.darkGroupBox9.TabIndex = 116;
             this.darkGroupBox9.TabStop = false;
             this.darkGroupBox9.Text = "Save/Load";
@@ -4547,8 +4551,8 @@ namespace Grimoire.UI
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.btnLoad);
-            this.splitContainer3.Size = new System.Drawing.Size(232, 22);
-            this.splitContainer3.SplitterDistance = 107;
+            this.splitContainer3.Size = new System.Drawing.Size(54, 22);
+            this.splitContainer3.SplitterDistance = 25;
             this.splitContainer3.TabIndex = 118;
             // 
             // btnSave
@@ -4557,7 +4561,7 @@ namespace Grimoire.UI
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.Location = new System.Drawing.Point(0, 0);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(107, 22);
+            this.btnSave.Size = new System.Drawing.Size(25, 22);
             this.btnSave.TabIndex = 75;
             this.btnSave.Text = "Save bot";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -4568,7 +4572,7 @@ namespace Grimoire.UI
             this.btnLoad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLoad.Location = new System.Drawing.Point(0, 0);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(121, 22);
+            this.btnLoad.Size = new System.Drawing.Size(25, 22);
             this.btnLoad.TabIndex = 67;
             this.btnLoad.Text = "Load bot";
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
@@ -4580,7 +4584,7 @@ namespace Grimoire.UI
             this.txtAuthor.Location = new System.Drawing.Point(8, 45);
             this.txtAuthor.Multiline = true;
             this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.Size = new System.Drawing.Size(231, 20);
+            this.txtAuthor.Size = new System.Drawing.Size(0, 20);
             this.txtAuthor.TabIndex = 110;
             this.txtAuthor.Text = "Author";
             this.txtAuthor.Enter += new System.EventHandler(this.TextboxEnter);
@@ -4595,7 +4599,7 @@ namespace Grimoire.UI
             this.txtDescription.MaxLength = 2147483647;
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(232, 88);
+            this.txtDescription.Size = new System.Drawing.Size(0, 0);
             this.txtDescription.TabIndex = 109;
             this.txtDescription.Text = "Description (Write in RTF)";
             this.txtDescription.Enter += new System.EventHandler(this.TextboxEnter);
@@ -4605,7 +4609,7 @@ namespace Grimoire.UI
             // 
             this.chkMerge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkMerge.AutoSize = true;
-            this.chkMerge.Location = new System.Drawing.Point(688, 56);
+            this.chkMerge.Location = new System.Drawing.Point(383, 56);
             this.chkMerge.Name = "chkMerge";
             this.chkMerge.Size = new System.Drawing.Size(56, 17);
             this.chkMerge.TabIndex = 115;
@@ -4619,7 +4623,7 @@ namespace Grimoire.UI
             0,
             0,
             65536});
-            this.numSetFPS.Location = new System.Drawing.Point(397, 216);
+            this.numSetFPS.Location = new System.Drawing.Point(271, 38);
             this.numSetFPS.LoopValues = false;
             this.numSetFPS.Name = "numSetFPS";
             this.numSetFPS.Size = new System.Drawing.Size(88, 20);
@@ -4629,7 +4633,7 @@ namespace Grimoire.UI
             // 
             this.btnSetFPSCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSetFPSCmd.Checked = false;
-            this.btnSetFPSCmd.Location = new System.Drawing.Point(397, 191);
+            this.btnSetFPSCmd.Location = new System.Drawing.Point(181, 38);
             this.btnSetFPSCmd.Name = "btnSetFPSCmd";
             this.btnSetFPSCmd.Size = new System.Drawing.Size(88, 23);
             this.btnSetFPSCmd.TabIndex = 61;
@@ -5830,7 +5834,7 @@ namespace Grimoire.UI
             this.txtSavedAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSavedAdd.Location = new System.Drawing.Point(-10, 27);
             this.txtSavedAdd.Name = "txtSavedAdd";
-            this.txtSavedAdd.Size = new System.Drawing.Size(126, 20);
+            this.txtSavedAdd.Size = new System.Drawing.Size(118, 20);
             this.txtSavedAdd.TabIndex = 16;
             // 
             // btnSavedAdd
@@ -6444,6 +6448,14 @@ namespace Grimoire.UI
 
         private void lstCommands_DragDrop(object sender, DragEventArgs e)
         {
+            Configuration config;
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length > 1) return;
+            if (TryDeserialize(File.ReadAllText(files[0]), out config))
+            {
+                ApplyConfiguration(config);
+                GetAllCommands<CmdLabel>(lbLabels);
+            }
         }
 
         private void lstCommands_DragEnter(object sender, DragEventArgs e)
@@ -7244,7 +7256,7 @@ namespace Grimoire.UI
                 var tempRtf = "";
                 Task.WaitAll(Task.Run(() => DocConvert.toRtf(tempDoc, target, out tempRtf)));
                 rtbInfo.Rtf = File.ReadAllText(tempRtf);
-            } catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+            } catch { };
         }
 
         private void rtbInfo_LinkClicked(object sender, LinkClickedEventArgs e)
