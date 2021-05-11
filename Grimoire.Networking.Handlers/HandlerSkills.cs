@@ -68,6 +68,7 @@ namespace Grimoire.Networking.Handlers
                         var hp = hit["hp"];
                         int dmg = int.Parse(hp.ToString());
                         
+                        /* not used yet
                         if(!DPSForm.Instance.DamagePerSecond.TryGetValue(Player.Username, out int num))
                             DPSForm.Instance.DamagePerSecond.Add(Player.Username, dmg);
                         else
@@ -77,6 +78,7 @@ namespace Grimoire.Networking.Handlers
                             DPSForm.Instance.Damage.Add(Player.Username, dmg);
                         else
                             DPSForm.Instance.Damage[Player.Username] += dmg;
+                        */
 
                         LogForm.Instance.AppendDebug($"Damage by you: {hp.ToString()}\r\n");
                     }
