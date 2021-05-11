@@ -129,6 +129,7 @@
     <Reference Include="System.Net.Http">
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Net.Http\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Net.Http.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml">
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Xml\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.dll</HintPath>
     </Reference>
@@ -326,6 +327,12 @@
     <Compile Include="Grimoire.Networking\XmlMessage.cs" />
     <Compile Include="Grimoire.Networking\XtMessage.cs" />
     <Compile Include="Grimoire.Tools\DocToRtf.cs" />
+    <Compile Include="Grimoire.UI\DPSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire.UI\DPSForm.Designer.cs">
+      <DependentUpon>DPSForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -442,6 +449,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Grimoire.UI\DPSForm.resx">
+      <DependentUpon>DPSForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>

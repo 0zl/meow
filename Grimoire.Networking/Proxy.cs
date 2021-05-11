@@ -62,6 +62,7 @@ namespace Grimoire.Networking
             _handlersJson = new List<IJsonMessageHandler>
             {
                 new HandlerSkills(),
+                new HandlerDPS(),
                 new HandlerDropItem(),
                 new HandlerGetQuests(),
                 new HandlerQuestComplete(),

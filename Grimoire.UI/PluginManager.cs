@@ -16,7 +16,7 @@ namespace Grimoire.UI
         public DarkButton btnUnload;
         public DarkTextBox txtDesc;
         public DarkLabel lblAuthor;
-        public DarkListBox lstLoaded;
+        public ListBox lstLoaded;
         public DarkGroupBox gbLoad;
         public DarkButton btnBrowse;
         public DarkButton btnLoad;
@@ -213,13 +213,11 @@ namespace Grimoire.UI
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginManager));
             this.gbLoaded = new DarkUI.Controls.DarkGroupBox();
             this.btnUnload = new DarkUI.Controls.DarkButton();
             this.txtDesc = new DarkUI.Controls.DarkTextBox();
             this.lblAuthor = new DarkUI.Controls.DarkLabel();
-            this.lstLoaded = new DarkUI.Controls.DarkListBox(this.components);
+            this.lstLoaded = new System.Windows.Forms.ListBox();
             this.gbLoad = new DarkUI.Controls.DarkGroupBox();
             this.btnBrowse = new DarkUI.Controls.DarkButton();
             this.btnLoad = new DarkUI.Controls.DarkButton();
@@ -245,9 +243,9 @@ namespace Grimoire.UI
             // btnUnload
             // 
             this.btnUnload.Checked = false;
-            this.btnUnload.Location = new System.Drawing.Point(155, 238);
+            this.btnUnload.Location = new System.Drawing.Point(148, 238);
             this.btnUnload.Name = "btnUnload";
-            this.btnUnload.Size = new System.Drawing.Size(128, 23);
+            this.btnUnload.Size = new System.Drawing.Size(135, 23);
             this.btnUnload.TabIndex = 3;
             this.btnUnload.Text = "Unload selected plugin";
             this.btnUnload.Click += new System.EventHandler(this.btnUnload_Click);
@@ -275,14 +273,12 @@ namespace Grimoire.UI
             // 
             this.lstLoaded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.lstLoaded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lstLoaded.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstLoaded.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.lstLoaded.FormattingEnabled = true;
-            this.lstLoaded.ItemHeight = 18;
             this.lstLoaded.Location = new System.Drawing.Point(6, 19);
             this.lstLoaded.Name = "lstLoaded";
             this.lstLoaded.ScrollAlwaysVisible = true;
-            this.lstLoaded.Size = new System.Drawing.Size(277, 74);
+            this.lstLoaded.Size = new System.Drawing.Size(277, 67);
             this.lstLoaded.TabIndex = 0;
             this.lstLoaded.SelectedIndexChanged += new System.EventHandler(this.lstLoaded_SelectedIndexChanged);
             // 
