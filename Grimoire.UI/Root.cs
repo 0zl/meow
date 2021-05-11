@@ -85,6 +85,7 @@ namespace Grimoire.UI
         private Panel panel1;
         private ToolStripMenuItem DPSMeterToolStripMenuItem;
         private ToolStripMenuItem reloadToolStripMenuItem;
+        private SplitContainer splitContainer1;
         public MenuStrip MenuMain;
 
         public static Root Instance
@@ -100,6 +101,9 @@ namespace Grimoire.UI
             if (!System.Diagnostics.Debugger.IsAttached && false)
                 Process.Start(@"updater.exe");
             Bypass.Hook();
+
+            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+
             InitializeComponent();
             Instance = this;
         }
@@ -322,9 +326,14 @@ namespace Grimoire.UI
             this.getBotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.MenuMain = new System.Windows.Forms.MenuStrip();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
             this.darkMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // nTray
@@ -347,7 +356,7 @@ namespace Grimoire.UI
             "Bottom",
             "Up",
             "Down"});
-            this.cbPads.Location = new System.Drawing.Point(659, 3);
+            this.cbPads.Location = new System.Drawing.Point(725, 3);
             this.cbPads.MaxDropDownItems = 50;
             this.cbPads.Name = "cbPads";
             this.cbPads.Size = new System.Drawing.Size(91, 21);
@@ -357,7 +366,7 @@ namespace Grimoire.UI
             // 
             this.cbCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCells.FormattingEnabled = true;
-            this.cbCells.Location = new System.Drawing.Point(565, 3);
+            this.cbCells.Location = new System.Drawing.Point(628, 3);
             this.cbCells.MaxDropDownItems = 50;
             this.cbCells.Name = "cbCells";
             this.cbCells.Size = new System.Drawing.Size(91, 21);
@@ -368,10 +377,10 @@ namespace Grimoire.UI
             // 
             this.flashPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flashPlayer.Enabled = true;
-            this.flashPlayer.Location = new System.Drawing.Point(0, 27);
+            this.flashPlayer.Location = new System.Drawing.Point(0, 0);
             this.flashPlayer.Name = "flashPlayer";
             this.flashPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("flashPlayer.OcxState")));
-            this.flashPlayer.Size = new System.Drawing.Size(960, 510);
+            this.flashPlayer.Size = new System.Drawing.Size(1024, 576);
             this.flashPlayer.TabIndex = 2;
             // 
             // btnJump
@@ -380,7 +389,7 @@ namespace Grimoire.UI
             this.btnJump.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.btnJump.Checked = false;
             this.btnJump.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnJump.Location = new System.Drawing.Point(756, 1);
+            this.btnJump.Location = new System.Drawing.Point(820, 3);
             this.btnJump.Name = "btnJump";
             this.btnJump.Size = new System.Drawing.Size(53, 23);
             this.btnJump.TabIndex = 28;
@@ -820,10 +829,10 @@ namespace Grimoire.UI
             this.btnMax.ForeColor = System.Drawing.Color.Black;
             this.btnMax.Location = new System.Drawing.Point(49, 0);
             this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(52, 27);
+            this.btnMax.Size = new System.Drawing.Size(49, 27);
             this.btnMax.TabIndex = 32;
             this.btnMax.Text = "🗖";
-            this.btnMax.UseVisualStyleBackColor = false;
+            this.btnMax.UseVisualStyleBackColor = true;
             this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
             // btnExit
@@ -833,12 +842,12 @@ namespace Grimoire.UI
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.Black;
-            this.btnExit.Location = new System.Drawing.Point(101, 0);
+            this.btnExit.Location = new System.Drawing.Point(98, 0);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(49, 27);
             this.btnExit.TabIndex = 33;
             this.btnExit.Text = "×";
-            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // btnMin
@@ -852,7 +861,7 @@ namespace Grimoire.UI
             this.btnMin.Size = new System.Drawing.Size(49, 27);
             this.btnMin.TabIndex = 34;
             this.btnMin.Text = "🗕";
-            this.btnMin.UseVisualStyleBackColor = false;
+            this.btnMin.UseVisualStyleBackColor = true;
             this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
             // darkMenuStrip1
@@ -873,11 +882,10 @@ namespace Grimoire.UI
             this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.darkMenuStrip1.Name = "darkMenuStrip1";
             this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(2);
-            this.darkMenuStrip1.Size = new System.Drawing.Size(960, 27);
+            this.darkMenuStrip1.Size = new System.Drawing.Size(876, 27);
             this.darkMenuStrip1.TabIndex = 35;
             this.darkMenuStrip1.Text = "darkMenuStrip1";
             this.darkMenuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuMain_MouseDown);
-            this.darkMenuStrip1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.darkMenuStrip1_MouseUp);
             // 
             // getBotsToolStripMenuItem
             // 
@@ -890,13 +898,13 @@ namespace Grimoire.UI
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnMax);
             this.panel1.Controls.Add(this.btnMin);
             this.panel1.Controls.Add(this.btnExit);
-            this.panel1.Location = new System.Drawing.Point(810, 0);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(150, 27);
+            this.panel1.Size = new System.Drawing.Size(147, 27);
             this.panel1.TabIndex = 36;
             // 
             // MenuMain
@@ -911,23 +919,42 @@ namespace Grimoire.UI
             this.MenuMain.ItemAdded += new System.Windows.Forms.ToolStripItemEventHandler(this.pluginAdded);
             this.MenuMain.ItemRemoved += new System.Windows.Forms.ToolStripItemEventHandler(this.pluginRemoved);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.cbCells);
+            this.splitContainer1.Panel1.Controls.Add(this.btnJump);
+            this.splitContainer1.Panel1.Controls.Add(this.cbPads);
+            this.splitContainer1.Panel1.Controls.Add(this.darkMenuStrip1);
+            this.splitContainer1.FixedPanel = FixedPanel.Panel2;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.panel1);
+            this.splitContainer1.Size = new System.Drawing.Size(1024, 27);
+            this.splitContainer1.SplitterDistance = 876;
+            this.splitContainer1.SplitterWidth = 1;
+            this.splitContainer1.TabIndex = 38;
+            // 
             // Root
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
-            this.ClientSize = new System.Drawing.Size(960, 537);
+            this.ClientSize = new System.Drawing.Size(1024, 576);
             this.ControlBox = false;
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnJump);
-            this.Controls.Add(this.cbCells);
-            this.Controls.Add(this.cbPads);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.flashPlayer);
-            this.Controls.Add(this.darkMenuStrip1);
             this.Controls.Add(this.MenuMain);
-            this.FlatBorder = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = global::Properties.Resources.GrimoireIcon;
-            this.MainMenuStrip = this.MenuMain;
+            this.MainMenuStrip = this.darkMenuStrip1;
             this.Name = "Root";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Grimlite";
@@ -938,6 +965,11 @@ namespace Grimoire.UI
             this.darkMenuStrip1.ResumeLayout(false);
             this.darkMenuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1133,7 +1165,8 @@ namespace Grimoire.UI
             public int x, y, cx, cy, flags;
         }
 
-        private int h = 30;
+        private int h = 6;
+        private int w = 6;
 
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
@@ -1146,7 +1179,7 @@ namespace Grimoire.UI
                         RECT rc = (RECT)m.GetLParam(typeof(RECT));
                         Rectangle r = rc.ToRectangle();
                         //with text = "GrimLite"
-                        r.Inflate(0, h); 
+                        r.Inflate(w, h); 
                         //without text
                         //r.Inflate(0, 6);
                         Marshal.StructureToPtr(new RECT(r), m.LParam, true);
@@ -1156,7 +1189,7 @@ namespace Grimoire.UI
                         NCCALCSIZE_PARAMS csp = (NCCALCSIZE_PARAMS)m.GetLParam(typeof(NCCALCSIZE_PARAMS));
                         Rectangle r = csp.rgrc0.ToRectangle();
                         //with text = "GrimLite"
-                        r.Inflate(0, h); 
+                        r.Inflate(w, h); 
                         //without text
                         //r.Inflate(0, 6);
                         csp.rgrc0 = new RECT(r);
@@ -1267,20 +1300,21 @@ namespace Grimoire.UI
             this.Close();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                {
+                    cp.Style |= 0x20000 | 0x80000 | 0x40000; //WS_MINIMIZEBOX | WS_SYSMENU | WS_SIZEBOX;
+                }
+                return cp;
+            }
+        }
+
         private void btnMax_Click(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
-            {
-                h = 5;
-                Root.Instance.FormBorderStyle = FormBorderStyle.None;
-                this.WindowState = FormWindowState.Maximized;
-            }
-            else if (this.WindowState == FormWindowState.Maximized)
-            {
-                h = 30;
-                Root.Instance.FormBorderStyle = FormBorderStyle.Sizable;
-                this.WindowState = FormWindowState.Normal;
-            }
+            this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
         }
 
         private void btnMin_Click(object sender, EventArgs e)
@@ -1369,23 +1403,6 @@ namespace Grimoire.UI
         private void Root_KeyPress(object sender, KeyPressEventArgs e)
         {
             
-        }
-
-        private void darkMenuStrip1_MouseUp(object sender, MouseEventArgs e)
-        {
-            if(e.Button == MouseButtons.Left)
-            {
-                if (this.WindowState == FormWindowState.Maximized)
-                {
-                    h = 0;
-                    Root.Instance.FormBorderStyle = FormBorderStyle.None;
-                }
-                else if (this.WindowState == FormWindowState.Normal)
-                {
-                    h = 30;
-                    Root.Instance.FormBorderStyle = FormBorderStyle.Sizable;
-                }
-            }
         }
 
         private void dPSMeterToolStripMenuItem_Click(object sender, EventArgs e)
