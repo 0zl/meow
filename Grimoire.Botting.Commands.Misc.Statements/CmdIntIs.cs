@@ -22,7 +22,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public override string ToString()
         {
-            return $"{Value1} == {Value2}";
+            return $"{Value1} == {Value2} (Value)";
         }
     }
 }

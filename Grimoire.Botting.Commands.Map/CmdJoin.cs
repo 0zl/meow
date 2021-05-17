@@ -74,7 +74,6 @@ namespace Grimoire.Botting.Commands.Map
                 else if (checkVar)
                 {
                     text = "-" + Configuration.Tempvariable[instance.GetVar(text.Replace("-", ""))];
-                    MessageBox.Show(text);
                     await TryJoin(instance, cmdMap, text);
                 }
                 else

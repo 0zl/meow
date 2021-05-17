@@ -1,6 +1,7 @@
 using DarkUI.Controls;
 using DarkUI.Forms;
 using Grimoire.Botting.Commands.Misc.Statements;
+using Grimoire.Botting.Commands.Quest;
 using Grimoire.Game.Data;
 using Grimoire.Properties;
 using Newtonsoft.Json;
@@ -42,9 +43,16 @@ namespace Grimoire.UI
             set;
         }
 
-        private static readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
+        private static readonly JsonSerializerSettings _questSerializerSettings = new JsonSerializerSettings
         {
             DefaultValueHandling = DefaultValueHandling.Ignore,
+            NullValueHandling = NullValueHandling.Include,
+            TypeNameHandling = TypeNameHandling.All
+        };
+
+        private static readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
+        {
+            DefaultValueHandling = DefaultValueHandling.Include,
             NullValueHandling = NullValueHandling.Include,
             TypeNameHandling = TypeNameHandling.All
         };
@@ -79,7 +87,9 @@ namespace Grimoire.UI
         public static string Show(object obj)
         {
             cmdObj = obj;
-            JObject content = JObject.Parse(JsonConvert.SerializeObject(obj, _serializerSettings));
+            var serializer = obj.GetType() == typeof(CmdCompleteQuest) || obj.GetType() == typeof(CmdAcceptQuest) ? _questSerializerSettings : _serializerSettings;
+            MessageBox.Show(obj.GetType().ToString());
+            JObject content = JObject.Parse(JsonConvert.SerializeObject(obj, serializer));
             using (commandEditor = new UserFriendlyCommandEditor())
             {
                 int currentY = 13;
@@ -148,7 +158,7 @@ namespace Grimoire.UI
                     return serialized;
                 }
                 else if (dialog2)
-                    return RawCommandEditor.Show(JsonConvert.SerializeObject(cmdObj, Formatting.Indented, _serializerSettings));
+                    return RawCommandEditor.Show(JsonConvert.SerializeObject(cmdObj, Formatting.Indented, serializer));
                 else return null;
             }
         }

@@ -86,6 +86,7 @@ namespace Grimoire.UI
         private ToolStripMenuItem DPSMeterToolStripMenuItem;
         private ToolStripMenuItem reloadToolStripMenuItem;
         private SplitContainer splitContainer1;
+        private ToolStripMenuItem fullTelaToolStripMenuItem;
         public MenuStrip MenuMain;
 
         public static Root Instance
@@ -327,6 +328,7 @@ namespace Grimoire.UI
             this.panel1 = new System.Windows.Forms.Panel();
             this.MenuMain = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.fullTelaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
             this.darkMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -634,7 +636,8 @@ namespace Grimoire.UI
             this.discordToolStripMenuItem,
             this.botRequestToolStripMenuItem,
             this.grimoireSuggestionsToolStripMenuItem,
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.fullTelaToolStripMenuItem});
             this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(47, 23);
@@ -922,6 +925,7 @@ namespace Grimoire.UI
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -932,7 +936,6 @@ namespace Grimoire.UI
             this.splitContainer1.Panel1.Controls.Add(this.btnJump);
             this.splitContainer1.Panel1.Controls.Add(this.cbPads);
             this.splitContainer1.Panel1.Controls.Add(this.darkMenuStrip1);
-            this.splitContainer1.FixedPanel = FixedPanel.Panel2;
             // 
             // splitContainer1.Panel2
             // 
@@ -941,6 +944,16 @@ namespace Grimoire.UI
             this.splitContainer1.SplitterDistance = 876;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 38;
+            // 
+            // fullTelaToolStripMenuItem
+            // 
+            this.fullTelaToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.fullTelaToolStripMenuItem.CheckOnClick = true;
+            this.fullTelaToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.fullTelaToolStripMenuItem.Name = "fullTelaToolStripMenuItem";
+            this.fullTelaToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.fullTelaToolStripMenuItem.Text = "Full Tela?";
+            this.fullTelaToolStripMenuItem.Click += new System.EventHandler(this.fullTelaToolStripMenuItem_Click);
             // 
             // Root
             // 
@@ -1409,6 +1422,11 @@ namespace Grimoire.UI
         {
             ShowForm(DPSForm.Instance);
             
+        }
+
+        private void fullTelaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.MaximizedBounds = fullTelaToolStripMenuItem.Checked ? Screen.PrimaryScreen.Bounds : Screen.FromHandle(this.Handle).WorkingArea;
         }
     }
 }
