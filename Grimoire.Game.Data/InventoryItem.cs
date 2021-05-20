@@ -181,6 +181,11 @@ namespace Grimoire.Game.Data
             set;
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
         #region bools
         public bool IsEquippable => EquippableCategories.Contains(Category);
 
