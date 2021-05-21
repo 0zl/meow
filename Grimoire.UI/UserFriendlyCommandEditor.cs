@@ -88,7 +88,7 @@ namespace Grimoire.UI
         {
             cmdObj = obj;
             var serializer = obj.GetType() == typeof(CmdCompleteQuest) || obj.GetType() == typeof(CmdAcceptQuest) ? _questSerializerSettings : _serializerSettings;
-            MessageBox.Show(obj.GetType().ToString());
+            //MessageBox.Show(obj.GetType().ToString());
             JObject content = JObject.Parse(JsonConvert.SerializeObject(obj, serializer));
             using (commandEditor = new UserFriendlyCommandEditor())
             {

@@ -177,7 +177,7 @@ namespace Grimoire.UI
         public DarkCheckBox chkProvoke;
         public DarkCheckBox chkInfiniteRange;
         private DarkGroupBox grpLogin;
-        private ComboBox cbServers;
+        private DarkComboBox cbServers;
         private DarkCheckBox chkRelogRetry;
         private DarkCheckBox chkRelog;
         private DarkNumericUpDown numRelogDelay;
@@ -359,6 +359,7 @@ namespace Grimoire.UI
         #endregion
 
         private SplitContainer splitContainer4;
+        private SplitContainer splitContainer5;
 
         public static BotManager Instance
         {
@@ -2108,6 +2109,7 @@ namespace Grimoire.UI
             this.darkPanel2 = new DarkUI.Controls.DarkPanel();
             this.darkGroupBox11 = new DarkUI.Controls.DarkGroupBox();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.btnGotoLabel = new DarkUI.Controls.DarkButton();
             this.btnAddLabel = new DarkUI.Controls.DarkButton();
             this.txtLabel = new DarkUI.Controls.DarkTextBox();
@@ -2206,7 +2208,7 @@ namespace Grimoire.UI
             this.chkInfiniteRange = new DarkUI.Controls.DarkCheckBox();
             this.grpLogin = new DarkUI.Controls.DarkGroupBox();
             this.chkAFK = new DarkUI.Controls.DarkCheckBox();
-            this.cbServers = new System.Windows.Forms.ComboBox();
+            this.cbServers = new DarkUI.Controls.DarkComboBox();
             this.chkRelogRetry = new DarkUI.Controls.DarkCheckBox();
             this.chkRelog = new DarkUI.Controls.DarkCheckBox();
             this.numRelogDelay = new DarkUI.Controls.DarkNumericUpDown();
@@ -2279,7 +2281,7 @@ namespace Grimoire.UI
             this.toggleTabpagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.mainTabControl.SuspendLayout();
             this.tabInfo.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -2309,6 +2311,10 @@ namespace Grimoire.UI
             this.darkPanel2.SuspendLayout();
             this.darkGroupBox11.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
             this.darkGroupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSetInt)).BeginInit();
             this.darkGroupBox8.SuspendLayout();
@@ -2357,10 +2363,10 @@ namespace Grimoire.UI
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.BotManagerMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
-            this.splitContainer4.Panel1.SuspendLayout();
-            this.splitContainer4.Panel2.SuspendLayout();
-            this.splitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
+            this.splitContainer5.Panel1.SuspendLayout();
+            this.splitContainer5.Panel2.SuspendLayout();
+            this.splitContainer5.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstCommands
@@ -3061,7 +3067,7 @@ namespace Grimoire.UI
             this.tabItem.Margin = new System.Windows.Forms.Padding(0);
             this.tabItem.Name = "tabItem";
             this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabItem.Size = new System.Drawing.Size(497, 301);
+            this.tabItem.Size = new System.Drawing.Size(192, 73);
             this.tabItem.TabIndex = 1;
             this.tabItem.Text = "Item";
             // 
@@ -3507,7 +3513,7 @@ namespace Grimoire.UI
             this.tabMap.Margin = new System.Windows.Forms.Padding(0);
             this.tabMap.Name = "tabMap";
             this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMap.Size = new System.Drawing.Size(497, 301);
+            this.tabMap.Size = new System.Drawing.Size(192, 73);
             this.tabMap.TabIndex = 2;
             this.tabMap.Text = "Map";
             // 
@@ -3735,7 +3741,7 @@ namespace Grimoire.UI
             this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
             this.tabQuest.Name = "tabQuest";
             this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabQuest.Size = new System.Drawing.Size(497, 301);
+            this.tabQuest.Size = new System.Drawing.Size(192, 73);
             this.tabQuest.TabIndex = 3;
             this.tabQuest.Text = "Quest";
             // 
@@ -3990,6 +3996,23 @@ namespace Grimoire.UI
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(167, 43);
             this.panel7.TabIndex = 161;
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Location = new System.Drawing.Point(0, 20);
+            this.splitContainer4.Name = "splitContainer4";
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.btnGotoLabel);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.btnAddLabel);
+            this.splitContainer4.Size = new System.Drawing.Size(167, 23);
+            this.splitContainer4.SplitterDistance = 83;
+            this.splitContainer4.SplitterWidth = 1;
+            this.splitContainer4.TabIndex = 167;
             // 
             // btnGotoLabel
             // 
@@ -4927,14 +4950,13 @@ namespace Grimoire.UI
             // 
             // darkGroupBox6
             // 
+            this.darkGroupBox6.Controls.Add(this.splitContainer5);
             this.darkGroupBox6.Controls.Add(this.lstLogText);
             this.darkGroupBox6.Controls.Add(this.txtLog);
-            this.darkGroupBox6.Controls.Add(this.btnLog);
-            this.darkGroupBox6.Controls.Add(this.btnLogDebug);
             this.darkGroupBox6.Controls.Add(this.label5);
             this.darkGroupBox6.Location = new System.Drawing.Point(276, 5);
             this.darkGroupBox6.Name = "darkGroupBox6";
-            this.darkGroupBox6.Size = new System.Drawing.Size(160, 287);
+            this.darkGroupBox6.Size = new System.Drawing.Size(215, 287);
             this.darkGroupBox6.TabIndex = 159;
             this.darkGroupBox6.TabStop = false;
             this.darkGroupBox6.Text = "Logs";
@@ -4969,7 +4991,7 @@ namespace Grimoire.UI
             "{ROOM_ID}"});
             this.lstLogText.Location = new System.Drawing.Point(6, 137);
             this.lstLogText.Name = "lstLogText";
-            this.lstLogText.Size = new System.Drawing.Size(147, 145);
+            this.lstLogText.Size = new System.Drawing.Size(202, 145);
             this.lstLogText.TabIndex = 153;
             this.lstLogText.DoubleClick += new System.EventHandler(this.lstLogText_DoubleClick);
             this.lstLogText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstLogText_KeyDown);
@@ -5004,30 +5026,30 @@ namespace Grimoire.UI
             this.txtLog.Location = new System.Drawing.Point(6, 15);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(147, 77);
+            this.txtLog.Size = new System.Drawing.Size(202, 77);
             this.txtLog.TabIndex = 147;
             this.txtLog.Text = "Text";
             // 
             // btnLog
             // 
-            this.btnLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLog.Checked = false;
+            this.btnLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLog.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnLog.Location = new System.Drawing.Point(6, 98);
+            this.btnLog.Location = new System.Drawing.Point(0, 0);
             this.btnLog.Name = "btnLog";
-            this.btnLog.Size = new System.Drawing.Size(69, 22);
+            this.btnLog.Size = new System.Drawing.Size(100, 23);
             this.btnLog.TabIndex = 148;
             this.btnLog.Text = "Log Script";
             this.btnLog.Click += new System.EventHandler(this.logScript);
             // 
             // btnLogDebug
             // 
-            this.btnLogDebug.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLogDebug.Checked = false;
+            this.btnLogDebug.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLogDebug.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnLogDebug.Location = new System.Drawing.Point(84, 98);
+            this.btnLogDebug.Location = new System.Drawing.Point(0, 0);
             this.btnLogDebug.Name = "btnLogDebug";
-            this.btnLogDebug.Size = new System.Drawing.Size(69, 22);
+            this.btnLogDebug.Size = new System.Drawing.Size(100, 23);
             this.btnLogDebug.TabIndex = 152;
             this.btnLogDebug.Text = "Log Debug";
             this.btnLogDebug.Click += new System.EventHandler(this.logDebug);
@@ -5311,9 +5333,7 @@ namespace Grimoire.UI
             // 
             // cbServers
             // 
-            this.cbServers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.cbServers.DisplayMember = "Name";
-            this.cbServers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbServers.FormattingEnabled = true;
             this.cbServers.Location = new System.Drawing.Point(4, 17);
             this.cbServers.Name = "cbServers";
@@ -5420,7 +5440,7 @@ namespace Grimoire.UI
             this.tabOptions2.Margin = new System.Windows.Forms.Padding(0);
             this.tabOptions2.Name = "tabOptions2";
             this.tabOptions2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions2.Size = new System.Drawing.Size(192, 73);
+            this.tabOptions2.Size = new System.Drawing.Size(497, 301);
             this.tabOptions2.TabIndex = 7;
             this.tabOptions2.Text = "Client";
             // 
@@ -5429,7 +5449,7 @@ namespace Grimoire.UI
             this.groupBox1.Controls.Add(this.btnAddInfoMsg);
             this.groupBox1.Controls.Add(this.btnAddWarnMsg);
             this.groupBox1.Controls.Add(this.inputMsgClient);
-            this.groupBox1.Location = new System.Drawing.Point(190, 65);
+            this.groupBox1.Location = new System.Drawing.Point(195, 65);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(124, 101);
             this.groupBox1.TabIndex = 148;
@@ -6172,22 +6192,22 @@ namespace Grimoire.UI
             this.commandColorsToolStripMenuItem.Text = "Command Customizer";
             this.commandColorsToolStripMenuItem.Click += new System.EventHandler(this.commandColorsToolStripMenuItem_Click);
             // 
-            // splitContainer4
+            // splitContainer5
             // 
-            this.splitContainer4.Location = new System.Drawing.Point(0, 20);
-            this.splitContainer4.Name = "splitContainer4";
+            this.splitContainer5.Location = new System.Drawing.Point(6, 96);
+            this.splitContainer5.Name = "splitContainer5";
             // 
-            // splitContainer4.Panel1
+            // splitContainer5.Panel1
             // 
-            this.splitContainer4.Panel1.Controls.Add(this.btnGotoLabel);
+            this.splitContainer5.Panel1.Controls.Add(this.btnLog);
             // 
-            // splitContainer4.Panel2
+            // splitContainer5.Panel2
             // 
-            this.splitContainer4.Panel2.Controls.Add(this.btnAddLabel);
-            this.splitContainer4.Size = new System.Drawing.Size(167, 23);
-            this.splitContainer4.SplitterDistance = 83;
-            this.splitContainer4.SplitterWidth = 1;
-            this.splitContainer4.TabIndex = 167;
+            this.splitContainer5.Panel2.Controls.Add(this.btnLogDebug);
+            this.splitContainer5.Size = new System.Drawing.Size(202, 23);
+            this.splitContainer5.SplitterDistance = 100;
+            this.splitContainer5.SplitterWidth = 2;
+            this.splitContainer5.TabIndex = 156;
             // 
             // BotManager
             // 
@@ -6247,6 +6267,12 @@ namespace Grimoire.UI
             this.darkGroupBox11.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel1.PerformLayout();
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            this.splitContainer4.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
             this.darkGroupBox12.ResumeLayout(false);
             this.darkGroupBox12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSetInt)).EndInit();
@@ -6309,12 +6335,10 @@ namespace Grimoire.UI
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.BotManagerMenuStrip.ResumeLayout(false);
-            this.splitContainer4.Panel1.ResumeLayout(false);
-            this.splitContainer4.Panel1.PerformLayout();
-            this.splitContainer4.Panel2.ResumeLayout(false);
-            this.splitContainer4.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
-            this.splitContainer4.ResumeLayout(false);
+            this.splitContainer5.Panel1.ResumeLayout(false);
+            this.splitContainer5.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
+            this.splitContainer5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

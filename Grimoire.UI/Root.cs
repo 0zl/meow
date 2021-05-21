@@ -360,7 +360,7 @@ namespace Grimoire.UI
             "Bottom",
             "Up",
             "Down"});
-            this.cbPads.Location = new System.Drawing.Point(725, 3);
+            this.cbPads.Location = new System.Drawing.Point(674, 3);
             this.cbPads.MaxDropDownItems = 50;
             this.cbPads.Name = "cbPads";
             this.cbPads.Size = new System.Drawing.Size(91, 21);
@@ -370,7 +370,7 @@ namespace Grimoire.UI
             // 
             this.cbCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCells.FormattingEnabled = true;
-            this.cbCells.Location = new System.Drawing.Point(628, 3);
+            this.cbCells.Location = new System.Drawing.Point(577, 3);
             this.cbCells.MaxDropDownItems = 50;
             this.cbCells.Name = "cbCells";
             this.cbCells.Size = new System.Drawing.Size(91, 21);
@@ -393,7 +393,7 @@ namespace Grimoire.UI
             this.btnJump.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.btnJump.Checked = false;
             this.btnJump.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnJump.Location = new System.Drawing.Point(893, 3);
+            this.btnJump.Location = new System.Drawing.Point(771, 2);
             this.btnJump.Name = "btnJump";
             this.btnJump.Size = new System.Drawing.Size(53, 23);
             this.btnJump.TabIndex = 28;
@@ -579,7 +579,6 @@ namespace Grimoire.UI
             // toolStripTextBox2
             // 
             this.toolStripTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(100, 23);
@@ -857,7 +856,7 @@ namespace Grimoire.UI
             this.btnMax.ForeColor = System.Drawing.Color.Black;
             this.btnMax.Location = new System.Drawing.Point(49, 0);
             this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(40, 27);
+            this.btnMax.Size = new System.Drawing.Size(37, 27);
             this.btnMax.TabIndex = 32;
             this.btnMax.Text = "🗖";
             this.btnMax.UseVisualStyleBackColor = true;
@@ -870,7 +869,7 @@ namespace Grimoire.UI
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.Black;
-            this.btnExit.Location = new System.Drawing.Point(89, 0);
+            this.btnExit.Location = new System.Drawing.Point(86, 0);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(49, 27);
             this.btnExit.TabIndex = 33;
@@ -910,7 +909,7 @@ namespace Grimoire.UI
             this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.darkMenuStrip1.Name = "darkMenuStrip1";
             this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(2);
-            this.darkMenuStrip1.Size = new System.Drawing.Size(821, 27);
+            this.darkMenuStrip1.Size = new System.Drawing.Size(824, 27);
             this.darkMenuStrip1.TabIndex = 35;
             this.darkMenuStrip1.Text = "darkMenuStrip1";
             this.darkMenuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuMain_MouseDown);
@@ -932,7 +931,7 @@ namespace Grimoire.UI
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(138, 27);
+            this.panel1.Size = new System.Drawing.Size(135, 27);
             this.panel1.TabIndex = 36;
             // 
             // MenuMain
@@ -966,7 +965,7 @@ namespace Grimoire.UI
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Size = new System.Drawing.Size(960, 27);
-            this.splitContainer1.SplitterDistance = 821;
+            this.splitContainer1.SplitterDistance = 824;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 38;
             // 

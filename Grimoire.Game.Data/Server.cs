@@ -57,6 +57,11 @@ namespace Grimoire.Game.Data
             set;
         }
 
+        public override string ToString()
+        {
+            return this.Name;
+        }
+
         public bool ShouldSerializeIsOnline()
         {
             return false;
