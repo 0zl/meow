@@ -1,188 +1,117 @@
+using System;
+using System.Threading.Tasks;
 using Grimoire.Game;
 using Grimoire.Networking;
-using System;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Grimoire.Botting.Commands.Map
 {
-    public class CmdJoin : IBotCommand
-    {
-        public string Map
-        {
-            get;
-            set;
-        }
+	public class CmdJoin : IBotCommand
+	{
+		public string Map { get; set; }
 
-        public string Cell
-        {
-            get;
-            set;
-        }
+		public string Cell { get; set; }
 
-        public string Pad
-        {
-            get;
-            set;
-        }
+		public string Pad { get; set; }
 
-        public async Task Execute(IBotEngine instance)
-        {
-            BotData.BotState = BotData.State.Move;
-            await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer));
-            string cmdMap = Map.Contains("-") ? Map.Split('-')[0] : Map;
-            string text = Map.Substring(cmdMap.Length);
-            bool checkVar = instance.IsVar(text.Replace("-", ""));
-            if (text.Contains("Packet"))
-            {
-                await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer));
-                if (!instance.IsRunning || !Player.IsAlive || !Player.IsLoggedIn)
-                {
-                    return;
-                }
-                string username = Player.Username;
-                await Proxy.Instance.SendToServer($"%xt%zm%cmd%1%tfer%{username}%{cmdMap}-100000");
-                await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
-                await Task.Delay(1000);
-            }
-            if (!cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
-            {
-                if (text.Contains("Glitch"))
-                {
-                    int Max = 9999;
-                    int Min = 9990;
-                    if (text.Contains(":"))
-                    {
-                        Max = Convert.ToInt16(text.Split(':')[1]);
-                        Min = Convert.ToInt16(text.Split(':')[2]);
-                    }
-                    while (!cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase) && Max >= Min)
-                    {
-                        if (!instance.IsRunning || !Player.IsAlive || !Player.IsLoggedIn)
-                        {
-                            return;
-                        }
-                        await TryJoin(instance, cmdMap, "-" + Max);
-                        Max--;
-                    }
-                    if (!cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase) || (cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase) && World.PlayersInMap.Count < 2))
-                    {
-                        await TryJoin(instance, cmdMap);
-                    }
-                }
-                else if (checkVar)
-                {
-                    text = "-" + Configuration.Tempvariable[instance.GetVar(text.Replace("-", ""))];
-                    await TryJoin(instance, cmdMap, text);
-                }
-                else
-                    await TryJoin(instance, cmdMap, text);
-            }
-            if (cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
-            {
-                if (!Player.Cell.Equals(Cell, StringComparison.OrdinalIgnoreCase) && !text.Contains("Packet"))
-                {
-                    Player.MoveToCell(Cell, Pad);
-                    await Task.Delay(500);
-                }
-                World.SetSpawnPoint();
-                BotData.BotMap = cmdMap;
-                BotData.BotCell = Cell;
-                BotData.BotPad = Pad;
-            }
-        }
+		public async Task Execute(IBotEngine instance)
+		{
+			BotData.BotState = BotData.State.Move;
+			await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer), null, 15);
+			string cmdMap = this.Map.Contains("-") ? this.Map.Split(new char[]
+			{
+				'-'
+			})[0] : this.Map;
+			string text = this.Map.Substring(cmdMap.Length);
+			if (!cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
+			{
+				int n;
+				if (!int.TryParse(text, out n) && text != "")
+				{
+					Random random = new Random();
+					int num = random.Next(9000, 9999);
+					text = "-" + num;
+				}
 
-        public async Task TryJoin(IBotEngine instance, string MapName, string RoomProp = "")
-        {
-            await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer));
-            if (Player.CurrentState == Player.State.InCombat)
-            {
-                Player.MoveToCell(Player.Cell, Player.Pad);
-                await Task.Delay(1250);
-            }
-            RoomProp = new Regex("-{1,}", RegexOptions.IgnoreCase).Replace(RoomProp, (Match m) => "-");
-            RoomProp = new Regex("(1e)[0-9]{1,}", RegexOptions.IgnoreCase).Replace(RoomProp, (Match m) => new Random().Next(1001, 99999).ToString());
-            Player.JoinMap(MapName + RoomProp, Cell, Pad);
-            await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 5);
-            await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
-        }
+				await this.TryJoin(instance, cmdMap, text);
+			}
+			if (cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
+			{
+				if (!Player.Cell.Equals(this.Cell, StringComparison.OrdinalIgnoreCase))
+				{
+					Player.MoveToCell(this.Cell, this.Pad);
+					await Task.Delay(1250);
+				}
+				World.SetSpawnPoint();
+				BotData.BotMap = cmdMap;
+				BotData.BotCell = this.Cell;
+				BotData.BotPad = this.Pad;
+			}
+		}
 
-        public override string ToString()
-        {
-            return $"Join: {Map}, {Cell}, {Pad}";
-        }
-    }
+		public async Task TryJoin(IBotEngine instance, string MapName, string RoomProp = "")
+		{
+			fMap = MapName;
 
-    public class CmdJoin2 : IBotCommand
-    {
-        public string Map
-        {
-            get;
-            set;
-        }
+			//Proxy.Instance.ReceivedFromServer += JsonMapHandler;
+			if (MapName == "mobius" || MapName == "rangda")
+			{
+				Proxy.Instance.ReceivedFromServer += JsonMapHandler;
+			}
 
-        public string Room
-        {
-            get;
-            set;
-        }
+			await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer), null, 15);
+			if (Player.CurrentState == Player.State.InCombat)
+			{
+				Player.MoveToCell(Player.Cell, Player.Pad);
+				await Task.Delay(1250);
+			}
+			while (Player.HasTarget)
+			{
+				Player.CancelTarget();
+				await Task.Delay(500);
+			}
+			Player.JoinMap(MapName + RoomProp, this.Cell, this.Pad);
+			await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 5);
+			await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
 
-        public string Cell
-        {
-            get;
-            set;
-        }
+			//Proxy.Instance.ReceivedFromServer -= JsonMapHandler;
+			if (MapName == "mobius" || MapName == "rangda")
+			{
+				await Proxy.Instance.SendToClient(result);
+				await Task.Delay(500);
+			}
+		}
 
-        public string Pad
-        {
-            get;
-            set;
-        }
+		private string fMap = "";
+		private string result = "";
+		private void JsonMapHandler(Message message)
+		{
+			string msg = message.ToString();
+			if (msg.Contains("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"moveToArea\""))
+			{
+				if (fMap == "mobius")
+				{
+					string fakeSlugfit = "{\"MonMapID\":\"9\",\"strFrame\":\"Slugfit\",\"intRSS\":\"-1\",\"MonID\":\"195\",\"bRed\":\"0\"},";
+					result = msg.Replace(fakeSlugfit, "");
+				}
+				if (fMap == "rangda")
+				{
 
-        public async Task Execute(IBotEngine instance)
-        {
-            BotData.BotState = BotData.State.Move;
-            await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer));
-            bool checkVar = instance.IsVar(Room);
-            if (!Map.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
-            {
-                if (checkVar)
-                    await TryJoin(instance, Map, Configuration.Tempvariable[instance.GetVar(Room)]);
-                else
-                    await TryJoin(instance, Map, Room);
-            }
-            if (Map.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
-            {
-                if (!Player.Cell.Equals(Cell, StringComparison.OrdinalIgnoreCase))
-                {
-                    Player.MoveToCell(Cell, Pad);
-                    await Task.Delay(500);
-                }
-                World.SetSpawnPoint();
-                BotData.BotMap = Map;
-                BotData.BotCell = Cell;
-                BotData.BotPad = Pad;
-            }
-        }
+				}
+			}
+		}
 
-        public async Task TryJoin(IBotEngine instance, string MapName, string RoomProp = "")
-        {
-            await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer));
-            if (Player.CurrentState == Player.State.InCombat)
-            {
-                Player.MoveToCell(Player.Cell, Player.Pad);
-                await Task.Delay(1250);
-            }
-            RoomProp = new Regex("(1e)[0-9]{1,}", RegexOptions.IgnoreCase).Replace(RoomProp, (Match m) => new Random().Next(1001, 99999).ToString());
-            Player.JoinMap($"{MapName}-{RoomProp}", Cell, Pad);
-            await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 5);
-            await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
-        }
 
-        public override string ToString()
-        {
-            return $"Join: {Map}, {Room}, {Cell}, {Pad}";
-        }
-    }
+		public override string ToString()
+		{
+			return string.Concat(new string[]
+			{
+				"Join: ",
+				this.Map,
+				", ",
+				this.Cell,
+				", ",
+				this.Pad
+			});
+		}
+	}
 }

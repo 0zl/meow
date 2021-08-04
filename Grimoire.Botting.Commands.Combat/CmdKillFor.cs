@@ -1,4 +1,8 @@
+using Grimoire.Botting.Commands.Item;
 using Grimoire.Game;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Grimoire.Botting.Commands.Combat
@@ -29,34 +33,111 @@ namespace Grimoire.Botting.Commands.Combat
             set;
         }
 
+        public bool IsGetDrops { get; set; } = false;
+        public int AfterKills { get; set; } = 1;
+        public string QuestId { get; set; }
+        public int DelayAfterKill { get; set; } = 500;
+
+        private Configuration config;
         public async Task Execute(IBotEngine instance)
         {
             BotData.BotState = BotData.State.Combat;
-            CmdKill kill = new CmdKill
+            CmdKill kill = new CmdKill { Monster = Monster };
+
+            int id;
+            if (int.TryParse(QuestId, out id))
             {
-                Monster = Monster
-            };
-            if (ItemType == ItemType.Items)
-            {
-                while (instance.IsRunning && Player.IsLoggedIn && Player.IsAlive && !Player.Inventory.ContainsItem(ItemName, Quantity))
+                while (!Player.Quests.IsInProgress(id))
+                {
+                    Player.Quests.Accept(id);
+                    await Task.Delay(1000);
+                }
+                while (instance.IsRunning && Player.IsLoggedIn && Player.IsAlive && !Player.Quests.CanComplete(id))
                 {
                     await kill.Execute(instance);
-                    await Task.Delay(1000);
+                    await Task.Delay(DelayAfterKill);
                 }
             }
             else
             {
-                while (instance.IsRunning && Player.IsLoggedIn && Player.IsAlive && !Player.TempInventory.ContainsItem(ItemName, Quantity))
+                List<string> removedList = new List<string>();
+                config = instance.Configuration;
+
+                string[] itemsName = ItemName.Split(new char[] { ',' });
+
+                string[] quantities = Quantity.Split(new char[] { ',' });
+
+                if (IsGetDrops)
                 {
-                    await kill.Execute(instance);
-                    await Task.Delay(1000);
+                    foreach (string _itemName in itemsName)
+                    {
+                        if (config.Drops.Any((string d) => d.Equals(_itemName, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            config.Drops.Remove(_itemName);
+                            removedList.Add(_itemName);
+                        }
+
+                    }
+                }
+
+                if (ItemType == ItemType.Items)
+                {
+                    int times = 0;
+                    while (instance.IsRunning && Player.IsLoggedIn && Player.IsAlive &&
+                        !Enumerable.Range(0, itemsName.Length).All(i => Player.Inventory.ContainsItem(itemsName[i], quantities[i]))
+                        )
+                    {
+                        await kill.Execute(instance);
+                        await Task.Delay(DelayAfterKill);
+                        if (IsGetDrops && times >= AfterKills)
+                        {
+                            foreach (string _itemName in itemsName)
+                            {
+                                CmdGetDrop getDrop = new CmdGetDrop { ItemName = _itemName };
+                                await getDrop.Execute(instance);
+                            }
+                            times = 0;
+                        }
+                        times++;
+                    }
+                }
+                else
+                {
+                    while (instance.IsRunning && Player.IsLoggedIn && Player.IsAlive &&
+                        !Player.TempInventory.ContainsItem(ItemName, Quantity))
+                    {
+                        await kill.Execute(instance);
+                        await Task.Delay(DelayAfterKill);
+                    }
+                }
+
+                if (IsGetDrops)
+                {
+                    foreach (string _removed in removedList)
+                    {
+                        if (!config.Drops.Contains(_removed)) config.Drops.Add(_removed);
+                    }
                 }
             }
         }
 
         public override string ToString()
         {
-            return "Kill for " + ((ItemType == ItemType.Items) ? "items" : "tempitems") + ": " + Monster;
+            string text;
+            if (int.TryParse(QuestId, out _))
+            {
+                text = $"KFQuest: [{QuestId}] [{Monster}]";
+            }
+            else if (ItemType == ItemType.Items)
+            {
+                text = $"KFItems: {(IsGetDrops ? $"[{AfterKills}kill drop] " : "")}[{ItemName} {Quantity}x] [{Monster}]";
+            }
+            else
+            {
+                text = $"KFTemps: [{ItemName} {Quantity}x] [{Monster}]";
+            }
+
+            return text;
         }
     }
 }

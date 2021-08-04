@@ -82,7 +82,12 @@ namespace Grimoire.Botting
             get;
             set;
         }
-        
+
+        public static bool AntiCounter { 
+            get; 
+            set; 
+        }
+
         public static bool DisableAnimations
         {
             get => _disableAnimations;
@@ -275,7 +280,7 @@ namespace Grimoire.Botting
                     Player.SetBuff();
                 if (SkipCutscenes)
                     SetSkipCutscenes();
-                SetWalkSpeed();
+                //SetWalkSpeed();
                 SetLagKiller();
                 await Task.Delay(millisecondsDelay: Timer);
             }

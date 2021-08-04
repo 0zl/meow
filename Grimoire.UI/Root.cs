@@ -1,7 +1,6 @@
 ﻿using AxShockwaveFlashObjects;
 using Grimoire.Game;
 using Grimoire.Networking;
-using Grimoire.Properties;
 using Grimoire.Tools;
 using System;
 using System.ComponentModel;
@@ -18,9 +17,8 @@ using System.Drawing;
 using DarkUI.Controls;
 using DarkUI.Forms;
 using Properties;
-using System.Reflection;
-using Message = System.Windows.Forms.Message;
-using System.Windows;
+using Grimoire.Botting.Commands.Combat;
+using Grimoire.Networking.Handlers;
 
 namespace Grimoire.UI
 {
@@ -35,8 +33,6 @@ namespace Grimoire.UI
         private DarkComboBox cbPads;
 
         private DarkComboBox cbCells;
-
-        private DarkButton btnJump;
         private ToolStripMenuItem botToolStripMenuItem;
         private ToolStripMenuItem toolsToolStripMenuItem;
         private ToolStripMenuItem fastTravelsToolStripMenuItem;
@@ -53,10 +49,6 @@ namespace Grimoire.UI
         private ToolStripMenuItem snifferToolStripMenuItem;
         private ToolStripMenuItem spammerToolStripMenuItem;
         private ToolStripMenuItem tampererToolStripMenuItem;
-        private ToolStripMenuItem helpToolStripMenuItem;
-        private ToolStripMenuItem discordToolStripMenuItem;
-        private ToolStripMenuItem botRequestToolStripMenuItem;
-        private ToolStripMenuItem grimoireSuggestionsToolStripMenuItem;
         public ToolStripMenuItem optionsToolStripMenuItem;
         public ToolStripMenuItem infRangeToolStripMenuItem;
         public ToolStripMenuItem provokeToolStripMenuItem1;
@@ -65,29 +57,24 @@ namespace Grimoire.UI
         public ToolStripMenuItem hidePlayersToolStripMenuItem;
         public ToolStripMenuItem skipCutscenesToolStripMenuItem;
         public ToolStripMenuItem disableAnimationsToolStripMenuItem;
-        private ToolStripMenuItem bankToolStripMenuItem1;
         private ToolStripMenuItem startToolStripMenuItem;
         private ToolStripMenuItem stopToolStripMenuItem;
-        private ToolStripMenuItem grimliteToolStripMenuItem;
         public ToolStripMenuItem pluginsStrip;
         private Button btnMax;
         private Button btnExit;
         private Button btnMin;
-        private ToolStripMenuItem toolStripMenuItem1;
         private DarkMenuStrip darkMenuStrip1;
         private ToolStripMenuItem FPSToolStripMenuItem;
         private ToolStripTextBox toolStripTextBox2;
-        private ToolStripMenuItem getBotsToolStripMenuItem;
         private ToolStripMenuItem managerToolStripMenuItem;
         private ToolStripMenuItem loadBotToolStripMenuItem;
-        private ToolStripMenuItem googleFormToolStripMenuItem;
-        private ToolStripMenuItem googleDocsToolStripMenuItem;
         private Panel panel1;
         private ToolStripMenuItem DPSMeterToolStripMenuItem;
-        private ToolStripMenuItem reloadToolStripMenuItem;
         private SplitContainer splitContainer1;
-        private ToolStripMenuItem fullTelaToolStripMenuItem;
         private ToolStripMenuItem commandeditornodeToolStripMenuItem;
+        private DarkButton btnBank;
+        private CheckBox chkAutoAttack;
+        public CheckBox chkStartBot;
         public MenuStrip MenuMain;
 
         public static Root Instance
@@ -140,7 +127,7 @@ namespace Grimoire.UI
 
         private void botToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            this.ShowForm(BotManager.Instance);
         }
 
         private void fastTravelsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -213,9 +200,9 @@ namespace Grimoire.UI
             }
             */
 
-            //aqlitegrimoire = Resources.aqlitegrimoire;
+            aqlitegrimoire = Resources.catgirl;
 
-            aqlitegrimoire = File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "catgirl.swf"));
+            //aqlitegrimoire = File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "catgirl.swf"));
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -278,7 +265,6 @@ namespace Grimoire.UI
             this.cbPads = new DarkUI.Controls.DarkComboBox();
             this.cbCells = new DarkUI.Controls.DarkComboBox();
             this.flashPlayer = new AxShockwaveFlashObjects.AxShockwaveFlash();
-            this.btnJump = new DarkUI.Controls.DarkButton();
             this.botToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -303,14 +289,6 @@ namespace Grimoire.UI
             this.snifferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spammerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tampererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.discordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.botRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grimoireSuggestionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.googleFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.googleDocsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.fullTelaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infRangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.provokeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -319,24 +297,22 @@ namespace Grimoire.UI
             this.hidePlayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skipCutscenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableAnimationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grimliteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bankToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pluginsStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMax = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
             this.darkMenuStrip1 = new DarkUI.Controls.DarkMenuStrip();
-            this.getBotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.MenuMain = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.chkStartBot = new System.Windows.Forms.CheckBox();
+            this.chkAutoAttack = new System.Windows.Forms.CheckBox();
+            this.btnBank = new DarkUI.Controls.DarkButton();
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
             this.darkMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -360,21 +336,23 @@ namespace Grimoire.UI
             "Bottom",
             "Up",
             "Down"});
-            this.cbPads.Location = new System.Drawing.Point(674, 3);
+            this.cbPads.Location = new System.Drawing.Point(694, 3);
             this.cbPads.MaxDropDownItems = 50;
             this.cbPads.Name = "cbPads";
             this.cbPads.Size = new System.Drawing.Size(91, 21);
             this.cbPads.TabIndex = 17;
+            this.cbPads.SelectedIndexChanged += new System.EventHandler(this.cbPads_SelectedIndexChanged);
             // 
             // cbCells
             // 
             this.cbCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCells.FormattingEnabled = true;
-            this.cbCells.Location = new System.Drawing.Point(577, 3);
+            this.cbCells.Location = new System.Drawing.Point(790, 3);
             this.cbCells.MaxDropDownItems = 50;
             this.cbCells.Name = "cbCells";
             this.cbCells.Size = new System.Drawing.Size(91, 21);
             this.cbCells.TabIndex = 18;
+            this.cbCells.SelectedIndexChanged += new System.EventHandler(this.cbCells_SelectedIndexChanged);
             this.cbCells.Click += new System.EventHandler(this.cbCells_Click);
             // 
             // flashPlayer
@@ -384,30 +362,12 @@ namespace Grimoire.UI
             this.flashPlayer.Location = new System.Drawing.Point(0, 0);
             this.flashPlayer.Name = "flashPlayer";
             this.flashPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("flashPlayer.OcxState")));
-            this.flashPlayer.Size = new System.Drawing.Size(960, 575);
+            this.flashPlayer.Size = new System.Drawing.Size(942, 591);
             this.flashPlayer.TabIndex = 2;
-            // 
-            // btnJump
-            // 
-            this.btnJump.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnJump.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
-            this.btnJump.Checked = false;
-            this.btnJump.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnJump.Location = new System.Drawing.Point(771, 2);
-            this.btnJump.Name = "btnJump";
-            this.btnJump.Size = new System.Drawing.Size(53, 23);
-            this.btnJump.TabIndex = 28;
-            this.btnJump.Text = "Jump";
-            this.btnJump.Click += new System.EventHandler(this.btnJump_Click);
             // 
             // botToolStripMenuItem
             // 
             this.botToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.botToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem,
-            this.stopToolStripMenuItem,
-            this.managerToolStripMenuItem,
-            this.loadBotToolStripMenuItem});
             this.botToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.botToolStripMenuItem.Name = "botToolStripMenuItem";
             this.botToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
@@ -419,7 +379,7 @@ namespace Grimoire.UI
             this.startToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.startToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -429,7 +389,7 @@ namespace Grimoire.UI
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -438,7 +398,7 @@ namespace Grimoire.UI
             this.managerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.managerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.managerToolStripMenuItem.Name = "managerToolStripMenuItem";
-            this.managerToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.managerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.managerToolStripMenuItem.Text = "Manager";
             this.managerToolStripMenuItem.Click += new System.EventHandler(this.managerToolStripMenuItem_Click);
             // 
@@ -447,7 +407,7 @@ namespace Grimoire.UI
             this.loadBotToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.loadBotToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.loadBotToolStripMenuItem.Name = "loadBotToolStripMenuItem";
-            this.loadBotToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.loadBotToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadBotToolStripMenuItem.Text = "Load bot";
             this.loadBotToolStripMenuItem.Click += new System.EventHandler(this.loadBotToolStripMenuItem_Click);
             // 
@@ -535,6 +495,7 @@ namespace Grimoire.UI
             this.setsToolStripMenuItem.Name = "setsToolStripMenuItem";
             this.setsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.setsToolStripMenuItem.Text = "Sets";
+            this.setsToolStripMenuItem.Visible = false;
             this.setsToolStripMenuItem.Click += new System.EventHandler(this.setsToolStripMenuItem_Click);
             // 
             // eyeDropperToolStripMenuItem
@@ -579,10 +540,11 @@ namespace Grimoire.UI
             // toolStripTextBox2
             // 
             this.toolStripTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(100, 23);
-            this.toolStripTextBox2.Text = "60";
+            this.toolStripTextBox2.Text = "30";
             // 
             // DPSMeterToolStripMenuItem
             // 
@@ -592,6 +554,7 @@ namespace Grimoire.UI
             this.DPSMeterToolStripMenuItem.Name = "DPSMeterToolStripMenuItem";
             this.DPSMeterToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.DPSMeterToolStripMenuItem.Text = "DPS Meter";
+            this.DPSMeterToolStripMenuItem.Visible = false;
             this.DPSMeterToolStripMenuItem.Click += new System.EventHandler(this.dPSMeterToolStripMenuItem_Click);
             // 
             // commandeditornodeToolStripMenuItem
@@ -642,87 +605,6 @@ namespace Grimoire.UI
             this.tampererToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.tampererToolStripMenuItem.Text = "Tamperer";
             this.tampererToolStripMenuItem.Click += new System.EventHandler(this.tampererToolStripMenuItem_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.discordToolStripMenuItem,
-            this.botRequestToolStripMenuItem,
-            this.grimoireSuggestionsToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.fullTelaToolStripMenuItem});
-            this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(47, 23);
-            this.helpToolStripMenuItem.Text = "More";
-            // 
-            // discordToolStripMenuItem
-            // 
-            this.discordToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.discordToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.discordToolStripMenuItem.Name = "discordToolStripMenuItem";
-            this.discordToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.discordToolStripMenuItem.Text = "Discord";
-            this.discordToolStripMenuItem.Click += new System.EventHandler(this.discordToolStripMenuItem_Click);
-            // 
-            // botRequestToolStripMenuItem
-            // 
-            this.botRequestToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.botRequestToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.botRequestToolStripMenuItem.Name = "botRequestToolStripMenuItem";
-            this.botRequestToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.botRequestToolStripMenuItem.Text = "Bot Request";
-            this.botRequestToolStripMenuItem.Click += new System.EventHandler(this.botRequestToolStripMenuItem_Click);
-            // 
-            // grimoireSuggestionsToolStripMenuItem
-            // 
-            this.grimoireSuggestionsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.grimoireSuggestionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.googleFormToolStripMenuItem,
-            this.googleDocsToolStripMenuItem});
-            this.grimoireSuggestionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.grimoireSuggestionsToolStripMenuItem.Name = "grimoireSuggestionsToolStripMenuItem";
-            this.grimoireSuggestionsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.grimoireSuggestionsToolStripMenuItem.Text = "Grimoire Suggestions";
-            this.grimoireSuggestionsToolStripMenuItem.Click += new System.EventHandler(this.grimoireSuggestionsToolStripMenuItem_Click);
-            // 
-            // googleFormToolStripMenuItem
-            // 
-            this.googleFormToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.googleFormToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.googleFormToolStripMenuItem.Name = "googleFormToolStripMenuItem";
-            this.googleFormToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.googleFormToolStripMenuItem.Text = "Google Form";
-            this.googleFormToolStripMenuItem.Click += new System.EventHandler(this.googleFormToolStripMenuItem_Click);
-            // 
-            // googleDocsToolStripMenuItem
-            // 
-            this.googleDocsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.googleDocsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.googleDocsToolStripMenuItem.Name = "googleDocsToolStripMenuItem";
-            this.googleDocsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.googleDocsToolStripMenuItem.Text = "Google Docs";
-            this.googleDocsToolStripMenuItem.Click += new System.EventHandler(this.googleDocsToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.toolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(187, 22);
-            this.toolStripMenuItem1.Text = "Bot Portal";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
-            // fullTelaToolStripMenuItem
-            // 
-            this.fullTelaToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.fullTelaToolStripMenuItem.CheckOnClick = true;
-            this.fullTelaToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.fullTelaToolStripMenuItem.Name = "fullTelaToolStripMenuItem";
-            this.fullTelaToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.fullTelaToolStripMenuItem.Text = "Full Tela?";
-            this.fullTelaToolStripMenuItem.Click += new System.EventHandler(this.fullTelaToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -810,36 +692,6 @@ namespace Grimoire.UI
             this.disableAnimationsToolStripMenuItem.Text = "Disable Animations";
             this.disableAnimationsToolStripMenuItem.Click += new System.EventHandler(this.disableAnimationsToolStripMenuItem_Click);
             // 
-            // grimliteToolStripMenuItem
-            // 
-            this.grimliteToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.grimliteToolStripMenuItem.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grimliteToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.grimliteToolStripMenuItem.Name = "grimliteToolStripMenuItem";
-            this.grimliteToolStripMenuItem.Size = new System.Drawing.Size(79, 23);
-            this.grimliteToolStripMenuItem.Text = "Grimlite";
-            this.grimliteToolStripMenuItem.Click += new System.EventHandler(this.grimliteToolStripMenuItem_Click);
-            // 
-            // bankToolStripMenuItem1
-            // 
-            this.bankToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.bankToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reloadToolStripMenuItem});
-            this.bankToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.bankToolStripMenuItem1.Name = "bankToolStripMenuItem1";
-            this.bankToolStripMenuItem1.Size = new System.Drawing.Size(45, 23);
-            this.bankToolStripMenuItem1.Text = "Bank";
-            this.bankToolStripMenuItem1.Click += new System.EventHandler(this.bankToolStripMenuItem1_Click);
-            // 
-            // reloadToolStripMenuItem
-            // 
-            this.reloadToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.reloadToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            this.reloadToolStripMenuItem.Text = "Reload";
-            this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
-            // 
             // pluginsStrip
             // 
             this.pluginsStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
@@ -894,41 +746,31 @@ namespace Grimoire.UI
             // darkMenuStrip1
             // 
             this.darkMenuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.darkMenuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.darkMenuStrip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.darkMenuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
             this.darkMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.grimliteToolStripMenuItem,
             this.botToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.packetsToolStripMenuItem,
             this.optionsToolStripMenuItem,
-            this.bankToolStripMenuItem1,
-            this.helpToolStripMenuItem,
-            this.pluginsStrip,
-            this.getBotsToolStripMenuItem});
+            this.pluginsStrip});
             this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.darkMenuStrip1.Name = "darkMenuStrip1";
             this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(2);
-            this.darkMenuStrip1.Size = new System.Drawing.Size(824, 27);
+            this.darkMenuStrip1.Size = new System.Drawing.Size(942, 27);
             this.darkMenuStrip1.TabIndex = 35;
             this.darkMenuStrip1.Text = "darkMenuStrip1";
             this.darkMenuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuMain_MouseDown);
             // 
-            // getBotsToolStripMenuItem
-            // 
-            this.getBotsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.getBotsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.getBotsToolStripMenuItem.Name = "getBotsToolStripMenuItem";
-            this.getBotsToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
-            this.getBotsToolStripMenuItem.Text = "Get Bots";
-            this.getBotsToolStripMenuItem.Click += new System.EventHandler(this.getBotsToolStripMenuItem_Click);
-            // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnMax);
             this.panel1.Controls.Add(this.btnMin);
             this.panel1.Controls.Add(this.btnExit);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(135, 27);
@@ -956,35 +798,76 @@ namespace Grimoire.UI
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.chkStartBot);
+            this.splitContainer1.Panel1.Controls.Add(this.chkAutoAttack);
+            this.splitContainer1.Panel1.Controls.Add(this.btnBank);
             this.splitContainer1.Panel1.Controls.Add(this.cbCells);
-            this.splitContainer1.Panel1.Controls.Add(this.btnJump);
             this.splitContainer1.Panel1.Controls.Add(this.cbPads);
             this.splitContainer1.Panel1.Controls.Add(this.darkMenuStrip1);
+            this.splitContainer1.Panel1.ImeMode = System.Windows.Forms.ImeMode.On;
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(960, 27);
+            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.splitContainer1.Panel2Collapsed = true;
+            this.splitContainer1.Size = new System.Drawing.Size(942, 27);
             this.splitContainer1.SplitterDistance = 824;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 38;
+            // 
+            // chkStartBot
+            // 
+            this.chkStartBot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkStartBot.AutoSize = true;
+            this.chkStartBot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.chkStartBot.Location = new System.Drawing.Point(539, 5);
+            this.chkStartBot.Name = "chkStartBot";
+            this.chkStartBot.Size = new System.Drawing.Size(67, 17);
+            this.chkStartBot.TabIndex = 38;
+            this.chkStartBot.Text = "Start Bot";
+            this.chkStartBot.UseVisualStyleBackColor = false;
+            this.chkStartBot.CheckedChanged += new System.EventHandler(this.chkStartBot_CheckedChanged);
+            // 
+            // chkAutoAttack
+            // 
+            this.chkAutoAttack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkAutoAttack.AutoSize = true;
+            this.chkAutoAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.chkAutoAttack.Location = new System.Drawing.Point(610, 5);
+            this.chkAutoAttack.Name = "chkAutoAttack";
+            this.chkAutoAttack.Size = new System.Drawing.Size(82, 17);
+            this.chkAutoAttack.TabIndex = 37;
+            this.chkAutoAttack.Text = "Auto Attack";
+            this.chkAutoAttack.UseVisualStyleBackColor = false;
+            this.chkAutoAttack.CheckedChanged += new System.EventHandler(this.chkAutoAttack_CheckedChanged);
+            // 
+            // btnBank
+            // 
+            this.btnBank.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBank.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
+            this.btnBank.Checked = false;
+            this.btnBank.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnBank.Location = new System.Drawing.Point(886, 2);
+            this.btnBank.Name = "btnBank";
+            this.btnBank.Size = new System.Drawing.Size(53, 23);
+            this.btnBank.TabIndex = 36;
+            this.btnBank.Text = "Bank";
+            this.btnBank.Click += new System.EventHandler(this.btnBank_Click_1);
             // 
             // Root
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
-            this.ClientSize = new System.Drawing.Size(960, 575);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(942, 591);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.flashPlayer);
             this.Controls.Add(this.MenuMain);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.ForeColor = System.Drawing.SystemColors.Window;
             this.Icon = global::Properties.Resources.GrimoireIcon;
-            this.MainMenuStrip = this.darkMenuStrip1;
             this.Name = "Root";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Grimlite";
+            this.Text = "GrimLite";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Root_FormClosing);
             this.Load += new System.EventHandler(this.Root_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Root_KeyPress);
@@ -994,7 +877,6 @@ namespace Grimoire.UI
             this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1135,28 +1017,28 @@ namespace Grimoire.UI
         private void lagKillerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool check = lagKillerToolStripMenuItem.Checked;
-            OptionsManager.EnemyMagnet = check;
+            OptionsManager.LagKiller = check;
             botManager.chkLag.Checked = check;
         }
 
         private void hidePlayersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool check = hidePlayersToolStripMenuItem.Checked;
-            OptionsManager.EnemyMagnet = check;
+            OptionsManager.HidePlayers = check;
             botManager.chkHidePlayers.Checked = check;
         }
 
         private void skipCutscenesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool check = skipCutscenesToolStripMenuItem.Checked;
-            OptionsManager.EnemyMagnet = check;
+            OptionsManager.SkipCutscenes = check;
             botManager.chkSkipCutscenes.Checked = check;
         }
 
         private void disableAnimationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool check = disableAnimationsToolStripMenuItem.Checked;
-            OptionsManager.EnemyMagnet = check;
+            OptionsManager.DisableAnimations = check;
             botManager.chkDisableAnims.Checked = check;
         }
         
@@ -1436,11 +1318,6 @@ namespace Grimoire.UI
             
         }
 
-        private void fullTelaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.MaximizedBounds = fullTelaToolStripMenuItem.Checked ? Screen.PrimaryScreen.Bounds : Screen.FromHandle(this.Handle).WorkingArea;
-        }
-
         private void commandeditornodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowForm(NodeEditor.Instance);
@@ -1449,6 +1326,103 @@ namespace Grimoire.UI
         private void loadBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             botManager.btnLoad_Click(sender, e);
+        }
+
+        private void btnBank_Click_1(object sender, EventArgs e)
+        {
+            Player.Bank.Show();
+        }
+
+        private void cbCells_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!Player.IsLoggedIn) return;
+            string cell = (string)this.cbCells.SelectedItem;
+            if (cell != null)
+            {
+                string pad = (string)this.cbPads.SelectedItem;
+                Player.MoveToCell(cell, pad ?? "Spawn");
+            }
+        }
+        private void cbPads_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string pad = (string)cbPads.SelectedItem;
+            if (pad != null)
+            {
+                string cell = (string)this.cbCells.SelectedItem;
+                Player.MoveToCell(cell ?? Player.Cell, pad);
+            }
+        }
+
+        private static IJsonMessageHandler HandlerRMP { get; } = new HandlerSkills();
+        private async void chkAutoAttack_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!Player.IsLoggedIn || chkStartBot.Checked)
+            {
+                chkAutoAttack.Checked = false;
+                return;
+            }
+
+            var botE = BotManager.Instance.ActiveBotEngine;
+
+            if (chkAutoAttack.Checked)
+            {
+
+                Proxy.Instance.RegisterHandler(HandlerRMP);
+                Flash.Call("SetInfiniteRange", new string[0]);
+
+                List<Skill> randSkills = new List<Skill>();
+                for (int i = 1; i <= 4; i++)
+                {
+                    randSkills.Add(new Skill
+                    {
+                        Text = $"{i}: {Skill.GetSkillName("" + i)}",
+                        Index = "" + i,
+                        Type = Skill.SkillType.Normal
+                    });
+                }
+
+                var config = new Configuration();
+                config.Skills = randSkills;
+
+                //create new BotEngine
+                botE.Start(config);
+
+                CmdKill kill = new CmdKill
+                {
+                    Monster = "*"
+                };
+
+                while (chkAutoAttack.Checked)
+                {
+                    await kill.Execute(botE);
+                    await Task.Delay(200);
+                }
+            }
+            else
+            {
+                botE.Stop();
+                Proxy.Instance.UnregisterHandler(HandlerRMP);
+            }
+        }
+
+        private void chkStartBot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkStartBot.Checked && (BotManager.Instance.lstCommands.Items.Count <= 0 || !Player.IsLoggedIn))
+            {
+                chkStartBot.Checked = false;
+                return;
+            }
+
+            if (chkStartBot.Checked)
+            {
+                if (!BotManager.Instance.chkEnableBot.Checked)
+                    BotManager.Instance.chkEnableBot.Checked = true;
+            }
+            else
+            {
+                if (BotManager.Instance.chkEnableBot.Checked)
+                    BotManager.Instance.chkEnableBot.Checked = false;
+            }
         }
     }
 }

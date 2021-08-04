@@ -254,18 +254,6 @@ namespace Grimoire.Botting
             set;
         }
 
-        public bool EnsureComplete
-        {
-            get;
-            set;
-        }
-
-        public int EnsureTries
-        {
-            get;
-            set;
-        }
-
         public static List<string> BlockedPlayers
         {
             get;
@@ -281,6 +269,12 @@ namespace Grimoire.Botting
         { 
             get; 
             set; 
+        }
+
+        public bool AntiCounter
+        {
+            get;
+            set;
         }
 
         public static Dictionary<string, int> Tempvalues = new Dictionary<string, int>();

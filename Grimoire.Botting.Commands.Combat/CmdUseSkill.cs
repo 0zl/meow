@@ -5,7 +5,6 @@ using Grimoire.Game;
 
 namespace Grimoire.Botting.Commands.Combat
 {
-    // Token: 0x02000002 RID: 2
     public class CmdUseSkill : IBotCommand
     {
         public string Skill { get; set; }
@@ -37,7 +36,6 @@ namespace Grimoire.Botting.Commands.Combat
             }
         }
 
-        // Token: 0x0600000C RID: 12 RVA: 0x000020ED File Offset: 0x000002ED
         public override string ToString()
         {
             return "Skill " + this.Skill;

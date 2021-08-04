@@ -5,11 +5,13 @@ using Grimoire.Game;
 using Grimoire.Game.Data;
 using Grimoire.Tools;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -47,13 +49,8 @@ namespace Grimoire.UI
         private Panel panel2;
 
         private SplitContainer splitContainer1;
-
-        private DarkButton btnLoad1;
-
         private DarkButton btnForceAccept;
-
-        private TableLayoutPanel tableLayoutPanel1;
-
+        private DarkNumericUpDown numTQuests;
         private TreeView treeGrabbed;
 
         public static Loaders Instance
@@ -92,13 +89,32 @@ namespace Grimoire.UI
                     break;
 
                 case 2:
-                    if (txtLoaders.Text.Contains(","))
+                    if (this.txtLoaders.Text.Contains(","))
                     {
-                        LoadQuests(txtLoaders.Text);
+                        this.LoadQuests(this.txtLoaders.Text);
+
+                        return;
                     }
-                    else if (int.TryParse(txtLoaders.Text, out result))
+                    int id;
+                    if (int.TryParse(this.txtLoaders.Text, out id))
                     {
-                        Player.Quests.Load(result);
+                        int questId = Int32.Parse(txtLoaders.Text);
+                        string quests = "";
+                        int increament = (int)numTQuests.Value;
+                        if (increament > 0)
+                        {
+                            for (int i = 0; i <= increament; i++)
+                            {
+                                quests += questId + (i < increament ? "," : "");
+                                questId++;
+                            }
+                            LoadQuests(quests);
+                        }
+                        else
+                        {
+                            Player.Quests.Load(id);
+                        }
+                        return;
                     }
                     break;
 
@@ -247,7 +263,6 @@ namespace Grimoire.UI
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Loaders));
             this.txtLoaders = new DarkUI.Controls.DarkTextBox();
             this.cbLoad = new DarkUI.Controls.DarkComboBox();
             this.btnLoad = new DarkUI.Controls.DarkButton();
@@ -258,25 +273,24 @@ namespace Grimoire.UI
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnLoad1 = new DarkUI.Controls.DarkButton();
             this.btnForceAccept = new DarkUI.Controls.DarkButton();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.numTQuests = new DarkUI.Controls.DarkNumericUpDown();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTQuests)).BeginInit();
             this.SuspendLayout();
             // 
             // txtLoaders
             // 
             this.txtLoaders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLoaders.Location = new System.Drawing.Point(52, 12);
+            this.txtLoaders.Location = new System.Drawing.Point(12, 12);
             this.txtLoaders.Name = "txtLoaders";
-            this.txtLoaders.Size = new System.Drawing.Size(136, 20);
+            this.txtLoaders.Size = new System.Drawing.Size(141, 20);
             this.txtLoaders.TabIndex = 29;
             // 
             // cbLoad
@@ -289,9 +303,9 @@ namespace Grimoire.UI
             "Shop",
             "Quest",
             "Armor customizer"});
-            this.cbLoad.Location = new System.Drawing.Point(52, 38);
+            this.cbLoad.Location = new System.Drawing.Point(12, 38);
             this.cbLoad.Name = "cbLoad";
-            this.cbLoad.Size = new System.Drawing.Size(136, 21);
+            this.cbLoad.Size = new System.Drawing.Size(141, 21);
             this.cbLoad.TabIndex = 30;
             this.cbLoad.SelectedIndexChanged += new System.EventHandler(this.cbLoad_SelectedIndexChanged);
             // 
@@ -300,9 +314,9 @@ namespace Grimoire.UI
             this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLoad.Checked = false;
-            this.btnLoad.Location = new System.Drawing.Point(52, 65);
+            this.btnLoad.Location = new System.Drawing.Point(12, 65);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(136, 23);
+            this.btnLoad.Size = new System.Drawing.Size(141, 23);
             this.btnLoad.TabIndex = 31;
             this.btnLoad.Text = "Load";
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
@@ -322,7 +336,7 @@ namespace Grimoire.UI
             "Monsters"});
             this.cbGrab.Location = new System.Drawing.Point(12, 301);
             this.cbGrab.Name = "cbGrab";
-            this.cbGrab.Size = new System.Drawing.Size(217, 21);
+            this.cbGrab.Size = new System.Drawing.Size(232, 21);
             this.cbGrab.TabIndex = 33;
             // 
             // btnGrab
@@ -331,7 +345,7 @@ namespace Grimoire.UI
             this.btnGrab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnGrab.Location = new System.Drawing.Point(0, 0);
             this.btnGrab.Name = "btnGrab";
-            this.btnGrab.Size = new System.Drawing.Size(108, 26);
+            this.btnGrab.Size = new System.Drawing.Size(116, 26);
             this.btnGrab.TabIndex = 34;
             this.btnGrab.Text = "Grab";
             this.btnGrab.Click += new System.EventHandler(this.btnGrab_Click);
@@ -342,7 +356,7 @@ namespace Grimoire.UI
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.Location = new System.Drawing.Point(0, 0);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(108, 26);
+            this.btnSave.Size = new System.Drawing.Size(115, 26);
             this.btnSave.TabIndex = 35;
             this.btnSave.Text = "Save";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -358,7 +372,7 @@ namespace Grimoire.UI
             this.treeGrabbed.LabelEdit = true;
             this.treeGrabbed.Location = new System.Drawing.Point(12, 94);
             this.treeGrabbed.Name = "treeGrabbed";
-            this.treeGrabbed.Size = new System.Drawing.Size(217, 201);
+            this.treeGrabbed.Size = new System.Drawing.Size(232, 201);
             this.treeGrabbed.TabIndex = 38;
             // 
             // panel1
@@ -367,7 +381,7 @@ namespace Grimoire.UI
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(108, 26);
+            this.panel1.Size = new System.Drawing.Size(115, 26);
             this.panel1.TabIndex = 39;
             // 
             // panel2
@@ -376,7 +390,7 @@ namespace Grimoire.UI
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(108, 26);
+            this.panel2.Size = new System.Drawing.Size(116, 26);
             this.panel2.TabIndex = 40;
             // 
             // splitContainer1
@@ -394,59 +408,60 @@ namespace Grimoire.UI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(217, 26);
-            this.splitContainer1.SplitterDistance = 108;
+            this.splitContainer1.Size = new System.Drawing.Size(232, 26);
+            this.splitContainer1.SplitterDistance = 115;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 41;
             // 
-            // btnLoad1
-            // 
-            this.btnLoad1.Checked = false;
-            this.btnLoad1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnLoad1.Location = new System.Drawing.Point(0, 0);
-            this.btnLoad1.Margin = new System.Windows.Forms.Padding(0);
-            this.btnLoad1.Name = "btnLoad1";
-            this.btnLoad1.Size = new System.Drawing.Size(108, 23);
-            this.btnLoad1.TabIndex = 31;
-            this.btnLoad1.Text = "Load";
-            this.btnLoad1.Click += new System.EventHandler(this.btnLoad_Click);
-            // 
             // btnForceAccept
             // 
-            this.btnForceAccept.Checked = false;
-            this.btnForceAccept.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnForceAccept.Location = new System.Drawing.Point(108, 0);
-            this.btnForceAccept.Margin = new System.Windows.Forms.Padding(0);
-            this.btnForceAccept.Name = "btnForceAccept";
-            this.btnForceAccept.Size = new System.Drawing.Size(108, 23);
-            this.btnForceAccept.TabIndex = 31;
-            this.btnForceAccept.Text = "Force Accept";
-            this.btnForceAccept.Click += new System.EventHandler(this.btnForceAccept_Click);
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnForceAccept.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.btnLoad1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnForceAccept, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 62);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(216, 23);
-            this.tableLayoutPanel1.TabIndex = 42;
-            this.tableLayoutPanel1.Visible = false;
+            this.btnForceAccept.Checked = false;
+            this.btnForceAccept.Enabled = false;
+            this.btnForceAccept.Location = new System.Drawing.Point(175, 38);
+            this.btnForceAccept.Name = "btnForceAccept";
+            this.btnForceAccept.Size = new System.Drawing.Size(69, 23);
+            this.btnForceAccept.TabIndex = 44;
+            this.btnForceAccept.Text = "F Accept";
+            this.btnForceAccept.Click += new System.EventHandler(this.btnForceAccept_Click_1);
+            // 
+            // numTQuests
+            // 
+            this.numTQuests.Enabled = false;
+            this.numTQuests.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+            this.numTQuests.Location = new System.Drawing.Point(175, 12);
+            this.numTQuests.LoopValues = false;
+            this.numTQuests.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numTQuests.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numTQuests.Name = "numTQuests";
+            this.numTQuests.Size = new System.Drawing.Size(69, 20);
+            this.numTQuests.TabIndex = 168;
+            this.numTQuests.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // Loaders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(241, 360);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(256, 360);
+            this.Controls.Add(this.numTQuests);
+            this.Controls.Add(this.btnForceAccept);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.treeGrabbed);
             this.Controls.Add(this.cbGrab);
@@ -466,7 +481,7 @@ namespace Grimoire.UI
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numTQuests)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -486,15 +501,15 @@ namespace Grimoire.UI
 
         private void cbLoad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbLoad.SelectedIndex == cbLoad.Items.Count - 2)
+            if (cbLoad.SelectedIndex == 2)
             {
-                btnLoad.Visible = false;
-                tableLayoutPanel1.Visible = true;
+                numTQuests.Enabled = true;
+                btnForceAccept.Enabled = true;
             }
             else
             {
-                btnLoad.Visible = true;
-                tableLayoutPanel1.Visible = false;
+                numTQuests.Enabled = false;
+                btnForceAccept.Enabled = false;
             }
         }
 
@@ -505,6 +520,35 @@ namespace Grimoire.UI
                 Player.Quests.Accept(int.Parse(txtLoaders.Text));
             }
             catch { }
+        }
+
+        private async void btnForceAccept_Click_1(object sender, EventArgs e)
+        {
+            btnForceAccept.Enabled = false;
+            if (txtLoaders.Text == null) return;
+            int questId = Int32.Parse(txtLoaders.Text);
+            List<int> listQuests = new List<int>();
+            for (int i = 0; i < (int)numTQuests.Value; i++)
+            {
+                listQuests.Add(questId);
+                questId++;
+            }
+
+            await acceptBatchAsync(listQuests);
+            btnForceAccept.Enabled = true;
+        }
+        private async Task acceptBatchAsync(List<int> listQuest)
+        {
+            Player.Quests.Get(listQuest);
+            await Task.Delay(1000);
+            for (int i = 0; i < listQuest.Count; i++)
+            {
+                if (!Player.Quests.IsInProgress(listQuest[i]))
+                {
+                    Player.Quests.Accept(listQuest[i]);
+                    await Task.Delay(1000);
+                }
+            }
         }
     }
 }

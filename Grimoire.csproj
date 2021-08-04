@@ -157,6 +157,7 @@
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdKill.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdKillFor.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdRest.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Combat\CmdShortHunt.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdUseSkill.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdSkillSet.cs" />
     <Compile Include="Grimoire.Botting.Commands.Item\CmdLoadTravel.cs" />
@@ -240,6 +241,8 @@
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdUpdateVar.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\StatementCommand.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdBankList.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc\CmdPing.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc\CmdProvoke.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdSetFPS.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdClearTemp.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc\CmdBeep.cs" />
@@ -546,6 +549,9 @@
     <Content Include="EasyLoad64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\defaulttext.txt" />
+    <None Include="Resources\statementcmds.txt" />
+    <None Include="Resources\catgirl.swf" />
     <None Include="Resources\MPGHfavicon16.png" />
     <None Include="Resources\MPGHfavicon.png" />
     <None Include="Resources\GrimoireIconBig.png" />

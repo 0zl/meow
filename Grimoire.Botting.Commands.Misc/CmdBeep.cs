@@ -9,7 +9,7 @@ namespace Grimoire.Botting.Commands.Misc
         {
             get;
             set;
-        }
+        } = 10;
 
         public async Task Execute(IBotEngine instance)
         {

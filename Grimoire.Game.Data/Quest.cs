@@ -142,6 +142,11 @@ namespace Grimoire.Game.Data
             get;
             set;
         }
+        public bool CompleteInBlank
+        {
+            get;
+            set;
+        }
 
         public string Text
         {
@@ -186,6 +191,12 @@ namespace Grimoire.Game.Data
             {
                 Flash.Call("Complete", Id.ToString());
             }
+        }
+
+        public override string ToString()
+        {
+            string isInBlank = CompleteInBlank ? "[InBlank]" : "";
+            return $"{Id} {isInBlank}";
         }
 
         #region ShouldSerialize

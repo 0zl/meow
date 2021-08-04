@@ -37,14 +37,14 @@ namespace Grimoire.Networking.Handlers
                     foreach (JToken item in passives)
                     { 
                         item["range"] = OptionsManager.InfiniteRange ? "20000" : item["range"];
-                        item["mp"] = mana == "1" ? "0" : item["mp"];
+                        //item["mp"] = mana == "1" ? "0" : item["mp"];
                     }
                 JToken actives = jToken["active"];
                 if (actives.Type != JTokenType.Null)
                     foreach (JToken item in actives)
                     {
                         item["range"] = OptionsManager.InfiniteRange ? "20000" : item["range"];
-                        item["mp"] = mana == "1" ? "0" : item["mp"];
+                        //item["mp"] = mana == "1" ? "0" : item["mp"];
                     }
             }
         }
