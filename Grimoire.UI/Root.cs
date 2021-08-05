@@ -65,6 +65,7 @@ namespace Grimoire.UI
         private Button btnMin;
         private DarkMenuStrip darkMenuStrip1;
         private ToolStripMenuItem FPSToolStripMenuItem;
+        private ToolStripMenuItem changeServerMenuItem;
         private ToolStripTextBox toolStripTextBox2;
         private ToolStripMenuItem managerToolStripMenuItem;
         private ToolStripMenuItem loadBotToolStripMenuItem;
@@ -75,6 +76,7 @@ namespace Grimoire.UI
         private DarkButton btnBank;
         private CheckBox chkAutoAttack;
         public CheckBox chkStartBot;
+        public ToolStripComboBox changeServerList;
         public MenuStrip MenuMain;
 
         public static Root Instance
@@ -283,6 +285,7 @@ namespace Grimoire.UI
             this.notepadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.FPSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
+            this.changeServerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DPSMeterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandeditornodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -308,6 +311,7 @@ namespace Grimoire.UI
             this.chkStartBot = new System.Windows.Forms.CheckBox();
             this.chkAutoAttack = new System.Windows.Forms.CheckBox();
             this.btnBank = new DarkUI.Controls.DarkButton();
+            this.changeServerList = new ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
             this.darkMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -426,6 +430,7 @@ namespace Grimoire.UI
             this.logsToolStripMenuItem1,
             this.notepadToolStripMenuItem1,
             this.FPSToolStripMenuItem,
+            this.changeServerMenuItem,
             this.DPSMeterToolStripMenuItem,
             this.commandeditornodeToolStripMenuItem});
             this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
@@ -545,6 +550,16 @@ namespace Grimoire.UI
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBox2.Text = "30";
+            // 
+            // changeServerMenuItem
+            // 
+            this.changeServerMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.changeServerMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changeServerList});
+            this.changeServerMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.changeServerMenuItem.Name = "changeServerMenuItem";
+            this.changeServerMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.changeServerMenuItem.Text = "Change Server";
             // 
             // DPSMeterToolStripMenuItem
             // 
@@ -854,6 +869,14 @@ namespace Grimoire.UI
             this.btnBank.Text = "Bank";
             this.btnBank.Click += new System.EventHandler(this.btnBank_Click_1);
             // 
+            // changeServerList
+            // 
+            this.changeServerList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.changeServerList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.changeServerList.Name = "changeServerList";
+            this.changeServerList.Size = new System.Drawing.Size(180, 22);
+            this.changeServerList.SelectedIndexChanged += new System.EventHandler(this.changeServerList_SelectedIndexChanged);
+            // 
             // Root
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -971,6 +994,15 @@ namespace Grimoire.UI
                 startToolStripMenuItem.Enabled = true;
                 stopToolStripMenuItem.Enabled = false;
             }
+        }
+
+        private async void changeServerList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string server = changeServerList.Items[changeServerList.SelectedIndex].ToString();
+            changeServerList.Visible = false;
+            Player.Logout();
+            await AutoRelogin.Login(new Server() { Name = server }, 3000, cts: new System.Threading.CancellationTokenSource(), ensureSuccess: false);
+            changeServerList.Visible = true;
         }
 
         private void nTray_MouseClick(object sender, MouseEventArgs e)

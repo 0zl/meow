@@ -72,11 +72,11 @@ namespace Grimoire.Networking
             };
             _handlersXt = new List<IXtMessageHandler>
             {
-                new HandlerWarningsXt(),
+                //new HandlerWarningsXt(),
                 //new HandlerLogin(),
                 //new HandlerAFK(),
-                new HandlerChat(),
-                new HandlerXtJoin(),
+                //new HandlerChat(),
+                //new HandlerXtJoin(),
                 //new HandlerXtCellJoin()
             };
             _handlersXml = new List<IXmlMessageHandler>

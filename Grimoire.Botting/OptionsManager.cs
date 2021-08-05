@@ -121,7 +121,7 @@ namespace Grimoire.Botting
         
         public static bool InfiniteRange
         {
-            get => _infRange;
+            /*get => _infRange;
             set
             {
                 _infRange = value;
@@ -129,6 +129,23 @@ namespace Grimoire.Botting
                 {
                     SetInfiniteRange();
                 }
+            }*/
+
+            get
+            {
+                return OptionsManager._infRange;
+            }
+            set
+            {
+                OptionsManager._infRange = value;
+
+                if (value)
+                {
+                    Proxy.Instance.RegisterHandler(OptionsManager.HandlerRange);
+                    OptionsManager.SetInfiniteRange();
+                    return;
+                }
+                Proxy.Instance.UnregisterHandler(OptionsManager.HandlerRange);
             }
         }
 
@@ -306,11 +323,10 @@ namespace Grimoire.Botting
             get;
         }
 
-        private static IJsonMessageHandler HandlerRange
-        {
+        public static IJsonMessageHandler HandlerRange { 
             get;
-        }
-        
+        } = new HandlerSkills();
+
         private static IXtMessageHandler HandlerAFK1
         {
             get;

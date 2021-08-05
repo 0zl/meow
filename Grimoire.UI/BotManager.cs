@@ -214,7 +214,6 @@ namespace Grimoire.UI
         private DarkNumericUpDown numEnsureTries;
         private DarkButton btnWalkRdm;
         private DarkButton btnBlank;
-        public DarkCheckBox chkBuff;
         private DarkCheckBox chkAFK;
         private SplitContainer splitContainer1;
         private DarkComboBox cbLists;
@@ -517,6 +516,8 @@ namespace Grimoire.UI
             {
                 cbServers.Items.AddRange(servers);
                 cbServers.SelectedIndex = 0;
+                Root.Instance.changeServerList.Items.AddRange(servers);
+                Root.Instance.changeServerList.SelectedIndex = 0;
             }
         }
 
@@ -1927,6 +1928,22 @@ namespace Grimoire.UI
                 }
                 e.Handled = true;
             }
+            else if (Control.ModifierKeys == Keys.Control && e.KeyCode == Keys.X && this.SelectedList.SelectedIndex > -1)
+            {
+                Clipboard.Clear();
+                Configuration value = new Configuration
+                {
+                    Commands = this.lstCommands.SelectedItems.Cast<IBotCommand>().ToList<IBotCommand>(),
+                    Skills = this.lstSkills.SelectedItems.Cast<Skill>().ToList<Skill>(),
+                    Quests = this.lstQuests.SelectedItems.Cast<Quest>().ToList<Quest>(),
+                    Boosts = this.lstBoosts.SelectedItems.Cast<InventoryItem>().ToList<InventoryItem>(),
+                    Drops = this.lstDrops.SelectedItems.Cast<string>().ToList<string>(),
+                };
+                Clipboard.SetText(JsonConvert.SerializeObject(value, Formatting.Indented, this._serializerSettings));
+                this.btnRemove.PerformClick();
+                e.Handled = true;
+                return;
+            }
             else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.S)
             {
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
@@ -2354,7 +2371,6 @@ namespace Grimoire.UI
             this.lstLogText = new System.Windows.Forms.ListBox();
             this.txtLog = new DarkUI.Controls.DarkTextBox();
             this.label5 = new DarkUI.Controls.DarkLabel();
-            this.chkBuff = new DarkUI.Controls.DarkCheckBox();
             this.label6 = new DarkUI.Controls.DarkLabel();
             this.numOptionsTimer = new DarkUI.Controls.DarkNumericUpDown();
             this.chkUntarget = new DarkUI.Controls.DarkCheckBox();
@@ -2753,7 +2769,7 @@ namespace Grimoire.UI
             // 
             this.darkLabel1.AutoSize = true;
             this.darkLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.darkLabel1.Location = new System.Drawing.Point(120, 108);
+            this.darkLabel1.Location = new System.Drawing.Point(130, 108);
             this.darkLabel1.Name = "darkLabel1";
             this.darkLabel1.Size = new System.Drawing.Size(24, 13);
             this.darkLabel1.TabIndex = 71;
@@ -2761,20 +2777,20 @@ namespace Grimoire.UI
             // 
             // darkTextBox1
             // 
-            this.darkTextBox1.Location = new System.Drawing.Point(75, 103);
+            this.darkTextBox1.Location = new System.Drawing.Point(94, 103);
             this.darkTextBox1.Name = "darkTextBox1";
-            this.darkTextBox1.Size = new System.Drawing.Size(44, 20);
+            this.darkTextBox1.Size = new System.Drawing.Size(35, 20);
             this.darkTextBox1.TabIndex = 70;
-            this.darkTextBox1.Text = "after x";
+            this.darkTextBox1.Text = "5";
             // 
             // darkCheckBox1
             // 
             this.darkCheckBox1.AutoSize = true;
             this.darkCheckBox1.Location = new System.Drawing.Point(6, 104);
             this.darkCheckBox1.Name = "darkCheckBox1";
-            this.darkCheckBox1.Size = new System.Drawing.Size(72, 17);
+            this.darkCheckBox1.Size = new System.Drawing.Size(90, 17);
             this.darkCheckBox1.TabIndex = 69;
-            this.darkCheckBox1.Text = "Get drops";
+            this.darkCheckBox1.Text = "Get drops per";
             // 
             // chkAddToWhiteList
             // 
@@ -3939,7 +3955,7 @@ namespace Grimoire.UI
             this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
             this.tabQuest.Name = "tabQuest";
             this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabQuest.Size = new System.Drawing.Size(551, 301);
+            this.tabQuest.Size = new System.Drawing.Size(192, 73);
             this.tabQuest.TabIndex = 3;
             this.tabQuest.Text = "Quest";
             // 
@@ -4206,7 +4222,7 @@ namespace Grimoire.UI
             this.darkPanel2.Controls.Add(this.darkGroupBox11);
             this.darkPanel2.Location = new System.Drawing.Point(318, 6);
             this.darkPanel2.Name = "darkPanel2";
-            this.darkPanel2.Size = new System.Drawing.Size(230, 173);
+            this.darkPanel2.Size = new System.Drawing.Size(233, 173);
             this.darkPanel2.TabIndex = 165;
             // 
             // darkGroupBox11
@@ -4216,7 +4232,7 @@ namespace Grimoire.UI
             this.darkGroupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.darkGroupBox11.Location = new System.Drawing.Point(0, 0);
             this.darkGroupBox11.Name = "darkGroupBox11";
-            this.darkGroupBox11.Size = new System.Drawing.Size(230, 173);
+            this.darkGroupBox11.Size = new System.Drawing.Size(233, 173);
             this.darkGroupBox11.TabIndex = 163;
             this.darkGroupBox11.TabStop = false;
             this.darkGroupBox11.Text = "Labels";
@@ -4228,7 +4244,7 @@ namespace Grimoire.UI
             this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel7.Location = new System.Drawing.Point(3, 127);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(224, 43);
+            this.panel7.Size = new System.Drawing.Size(227, 43);
             this.panel7.TabIndex = 161;
             // 
             // splitContainer4
@@ -4277,7 +4293,7 @@ namespace Grimoire.UI
             this.txtLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtLabel.Location = new System.Drawing.Point(0, 0);
             this.txtLabel.Name = "txtLabel";
-            this.txtLabel.Size = new System.Drawing.Size(224, 20);
+            this.txtLabel.Size = new System.Drawing.Size(227, 20);
             this.txtLabel.TabIndex = 113;
             this.txtLabel.Text = "Label name";
             // 
@@ -4292,7 +4308,7 @@ namespace Grimoire.UI
             this.lbLabels.ItemHeight = 18;
             this.lbLabels.Location = new System.Drawing.Point(3, 16);
             this.lbLabels.Name = "lbLabels";
-            this.lbLabels.Size = new System.Drawing.Size(224, 154);
+            this.lbLabels.Size = new System.Drawing.Size(227, 154);
             this.lbLabels.TabIndex = 114;
             this.lbLabels.DoubleClick += new System.EventHandler(this.lbLabels_DoubleClick);
             // 
@@ -5149,7 +5165,6 @@ namespace Grimoire.UI
             this.tabOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.tabOptions.Controls.Add(this.chkWalkSpeed);
             this.tabOptions.Controls.Add(this.darkGroupBox6);
-            this.tabOptions.Controls.Add(this.chkBuff);
             this.tabOptions.Controls.Add(this.label6);
             this.tabOptions.Controls.Add(this.numOptionsTimer);
             this.tabOptions.Controls.Add(this.chkUntarget);
@@ -5324,17 +5339,6 @@ namespace Grimoire.UI
             this.label5.TabIndex = 155;
             this.label5.Text = "Viable Log References";
             // 
-            // chkBuff
-            // 
-            this.chkBuff.AutoSize = true;
-            this.chkBuff.Location = new System.Drawing.Point(150, 203);
-            this.chkBuff.Name = "chkBuff";
-            this.chkBuff.Size = new System.Drawing.Size(60, 17);
-            this.chkBuff.TabIndex = 158;
-            this.chkBuff.Text = "Buff up";
-            this.chkBuff.Visible = false;
-            this.chkBuff.CheckedChanged += new System.EventHandler(this.chkBuffup_CheckedChanged);
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -5387,7 +5391,7 @@ namespace Grimoire.UI
             // chkEnableSettings
             // 
             this.chkEnableSettings.AutoSize = true;
-            this.chkEnableSettings.Location = new System.Drawing.Point(151, 221);
+            this.chkEnableSettings.Location = new System.Drawing.Point(150, 205);
             this.chkEnableSettings.Name = "chkEnableSettings";
             this.chkEnableSettings.Size = new System.Drawing.Size(97, 30);
             this.chkEnableSettings.TabIndex = 132;
@@ -6084,8 +6088,6 @@ namespace Grimoire.UI
             // chkIsTempF
             // 
             this.chkIsTempF.AutoSize = true;
-            this.chkIsTempF.Checked = true;
-            this.chkIsTempF.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkIsTempF.Location = new System.Drawing.Point(156, 97);
             this.chkIsTempF.Name = "chkIsTempF";
             this.chkIsTempF.Size = new System.Drawing.Size(63, 17);
@@ -6096,7 +6098,7 @@ namespace Grimoire.UI
             // 
             this.darkLabel3.AutoSize = true;
             this.darkLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.darkLabel3.Location = new System.Drawing.Point(123, 166);
+            this.darkLabel3.Location = new System.Drawing.Point(134, 166);
             this.darkLabel3.Name = "darkLabel3";
             this.darkLabel3.Size = new System.Drawing.Size(24, 13);
             this.darkLabel3.TabIndex = 168;
@@ -6104,20 +6106,20 @@ namespace Grimoire.UI
             // 
             // tbGetAfterF
             // 
-            this.tbGetAfterF.Location = new System.Drawing.Point(78, 161);
+            this.tbGetAfterF.Location = new System.Drawing.Point(98, 161);
             this.tbGetAfterF.Name = "tbGetAfterF";
-            this.tbGetAfterF.Size = new System.Drawing.Size(44, 20);
+            this.tbGetAfterF.Size = new System.Drawing.Size(35, 20);
             this.tbGetAfterF.TabIndex = 167;
-            this.tbGetAfterF.Text = "after x";
+            this.tbGetAfterF.Text = "5";
             // 
             // chkGetAfterF
             // 
             this.chkGetAfterF.AutoSize = true;
             this.chkGetAfterF.Location = new System.Drawing.Point(9, 162);
             this.chkGetAfterF.Name = "chkGetAfterF";
-            this.chkGetAfterF.Size = new System.Drawing.Size(72, 17);
+            this.chkGetAfterF.Size = new System.Drawing.Size(90, 17);
             this.chkGetAfterF.TabIndex = 166;
-            this.chkGetAfterF.Text = "Get drops";
+            this.chkGetAfterF.Text = "Get drops per";
             // 
             // chkAddToWhitelistF
             // 
@@ -7916,13 +7918,6 @@ namespace Grimoire.UI
             {
                 Flash.Call("SetWalkSpeed", new string[] { "8" });
             }
-        }
-
-        private void lblUP_Click(object sender, EventArgs e)
-        {
-            string username = Player.Username;
-            string password = Player.Password;
-            lblUP.Text = $"{username} | {password}";
         }
 
         private void btnAddCmdHunt_Click(object sender, EventArgs e)

@@ -66,7 +66,7 @@ namespace Grimoire.UI
 
         private ColorDialog colorDialog1;
 
-        private TextBox txtLogChat;
+        public TextBox txtLogChat;
 
         public TextBox SelectedLog
         {
@@ -124,7 +124,7 @@ namespace Grimoire.UI
         //
         public void AppendDebug(string text)
         {
-            if (Visible)
+            if (/*Visible*/ true)
             {
                 if (text.Contains("{CLEAR}"))
                     txtLogDebug.Clear();
@@ -186,7 +186,7 @@ namespace Grimoire.UI
         //
         public void AppendScript(string text, bool ignoreInvoke = false)
         {
-            if (Visible)
+            if (/*Visible*/ true)
             {
                 if (text.Contains("{CLEAR}"))
                     txtLogScript.Clear();
@@ -230,7 +230,6 @@ namespace Grimoire.UI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogForm));
             this.txtLogDebug = new DarkUI.Controls.DarkTextBox();
             this.btnClear = new DarkUI.Controls.DarkButton();
             this.btnSave = new DarkUI.Controls.DarkButton();
@@ -295,8 +294,8 @@ namespace Grimoire.UI
             this.tabLogs.ContextMenuStrip = this.contextMenuStrip1;
             this.tabLogs.Controls.Add(this.tabLogDebug);
             this.tabLogs.Controls.Add(this.tabLogScript);
-            this.tabLogs.Controls.Add(this.tabLogDrops);
-            this.tabLogs.Controls.Add(this.tabLogChat);
+            //this.tabLogs.Controls.Add(this.tabLogDrops);
+            //this.tabLogs.Controls.Add(this.tabLogChat);
             this.tabLogs.Location = new System.Drawing.Point(0, 0);
             this.tabLogs.myBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.tabLogs.Name = "tabLogs";

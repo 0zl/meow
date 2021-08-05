@@ -31,6 +31,13 @@ namespace Grimoire.UI
         public PluginManager()
         {
             InitializeComponent();
+            if (Program.PluginsManager.LoadedPlugins.Count > 0)
+            {
+                ListBox.ObjectCollection items = this.lstLoaded.Items;
+                object[] items2 = Program.PluginsManager.LoadedPlugins.ToArray();
+                items.AddRange(items2);
+                this.lstLoaded.SelectedIndex = 0;
+            }
         }
 
         private string path = Application.StartupPath + "\\Plugins";

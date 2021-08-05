@@ -184,11 +184,27 @@ namespace Grimoire.Botting
                     {
                         break;
                     }
+
+                    bool infiniteRange = OptionsManager.InfiniteRange;
+                    bool provoke = OptionsManager.ProvokeMonsters;
+                    bool lagKiller = OptionsManager.LagKiller;
+                    bool skipCutscene = OptionsManager.SkipCutscenes;
+                    bool playerAnim = OptionsManager.DisableAnimations;
+                    bool enemyMagnet = OptionsManager.EnemyMagnet;
+
                     OptionsManager.Stop();
                     await AutoRelogin.Login(Configuration.Server, Configuration.RelogDelay, _ctsBot, Configuration.RelogRetryUponFailure);
                     Index = 0;
                     this.LoadAllQuests();
                     this.LoadBankItems();
+
+                    OptionsManager.InfiniteRange = infiniteRange;
+                    OptionsManager.ProvokeMonsters = provoke;
+                    OptionsManager.LagKiller = lagKiller;
+                    OptionsManager.SkipCutscenes = skipCutscene;
+                    OptionsManager.DisableAnimations = playerAnim;
+                    OptionsManager.EnemyMagnet = enemyMagnet;
+
                     OptionsManager.Start();
                 }
                 if (!_ctsBot.IsCancellationRequested)

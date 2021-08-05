@@ -330,6 +330,7 @@
     <Compile Include="Grimoire.Networking\XmlMessage.cs" />
     <Compile Include="Grimoire.Networking\XtMessage.cs" />
     <Compile Include="Grimoire.Tools\DocToRtf.cs" />
+    <Compile Include="Grimoire.Tools\PluginManager.cs" />
     <Compile Include="Grimoire.UI\CommandNode.cs">
       <SubType>UserControl</SubType>
     </Compile>
