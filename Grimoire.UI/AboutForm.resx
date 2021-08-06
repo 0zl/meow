@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIPSURBVDhPhZPNa9RAGMbnJor/hLXYJjPzzn4kkrTFtQh2
+        QRFp17ZKPVjBVfAieCwobKG3ymo/RCwKfqEHT8WTJxFBEBQP6+pFxNZ/ob10x+fNTiDNVnzhIclkfs88
+        k3kj8jVULAaTxjxsSP3zrqd3mp7uzCv6dZ7oMd7FblpvnS6XD9SMWXs5qDobfZ79c2i3NjH2ekDZaaKn
+        lUrloMO6FUXR/stE7wDbeU/ZD0dkj0Gq74d9e1Xpj7tMagV6sAQwUtJ+7vf3BLNikymiJwkcB0HxBWKf
+        VcrGWtofff834MXu+9oOl0qRGDdmdQPQRSltGQkmcF3wpL3hS2xH2q9YLW/wbEDaazL5Ho/ELUltHnyP
+        6KMwYJOshqFTSHcThp8w5wsML2CRcxhr4HTEoqRtNuB9XcEgQ3HGIKvAie9XB6Vteqoj7kjaYoM2DGbc
+        NqZxnUHEFDwOjbh7TtQEvAmG+0TUNLVmAeRXPam7BqMcH2bpyg1fJTAvys0mQqJ7WfBf4kSckkEWN9tU
+        wazxMSpM2MkD9dlL9s36ur1eryfPy4idwqxXOPo4KIRJL+yVYuRoaG/Pzdkz1bHkmU8ghb8hCbd9AnNV
+        q9V9Aam3eZNUJ/AdUrgFmNue/x2Hd4tNkGQJQM92JvGRf6PZniP2ONqe/x2H9VZUKmneUkC6BW2FpLeP
+        kWpPGLMyFJqCm+ZKiL/fpoGn2RYclwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="rtbCredits.Text" xml:space="preserve">
     <value>Credits
 
-Github Contributors: https://github.com/0zl/meow/graphs/contributors
 
 133spider https://github.com/133spider/
 ⤷ AQLite https://github.com/133spider/AQLite
@@ -129,7 +144,6 @@ rodit https://github.com/rodit/
 root https://twitter.com/root_ae
 ⤷ for wanting to be credited</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAEBAAAAAAIABoBAAAZgAAACAgAAAAACAAqBAAAM4EAAAwMAAAAAAgAKglAAB2FQAAQEAAAAAA

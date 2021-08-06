@@ -72,22 +72,22 @@ namespace Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {
-        ///  &quot;txtMonster&quot;: &quot;Monster (*  = random)&quot;,
+        ///  &quot;txtMonster&quot;: &quot;Monster (* = random)&quot;,
         ///  &quot;txtKillFMon&quot;: &quot;Monster (* = random)&quot;,
         ///  &quot;txtKillFItem&quot;: &quot;Item name&quot;,
         ///  &quot;txtKillFQ&quot;: &quot;Quantity (* = any)&quot;,
         ///  &quot;txtPacket&quot;: &quot;%xt%zm%.........&quot;,
+        ///  &quot;txtPacketSpammer&quot; : &quot;%xt%zm%.........&quot;,
         ///  &quot;txtPlayer&quot;: &quot;Player name&quot;,
         ///  &quot;txtAuthor&quot;: &quot;Author&quot;,
         ///  &quot;txtDescription&quot;: &quot;Description&quot;,
         ///  &quot;txtJoin&quot;: &quot;battleon-1e99&quot;,
-        ///  &quot;txtJoinCell&quot;: &quot;Enter&quot;,
-        ///  &quot;txtJoinPad&quot;: &quot;Spawn&quot;,
-        ///  &quot;txtCell&quot;: &quot;Cell&quot;,
-        ///  &quot;txtPad&quot;: &quot;Pad&quot;,
-        ///  &quot;txtItem&quot;: &quot;Item name&quot;,
-        ///  &quot;txtSwapBank&quot;: &quot;Bank item name&quot;,
-        ///  &quot;txtSwapInv&quot;: &quot;Inventory item name&quot; [rest of string was truncated]&quot;;.
+        ///  &quot;tbMapF&quot;: &quot;battleon-1e99&quot;,
+        ///  &quot;tbCellF&quot;: &quot;Enter&quot;,
+        ///  &quot;tbPadF&quot;: &quot;Spawn&quot;,
+        ///  &quot;tbMonNameF&quot;: &quot;Monster (* = random)&quot;,
+        ///  &quot;tbItemNameF&quot;: &quot;Item name&quot;,
+        ///  &quot;tb [rest of string was truncated]&quot;;.
         /// </summary>
         public static string defaulttext {
             get {
@@ -151,6 +151,26 @@ namespace Properties {
         public static System.Drawing.Bitmap MPGHfavicon16 {
             get {
                 object obj = ResourceManager.GetObject("MPGHfavicon16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon pdip1 {
+            get {
+                object obj = ResourceManager.GetObject("pdip1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap pdipic {
+            get {
+                object obj = ResourceManager.GetObject("pdipic", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

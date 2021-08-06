@@ -79,6 +79,7 @@ namespace Grimoire.UI
         public ToolStripComboBox changeServerList;
         private ToolStripMenuItem aboutToolStripMenuItem;
         private DarkButton btnGetCell;
+        private DarkButton btnReloadBank;
         public MenuStrip MenuMain;
 
         public static Root Instance
@@ -312,6 +313,7 @@ namespace Grimoire.UI
             this.panel1 = new System.Windows.Forms.Panel();
             this.MenuMain = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnReloadBank = new DarkUI.Controls.DarkButton();
             this.btnGetCell = new DarkUI.Controls.DarkButton();
             this.chkStartBot = new System.Windows.Forms.CheckBox();
             this.chkAutoAttack = new System.Windows.Forms.CheckBox();
@@ -344,7 +346,7 @@ namespace Grimoire.UI
             "Bottom",
             "Up",
             "Down"});
-            this.cbPads.Location = new System.Drawing.Point(697, 3);
+            this.cbPads.Location = new System.Drawing.Point(695, 3);
             this.cbPads.MaxDropDownItems = 50;
             this.cbPads.Name = "cbPads";
             this.cbPads.Size = new System.Drawing.Size(91, 21);
@@ -355,7 +357,7 @@ namespace Grimoire.UI
             // 
             this.cbCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCells.FormattingEnabled = true;
-            this.cbCells.Location = new System.Drawing.Point(791, 3);
+            this.cbCells.Location = new System.Drawing.Point(788, 3);
             this.cbCells.MaxDropDownItems = 50;
             this.cbCells.Name = "cbCells";
             this.cbCells.Size = new System.Drawing.Size(91, 21);
@@ -835,6 +837,7 @@ namespace Grimoire.UI
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnReloadBank);
             this.splitContainer1.Panel1.Controls.Add(this.btnGetCell);
             this.splitContainer1.Panel1.Controls.Add(this.chkStartBot);
             this.splitContainer1.Panel1.Controls.Add(this.chkAutoAttack);
@@ -853,13 +856,26 @@ namespace Grimoire.UI
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 38;
             // 
+            // btnReloadBank
+            // 
+            this.btnReloadBank.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReloadBank.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
+            this.btnReloadBank.Checked = false;
+            this.btnReloadBank.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnReloadBank.Location = new System.Drawing.Point(955, 2);
+            this.btnReloadBank.Name = "btnReloadBank";
+            this.btnReloadBank.Size = new System.Drawing.Size(53, 23);
+            this.btnReloadBank.TabIndex = 40;
+            this.btnReloadBank.Text = "Reload Bank";
+            this.btnReloadBank.Click += new System.EventHandler(this.btnReloadBank_Click);
+            // 
             // btnGetCell
             // 
             this.btnGetCell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGetCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.btnGetCell.Checked = false;
             this.btnGetCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnGetCell.Location = new System.Drawing.Point(884, 2);
+            this.btnGetCell.Location = new System.Drawing.Point(881, 2);
             this.btnGetCell.Name = "btnGetCell";
             this.btnGetCell.Size = new System.Drawing.Size(18, 23);
             this.btnGetCell.TabIndex = 39;
@@ -898,12 +914,11 @@ namespace Grimoire.UI
             this.btnBank.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.btnBank.Checked = false;
             this.btnBank.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnBank.Location = new System.Drawing.Point(904, 2);
+            this.btnBank.Location = new System.Drawing.Point(902, 2);
             this.btnBank.Name = "btnBank";
             this.btnBank.Size = new System.Drawing.Size(53, 23);
             this.btnBank.TabIndex = 36;
             this.btnBank.Text = "Bank";
-            this.btnBank.DoubleClick += new System.EventHandler(this.btnBank_DoubleClick);
             this.btnBank.Click += new System.EventHandler(this.btnBank_Click_1);
             // 
             // Root
@@ -916,7 +931,7 @@ namespace Grimoire.UI
             this.Controls.Add(this.flashPlayer);
             this.Controls.Add(this.MenuMain);
             this.ForeColor = System.Drawing.SystemColors.Window;
-            this.Icon = global::Properties.Resources.GrimoireIcon;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Root";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Grimlite Li";
@@ -939,11 +954,6 @@ namespace Grimoire.UI
         private void Instance_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
-        }
-
-        private void btnBankReload_Click(object sender, EventArgs e)
-        {
-            _ = Proxy.Instance.SendToServer($"%xt%zm%loadBank%{World.RoomId}%All%");
         }
 
         private void logsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1272,11 +1282,6 @@ namespace Grimoire.UI
             Player.Bank.Show();
         }
 
-        private void btnBank_DoubleClick(object sender, EventArgs e)
-        {
-            _ = Proxy.Instance.SendToServer($"%xt%zm%loadBank%{World.RoomId}%All%");
-        }
-
         private void cbCells_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!Player.IsLoggedIn) return;
@@ -1388,8 +1393,15 @@ namespace Grimoire.UI
             cbPads.SelectedItem = Player.Pad;
             cbCells.SelectedItem = Player.Cell;
 
+            Player.MoveToCell(Player.Cell, Player.Pad);
+
             cbPads.SelectedIndexChanged += cbPads_SelectedIndexChanged;
             cbCells.SelectedIndexChanged += cbCells_SelectedIndexChanged;
+        }
+
+        private void btnReloadBank_Click(object sender, EventArgs e)
+        {
+            _ = Proxy.Instance.SendToServer($"%xt%zm%loadBank%{World.RoomId}%All%");
         }
     }
 }

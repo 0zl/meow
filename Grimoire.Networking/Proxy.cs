@@ -82,7 +82,7 @@ namespace Grimoire.Networking
             _handlersXml = new List<IXmlMessageHandler>
             {
                 new HandlerPolicy(),
-                new HandlerWarningsXml()
+                //new HandlerWarningsXml()
             };
             _shouldConnect = true;
             ReceivedFromServer += ProcessMessage;

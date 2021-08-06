@@ -59,7 +59,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\big.Ico</ApplicationIcon>
+    <ApplicationIcon>big.Ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -532,6 +532,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="4zvbZ3m.ico" />
+    <Content Include="big.Ico" />
     <Content Include="EasyHook32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -550,6 +552,11 @@
     <Content Include="EasyLoad64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="pdip.ico" />
+    <None Include="Resources\pdipbig.png" />
+    <None Include="Resources\pdipic.png" />
+    <None Include="Resources\pdip.ico" />
+    <None Include="Resources\pdip.png" />
     <None Include="Resources\defaulttext.txt" />
     <None Include="Resources\statementcmds.txt" />
     <None Include="Resources\catgirl.swf" />

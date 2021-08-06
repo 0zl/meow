@@ -761,7 +761,8 @@ namespace Grimoire.UI
                 chkAntiCounter.Checked = config.AntiCounter;
                 numDropDelay.Value = config.DropDelay <= 0 ? 1000 : config.DropDelay;
                 txtAuthor.Text = config.Author;
-                txtDescription.Text = config.Description;
+                txtDescription.Text =
+                txtSavedDesc.Text = DocConvert.IsBase64Encoded(config.Description) ? DocConvert.Unzip(config.Description) : config.Description ?? "Description"; ;
                 var description = txtSavedDesc.Text ?? "Description";
                 if (description.StartsWith("{\\rtf") || description.StartsWith("{\rtf"))
                     rtbInfo.Rtf = description; //mainTabControl.SelectedTab = tabInfo;
@@ -815,9 +816,40 @@ namespace Grimoire.UI
             }
         }
 
-        public void OnIsRunningChanged(bool IsRunning)
+        public void OnIsRunningChanged(bool isRunning)
         {
-            Invoke((Action)delegate
+            if (!isRunning)
+            {
+                ActiveBotEngine.IsRunningChanged -= OnIsRunningChanged;
+                ActiveBotEngine.IndexChanged -= OnIndexChanged;
+                ActiveBotEngine.ConfigurationChanged -= OnConfigurationChanged;
+
+                void Action()
+                {
+                    btnUp.Enabled = true;
+                    btnDown.Enabled = true;
+                    btnClear.Enabled = true;
+                    btnRemove.Enabled = true;
+                }
+
+                if (InvokeRequired)
+                    Invoke((Action)Action);
+                else
+                    Action();
+            }
+
+            if (InvokeRequired)
+                Invoke(new Action(() => { chkEnable.Checked = isRunning; }));
+            else
+                chkEnable.Checked = isRunning;
+
+            Root.Instance.chkStartBot.Checked = isRunning;
+
+            selectionMode(isRunning ? SelectionMode.One : SelectionMode.MultiExtended);
+
+            BotStateChanged(isRunning);
+
+            /*Invoke((Action)delegate
             {
                 if (!IsRunning)
                 {
@@ -826,7 +858,7 @@ namespace Grimoire.UI
                     ActiveBotEngine.ConfigurationChanged -= OnConfigurationChanged;
                 }
                 BotStateChanged(IsRunning);
-            });
+            });*/
         }
 
         private void lstSkills_DoubleClick(object sender, EventArgs e)
@@ -1997,7 +2029,7 @@ namespace Grimoire.UI
 
         private async void chkEnableBot_CheckedChanged(object sender, EventArgs e)
         {
-            if (!Player.IsAlive || !Player.IsLoggedIn)
+            if (chkEnable.Checked && (lstCommands.Items.Count <= 0 || !Player.IsLoggedIn))
             {
                 chkEnable.Checked = false;
                 return;
@@ -2005,12 +2037,7 @@ namespace Grimoire.UI
 
             if (chkEnable.Checked)
             {
-                this.lstCommands.SelectionMode = SelectionMode.One;
-                this.lstItems.SelectionMode = SelectionMode.One;
-                this.lstSkills.SelectionMode = SelectionMode.One;
-                this.lstQuests.SelectionMode = SelectionMode.One;
-                this.lstDrops.SelectionMode = SelectionMode.One;
-                this.lstBoosts.SelectionMode = SelectionMode.One;
+                selectionMode(SelectionMode.One);
                 ActiveBotEngine.IsRunningChanged += OnIsRunningChanged;
                 ActiveBotEngine.IndexChanged += OnIndexChanged;
                 ActiveBotEngine.ConfigurationChanged += OnConfigurationChanged;
@@ -2035,64 +2062,22 @@ namespace Grimoire.UI
                     LogForm.Instance.AppendDebug("Banked all AC Items in Items list \r\n");
                 }
                 ActiveBotEngine.Stop();
-                this.lstCommands.SelectionMode = SelectionMode.MultiExtended;
-                this.lstItems.SelectionMode = SelectionMode.MultiExtended;
-                this.lstSkills.SelectionMode = SelectionMode.MultiExtended;
-                this.lstQuests.SelectionMode = SelectionMode.MultiExtended;
-                this.lstDrops.SelectionMode = SelectionMode.MultiExtended;
-                this.lstBoosts.SelectionMode = SelectionMode.MultiExtended;
+                selectionMode(SelectionMode.MultiExtended);
                 BotStateChanged(IsRunning: false);
                 Root.Instance.BotStateChanged(IsRunning: false);
                 Root.Instance.chkStartBot.Checked = false;
             }
         }
 
-        public void btnBotStart_ClickAsync(object sender, EventArgs e)
-        {
-            if (Player.IsAlive && Player.IsLoggedIn && lstCommands.Items.Count > 0)
-            {
-                this.lstCommands.SelectionMode = SelectionMode.One;
-                this.lstItems.SelectionMode = SelectionMode.One;
-                this.lstSkills.SelectionMode = SelectionMode.One;
-                this.lstQuests.SelectionMode = SelectionMode.One;
-                this.lstDrops.SelectionMode = SelectionMode.One;
-                this.lstBoosts.SelectionMode = SelectionMode.One;
-                ActiveBotEngine.IsRunningChanged += OnIsRunningChanged;
-                ActiveBotEngine.IndexChanged += OnIndexChanged;
-                ActiveBotEngine.ConfigurationChanged += OnConfigurationChanged;
-                ActiveBotEngine.Start(GenerateConfiguration());
-                BotStateChanged(IsRunning: true);
-                Root.Instance.BotStateChanged(IsRunning: true);
-            }
-        }
 
-        public async void btnBotStop_Click(object sender, EventArgs e)
+        private void selectionMode(SelectionMode mode)
         {
-            if (lstItems != null && this.chkBankOnStop.Checked)
-            {
-                foreach (InventoryItem item in Player.Inventory.Items)
-                {
-                    if (!item.IsEquipped && item.IsAcItem && item.Category != "Class" && item.Name.ToLower() != "treasure potion" && lstItems.Items.Contains(item.Name))
-                    {
-                        Player.Bank.TransferToBank(item.Name);
-                        await Task.Delay(70);
-                        LogForm.Instance.AppendDebug("Transferred to Bank: " + item.Name + "\r\n");
-                    }
-                }
-                LogForm.Instance.AppendDebug("Banked all AC Items in Items list \r\n");
-            }
-            //btnBotStart.Enabled = false;
-            ActiveBotEngine.Stop();
-            this.lstCommands.SelectionMode = SelectionMode.MultiExtended;
-            this.lstItems.SelectionMode = SelectionMode.MultiExtended;
-            this.lstSkills.SelectionMode = SelectionMode.MultiExtended;
-            this.lstQuests.SelectionMode = SelectionMode.MultiExtended;
-            this.lstDrops.SelectionMode = SelectionMode.MultiExtended;
-            this.lstBoosts.SelectionMode = SelectionMode.MultiExtended;
-            await Task.Delay(2000);
-            BotStateChanged(IsRunning: false);
-            Root.Instance.BotStateChanged(IsRunning: false);
-            //btnBotStart.Enabled = true;
+            this.lstCommands.SelectionMode = mode;
+            this.lstSkills.SelectionMode = mode;
+            this.lstQuests.SelectionMode = mode;
+            this.lstDrops.SelectionMode = mode;
+            this.lstBoosts.SelectionMode = mode;
+            this.lstItems.SelectionMode = mode;
         }
 
         public void BotStateChanged(bool IsRunning)
@@ -2776,6 +2761,7 @@ namespace Grimoire.UI
             this.btnAllSkill.Size = new System.Drawing.Size(29, 21);
             this.btnAllSkill.TabIndex = 72;
             this.btnAllSkill.Text = "All";
+            this.btnAllSkill.Click += new System.EventHandler(this.btnAllSkill_Click);
             // 
             // darkLabel1
             // 
@@ -3527,7 +3513,7 @@ namespace Grimoire.UI
             this.tabItem.Margin = new System.Windows.Forms.Padding(0);
             this.tabItem.Name = "tabItem";
             this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabItem.Size = new System.Drawing.Size(192, 73);
+            this.tabItem.Size = new System.Drawing.Size(551, 301);
             this.tabItem.TabIndex = 1;
             this.tabItem.Text = "Item";
             // 
@@ -5203,7 +5189,7 @@ namespace Grimoire.UI
             this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions.Size = new System.Drawing.Size(551, 301);
+            this.tabOptions.Size = new System.Drawing.Size(192, 73);
             this.tabOptions.TabIndex = 5;
             this.tabOptions.Text = "Options";
             // 
@@ -7994,6 +7980,19 @@ namespace Grimoire.UI
             tbMapF.Text = Player.Map;
             tbCellF.Text = Player.Cell;
             tbPadF.Text = Player.Pad;
+        }
+
+        private void btnAllSkill_Click(object sender, EventArgs e)
+        {
+            for (int i = 1; i <= 4; i++)
+            {
+                AddSkill(new Skill
+                {
+                    Text = Skill.GetSkillName(i.ToString()),
+                    Index = i.ToString(),
+                    Type = Skill.SkillType.Normal
+                }, (ModifierKeys & Keys.Control) == Keys.Control);
+            }
         }
     }
 }

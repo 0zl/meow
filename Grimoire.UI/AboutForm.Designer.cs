@@ -32,6 +32,8 @@ namespace Grimoire.UI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.darkLabel6 = new DarkUI.Controls.DarkLabel();
             this.darkLabel3 = new DarkUI.Controls.DarkLabel();
             this.darkLabel2 = new DarkUI.Controls.DarkLabel();
             this.rtbCredits = new System.Windows.Forms.RichTextBox();
@@ -49,8 +51,8 @@ namespace Grimoire.UI
             this.lblWisp = new DarkUI.Controls.DarkLabel();
             this.darkLabel1 = new DarkUI.Controls.DarkLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.darkLabel6 = new DarkUI.Controls.DarkLabel();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrimoireBig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCatGithub)).BeginInit();
@@ -61,6 +63,7 @@ namespace Grimoire.UI
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.darkLabel6);
             this.panel1.Controls.Add(this.darkLabel3);
             this.panel1.Controls.Add(this.darkLabel2);
@@ -84,6 +87,27 @@ namespace Grimoire.UI
             this.panel1.Size = new System.Drawing.Size(551, 440);
             this.panel1.TabIndex = 3;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(21, 115);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
+            // 
+            // darkLabel6
+            // 
+            this.darkLabel6.AutoSize = true;
+            this.darkLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.darkLabel6.Location = new System.Drawing.Point(40, 117);
+            this.darkLabel6.Name = "darkLabel6";
+            this.darkLabel6.Size = new System.Drawing.Size(45, 13);
+            this.darkLabel6.TabIndex = 16;
+            this.darkLabel6.Text = "Froztt13";
+            // 
             // darkLabel3
             // 
             this.darkLabel3.AutoSize = true;
@@ -100,9 +124,9 @@ namespace Grimoire.UI
             this.darkLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.darkLabel2.Location = new System.Drawing.Point(16, 36);
             this.darkLabel2.Name = "darkLabel2";
-            this.darkLabel2.Size = new System.Drawing.Size(68, 13);
+            this.darkLabel2.Size = new System.Drawing.Size(59, 13);
             this.darkLabel2.TabIndex = 14;
-            this.darkLabel2.Text = "version 1.0.0";
+            this.darkLabel2.Text = "version 1.1";
             // 
             // rtbCredits
             // 
@@ -111,9 +135,9 @@ namespace Grimoire.UI
             this.rtbCredits.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.rtbCredits.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbCredits.ForeColor = System.Drawing.Color.Gainsboro;
-            this.rtbCredits.Location = new System.Drawing.Point(16, 298);
+            this.rtbCredits.Location = new System.Drawing.Point(16, 307);
             this.rtbCredits.Name = "rtbCredits";
-            this.rtbCredits.Size = new System.Drawing.Size(523, 130);
+            this.rtbCredits.Size = new System.Drawing.Size(523, 121);
             this.rtbCredits.TabIndex = 13;
             this.rtbCredits.Text = resources.GetString("rtbCredits.Text");
             // 
@@ -129,7 +153,7 @@ namespace Grimoire.UI
             // pbGrimoireBig
             // 
             this.pbGrimoireBig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbGrimoireBig.Image = global::Properties.Resources.GrimoireIconBig1;
+            this.pbGrimoireBig.Image = global::Properties.Resources.GrimoireIconBig;
             this.pbGrimoireBig.Location = new System.Drawing.Point(0, 0);
             this.pbGrimoireBig.Name = "pbGrimoireBig";
             this.pbGrimoireBig.Size = new System.Drawing.Size(256, 256);
@@ -262,16 +286,6 @@ namespace Grimoire.UI
             this.label1.TabIndex = 4;
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // darkLabel6
-            // 
-            this.darkLabel6.AutoSize = true;
-            this.darkLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.darkLabel6.Location = new System.Drawing.Point(14, 112);
-            this.darkLabel6.Name = "darkLabel6";
-            this.darkLabel6.Size = new System.Drawing.Size(45, 13);
-            this.darkLabel6.TabIndex = 16;
-            this.darkLabel6.Text = "Froztt13";
-            // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -286,6 +300,7 @@ namespace Grimoire.UI
             this.Load += new System.EventHandler(this.AboutForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbGrimoireBig)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCatGithub)).EndInit();
@@ -316,5 +331,6 @@ namespace Grimoire.UI
         private DarkUI.Controls.DarkLabel darkLabel3;
         private DarkUI.Controls.DarkLabel darkLabel2;
         private DarkUI.Controls.DarkLabel darkLabel6;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
