@@ -32,11 +32,12 @@ namespace Grimoire.UI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.darkLabel3 = new DarkUI.Controls.DarkLabel();
+            this.darkLabel2 = new DarkUI.Controls.DarkLabel();
             this.rtbCredits = new System.Windows.Forms.RichTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pbGrimoireBig = new System.Windows.Forms.PictureBox();
             this.darkLabel5 = new DarkUI.Controls.DarkLabel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.darkLabel4 = new DarkUI.Controls.DarkLabel();
             this.pbCatGithub = new System.Windows.Forms.PictureBox();
             this.pbEmperorMPGH = new System.Windows.Forms.PictureBox();
@@ -48,8 +49,7 @@ namespace Grimoire.UI
             this.lblWisp = new DarkUI.Controls.DarkLabel();
             this.darkLabel1 = new DarkUI.Controls.DarkLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.lblUpdate = new DarkUI.Controls.DarkLabel();
+            this.darkLabel6 = new DarkUI.Controls.DarkLabel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrimoireBig)).BeginInit();
@@ -61,11 +61,12 @@ namespace Grimoire.UI
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lblUpdate);
+            this.panel1.Controls.Add(this.darkLabel6);
+            this.panel1.Controls.Add(this.darkLabel3);
+            this.panel1.Controls.Add(this.darkLabel2);
             this.panel1.Controls.Add(this.rtbCredits);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.darkLabel5);
-            this.panel1.Controls.Add(this.richTextBox1);
             this.panel1.Controls.Add(this.darkLabel4);
             this.panel1.Controls.Add(this.pbCatGithub);
             this.panel1.Controls.Add(this.pbEmperorMPGH);
@@ -77,12 +78,31 @@ namespace Grimoire.UI
             this.panel1.Controls.Add(this.lblWisp);
             this.panel1.Controls.Add(this.darkLabel1);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.linkLabel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(551, 440);
             this.panel1.TabIndex = 3;
+            // 
+            // darkLabel3
+            // 
+            this.darkLabel3.AutoSize = true;
+            this.darkLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.darkLabel3.Location = new System.Drawing.Point(14, 97);
+            this.darkLabel3.Name = "darkLabel3";
+            this.darkLabel3.Size = new System.Drawing.Size(82, 13);
+            this.darkLabel3.TabIndex = 15;
+            this.darkLabel3.Text = "Grimlite Li Team";
+            // 
+            // darkLabel2
+            // 
+            this.darkLabel2.AutoSize = true;
+            this.darkLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.darkLabel2.Location = new System.Drawing.Point(16, 36);
+            this.darkLabel2.Name = "darkLabel2";
+            this.darkLabel2.Size = new System.Drawing.Size(68, 13);
+            this.darkLabel2.TabIndex = 14;
+            this.darkLabel2.Text = "version 1.0.0";
             // 
             // rtbCredits
             // 
@@ -126,18 +146,6 @@ namespace Grimoire.UI
             this.darkLabel5.TabIndex = 11;
             this.darkLabel5.Text = "The Previous Grimoire Team";
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.richTextBox1.Location = new System.Drawing.Point(16, 48);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(258, 71);
-            this.richTextBox1.TabIndex = 10;
-            this.richTextBox1.Text = "\nWebsite: https://adventurequest.life/\nProject Page: https://github.com/0zl/meow\n" +
-    "Changelog: check the commits lol\nDiscord: https://discord.io/AQWBots";
-            // 
             // darkLabel4
             // 
             this.darkLabel4.AutoSize = true;
@@ -145,9 +153,9 @@ namespace Grimoire.UI
             this.darkLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.darkLabel4.Location = new System.Drawing.Point(12, 12);
             this.darkLabel4.Name = "darkLabel4";
-            this.darkLabel4.Size = new System.Drawing.Size(73, 24);
+            this.darkLabel4.Size = new System.Drawing.Size(92, 24);
             this.darkLabel4.TabIndex = 9;
-            this.darkLabel4.Text = "Grimlite";
+            this.darkLabel4.Text = "Grimlite Li";
             // 
             // pbCatGithub
             // 
@@ -254,27 +262,15 @@ namespace Grimoire.UI
             this.label1.TabIndex = 4;
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // linkLabel2
+            // darkLabel6
             // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.LinkColor = System.Drawing.Color.White;
-            this.linkLabel2.Location = new System.Drawing.Point(14, 117);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(259, 13);
-            this.linkLabel2.TabIndex = 3;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Donate to wisp/satan, he needs coffee, lots of coffee";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
-            // 
-            // lblUpdate
-            // 
-            this.lblUpdate.AutoSize = true;
-            this.lblUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblUpdate.Location = new System.Drawing.Point(14, 37);
-            this.lblUpdate.Name = "lblUpdate";
-            this.lblUpdate.Size = new System.Drawing.Size(112, 13);
-            this.lblUpdate.TabIndex = 15;
-            this.lblUpdate.Text = "Checking for update...";
+            this.darkLabel6.AutoSize = true;
+            this.darkLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.darkLabel6.Location = new System.Drawing.Point(14, 112);
+            this.darkLabel6.Name = "darkLabel6";
+            this.darkLabel6.Size = new System.Drawing.Size(45, 13);
+            this.darkLabel6.TabIndex = 16;
+            this.darkLabel6.Text = "Froztt13";
             // 
             // AboutForm
             // 
@@ -303,13 +299,11 @@ namespace Grimoire.UI
         #endregion
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.PictureBox pbCatGithub;
         private System.Windows.Forms.PictureBox pbsatanGithub;
         private DarkUI.Controls.DarkLabel lblCat;
         private DarkUI.Controls.DarkLabel lblWisp;
         private DarkUI.Controls.DarkLabel darkLabel1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private DarkUI.Controls.DarkLabel darkLabel4;
         private DarkUI.Controls.DarkLabel darkLabel5;
         private DarkUI.Controls.DarkLabel lblEmperorAnts;
@@ -319,6 +313,8 @@ namespace Grimoire.UI
         private System.Windows.Forms.RichTextBox rtbCredits;
         private System.Windows.Forms.PictureBox pbEmperorMPGH;
         private System.Windows.Forms.PictureBox pbBineyMPGH;
-        private DarkUI.Controls.DarkLabel lblUpdate;
+        private DarkUI.Controls.DarkLabel darkLabel3;
+        private DarkUI.Controls.DarkLabel darkLabel2;
+        private DarkUI.Controls.DarkLabel darkLabel6;
     }
 }

@@ -77,6 +77,8 @@ namespace Grimoire.UI
         private CheckBox chkAutoAttack;
         public CheckBox chkStartBot;
         public ToolStripComboBox changeServerList;
+        private ToolStripMenuItem aboutToolStripMenuItem;
+        private DarkButton btnGetCell;
         public MenuStrip MenuMain;
 
         public static Root Instance
@@ -286,6 +288,7 @@ namespace Grimoire.UI
             this.FPSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.changeServerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeServerList = new System.Windows.Forms.ToolStripComboBox();
             this.DPSMeterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandeditornodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -305,13 +308,14 @@ namespace Grimoire.UI
             this.btnExit = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
             this.darkMenuStrip1 = new DarkUI.Controls.DarkMenuStrip();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.MenuMain = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnGetCell = new DarkUI.Controls.DarkButton();
             this.chkStartBot = new System.Windows.Forms.CheckBox();
             this.chkAutoAttack = new System.Windows.Forms.CheckBox();
             this.btnBank = new DarkUI.Controls.DarkButton();
-            this.changeServerList = new ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
             this.darkMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -340,7 +344,7 @@ namespace Grimoire.UI
             "Bottom",
             "Up",
             "Down"});
-            this.cbPads.Location = new System.Drawing.Point(694, 3);
+            this.cbPads.Location = new System.Drawing.Point(697, 3);
             this.cbPads.MaxDropDownItems = 50;
             this.cbPads.Name = "cbPads";
             this.cbPads.Size = new System.Drawing.Size(91, 21);
@@ -351,7 +355,7 @@ namespace Grimoire.UI
             // 
             this.cbCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCells.FormattingEnabled = true;
-            this.cbCells.Location = new System.Drawing.Point(790, 3);
+            this.cbCells.Location = new System.Drawing.Point(791, 3);
             this.cbCells.MaxDropDownItems = 50;
             this.cbCells.Name = "cbCells";
             this.cbCells.Size = new System.Drawing.Size(91, 21);
@@ -366,7 +370,7 @@ namespace Grimoire.UI
             this.flashPlayer.Location = new System.Drawing.Point(0, 0);
             this.flashPlayer.Name = "flashPlayer";
             this.flashPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("flashPlayer.OcxState")));
-            this.flashPlayer.Size = new System.Drawing.Size(942, 591);
+            this.flashPlayer.Size = new System.Drawing.Size(960, 605);
             this.flashPlayer.TabIndex = 2;
             // 
             // botToolStripMenuItem
@@ -560,6 +564,14 @@ namespace Grimoire.UI
             this.changeServerMenuItem.Name = "changeServerMenuItem";
             this.changeServerMenuItem.Size = new System.Drawing.Size(187, 22);
             this.changeServerMenuItem.Text = "Change Server";
+            // 
+            // changeServerList
+            // 
+            this.changeServerList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.changeServerList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.changeServerList.Name = "changeServerList";
+            this.changeServerList.Size = new System.Drawing.Size(180, 23);
+            this.changeServerList.SelectedIndexChanged += new System.EventHandler(this.changeServerList_SelectedIndexChanged);
             // 
             // DPSMeterToolStripMenuItem
             // 
@@ -769,14 +781,24 @@ namespace Grimoire.UI
             this.toolsToolStripMenuItem,
             this.packetsToolStripMenuItem,
             this.optionsToolStripMenuItem,
-            this.pluginsStrip});
+            this.pluginsStrip,
+            this.aboutToolStripMenuItem});
             this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.darkMenuStrip1.Name = "darkMenuStrip1";
             this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(2);
-            this.darkMenuStrip1.Size = new System.Drawing.Size(942, 27);
+            this.darkMenuStrip1.Size = new System.Drawing.Size(960, 27);
             this.darkMenuStrip1.TabIndex = 35;
             this.darkMenuStrip1.Text = "darkMenuStrip1";
             this.darkMenuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuMain_MouseDown);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.aboutToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 23);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -813,6 +835,7 @@ namespace Grimoire.UI
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnGetCell);
             this.splitContainer1.Panel1.Controls.Add(this.chkStartBot);
             this.splitContainer1.Panel1.Controls.Add(this.chkAutoAttack);
             this.splitContainer1.Panel1.Controls.Add(this.btnBank);
@@ -825,17 +848,30 @@ namespace Grimoire.UI
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.splitContainer1.Panel2Collapsed = true;
-            this.splitContainer1.Size = new System.Drawing.Size(942, 27);
+            this.splitContainer1.Size = new System.Drawing.Size(960, 27);
             this.splitContainer1.SplitterDistance = 824;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 38;
+            // 
+            // btnGetCell
+            // 
+            this.btnGetCell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGetCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
+            this.btnGetCell.Checked = false;
+            this.btnGetCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnGetCell.Location = new System.Drawing.Point(884, 2);
+            this.btnGetCell.Name = "btnGetCell";
+            this.btnGetCell.Size = new System.Drawing.Size(18, 23);
+            this.btnGetCell.TabIndex = 39;
+            this.btnGetCell.Text = "x";
+            this.btnGetCell.Click += new System.EventHandler(this.btnGetCell_Click);
             // 
             // chkStartBot
             // 
             this.chkStartBot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkStartBot.AutoSize = true;
             this.chkStartBot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.chkStartBot.Location = new System.Drawing.Point(539, 5);
+            this.chkStartBot.Location = new System.Drawing.Point(541, 5);
             this.chkStartBot.Name = "chkStartBot";
             this.chkStartBot.Size = new System.Drawing.Size(67, 17);
             this.chkStartBot.TabIndex = 38;
@@ -848,7 +884,7 @@ namespace Grimoire.UI
             this.chkAutoAttack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAutoAttack.AutoSize = true;
             this.chkAutoAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.chkAutoAttack.Location = new System.Drawing.Point(610, 5);
+            this.chkAutoAttack.Location = new System.Drawing.Point(612, 5);
             this.chkAutoAttack.Name = "chkAutoAttack";
             this.chkAutoAttack.Size = new System.Drawing.Size(82, 17);
             this.chkAutoAttack.TabIndex = 37;
@@ -862,27 +898,20 @@ namespace Grimoire.UI
             this.btnBank.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.btnBank.Checked = false;
             this.btnBank.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnBank.Location = new System.Drawing.Point(886, 2);
+            this.btnBank.Location = new System.Drawing.Point(904, 2);
             this.btnBank.Name = "btnBank";
             this.btnBank.Size = new System.Drawing.Size(53, 23);
             this.btnBank.TabIndex = 36;
             this.btnBank.Text = "Bank";
+            this.btnBank.DoubleClick += new System.EventHandler(this.btnBank_DoubleClick);
             this.btnBank.Click += new System.EventHandler(this.btnBank_Click_1);
-            // 
-            // changeServerList
-            // 
-            this.changeServerList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.changeServerList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.changeServerList.Name = "changeServerList";
-            this.changeServerList.Size = new System.Drawing.Size(180, 22);
-            this.changeServerList.SelectedIndexChanged += new System.EventHandler(this.changeServerList_SelectedIndexChanged);
             // 
             // Root
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
-            this.ClientSize = new System.Drawing.Size(942, 591);
+            this.ClientSize = new System.Drawing.Size(960, 605);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.flashPlayer);
             this.Controls.Add(this.MenuMain);
@@ -890,7 +919,7 @@ namespace Grimoire.UI
             this.Icon = global::Properties.Resources.GrimoireIcon;
             this.Name = "Root";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "GrimLite";
+            this.Text = "Grimlite Li";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Root_FormClosing);
             this.Load += new System.EventHandler(this.Root_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Root_KeyPress);
@@ -937,16 +966,6 @@ namespace Grimoire.UI
         private void bankToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowForm(BankForm.Instance);
-        }
-
-        private void discordToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://discord.io/AQWBots");
-        }
-
-        private void botRequestToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://docs.google.com/forms/d/e/1FAIpQLSd2NSx1ezF-6bc2jRBuTniIka5z6kA2NbmC8CRCOFtpVxcRCA/viewform");
         }
 
         private void setsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1092,58 +1111,11 @@ namespace Grimoire.UI
             }
         }
 
-        [StructLayout(LayoutKind.Sequential)]
-        private struct NCCALCSIZE_PARAMS
-        {
-            public RECT rgrc0, rgrc1, rgrc2;
-            public WINDOWPOS lppos;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct WINDOWPOS
-        {
-            public IntPtr hWnd, hWndInsertAfter;
-            public int x, y, cx, cy, flags;
-        }
-
-        private int h = 6;
-        private int w = 6;
-
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
-            
-            switch (m.Msg)
-            {
-                case WM_NCCALCSIZE:
-                    if (m.WParam.Equals(IntPtr.Zero))
-                    {
-                        RECT rc = (RECT)m.GetLParam(typeof(RECT));
-                        Rectangle r = rc.ToRectangle();
-                        //with text = "GrimLite"
-                        r.Inflate(w, h); 
-                        //without text
-                        //r.Inflate(0, 6);
-                        Marshal.StructureToPtr(new RECT(r), m.LParam, true);
-                    }
-                    else
-                    {
-                        NCCALCSIZE_PARAMS csp = (NCCALCSIZE_PARAMS)m.GetLParam(typeof(NCCALCSIZE_PARAMS));
-                        Rectangle r = csp.rgrc0.ToRectangle();
-                        //with text = "GrimLite"
-                        r.Inflate(w, h); 
-                        //without text
-                        //r.Inflate(0, 6);
-                        csp.rgrc0 = new RECT(r);
-                        Marshal.StructureToPtr(csp, m.LParam, true);
-                    }
-                    m.Result = IntPtr.Zero;
-                    break;
-            }
-            base.WndProc(ref m);
-            /*
-            Int32 WM_NCLBUTTONUP = 0x00A2;
             const UInt32 WM_NCHITTEST = 0x0084;
             const UInt32 WM_MOUSEMOVE = 0x0200;
+
             const UInt32 HTLEFT = 10;
             const UInt32 HTRIGHT = 11;
             const UInt32 HTBOTTOMRIGHT = 17;
@@ -1155,7 +1127,6 @@ namespace Grimoire.UI
 
             const int RESIZE_HANDLE_SIZE = 10;
             bool handled = false;
-
             if (m.Msg == WM_NCHITTEST || m.Msg == WM_MOUSEMOVE)
             {
                 Size formSize = this.Size;
@@ -1171,7 +1142,7 @@ namespace Grimoire.UI
             {HTTOP, new Rectangle(RESIZE_HANDLE_SIZE, 0, formSize.Width - 2*RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE) },
             {HTTOPLEFT, new Rectangle(0, 0, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE) },
             {HTLEFT, new Rectangle(0, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE, formSize.Height - 2*RESIZE_HANDLE_SIZE) }
-            };
+        };
 
                 foreach (KeyValuePair<UInt32, Rectangle> hitBox in boxes)
                 {
@@ -1186,17 +1157,6 @@ namespace Grimoire.UI
 
             if (!handled)
                 base.WndProc(ref m);
-            */
-        }
-
-        private void bankToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Player.Bank.Show();
-        }
-
-        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            _ = Proxy.Instance.SendToServer($"%xt%zm%loadBank%{World.RoomId}%All%");
         }
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1263,27 +1223,12 @@ namespace Grimoire.UI
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void grimliteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowForm(AboutForm.Instance);
-        }
-
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://adventurequest.life/");
-        }
-
         private void FPSToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (FPSToolStripMenuItem.Checked)
                 Flash.Call("SetFPS", FPSToolStripMenuItem.DropDownItems[0].Text);
              else
                 Flash.Call("SetFPS", 24);
-        }
-
-        private void getBotsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://adventurequest.life/");
         }
 
         private void pluginAdded(object sender, ToolStripItemEventArgs e)
@@ -1299,44 +1244,6 @@ namespace Grimoire.UI
         private void managerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowForm(botManager);
-        }
-
-        private void _loadBotToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            BotManager.Instance.btnLoad.PerformClick();
-        }
-
-        private void googleDocsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://docs.google.com/document/d/1sUcCRi-GhKPdJXqt3EmU4PeNuG2LFA3ipmr3QDa2oxU/edit#");
-        }
-
-        private void googleFormToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://docs.google.com/forms/d/e/1FAIpQLSetfV9zl18G9s7w_XReJ1yJNT9aZwxB1FLzU0l1UhdmXv5rIw/viewform?usp=sf_link");
-        }
-        
-        const int WM_NCHITTEST = 0x84;
-        const int WM_NCCALCSIZE = 0x83;
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RECT
-        {
-            public int left, top, right, bottom;
-
-            public RECT(Rectangle rc)
-            {
-                this.left = rc.Left;
-                this.top = rc.Top;
-                this.right = rc.Right;
-                this.bottom = rc.Bottom;
-            }
-
-            public Rectangle ToRectangle()
-            {
-                return Rectangle.FromLTRB(left, top, right, bottom);
-            }
-
         }
 
         private void Root_KeyPress(object sender, KeyPressEventArgs e)
@@ -1363,6 +1270,11 @@ namespace Grimoire.UI
         private void btnBank_Click_1(object sender, EventArgs e)
         {
             Player.Bank.Show();
+        }
+
+        private void btnBank_DoubleClick(object sender, EventArgs e)
+        {
+            _ = Proxy.Instance.SendToServer($"%xt%zm%loadBank%{World.RoomId}%All%");
         }
 
         private void cbCells_SelectedIndexChanged(object sender, EventArgs e)
@@ -1447,14 +1359,37 @@ namespace Grimoire.UI
 
             if (chkStartBot.Checked)
             {
-                if (!BotManager.Instance.chkEnableBot.Checked)
-                    BotManager.Instance.chkEnableBot.Checked = true;
+                if (!BotManager.Instance.chkEnable.Checked)
+                    BotManager.Instance.chkEnable.Checked = true;
             }
             else
             {
-                if (BotManager.Instance.chkEnableBot.Checked)
-                    BotManager.Instance.chkEnableBot.Checked = false;
+                if (BotManager.Instance.chkEnable.Checked)
+                    BotManager.Instance.chkEnable.Checked = false;
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm(AboutForm.Instance);
+        }
+
+        private void btnGetCell_Click(object sender, EventArgs e)
+        {
+            cbPads.SelectedIndexChanged -= cbPads_SelectedIndexChanged;
+            cbCells.SelectedIndexChanged -= cbCells_SelectedIndexChanged;
+
+            cbCells.Items.Clear();
+            ComboBox.ObjectCollection items = cbCells.Items;
+            object[] cells = World.Cells;
+            object[] items2 = cells;
+            items.AddRange(items2);
+
+            cbPads.SelectedItem = Player.Pad;
+            cbCells.SelectedItem = Player.Cell;
+
+            cbPads.SelectedIndexChanged += cbPads_SelectedIndexChanged;
+            cbCells.SelectedIndexChanged += cbCells_SelectedIndexChanged;
         }
     }
 }

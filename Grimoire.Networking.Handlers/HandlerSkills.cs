@@ -1,12 +1,7 @@
-using Grimoire.Game;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Threading.Tasks;
 using Grimoire.Botting;
 using System.Windows.Forms;
 using Grimoire.UI;
-using Newtonsoft.Json;
 
 namespace Grimoire.Networking.Handlers
 {

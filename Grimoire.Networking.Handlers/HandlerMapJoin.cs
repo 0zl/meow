@@ -5,6 +5,7 @@ using Grimoire.Botting;
 using Newtonsoft.Json.Linq;
 using System.Windows;
 using Grimoire.Game;
+using System;
 
 namespace Grimoire.Networking.Handlers
 {
@@ -20,20 +21,35 @@ namespace Grimoire.Networking.Handlers
 
         public void Handle(JsonMessage message)
         {
-            if (OptionsManager.HideRoom)
-                message.DataObject["areaName"] = "discord.gg/aqwbots";
-            //JToken jToken = message.DataObject["uoBranch"];
-            //if (OptionsManager.SetLevelOnJoin != null && jToken.Type != JTokenType.Null)
-            //{
-            //    int i = 0;
-            //    foreach(JToken j in jToken)
-            //    {
-            //        MessageBox.Show(j.ToString());
-            //        //if (j["uoName"].ToString() == Player.Username.ToLower())
-            //        //    j["intLevel"] = OptionsManager.SetLevelOnJoin;
-            //    }
-            //}
-            //MessageBox.Show(BotManager.Instance.CustomName + " 1 \r\n" + message.RawContent.Split(':')[6].Split('-')[0].Replace("\"", "").ToLower());
+            JToken areaName = message.DataObject["areaName"];
+            JArray monmap = message.DataObject["monmap"] as JArray;
+
+            Console.WriteLine($"areaName: {areaName}");
+            Console.WriteLine($"monmap: {monmap.Count}");
+
+            if (areaName.Type != JTokenType.Null)
+            {
+                if (((string)areaName).Contains("mobius"))
+                {
+                    int length = monmap.Count;
+                    for (int i = 0; i < length; i++)
+                    {
+                        JToken monmapItem = monmap[i];
+                        if (((string)monmapItem["MonMapID"]) == "9")
+                        {
+                            monmap.Remove(monmapItem);
+                            break;
+                        }
+                    }
+                }
+
+                if (((string)areaName).Contains("rangda"))
+                { 
+
+                }
+            }
+
+            Console.WriteLine($"monmap after: {monmap.Count}");
         }
     }
 }

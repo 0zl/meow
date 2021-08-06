@@ -41,6 +41,10 @@ namespace Grimoire.Botting.Commands.Map
                 Player.JoinMap(Map, Cell, Pad);
                 await WaitUntil(() => Player.Map.Equals(cmdMap, StringComparison.OrdinalIgnoreCase));
                 await WaitUntil(() => !World.IsMapLoading, 40);
+            } else
+            {
+                Player.MoveToCell(Cell, Pad);
+                await Task.Delay(500);
             }
         }
 

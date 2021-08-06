@@ -28,7 +28,7 @@ namespace Grimoire.Botting.Commands.Map
 				if (!int.TryParse(text, out n) && text != "")
 				{
 					Random random = new Random();
-					int num = random.Next(9000, 9999);
+					int num = random.Next(1000, 99999);
 					text = "-" + num;
 				}
 
@@ -50,14 +50,6 @@ namespace Grimoire.Botting.Commands.Map
 
 		public async Task TryJoin(IBotEngine instance, string MapName, string RoomProp = "")
 		{
-			fMap = MapName;
-
-			//Proxy.Instance.ReceivedFromServer += JsonMapHandler;
-			if (MapName == "mobius" || MapName == "rangda")
-			{
-				Proxy.Instance.ReceivedFromServer += JsonMapHandler;
-			}
-
 			await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer), null, 15);
 			if (Player.CurrentState == Player.State.InCombat)
 			{
@@ -72,32 +64,6 @@ namespace Grimoire.Botting.Commands.Map
 			Player.JoinMap(MapName + RoomProp, this.Cell, this.Pad);
 			await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 5);
 			await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
-
-			//Proxy.Instance.ReceivedFromServer -= JsonMapHandler;
-			if (MapName == "mobius" || MapName == "rangda")
-			{
-				await Proxy.Instance.SendToClient(result);
-				await Task.Delay(500);
-			}
-		}
-
-		private string fMap = "";
-		private string result = "";
-		private void JsonMapHandler(Message message)
-		{
-			string msg = message.ToString();
-			if (msg.Contains("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"moveToArea\""))
-			{
-				if (fMap == "mobius")
-				{
-					string fakeSlugfit = "{\"MonMapID\":\"9\",\"strFrame\":\"Slugfit\",\"intRSS\":\"-1\",\"MonID\":\"195\",\"bRed\":\"0\"},";
-					result = msg.Replace(fakeSlugfit, "");
-				}
-				if (fMap == "rangda")
-				{
-
-				}
-			}
 		}
 
 
