@@ -20,12 +20,13 @@ namespace Grimoire.Botting.Commands.Item
         public async Task Execute(IBotEngine instance)
         {
             BotData.BotState = BotData.State.Others;
+            string ItemName = (instance.IsVar(this.ItemName) ? Configuration.Tempvariable[instance.GetVar(this.ItemName)] : this.ItemName);
             if (TransferFromBank)
             {
                 if (Player.Bank.ContainsItem(ItemName))
                 {
                     Player.Bank.TransferFromBank(ItemName);
-                    await instance.WaitUntil(() => !Player.Bank.ContainsItem(ItemName));
+                    await instance.WaitUntil(() => Player.Inventory.ContainsItem(ItemName, "*"));
                 }
             }
             else if (Player.Inventory.ContainsItem(ItemName, "*"))

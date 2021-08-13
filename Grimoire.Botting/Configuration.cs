@@ -1,5 +1,7 @@
 using Grimoire.Game.Data;
+using Grimoire.Networking;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Grimoire.Botting
 {
@@ -272,6 +274,18 @@ namespace Grimoire.Botting
         }
 
         public bool AntiCounter
+        {
+            get;
+            set;
+        }
+
+        public bool IsReloginEvery
+        {
+            get;
+            set;
+        }
+
+        public int ReloginEvery
         {
             get;
             set;

@@ -19,7 +19,7 @@ namespace Grimoire.Networking.Handlers
         {
             var comp = message.DataObject.ToObject<CompletedQuest>();
             Player.Quests.OnQuestCompleted(comp);
-            LogForm.Instance.AppendDebug(string.Format("Quest: {0} Completed at {1}:HH:mm:ss} \r\n", comp.ToString(), DateTime.Now));
+            //LogForm.Instance.AppendDebug(string.Format("Quest: {0} Completed at {1}:HH:mm:ss} \r\n", comp.ToString(), DateTime.Now));
         }
     }
 }

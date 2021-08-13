@@ -3,11 +3,9 @@ using Grimoire.Networking;
 using Grimoire.Networking.Handlers;
 using Grimoire.Tools;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Timers;
 
 namespace Grimoire.Botting
 {
@@ -21,13 +19,7 @@ namespace Grimoire.Botting
 
         private static bool _infRange;
 
-        private static bool _hideYulgar;
-
-        private static bool _hideRoom;
-
         private static bool _afk;
-
-        private static bool _afk2;
 
         private static bool _infMana;
 
@@ -83,9 +75,29 @@ namespace Grimoire.Botting
             set;
         }
 
-        public static bool AntiCounter { 
-            get; 
-            set; 
+        public static bool IsReloginEvery
+        {
+            get;
+            set;
+        } = false;
+
+        public static int ReloginEvery
+        {
+            get;
+            set;
+        } = 60;
+
+        public static bool AFK
+        {
+            get => _afk;
+            set
+            {
+                _afk = value;
+                if (value)
+                    Proxy.Instance.RegisterHandler(HandlerAFK1);
+                else
+                    Proxy.Instance.UnregisterHandler(HandlerAFK1);
+            }
         }
 
         public static bool DisableAnimations
@@ -133,19 +145,19 @@ namespace Grimoire.Botting
 
             get
             {
-                return OptionsManager._infRange;
+                return _infRange;
             }
             set
             {
-                OptionsManager._infRange = value;
+                _infRange = value;
 
                 if (value)
                 {
-                    Proxy.Instance.RegisterHandler(OptionsManager.HandlerRange);
-                    OptionsManager.SetInfiniteRange();
+                    Proxy.Instance.RegisterHandler(HandlerRange);
+                    SetInfiniteRange();
                     return;
                 }
-                Proxy.Instance.UnregisterHandler(OptionsManager.HandlerRange);
+                Proxy.Instance.UnregisterHandler(HandlerRange);
             }
         }
 
@@ -159,7 +171,7 @@ namespace Grimoire.Botting
         {
             get;
             set;
-        } = 250;
+        } = 1000;
 
         public static bool Packet
         {
@@ -167,82 +179,9 @@ namespace Grimoire.Botting
             set;
         }
 
-        public static bool Untarget
-        {
-            get;
-            set;
-        }
-
-        public static bool AFK
-        {
-            get => _afk;
-            set
-            {
-                _afk = value;
-                if (value)
-                    Proxy.Instance.RegisterHandler(HandlerAFK1);
-                else
-                    Proxy.Instance.UnregisterHandler(HandlerAFK1);
-            }
-        }
-
-        public static bool AFK2
-        {
-            get => _afk2;
-            set
-            {
-                _afk2 = value;
-                if (value)
-                    Proxy.Instance.RegisterHandler(HandlerAFK2);
-                else
-                    Proxy.Instance.UnregisterHandler(HandlerAFK2);
-
-            }
-        }
-
-        public static bool HideRoom
-        {
-            get => _hideRoom;
-            set
-            {
-                _hideRoom = value;
-                if (value)
-                    Proxy.Instance.RegisterHandler(HandlerHideRoom);
-                else
-                    Proxy.Instance.UnregisterHandler(HandlerHideRoom);
-            }
-        }
-
-        public static bool ChangeChat
-        {
-            get;
-            set;
-        }
-
-        public static int? SetLevelOnJoin
-        {
-            get;
-            set;
-        }
-
-        public static bool HideYulgar
-        {
-            get => _hideYulgar;
-            set
-            {
-                _hideYulgar = value;
-                if (value)
-                {
-                    Proxy.Instance.RegisterHandler(HandlerYulgar);
-                    if((Player.Map.ToLower() ?? "") == "yulgar" && (Player.Cell.ToLower() ?? "") == "upstairs")
-                        DestroyPlayers();
-                }
-                else
-                    Proxy.Instance.UnregisterHandler(HandlerYulgar);
-            }
-        }
-
         private static readonly string[] empty = new string[0];
+
+        private static List<BSpammer> listSpammer = new List<BSpammer>();
 
         public static event Action<bool> StateChanged;
 
@@ -278,6 +217,10 @@ namespace Grimoire.Botting
             IsRunning = true;
             while (IsRunning && Player.IsLoggedIn)
             {
+                if (!Player.IsLoggedIn)
+                {
+                    return;
+                }
                 bool flagprovoke = ProvokeMonsters && Player.IsAlive && BotData.BotState != BotData.State.Move && BotData.BotState != BotData.State.Rest && BotData.BotState != BotData.State.Transaction;
                 if (flagprovoke)
                 {
@@ -291,10 +234,6 @@ namespace Grimoire.Botting
                 }
                 if (EnemyMagnet && Player.IsAlive)
                     SetEnemyMagnet();
-                if (Untarget)
-                    Player.CancelTargetSelf();
-                if (Buff)
-                    Player.SetBuff();
                 if (SkipCutscenes)
                     SetSkipCutscenes();
                 //SetWalkSpeed();
@@ -306,47 +245,66 @@ namespace Grimoire.Botting
         private static IJsonMessageHandler HandlerDisableAnimations
         {
             get;
-        }
+        } = new HandlerAnimations();
 
         private static IXtMessageHandler HandlerHidePlayers
         {
             get;
-        }
+        } = new HandlerPlayers();
 
-        private static IXtMessageHandler HandlerYulgar
-        {
-            get;
-        }
-
-        private static IJsonMessageHandler HandlerHideRoom
-        {
-            get;
-        }
-
-        public static IJsonMessageHandler HandlerRange { 
+        public static IJsonMessageHandler HandlerRange 
+        { 
             get;
         } = new HandlerSkills();
 
         private static IXtMessageHandler HandlerAFK1
         {
             get;
-        }
-        
-        private static IXtMessageHandler HandlerAFK2
-        {
-            get;
-        }
+        } = new HandlerAFK();
 
         static OptionsManager()
         {
             HandlerDisableAnimations = new HandlerAnimations();
             HandlerHidePlayers = new HandlerPlayers();
             HandlerRange = new HandlerSkills();
-            HandlerYulgar = new HandlerXtCellJoin();
-            HandlerHideRoom = new HandlerMapJoin();
             HandlerAFK1 = new HandlerAFK();
-            HandlerAFK2 = new HandlerAFK2();
             WalkSpeed = 8;
+        }
+
+    }
+
+    class BSpammer
+    {
+        private string label;
+        private string packet;
+        private int delay;
+        private bool isStart = false;
+
+        public BSpammer()
+        {
+
+        }
+
+        public BSpammer(string label, string packet, int delay)
+        {
+            this.label = label;
+            this.packet = packet;
+            this.delay = delay;
+        }
+
+        public async void Start()
+        {
+            isStart = true;
+            while (isStart)
+            {
+                _ = Proxy.Instance.SendToServer(packet);
+                await Task.Delay(delay);
+            }
+        }
+
+        public void Stop()
+        {
+            isStart = false;
         }
     }
 }

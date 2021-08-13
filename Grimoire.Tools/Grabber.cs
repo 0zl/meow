@@ -15,9 +15,63 @@ namespace Grimoire.Tools
 {
     public static class Grabber
     {
-        public static void GrabQuests(TreeView tree)
+        public enum OrderBy
         {
-            List<Quest> list = Player.Quests.QuestTree?.OrderBy((Quest q) => q.Id).ToList();
+            Name,
+            Id
+        }
+
+        public static List<String> GetQuestRewards(int idQuest)
+        {
+            List<String> listItem = new List<string>();
+
+            List<Quest> questTree = Player.Quests.QuestTree;
+            foreach (Quest q in questTree)
+            {
+                if (q.Id == idQuest)
+                {
+                    foreach (InventoryItem item in q.Rewards)
+                    {
+                        listItem.Add(item.Name);
+                    }
+                }
+            }
+
+            return listItem;
+        }
+
+        public static List<String> GetQuestRequirment(int idQuest)
+        {
+            List<String> listItem = new List<string>();
+
+            List<Quest> questTree = Player.Quests.QuestTree;
+            foreach (Quest q in questTree)
+            {
+                if (q.Id == idQuest)
+                {
+                    foreach (InventoryItem item in q.RequiredItems)
+                    {
+                        listItem.Add(item.Name);
+                    }
+                }
+            }
+
+            return listItem;
+        }
+
+        public static void GrabQuests(TreeView tree, OrderBy orderBy)
+        {
+            List<Quest> list = Player.Quests.QuestTree?.OrderBy((Quest q) => q.Name).ToList();
+            switch (orderBy)
+            {
+                case OrderBy.Name:
+                    list = Player.Quests.QuestTree?.OrderBy((Quest q) => q.Name).ToList();
+                    break;
+                case OrderBy.Id:
+                    list = Player.Quests.QuestTree?.OrderBy((Quest q) => q.Id).ToList();
+                    break;
+            }
+
             if (list != null && list.Count > 0)
             {
                 foreach (Quest item in list)
@@ -103,9 +157,18 @@ namespace Grimoire.Tools
             }
         }
 
-        public static void GrabQuestIds(TreeView tree)
+        public static void GrabQuestIds(TreeView tree, OrderBy orderBy)
         {
-            List<Quest> list = Player.Quests.QuestTree?.OrderBy((Quest q) => q.Id).ToList();
+            List<Quest> list = Player.Quests.QuestTree?.OrderBy((Quest q) => q.Name).ToList();
+            switch (orderBy)
+            {
+                case OrderBy.Name: 
+                    list = Player.Quests.QuestTree?.OrderBy((Quest q) => q.Name).ToList();
+                    break;
+                case OrderBy.Id:
+                    list = Player.Quests.QuestTree?.OrderBy((Quest q) => q.Id).ToList();
+                    break;
+            }
             if (list != null && list.Count > 0)
             {
                 foreach (Quest item in list)

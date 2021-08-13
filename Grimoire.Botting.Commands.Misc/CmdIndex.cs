@@ -56,8 +56,7 @@ namespace Grimoire.Botting.Commands.Misc
                 case IndexCommand.Goto:
                     {
                         int num = Index - 1;
-                        if (num > 0)
-                            instance.Index = num;
+                        instance.Index = num;
                         break;
                     }
             }

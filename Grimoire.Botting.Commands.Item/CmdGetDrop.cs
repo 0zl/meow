@@ -14,6 +14,7 @@ namespace Grimoire.Botting.Commands.Item
         public async Task Execute(IBotEngine instance)
         {
             BotData.BotState = BotData.State.Others;
+            string ItemName = (instance.IsVar(this.ItemName) ? Configuration.Tempvariable[instance.GetVar(this.ItemName)] : this.ItemName);
             await World.DropStack.GetDrop(ItemName);
             await Task.Delay(500);
             //await instance.WaitUntil(() => !World.DropStack.Contains(ItemName));

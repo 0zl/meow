@@ -18,7 +18,7 @@ namespace Grimoire.Botting.Commands.Misc
         {
             get;
             set;
-        }
+        } = 1;
 
         public int Delay
         {

@@ -31,19 +31,19 @@ namespace Grimoire.UI
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BankForm));
-            this.label1 = new DarkLabel();
-            this.comboBox1 = new DarkComboBox();
-            this.button1 = new DarkButton();
-            this.comboBox2 = new DarkComboBox();
-            this.label2 = new DarkLabel();
-            this.button2 = new DarkButton();
-            this.checkBox1 = new DarkCheckBox();
+            this.label1 = new DarkUI.Controls.DarkLabel();
+            this.comboBox1 = new DarkUI.Controls.DarkComboBox();
+            this.button1 = new DarkUI.Controls.DarkButton();
+            this.comboBox2 = new DarkUI.Controls.DarkComboBox();
+            this.label2 = new DarkUI.Controls.DarkLabel();
+            this.button2 = new DarkUI.Controls.DarkButton();
+            this.checkBox1 = new DarkUI.Controls.DarkCheckBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.label1.Location = new System.Drawing.Point(13, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(118, 13);
@@ -76,12 +76,12 @@ namespace Grimoire.UI
             // 
             // button1
             // 
+            this.button1.Checked = false;
             this.button1.Location = new System.Drawing.Point(12, 122);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Bank";
-            this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_ClickAsync);
             // 
             // comboBox2
@@ -98,6 +98,7 @@ namespace Grimoire.UI
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.label2.Location = new System.Drawing.Point(12, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
@@ -106,12 +107,12 @@ namespace Grimoire.UI
             // 
             // button2
             // 
+            this.button2.Checked = false;
             this.button2.Location = new System.Drawing.Point(101, 122);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(81, 23);
             this.button2.TabIndex = 2;
             this.button2.Text = "Bank All";
-            this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_ClickAsync);
             // 
             // checkBox1
@@ -122,7 +123,6 @@ namespace Grimoire.UI
             this.checkBox1.Size = new System.Drawing.Size(142, 17);
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "Bank all except selected";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // BankForm
             // 
@@ -141,22 +141,23 @@ namespace Grimoire.UI
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(210, 173);
             this.Name = "BankForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " Bank";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BankForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private DarkLabel label1;
+        private DarkComboBox comboBox1;
+        private DarkButton button1;
+        private DarkComboBox comboBox2;
+        private DarkLabel label2;
+        private DarkButton button2;
+        private DarkCheckBox checkBox1;
     }
 }

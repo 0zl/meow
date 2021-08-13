@@ -120,17 +120,17 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIPSURBVDhPhZPNa9RAGMbnJor/hLXYJjPzzn4kkrTFtQh2
-        QRFp17ZKPVjBVfAieCwobKG3ymo/RCwKfqEHT8WTJxFBEBQP6+pFxNZ/ob10x+fNTiDNVnzhIclkfs88
-        k3kj8jVULAaTxjxsSP3zrqd3mp7uzCv6dZ7oMd7FblpvnS6XD9SMWXs5qDobfZ79c2i3NjH2ekDZaaKn
-        lUrloMO6FUXR/stE7wDbeU/ZD0dkj0Gq74d9e1Xpj7tMagV6sAQwUtJ+7vf3BLNikymiJwkcB0HxBWKf
-        VcrGWtofff834MXu+9oOl0qRGDdmdQPQRSltGQkmcF3wpL3hS2xH2q9YLW/wbEDaazL5Ho/ELUltHnyP
-        6KMwYJOshqFTSHcThp8w5wsML2CRcxhr4HTEoqRtNuB9XcEgQ3HGIKvAie9XB6Vteqoj7kjaYoM2DGbc
-        NqZxnUHEFDwOjbh7TtQEvAmG+0TUNLVmAeRXPam7BqMcH2bpyg1fJTAvys0mQqJ7WfBf4kSckkEWN9tU
-        wazxMSpM2MkD9dlL9s36ur1eryfPy4idwqxXOPo4KIRJL+yVYuRoaG/Pzdkz1bHkmU8ghb8hCbd9AnNV
-        q9V9Aam3eZNUJ/AdUrgFmNue/x2Hd4tNkGQJQM92JvGRf6PZniP2ONqe/x2H9VZUKmneUkC6BW2FpLeP
-        kWpPGLMyFJqCm+ZKiL/fpoGn2RYclwAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAg9JREFUOE+Fk81r1EAYxucmiv+EtdgmM/POfiSStMW1CHZBEWnXtko9WMFV8CJ4
+        LChsobfKaj9ELAp+oQdPxZMnEUEQFA/r6kXE1n+hvXTH581OIM1WfOEhyWR+zzyTeSPyNVQsBpPGPGxI
+        /fOup3eanu7MK/p1nugx3sVuWm+dLpcP1IxZezmoOht9nv1zaLc2MfZ6QNlpoqeVSuWgw7oVRdH+y0Tv
+        ANt5T9kPR2SPQarvh317VemPu0xqBXqwBDBS0n7u9/cEs2KTKaInCRwHQfEFYp9VysZa2h99/zfgxe77
+        2g6XSpEYN2Z1A9BFKW0ZCSZwXfCkveFLbEfar1gtb/BsQNprMvkej8QtSW0efI/oozBgk6yGoVNIdxOG
+        nzDnCwwvYJFzGGvgdMSipG024H1dwSBDccYgq8CJ71cHpW16qiPuSNpigzYMZtw2pnGdQcQUPA6NuHtO
+        1AS8CYb7RNQ0tWYB5Fc9qbsGoxwfZunKDV8lMC/KzSZContZ8F/iRJySQRY321TBrPExKkzYyQP12Uv2
+        zfq6vV6vJ8/LiJ3CrFc4+jgohEkv7JVi5Ghob8/N2TPVseSZTyCFvyEJt30Cc1Wr1X0Bqbd5k1Qn8B1S
+        uAWY257/HYd3i02QZAlAz3Ym8ZF/o9meI/Y42p7/HYf1VlQqad5SQLoFbYWkt4+Rak8YszIUmoKb5kqI
+        v9+mgafZFhyXAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="rtbCredits.Text" xml:space="preserve">

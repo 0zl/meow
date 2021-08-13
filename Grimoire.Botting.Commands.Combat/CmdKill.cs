@@ -18,6 +18,8 @@ namespace Grimoire.Botting.Commands.Combat
 
 		public async Task Execute(IBotEngine instance)
 		{
+			string Monster = instance.IsVar(this.Monster) ? Configuration.Tempvariable[instance.GetVar(this.Monster)] : this.Monster;
+
 			antiCounter = instance.Configuration.AntiCounter;
 
 			await instance.WaitUntil(() => World.IsMonsterAvailable(Monster), null, 3);
@@ -46,89 +48,12 @@ namespace Grimoire.Botting.Commands.Combat
 		}
 
 		private CancellationTokenSource _cts;
+
 		private int _skillIndex;
-		private async Task UseSkills(IBotEngine instance)
-		{
-			_cts = new CancellationTokenSource();
-			_skillIndex = 0;
-
-			while (!_cts.IsCancellationRequested && Player.IsLoggedIn && Player.IsAlive)
-			{
-				Skill s = instance.Configuration.Skills[_skillIndex];
-				if (instance.Configuration.WaitForSkill)
-				{
-					BotManager.Instance.OnSkillIndexChanged(Index);
-					await Task.Delay(Player.SkillAvailable(s.Index));
-				}
-				if (/*this.Monster.ToLower() == "escherion" &&*/ World.IsMonsterAvailable("Staff of Inversion"))
-				{
-					Player.AttackMonster("Staff of Inversion");
-				}
-				if (/*this.Monster.ToLower() == "vath" &&*/ World.IsMonsterAvailable("Stalagbite"))
-				{
-					Player.AttackMonster("Stalagbite");
-				}
-				if (s.Type == Skill.SkillType.Safe)
-				{
-					if (s.IsSafeMp)
-					{
-						if (s.SType == Skill.SafeType.LowerThan)
-						{
-							if ((double)Player.Mana / Player.ManaMax * 100 <= s.SafeValue)
-								Player.UseSkill(s.Index);
-						}
-						else if (s.SType == Skill.SafeType.GreaterThan)
-						{
-							if ((double)Player.Mana / Player.ManaMax * 100 >= s.SafeValue)
-								Player.UseSkill(s.Index);
-						}
-						else if (s.SType == Skill.SafeType.Equals)
-						{
-							if ((double)Player.Mana / Player.ManaMax * 100 == s.SafeValue)
-								Player.UseSkill(s.Index);
-						}
-					}
-					else
-					{
-						if (s.SType == Skill.SafeType.LowerThan)
-						{
-							if ((double)Player.Health / Player.HealthMax * 100 <= s.SafeValue)
-								Player.UseSkill(s.Index);
-						}
-						else if (s.SType == Skill.SafeType.GreaterThan)
-						{
-							if ((double)Player.Health / Player.HealthMax * 100 >= s.SafeValue)
-								Player.UseSkill(s.Index);
-						}
-
-						if (s.SType == Skill.SafeType.Equals)
-						{
-							if ((double)Player.Health / Player.HealthMax * 100 == s.SafeValue)
-								Player.UseSkill(s.Index);
-						}
-					}
-				}
-				else
-				{
-					Player.UseSkill(s.Index);
-				}
-
-				int count = instance.Configuration.Skills.Count - 1;
-
-				_skillIndex = _skillIndex >= count ? 0 : ++_skillIndex;
-				await Task.Delay(instance.Configuration.SkillDelay);
-			}
-		}
 
 		private int Index;
 		private async Task UseSkillsSet(IBotEngine instance)
 		{
-			if (onPause)
-			{
-				await Task.Delay(500);
-				return;
-			}
-
 			this._cts = new CancellationTokenSource();
 			int ClassIndex = -1;
 			bool flag = BotData.SkillSet != null && BotData.SkillSet.ContainsKey("[" + BotData.BotSkill + "]");
@@ -150,14 +75,19 @@ namespace Grimoire.Botting.Commands.Combat
 					}
 					return;
 				}
-				if (/*this.Monster.ToLower() == "escherion" &&*/ World.IsMonsterAvailable("Staff of Inversion"))
-				{
-					Player.AttackMonster("Staff of Inversion");
+
+				switch (this.Monster.ToLower())
+                {
+					case "escherion":
+						if (World.IsMonsterAvailable("Staff of Inversion"))
+							Player.AttackMonster("Staff of Inversion");
+						break;
+					case "vath":
+						if (World.IsMonsterAvailable("Stalagbite"))
+							Player.AttackMonster("Stalagbite");
+						break;
 				}
-				if (/*this.Monster.ToLower() == "vath" &&*/ World.IsMonsterAvailable("Stalagbite"))
-				{
-					Player.AttackMonster("Stalagbite");
-				}
+
 				if (ClassIndex != -1)
 				{
 					//with label
@@ -167,55 +97,15 @@ namespace Grimoire.Botting.Commands.Combat
 						this.Index = ClassIndex;
 						continue;
 					}
+
 					if (instance.Configuration.WaitForSkill)
 					{
 						BotManager.Instance.OnSkillIndexChanged(Index);
 						await Task.Delay(Player.SkillAvailable(s.Index));
 					}
-					if (s.Type == Skill.SkillType.Safe)
-					{
-						if (s.IsSafeMp)
-						{
-							if (s.SType == Skill.SafeType.LowerThan)
-							{
-								if ((double)Player.Mana / Player.ManaMax * 100 <= s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
-							else if (s.SType == Skill.SafeType.GreaterThan)
-							{
-								if ((double)Player.Mana / Player.ManaMax * 100 >= s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
-							else if (s.SType == Skill.SafeType.Equals)
-							{
-								if ((double)Player.Mana / Player.ManaMax * 100 == s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
-						}
-						else
-						{
-							if (s.SType == Skill.SafeType.LowerThan)
-							{
-								if ((double)Player.Health / Player.HealthMax * 100 <= s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
-							else if (s.SType == Skill.SafeType.GreaterThan)
-							{
-								if ((double)Player.Health / Player.HealthMax * 100 >= s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
 
-							if (s.SType == Skill.SafeType.Equals)
-							{
-								if ((double)Player.Health / Player.HealthMax * 100 == s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
-						}
-					}
-					else
-					{
-						Player.UseSkill(s.Index);
-					}
+					s.ExecuteSkill();
+
 					int index;
 					if (this.Index < Count)
 					{
@@ -234,50 +124,14 @@ namespace Grimoire.Botting.Commands.Combat
 				{
 					//non label
 					Skill s = instance.Configuration.Skills[_skillIndex];
-					if (s.Type == Skill.SkillType.Safe)
-					{
-						if (s.IsSafeMp)
-						{
-							if (s.SType == Skill.SafeType.LowerThan)
-							{
-								if ((double)Player.Mana / Player.ManaMax * 100 <= s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
-							else if (s.SType == Skill.SafeType.GreaterThan)
-							{
-								if ((double)Player.Mana / Player.ManaMax * 100 >= s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
-							else if (s.SType == Skill.SafeType.Equals)
-							{
-								if ((double)Player.Mana / Player.ManaMax * 100 == s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
-						}
-						else
-						{
-							if (s.SType == Skill.SafeType.LowerThan)
-							{
-								if ((double)Player.Health / Player.HealthMax * 100 <= s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
-							else if (s.SType == Skill.SafeType.GreaterThan)
-							{
-								if ((double)Player.Health / Player.HealthMax * 100 >= s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
 
-							if (s.SType == Skill.SafeType.Equals)
-							{
-								if ((double)Player.Health / Player.HealthMax * 100 == s.SafeValue)
-									Player.UseSkill(s.Index);
-							}
-						}
-					}
-					else
+					if (instance.Configuration.WaitForSkill)
 					{
-						Player.UseSkill(s.Index);
+						BotManager.Instance.OnSkillIndexChanged(Index);
+						await Task.Delay(Player.SkillAvailable(s.Index));
 					}
+
+					s.ExecuteSkill();
 
 					int count = instance.Configuration.Skills.Count - 1;
 
@@ -286,6 +140,7 @@ namespace Grimoire.Botting.Commands.Combat
 				}
 				await Task.Delay(instance.Configuration.SkillDelay);
 			}
+
 			while (Player.HasTarget)
 			{
 				Player.CancelTarget();
@@ -305,7 +160,7 @@ namespace Grimoire.Botting.Commands.Combat
 				string c2 = "prepares a counter attack";
 				if (msg.Contains(c2))
 				{
-					Console.WriteLine("Countering attack");
+					Console.WriteLine("Counter Attack: active");
 					Player.CancelTarget();
 					onPause = true;
 				}
@@ -313,7 +168,7 @@ namespace Grimoire.Botting.Commands.Combat
 				//"cmd":"aura--","aura":{"nam":"Counter Attack"
 				if (msg.Contains("\"cmd\":\"aura--\",\"aura\":{\"nam\":\"Counter Attack\""))
 				{
-					Console.WriteLine($"Stop counter attack");
+					Console.WriteLine("Counter Attack: fades");
 					onPause = false;
 				}
 			}

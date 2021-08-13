@@ -101,7 +101,7 @@ namespace Grimoire.Networking.Handlers
             }
             string type = message.Arguments[2];
             string tolog = message.Arguments[4];
-            message.Arguments[5] = (message.Arguments[5] == Player.Username && OptionsManager.ChangeChat) ? "You" : message.Arguments[5];
+            //message.Arguments[5] = (message.Arguments[5] == Player.Username && OptionsManager.ChangeChat) ? "You" : message.Arguments[5];
             switch (type)
             {
                 case "chatm":

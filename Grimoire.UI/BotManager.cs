@@ -33,2128 +33,2161 @@ using Properties;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Text;
+using Grimoire.Networking.Handlers;
 
 namespace Grimoire.UI
 {
-    public class BotManager : DarkForm
-    {
-        private IBotEngine _activeBotEngine = new Bot();
+	public class BotManager : DarkForm
+	{
+		private IBotEngine _activeBotEngine = new Bot();
 
-        private List<StatementCommand> _statementCommands;
+		private List<StatementCommand> _statementCommands;
 
-        private Dictionary<string, string> _defaultControlText;
+		private Dictionary<string, string> _defaultControlText;
 
-        private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
-        {
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
-            TypeNameHandling = TypeNameHandling.All
-        };
+		private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
+		{
+			DefaultValueHandling = DefaultValueHandling.Ignore,
+			NullValueHandling = NullValueHandling.Ignore,
+			TypeNameHandling = TypeNameHandling.All
+		};
 
-        private readonly JsonSerializerSettings _saveSerializerSettings = new JsonSerializerSettings
-        {
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
-            TypeNameHandling = TypeNameHandling.All
-        };
+		private readonly JsonSerializerSettings _saveSerializerSettings = new JsonSerializerSettings
+		{
+			DefaultValueHandling = DefaultValueHandling.Ignore,
+			NullValueHandling = NullValueHandling.Ignore,
+			TypeNameHandling = TypeNameHandling.All
+		};
 
-        #region Definitions
-        private IContainer components;
-        private Panel[] _panels;
-        public ListBox lstCommands;
-        private ListBox lstSkills;
-        private ListBox lstQuests;
-        public ListBox lstDrops;
-        private ListBox lstBoosts;
-        public static LogForm Log;
-        private string _customName;
-        private string _customGuild;
-        private ListBox lstItems;
-        public FlatTabControl.FlatTabControl mainTabControl;
-        private TabPage tabCombat;
-        private DarkButton btnUseSkillSet;
-        private DarkButton btnAddSkillSet;
-        private DarkTextBox txtSkillSet;
-        private DarkCheckBox chkSafeMp;
-        private DarkLabel label17;
-        private DarkButton btnRest;
-        private DarkButton btnRestF;
-        private DarkCheckBox chkSkillCD;
-        private DarkLabel label12;
-        private DarkLabel label11;
-        private DarkLabel label10;
-        private DarkButton btnKill;
-        private DarkLabel label13;
-        private DarkCheckBox chkExistQuest;
-        private DarkNumericUpDown numRestMP;
-        private DarkCheckBox chkMP;
-        private DarkNumericUpDown numRest;
-        private DarkCheckBox chkHP;
-        private DarkCheckBox chkPacket;
-        private DarkNumericUpDown numSkillD;
-        private DarkLabel label2;
-        private DarkNumericUpDown numSafe;
-        private DarkButton btnAddSafe;
-        private DarkButton btnAddSkill;
-        private DarkNumericUpDown numSkill;
-        private DarkCheckBox chkExitRest;
-        private DarkCheckBox chkAllSkillsCD;
-        private DarkTextBox txtKillFQ;
-        private DarkTextBox txtKillFItem;
-        private DarkTextBox txtKillFMon;
-        private RadioButton rbTemp;
-        private RadioButton rbItems;
-        private DarkButton btnKillF;
-        private DarkTextBox txtMonster;
-        private TabPage tabMap;
-        private DarkButton btnWalkCur;
-        private DarkButton btnWalk;
-        private DarkNumericUpDown numWalkY;
-        private DarkNumericUpDown numWalkX;
-        private DarkButton btnCellSwap;
-        private DarkButton btnJump;
-        private DarkButton btnCurrCell;
-        private DarkTextBox txtPad;
-        private DarkTextBox txtCell;
-        private DarkButton btnJoin;
-        private DarkTextBox txtJoinPad;
-        private DarkTextBox txtJoinCell;
-        private DarkTextBox txtJoin;
-        private TabPage tabQuest;
-        private TabPage tabHunt;
-        private DarkButton btnQuestAccept;
-        private DarkButton btnQuestComplete;
-        private DarkButton btnQuestAdd;
-        private DarkNumericUpDown numQuestItem;
-        private DarkCheckBox chkQuestItem;
-        private DarkNumericUpDown numQuestID;
-        private DarkLabel label4;
-        private TabPage tabMisc;
-        private DarkCheckBox chkRestartDeath;
-        private DarkCheckBox chkMerge;
-        private DarkButton button2;
-        private DarkButton btnLogout;
-        private DarkTextBox txtLabel;
-        private DarkButton btnGotoLabel;
-        private DarkButton btnAddLabel;
-        private DarkTextBox txtDescription;
-        private DarkTextBox txtAuthor;
-        private DarkButton btnSave;
-        private DarkButton btnDelay;
-        private DarkNumericUpDown numDelay;
-        private DarkLabel label3;
-        private DarkNumericUpDown numBotDelay;
-        private DarkButton btnBotDelay;
-        private DarkTextBox txtPlayer;
-        private DarkButton btnGoto;
-        public DarkButton btnLoad;
-        private DarkButton btnRestart;
-        private DarkButton btnStop;
-        private DarkButton btnLoadCmd;
-        private DarkCheckBox chkSkip;
-        private DarkButton btnStatementAdd;
-        private DarkTextBox txtStatement2;
-        private DarkTextBox txtStatement1;
-        private ComboBox cbStatement;
-        private ComboBox cbCategories;
-        private DarkTextBox txtPacket;
-        private DarkButton btnPacket;
-        private TabPage tabOptions;
-        private DarkCheckBox chkEnableSettings;
-        public DarkCheckBox chkDisableAnims;
-        private DarkTextBox txtSoundItem;
-        private DarkButton btnSoundAdd;
-        private DarkButton btnSoundDelete;
-        private DarkButton btnSoundTest;
-        private ListBox lstSoundItems;
-        private DarkLabel label9;
-        private DarkNumericUpDown numWalkSpeed;
-        public DarkCheckBox chkSkipCutscenes;
-        public DarkCheckBox chkHidePlayers;
-        public DarkCheckBox chkLag;
-        public DarkCheckBox chkMagnet;
-        public DarkCheckBox chkProvoke;
-        public DarkCheckBox chkInfiniteRange;
-        private DarkGroupBox grpLogin;
-        private DarkComboBox cbServers;
-        private DarkCheckBox chkRelogRetry;
-        private DarkCheckBox chkRelog;
-        private DarkNumericUpDown numRelogDelay;
-        private DarkLabel label7;
-        private DarkTextBox txtUsername;
-        private DarkTextBox txtGuild;
-        private DarkButton btnchangeName;
-        private DarkButton btnchangeGuild;
-        public DarkCheckBox chkGender;
-        private TabPage tabBots;
-        private DarkLabel lblBoosts;
-        private DarkLabel lblDrops;
-        private DarkLabel lblQuests;
-        private DarkLabel lblSkills;
-        private DarkLabel lblCommands;
-        private DarkLabel lblItems;
-        private DarkTextBox txtSavedDesc;
-        private DarkTextBox txtSavedAuthor;
-        private DarkLabel lblBots;
-        private TreeView treeBots;
-        private DarkTextBox txtSavedAdd;
-        private DarkButton btnSavedAdd;
-        private DarkTextBox txtSaved;
-        private DarkButton btnProvokeOn;
-        private DarkButton btnProvokeOff;
-        private ListBox lstLogText;
-        private DarkButton btnLogDebug;
-        private DarkButton btnLog;
-        private DarkTextBox txtLog;
-        public DarkCheckBox chkUntarget;
-        private DarkLabel label5;
-        private DarkNumericUpDown numOptionsTimer;
-        private DarkLabel label6;
-        private DarkLabel label14;
-        private DarkNumericUpDown numEnsureTries;
-        private DarkButton btnWalkRdm;
-        private DarkButton btnBlank;
-        private DarkCheckBox chkAFK;
-        private SplitContainer splitContainer1;
-        private DarkComboBox cbLists;
-        private DarkCheckBox chkAll;
-        private DarkButton btnClear;
-        private DarkButton btnDown;
-        private DarkButton btnRemove;
-        private DarkButton btnUp;
-        private Panel panel1;
-        private SplitContainer splitContainer2;
-        private DarkButton btnCurrBlank;
-        private DarkButton btnSetSpawn;
-        private DarkButton btnBeep;
-        private DarkNumericUpDown numBeepTimes;
-        private Panel panel3;
-        private Panel panel2;
-        private DarkButton btnSkillCmd;
-        private TabPage tabItem;
-        private DarkCheckBox checkBox1;
-        private DarkCheckBox chkBuffup;
-        private TabPage tabOptions2;
-        private DarkButton btnSetUndecided;
-        private DarkButton btnSetChaos;
-        private DarkButton btnSetEvil;
-        private DarkButton btnSetGood;
-        private DarkGroupBox grpAlignment;
-        private DarkGroupBox grpAccessLevel;
-        private DarkButton btnSetMem;
-        private DarkButton btnSetModerator;
-        private DarkButton btnSetNonMem;
-        private DarkCheckBox chkToggleMute;
-        private ContextMenuStrip BotManagerMenuStrip;
-        private ToolStripMenuItem changeFontsToolStripMenuItem;
-        private DarkButton btnGoDownIndex;
-        private DarkButton btnGoUpIndex;
-        private DarkButton btnGotoIndex;
-        private DarkNumericUpDown numIndexCmd;
-        private ToolStripMenuItem multilineToggleToolStripMenuItem;
-        private ToolStripMenuItem toggleTabpagesToolStripMenuItem;
-        private ToolStripMenuItem commandColorsToolStripMenuItem;
-        private DarkButton btnChangeNameCmd;
-        private DarkButton btnChangeGuildCmd;
-        private DarkCheckBox chkAntiAfk;
-        private DarkCheckBox chkChangeRoomTag;
-        private DarkCheckBox chkChangeChat;
-        private DarkNumericUpDown numSetLevel;
-        private DarkCheckBox chkSetJoinLevel;
-        private DarkButton btnClientPacket;
-        private DarkCheckBox chkHideYulgarPlayers;
-        private DarkNumericUpDown numSetInt;
-        private DarkTextBox txtSetInt;
-        private DarkButton btnSetInt;
-        private DarkButton btnDecreaseInt;
-        private DarkButton btnIncreaseInt;
-        private DarkCheckBox colorfulCommands;
-        private DarkButton btnSearchCmd;
-        private DarkTextBox txtSearchCmd;
-        private TabPage tabMisc2;
-        private DarkButton btnSpammerReset;
-        private DarkTextBox txtPacketSpammer;
-        private DarkButton btnSpammerStop;
-        private DarkButton btnSpammerStart;
-        private DarkButton btnSpammerRemove;
-        private DarkButton btnSpammerRefresh;
-        private DarkNumericUpDown numSpammerDelay;
-        private DarkButton btnSpammerSetDelay;
-        private DarkNumericUpDown numDelayedPacket;
-        private DarkButton btnDelayedPacket;
-        private DarkGroupBox groupBox1;
-        private DarkButton btnAddInfoMsg;
-        private DarkButton btnAddWarnMsg;
-        private DarkTextBox inputMsgClient;
-        private Panel panel4;
-        private DarkButton btnSpammerAdd;
-        private DarkGroupBox darkGroupBox1;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Label label21;
-        private DarkButton btnReturnCmd;
-        private DarkButton btnClearTempVar;
-        private DarkGroupBox darkGroupBox4;
-        private DarkCheckBox chkPickupAll;
-        public DarkCheckBox chkPickup;
-        private DarkCheckBox chkReject;
-        public DarkCheckBox chkPickupAcTag;
-        private DarkCheckBox chkBankOnStop;
-        private DarkCheckBox chkRejectAll;
-        private DarkGroupBox darkGroupBox3;
-        private DarkNumericUpDown numShopId;
-        private DarkButton btnLoadShop;
-        private DarkTextBox txtShopItem;
-        private DarkButton btnBuy;
-        private DarkButton btnBuyFast;
-        private DarkGroupBox darkGroupBox2;
-        private DarkButton btnWhitelistToggle;
-        private DarkButton btnWhitelistOn;
-        private DarkButton btnWhitelistOff;
-        private DarkLabel label1;
-        private DarkNumericUpDown numDropDelay;
-        private DarkButton btnBoost;
-        private DarkComboBox cbBoosts;
-        private DarkNumericUpDown numMapItem;
-        private DarkButton btnMapItem;
-        private DarkButton btnSwap;
-        private DarkTextBox txtSwapInv;
-        private DarkTextBox txtSwapBank;
-        private DarkButton btnWhitelist;
-        private DarkButton btnBoth;
-        private DarkTextBox txtWhitelist;
-        private DarkButton btnItem;
-        private DarkButton btnUnbanklst;
-        private DarkTextBox txtItem;
-        private DarkComboBox cbItemCmds;
-        private DarkButton btnSetFPSCmd;
-        private DarkNumericUpDown numSetFPS;
-        private DarkGroupBox darkGroupBox5;
-        private DarkGroupBox darkGroupBox6;
-        private TabPage tabInfo;
-        private Panel panel5;
-        public RichTextBox rtbInfo;
-        private DarkGroupBox darkGroupBox7;
-        private DarkGroupBox darkGroupBox8;
-        private DarkGroupBox darkGroupBox11;
-        private DarkListBox lbLabels;
-        private DarkGroupBox darkGroupBox10;
-        private DarkGroupBox darkGroupBox9;
-        private BackgroundWorker backgroundWorker1;
-        private SplitContainer splitContainer3;
-        private DarkGroupBox darkGroupBox12;
-        private DarkGroupBox darkGroupBox13;
-        private RichTextBox richTextBox2;
-        private DarkPanel darkPanel1;
-        private Panel panel6;
-        private DarkPanel darkPanel2;
-        private DarkGroupBox darkGroupBox14;
-        private Panel panel7;
-        private DarkButton btnAttack;
-        #endregion
+		#region Definitions
+		private IContainer components;
+		private Panel[] _panels;
+		public ListBox lstCommands;
+		public ListBox lstSkills;
+		private ListBox lstQuests;
+		public ListBox lstDrops;
+		private ListBox lstBoosts;
+		public static LogForm Log;
+		private string _customName;
+		private string _customGuild;
+		private ListBox lstItems;
+		public FlatTabControl.FlatTabControl mainTabControl;
+		private TabPage tabCombat;
+		private DarkButton btnUseSkillSet;
+		private DarkButton btnAddSkillSet;
+		private DarkTextBox txtSkillSet;
+		private DarkCheckBox chkSafeMp;
+		private DarkLabel label17;
+		private DarkButton btnRest;
+		private DarkButton btnRestF;
+		private DarkCheckBox chkSkillCD;
+		private DarkLabel label12;
+		private DarkLabel label11;
+		private DarkLabel label10;
+		private DarkButton btnKill;
+		private DarkLabel label13;
+		private DarkCheckBox chkExistQuest;
+		private DarkNumericUpDown numRestMP;
+		private DarkCheckBox chkMP;
+		private DarkNumericUpDown numRest;
+		private DarkCheckBox chkHP;
+		private DarkCheckBox chkPacket;
+		private DarkNumericUpDown numSkillD;
+		private DarkLabel label2;
+		private DarkNumericUpDown numSafe;
+		private DarkButton btnAddSafe;
+		private DarkButton btnAddSkill;
+		private DarkNumericUpDown numSkill;
+		private DarkCheckBox chkExitRest;
+		private DarkCheckBox chkAllSkillsCD;
+		private DarkTextBox txtKillFQ;
+		private DarkTextBox txtKillFItem;
+		private DarkTextBox txtKillFMon;
+		private RadioButton rbTemp;
+		private RadioButton rbItems;
+		private DarkButton btnKillF;
+		private DarkTextBox txtMonster;
+		private TabPage tabMap;
+		private DarkButton btnWalkCur;
+		private DarkButton btnWalk;
+		private DarkNumericUpDown numWalkY;
+		private DarkNumericUpDown numWalkX;
+		private DarkButton btnCellSwap;
+		private DarkButton btnJump;
+		private DarkButton btnCurrCell;
+		private DarkTextBox txtPad;
+		private DarkTextBox txtCell;
+		private DarkButton btnJoin;
+		private DarkTextBox txtJoinPad;
+		private DarkTextBox txtJoinCell;
+		private DarkTextBox txtJoin;
+		private TabPage tabQuest;
+		private TabPage tabHunt;
+		private DarkButton btnQuestAccept;
+		private DarkButton btnQuestComplete;
+		private DarkButton btnQuestAdd;
+		private DarkNumericUpDown numQuestItem;
+		private DarkCheckBox chkQuestItem;
+		private DarkNumericUpDown numQuestID;
+		private DarkLabel label4;
+		private TabPage tabMisc;
+		private DarkCheckBox chkRestartDeath;
+		private DarkCheckBox chkMerge;
+		private DarkButton button2;
+		private DarkButton btnLogout;
+		private DarkTextBox txtLabel;
+		private DarkButton btnGotoLabel;
+		private DarkButton btnAddLabel;
+		private DarkTextBox txtDescription;
+		private DarkTextBox txtAuthor;
+		private DarkButton btnSave;
+		private DarkButton btnDelay;
+		private DarkNumericUpDown numDelay;
+		private DarkLabel label3;
+		private DarkNumericUpDown numBotDelay;
+		private DarkButton btnBotDelay;
+		private DarkTextBox txtPlayer;
+		private DarkButton btnGoto;
+		public DarkButton btnLoad;
+		private DarkButton btnRestart;
+		private DarkButton btnStop;
+		private DarkButton btnLoadCmd;
+		private DarkCheckBox chkSkip;
+		private DarkButton btnStatementAdd;
+		private DarkTextBox txtStatement2;
+		private DarkTextBox txtStatement1;
+		private DarkComboBox cbStatement;
+		private DarkComboBox cbCategories;
+		private DarkTextBox txtPacket;
+		private DarkButton btnPacket;
+		private TabPage tabOptions;
+		private DarkCheckBox chkEnableSettings;
+		public DarkCheckBox chkDisableAnims;
+		private DarkTextBox txtSoundItem;
+		private DarkButton btnSoundAdd;
+		private DarkButton btnSoundDelete;
+		private DarkButton btnSoundTest;
+		private ListBox lstSoundItems;
+		private DarkLabel label9;
+		private DarkNumericUpDown numWalkSpeed;
+		public DarkCheckBox chkSkipCutscenes;
+		public DarkCheckBox chkHidePlayers;
+		public DarkCheckBox chkLag;
+		public DarkCheckBox chkMagnet;
+		public DarkCheckBox chkProvoke;
+		public DarkCheckBox chkInfiniteRange;
+		private DarkGroupBox grpLogin;
+		private DarkComboBox cbServers;
+		private DarkCheckBox chkRelogRetry;
+		private DarkCheckBox chkRelog;
+		private DarkNumericUpDown numRelogDelay;
+		private DarkLabel label7;
+		private DarkTextBox txtUsername;
+		private DarkTextBox txtGuild;
+		private DarkButton btnchangeName;
+		private DarkButton btnchangeGuild;
+		private TabPage tabBots;
+		private DarkLabel lblBoosts;
+		private DarkLabel lblDrops;
+		private DarkLabel lblQuests;
+		private DarkLabel lblSkills;
+		private DarkLabel lblCommands;
+		private DarkLabel lblItems;
+		private DarkTextBox txtSavedDesc;
+		private DarkTextBox txtSavedAuthor;
+		private DarkLabel lblBots;
+		private TreeView treeBots;
+		private DarkTextBox txtSavedAdd;
+		private DarkButton btnSavedAdd;
+		private DarkTextBox txtSaved;
+		private DarkButton btnProvokeOn;
+		private DarkButton btnProvokeOff;
+		private ListBox lstLogText;
+		private DarkButton btnLogDebug;
+		private DarkButton btnLog;
+		private DarkTextBox txtLog;
+		private DarkLabel label5;
+		private DarkNumericUpDown numOptionsTimer;
+		private DarkLabel label6;
+		private DarkLabel label14;
+		private DarkNumericUpDown numEnsureTries;
+		private DarkButton btnWalkRdm;
+		private DarkButton btnBlank;
+		private DarkCheckBox chkAFK;
+		private SplitContainer splitContainer1;
+		private DarkComboBox cbLists;
+		private DarkCheckBox chkAll;
+		private DarkButton btnClear;
+		private DarkButton btnDown;
+		private DarkButton btnRemove;
+		private DarkButton btnUp;
+		private Panel panel1;
+		private SplitContainer splitContainer2;
+		private DarkButton btnCurrBlank;
+		private DarkButton btnSetSpawn;
+		private DarkButton btnBeep;
+		private DarkNumericUpDown numBeepTimes;
+		private Panel panel3;
+		private Panel panel2;
+		private DarkButton btnSkillCmd;
+		private TabPage tabItem;
+		private DarkCheckBox checkBox1;
+		private DarkCheckBox chkBuffup;
+		private TabPage tabOptions2;
+		private DarkButton btnSetUndecided;
+		private DarkButton btnSetChaos;
+		private DarkButton btnSetEvil;
+		private DarkButton btnSetGood;
+		private DarkGroupBox grpAlignment;
+		private DarkGroupBox grpAccessLevel;
+		private DarkButton btnSetMem;
+		private DarkButton btnSetModerator;
+		private DarkButton btnSetNonMem;
+		private DarkCheckBox chkToggleMute;
+		private ContextMenuStrip BotManagerMenuStrip;
+		private ToolStripMenuItem changeFontsToolStripMenuItem;
+		private DarkButton btnGoDownIndex;
+		private DarkButton btnGoUpIndex;
+		private DarkButton btnGotoIndex;
+		private DarkNumericUpDown numIndexCmd;
+		private ToolStripMenuItem multilineToggleToolStripMenuItem;
+		private ToolStripMenuItem toggleTabpagesToolStripMenuItem;
+		private ToolStripMenuItem commandColorsToolStripMenuItem;
+		private DarkButton btnChangeNameCmd;
+		private DarkButton btnChangeGuildCmd;
+		private DarkButton btnClientPacket;
+		private DarkNumericUpDown numSetInt;
+		private DarkTextBox txtSetInt;
+		private DarkButton btnSetInt;
+		private DarkButton btnDecreaseInt;
+		private DarkButton btnIncreaseInt;
+		private DarkCheckBox colorfulCommands;
+		private DarkButton btnSearchCmd;
+		private DarkTextBox txtSearchCmd;
+		private TabPage tabMisc2;
+		private DarkGroupBox groupBox1;
+		private DarkButton btnAddInfoMsg;
+		private DarkButton btnAddWarnMsg;
+		private DarkTextBox inputMsgClient;
+		private Panel panel4;
+		private DarkGroupBox darkGroupBox1;
+		private DarkButton btnReturnCmd;
+		private DarkButton btnClearTempVar;
+		private DarkGroupBox darkGroupBox4;
+		private DarkCheckBox chkPickupAll;
+		public DarkCheckBox chkPickup;
+		private DarkCheckBox chkReject;
+		public DarkCheckBox chkPickupAcTag;
+		private DarkCheckBox chkBankOnStop;
+		private DarkCheckBox chkRejectAll;
+		private DarkGroupBox darkGroupBox3;
+		private DarkNumericUpDown numShopId;
+		private DarkButton btnLoadShop;
+		private DarkTextBox txtShopItem;
+		private DarkButton btnBuy;
+		private DarkButton btnBuyFast;
+		private DarkGroupBox darkGroupBox2;
+		private DarkButton btnWhitelistToggle;
+		private DarkButton btnWhitelistOn;
+		private DarkButton btnWhitelistOff;
+		private DarkLabel label1;
+		private DarkNumericUpDown numDropDelay;
+		private DarkButton btnBoost;
+		private DarkComboBox cbBoosts;
+		private DarkNumericUpDown numMapItem;
+		private DarkButton btnMapItem;
+		private DarkButton btnSwap;
+		private DarkTextBox txtSwapInv;
+		private DarkTextBox txtSwapBank;
+		private DarkButton btnWhitelist;
+		private DarkButton btnBoth;
+		private DarkTextBox txtWhitelist;
+		private DarkButton btnItem;
+		private DarkButton btnUnbanklst;
+		private DarkTextBox txtItem;
+		private DarkComboBox cbItemCmds;
+		private DarkGroupBox darkGroupBox5;
+		private DarkGroupBox darkGroupBox6;
+		private TabPage tabInfo;
+		private Panel panel5;
+		public RichTextBox rtbInfo;
+		private DarkGroupBox darkGroupBox7;
+		private DarkGroupBox darkGroupBox8;
+		private DarkGroupBox darkGroupBox11;
+		private DarkListBox lbLabels;
+		private DarkGroupBox darkGroupBox10;
+		private DarkGroupBox darkGroupBox9;
+		private BackgroundWorker backgroundWorker1;
+		private SplitContainer splitContainer3;
+		private DarkGroupBox darkGroupBox12;
+		private DarkGroupBox darkGroupBox13;
+		private RichTextBox richTextBox2;
+		private DarkPanel darkPanel1;
+		private Panel panel6;
+		private DarkPanel darkPanel2;
+		private DarkGroupBox darkGroupBox14;
+		private Panel panel7;
+		private DarkButton btnAttack;
+		#endregion
 
-        private SplitContainer splitContainer4;
-        private SplitContainer splitContainer5;
-        public CheckBox chkEnable;
-        private DarkComboBox cbSafeType;
-        private DarkCheckBox chkAntiCounter;
-        private DarkCheckBox chkAddToWhiteList;
-        private DarkNumericUpDown numSpamTimes;
-        private DarkButton btnSetLevelCmd;
-        private DarkButton btnSetLevel;
-        private DarkTextBox tbLevel;
-        public DarkCheckBox chkWalkSpeed;
-        private DarkCheckBox chkInBlankCell;
-        private DarkCheckBox chkReloginCompleteQuest;
-        private DarkLabel darkLabel1;
-        private DarkTextBox darkTextBox1;
-        private DarkCheckBox darkCheckBox1;
-        private DarkButton btnAddCmdHunt;
-        private DarkCheckBox chkIsTempF;
-        private DarkLabel darkLabel3;
-        private DarkTextBox tbGetAfterF;
-        private DarkCheckBox chkGetAfterF;
-        private DarkCheckBox chkAddToWhitelistF;
-        private DarkTextBox tbItemQtyF;
-        private DarkTextBox tbItemNameF;
-        private DarkTextBox tbMonNameF;
-        private DarkCheckBox cbBlankFirstF;
-        private DarkButton btnGetMapF;
-        private DarkTextBox tbPadF;
-        private DarkTextBox tbCellF;
-        private DarkTextBox tbMapF;
-        private DarkLabel darkLabel2;
-        private Label lblUP;
-        private DarkButton btnAllSkill;
+		private SplitContainer splitContainer4;
+		private SplitContainer splitContainer5;
+		public CheckBox chkEnable;
+		private DarkComboBox cbSafeType;
+		private DarkCheckBox chkAddToWhiteList;
+		private DarkNumericUpDown numSpamTimes;
+		private DarkButton btnSetLevelCmd;
+		private DarkButton btnSetLevel;
+		private DarkTextBox tbLevel;
+		public DarkCheckBox chkWalkSpeed;
+		private DarkCheckBox chkInBlankCell;
+		private DarkCheckBox chkReloginCompleteQuest;
+		private DarkLabel darkLabel1;
+		private DarkTextBox darkTextBox1;
+		private DarkCheckBox darkCheckBox1;
+		private DarkButton btnAddCmdHunt;
+		private DarkCheckBox chkIsTempF;
+		private DarkLabel darkLabel3;
+		private DarkTextBox tbGetAfterF;
+		private DarkCheckBox chkGetAfterF;
+		private DarkCheckBox chkAddToWhitelistF;
+		private DarkTextBox tbItemQtyF;
+		private DarkTextBox tbItemNameF;
+		private DarkTextBox tbMonNameF;
+		private DarkCheckBox cbBlankFirstF;
+		private DarkButton btnGetMapF;
+		private DarkTextBox tbPadF;
+		private DarkTextBox tbCellF;
+		private DarkTextBox tbMapF;
+		private DarkLabel darkLabel2;
+		private Label lblUP;
+		private DarkButton btnAllSkill;
+		private DarkCheckBox chkQRequirements;
+		private DarkCheckBox chkQRewards;
+		private DarkButton btnQAddToWhitelist;
+		private DarkNumericUpDown numQQuestId;
+		private DarkLabel darkLabel4;
+		private DarkNumericUpDown numSetFPS;
+		private DarkButton btnSetFPS;
+		public DarkCheckBox chkGender;
+		private DarkButton btnBSStop;
+		private Label label8;
+		private DarkTextBox tbBSLabel;
+		private DarkNumericUpDown numBSDelay;
+		private DarkTextBox tbBSPacket;
+		private DarkButton btnBSStart;
+		private DarkTextBox numPrivateRoom;
+		public DarkCheckBox chkPrivateRoom;
+		private DarkCheckBox chkAntiCounter;
+		private DarkLabel darkLabel6;
+		private DarkNumericUpDown numSaveProgress;
+		private DarkCheckBox chkSaveProgress;
 
-        public static BotManager Instance
-        {
-            get;
-        }
+		public static BotManager Instance
+		{
+			get;
+		}
 
-        public IBotEngine ActiveBotEngine
-        {
-            get
-            {
-                return _activeBotEngine;
-            }
-            set
-            {
-                if (_activeBotEngine.IsRunning)
-                {
-                    throw new InvalidOperationException("Cannot set a new bot engine while the current one is running");
-                }
+		public IBotEngine ActiveBotEngine
+		{
+			get
+			{
+				return _activeBotEngine;
+			}
+			set
+			{
+				if (_activeBotEngine.IsRunning)
+				{
+					throw new InvalidOperationException("Cannot set a new bot engine while the current one is running");
+				}
 
-                _activeBotEngine = value ?? throw new ArgumentNullException("value");
-            }
-        }
+				_activeBotEngine = value ?? throw new ArgumentNullException("value");
+			}
+		}
 
-        private ListBox SelectedList
-        {
-            get
-            {
-                switch (cbLists.SelectedIndex)
-                {
-                    case 1:
-                        return lstSkills;
+		private ListBox SelectedList
+		{
+			get
+			{
+				switch (cbLists.SelectedIndex)
+				{
+					case 1:
+						return lstSkills;
 
-                    case 2:
-                        return lstQuests;
+					case 2:
+						return lstQuests;
 
-                    case 3:
-                        return lstDrops;
+					case 3:
+						return lstDrops;
 
-                    case 4:
-                        return lstBoosts;
+					case 4:
+						return lstBoosts;
 
-                    case 5:
-                        return lstItems;
+					case 5:
+						return lstItems;
 
-                    default:
-                        return lstCommands;
-                }
-            }
-        }
+					default:
+						return lstCommands;
+				}
+			}
+		}
 
-        public string CustomName
-        {
-            get => _customName;
+		public string CustomName
+		{
+			get => _customName;
 
-            set
-            {
-                _customName = value;
-                Flash.Call("ChangeName", _customName);
-            }
-        }
+			set
+			{
+				_customName = value;
+				Flash.Call("ChangeName", _customName);
+			}
+		}
 
-        public string CustomGuild
-        {
-            get => _customGuild;
-            set
-            {
-                _customGuild = value;
-                Flash.Call("ChangeGuild", txtGuild.Text);
-            }
-        }
+		public string CustomGuild
+		{
+			get => _customGuild;
+			set
+			{
+				_customGuild = value;
+				Flash.Call("ChangeGuild", txtGuild.Text);
+			}
+		}
 
-        public static int SliderValue
-        {
-            get;
-            set;
-        }
+		public static int SliderValue
+		{
+			get;
+			set;
+		}
 
+		public static System.Timers.Timer SaveProgressTimer = new System.Timers.Timer();
+        private DarkButton btnSetSpawn2;
         public PacketSpammer botPacketSpammer;
 
-        private BotManager()
-        {
-            InitializeComponent();
-            cbSafeType.SelectedIndex = 0;
-            botPacketSpammer = new PacketSpammer();
-        }
-
-        private void BotManager_Load(object sender, EventArgs e)
-        {
-            lstBoosts.DisplayMember = "Text";
-            //lstQuests.DisplayMember = "Text";
-            //lstSkills.DisplayMember = "Text";
-            cbBoosts.DisplayMember = "Name";
-            cbServers.DisplayMember = "Name";
-            lstItems.DisplayMember = "Text";
-            cbStatement.DisplayMember = "Text";
-            cbLists.SelectedIndex = 0;
-            _statementCommands = JsonConvert.DeserializeObject<List<StatementCommand>>(Resources.statementcmds, _serializerSettings);
-            _defaultControlText = JsonConvert.DeserializeObject<Dictionary<string, string>>(Resources.defaulttext, _serializerSettings);
-            OptionsManager.StateChanged += OnOptionsStateChanged;
-            Config c = Config.Load(Application.StartupPath + "\\config.cfg");
-            string font = c.Get("font");
-            //float fontSize = float.Parse(Config.Load(Application.StartupPath + "\\config.cfg").Get("fontSize") ?? "8.25", System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
-            if (font != null)
-                this.Font = new Font(font, 8.25f, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lstCommands.ItemHeight = int.Parse(c.Get("CommandsSize") ?? "60");
-            lstCommands.Font = new Font(font, lstCommands.ItemHeight / 4 - (float)6.5, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lstCommands.ItemHeight = lstCommands.ItemHeight / 4;
-        }
-
-        private void TextboxEnter(object sender, EventArgs e)
-        {
-            TextBox t = (TextBox)sender;
-            if (t.Text == _defaultControlText[t.Name])
-                t.Clear();
-        }
-
-        private void TextboxLeave(object sender, EventArgs e)
-        {
-            TextBox t = (TextBox)sender;
-            if (string.IsNullOrEmpty(t.Text))
-            {
-                if (_defaultControlText.TryGetValue(t.Name, out string def))
-                    t.Text = def;
-            }
-        }
-
-        public void OnServersLoaded(Server[] servers)
-        {
-            if (servers != null && servers.Length != 0 && cbServers.Items.Count <= 1)
-            {
-                cbServers.Items.AddRange(servers);
-                cbServers.SelectedIndex = 0;
-                Root.Instance.changeServerList.Items.AddRange(servers);
-                Root.Instance.changeServerList.SelectedIndex = 0;
-            }
-        }
-
-        private void MoveListItem(int direction)
-        {
-            if (SelectedList.SelectedItem != null && SelectedList.SelectedIndex >= 0)
-            {
-                int num = SelectedList.SelectedIndex + direction;
-                if (num >= 0 && num < SelectedList.Items.Count)
-                {
-                    object selectedItem = SelectedList.SelectedItem;
-                    SelectedList.Items.Remove(selectedItem);
-                    SelectedList.Items.Insert(num, selectedItem);
-                    SelectedList.SetSelected(num, value: true);
-                }
-            }
-        }
-
-        private void MoveListItemByKey(int direction)
-        {
-            if (SelectedList.SelectedItem == null || SelectedList.SelectedIndex < 0)
-            {
-                return;
-            }
-            int num = SelectedList.SelectedIndex + direction;
-            if (num >= 0 && num < SelectedList.Items.Count)
-            {
-                object selectedItem = SelectedList.SelectedItem;
-                SelectedList.Items.Remove(selectedItem);
-                SelectedList.Items.Insert(num, selectedItem);
-                if (direction == 1)
-                {
-                    SelectedList.SetSelected(num - 1, value: true);
-                }
-            }
-        }
-
-        public Configuration GenerateConfiguration()
-        {
-            return new Configuration
-            {
-                Author = txtAuthor.Text,
-                Description = rtbInfo.Rtf ?? rtbInfo.Text,
-                Commands = lstCommands.Items.Cast<IBotCommand>().ToList(),
-                Skills = lstSkills.Items.Cast<Skill>().ToList(),
-                Quests = lstQuests.Items.Cast<Quest>().ToList(),
-                Boosts = lstBoosts.Items.Cast<InventoryItem>().ToList(),
-                Drops = lstDrops.Items.Cast<string>().ToList(),
-                Items = lstItems.Items.Cast<string>().ToList(),
-                SkillDelay = (int)numSkillD.Value,
-                ExitCombatBeforeRest = chkExitRest.Checked,
-                ExitCombatBeforeQuest = chkExistQuest.Checked,
-                Server = (Server)cbServers.SelectedItem,
-                AutoRelogin = chkRelog.Checked,
-                RelogDelay = (int)numRelogDelay.Value,
-                RelogRetryUponFailure = chkRelogRetry.Checked,
-                BotDelay = (int)numBotDelay.Value,
-                EnablePickup = chkPickup.Checked,
-                EnableRejection = chkReject.Checked,
-                EnablePickupAll = chkPickupAll.Checked,
-                EnablePickupAcTagged = chkPickupAcTag.Checked,
-                EnableRejectAll = chkRejectAll.Checked,
-                WaitForAllSkills = chkAllSkillsCD.Checked,
-                WaitForSkill = chkSkillCD.Checked,
-                SkipDelayIndexIf = chkSkip.Checked,
-                InfiniteAttackRange = chkInfiniteRange.Checked,
-                ProvokeMonsters = chkProvoke.Checked,
-                EnemyMagnet = chkMagnet.Checked,
-                LagKiller = chkLag.Checked,
-                HidePlayers = chkHidePlayers.Checked,
-                SkipCutscenes = chkSkipCutscenes.Checked,
-                WalkSpeed = (int)numWalkSpeed.Value,
-                NotifyUponDrop = lstSoundItems.Items.Cast<string>().ToList(),
-                RestIfMp = chkMP.Checked,
-                RestIfHp = chkHP.Checked,
-                Untarget = chkUntarget.Checked,
-                BankOnStop = chkBankOnStop.Checked,
-                RestMp = (int)numRestMP.Value,
-                RestHp = (int)numRest.Value,
-                RestartUponDeath = chkRestartDeath.Checked,
-                AFK = chkAFK.Checked,
-                AntiCounter = chkAntiCounter.Checked,
-                DropDelay = (int)numDropDelay.Value,
-                DisableAnimations = chkDisableAnims.Checked
-            };
-        }
-
-        public Configuration SaveConfiguration()
-        {
-            var compressed = DocConvert.Zip<string>(txtDescription.Text);
-
-            return new Configuration
-            {
-                Author = txtAuthor.Text,
-                Description = compressed.Length > txtDescription.Text.Length ? txtDescription.Text : compressed,
-                Commands = lstCommands.Items.Cast<IBotCommand>().ToList(),
-                Skills = lstSkills.Items.Cast<Skill>().ToList(),
-                Quests = lstQuests.Items.Cast<Quest>().ToList(),
-                Boosts = lstBoosts.Items.Cast<InventoryItem>().ToList(),
-                Drops = lstDrops.Items.Cast<string>().ToList(),
-                Items = lstItems.Items.Cast<string>().ToList(),
-                SkillDelay = (int)numSkillD.Value,
-                ExitCombatBeforeRest = chkExitRest.Checked,
-                ExitCombatBeforeQuest = chkExistQuest.Checked,
-                Server = (Server)cbServers.SelectedItem,
-                AutoRelogin = chkRelog.Checked,
-                RelogDelay = (int)numRelogDelay.Value,
-                RelogRetryUponFailure = chkRelogRetry.Checked,
-                BotDelay = (int)numBotDelay.Value,
-                EnablePickup = chkPickup.Checked,
-                EnableRejection = chkReject.Checked,
-                EnablePickupAll = chkPickupAll.Checked,
-                EnablePickupAcTagged = chkPickupAcTag.Checked,
-                EnableRejectAll = chkRejectAll.Checked,
-                WaitForAllSkills = chkAllSkillsCD.Checked,
-                WaitForSkill = chkSkillCD.Checked,
-                SkipDelayIndexIf = chkSkip.Checked,
-                InfiniteAttackRange = chkInfiniteRange.Checked,
-                ProvokeMonsters = chkProvoke.Checked,
-                EnemyMagnet = chkMagnet.Checked,
-                LagKiller = chkLag.Checked,
-                HidePlayers = chkHidePlayers.Checked,
-                SkipCutscenes = chkSkipCutscenes.Checked,
-                WalkSpeed = (int)numWalkSpeed.Value,
-                NotifyUponDrop = lstSoundItems.Items.Cast<string>().ToList(),
-                RestIfMp = chkMP.Checked,
-                RestIfHp = chkHP.Checked,
-                Untarget = chkUntarget.Checked,
-                BankOnStop = chkBankOnStop.Checked,
-                RestMp = (int)numRestMP.Value,
-                RestHp = (int)numRest.Value,
-                RestartUponDeath = chkRestartDeath.Checked,
-                AFK = chkAFK.Checked,
-                AntiCounter = chkAntiCounter.Checked,
-                DropDelay = (int)numDropDelay.Value,
-                DisableAnimations = chkDisableAnims.Checked
-            };
-        }
-
-        public void ApplyConfiguration(Configuration config)
-        {
-            if (config != null)
-            {
-                if (!chkMerge.Checked || ActiveBotEngine.IsRunning)
-                {
-                    lstCommands.Items.Clear();
-                    lstBoosts.Items.Clear();
-                    lstDrops.Items.Clear();
-                    lstQuests.Items.Clear();
-                    lstSkills.Items.Clear();
-                    lstItems.Items.Clear();
-                    lstSoundItems.Items.Clear();
-                }
-                txtSavedAuthor.Text = config.Author ?? "Author";
-                txtSavedDesc.Text = DocConvert.IsBase64Encoded(config.Description) ? DocConvert.Unzip(config.Description) : config.Description ?? "Description";
-                List<IBotCommand> commands = config.Commands;
-                if (commands != null && commands.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstCommands.Items;
-                    object[] array = config.Commands.ToArray();
-                    items.AddRange(array);
-                }
-                List<Skill> skills = config.Skills;
-                if (skills != null && skills.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstSkills.Items;
-                    object[] array = config.Skills.ToArray();
-                    items.AddRange(array);
-                }
-                List<Quest> quests = config.Quests;
-                if (quests != null && quests.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstQuests.Items;
-                    object[] array = config.Quests.ToArray();
-                    items.AddRange(array);
-                }
-                List<InventoryItem> boosts = config.Boosts;
-                if (boosts != null && boosts.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstBoosts.Items;
-                    object[] array = config.Boosts.ToArray();
-                    items.AddRange(array);
-                }
-                List<string> drops = config.Drops;
-                if (drops != null && drops.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstDrops.Items;
-                    object[] array = config.Drops.ToArray();
-                    items.AddRange(array);
-                }
-                List<string> item = config.Items;
-                if (item != null && item.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstItems.Items;
-                    object[] array = config.Items.ToArray();
-                    items.AddRange(array);
-                }
-                numSkillD.Value = config.SkillDelay;
-                chkExitRest.Checked = config.ExitCombatBeforeRest;
-                chkExistQuest.Checked = config.ExitCombatBeforeQuest;
-                if (config.Server != null)
-                {
-                    cbServers.SelectedIndex = cbServers.Items.Cast<Server>().ToList().FindIndex((Server s) => s.Name == config.Server.Name);
-                }
-                chkRelog.Checked = config.AutoRelogin;
-                numRelogDelay.Value = config.RelogDelay;
-                chkRelogRetry.Checked = config.RelogRetryUponFailure;
-                numBotDelay.Value = config.BotDelay;
-                chkPickup.Checked = config.EnablePickup;
-                chkReject.Checked = config.EnableRejection;
-                chkPickupAll.Checked = config.EnablePickupAll;
-                chkRejectAll.Checked = config.EnableRejectAll;
-                chkAllSkillsCD.Checked = config.WaitForAllSkills;
-                chkSkillCD.Checked = config.WaitForSkill;
-                chkSkip.Checked = config.SkipDelayIndexIf;
-                chkInfiniteRange.Checked = config.InfiniteAttackRange;
-                chkProvoke.Checked = config.ProvokeMonsters;
-                chkLag.Checked = config.LagKiller;
-                chkMagnet.Checked = config.EnemyMagnet;
-                chkHidePlayers.Checked = config.HidePlayers;
-                chkSkipCutscenes.Checked = config.SkipCutscenes;
-                chkDisableAnims.Checked = config.DisableAnimations;
-                numWalkSpeed.Value = (config.WalkSpeed <= 0) ? 8 : config.WalkSpeed;
-                List<string> notifyUponDrop = config.NotifyUponDrop;
-                if (notifyUponDrop != null && notifyUponDrop.Count > 0)
-                {
-                    ListBox.ObjectCollection items14 = lstSoundItems.Items;
-                    object[] array = config.NotifyUponDrop.ToArray();
-                    object[] items15 = array;
-                    items14.AddRange(items15);
-                }
-                numRestMP.Value = config.RestMp;
-                numRest.Value = config.RestHp;
-                chkMP.Checked = config.RestIfMp;
-                chkHP.Checked = config.RestIfHp;
-                chkUntarget.Checked = config.Untarget;
-                chkBankOnStop.Checked = config.BankOnStop;
-                chkRestartDeath.Checked = config.RestartUponDeath;
-                chkAFK.Checked = config.AFK;
-                chkAntiCounter.Checked = config.AntiCounter;
-                numDropDelay.Value = config.DropDelay <= 0 ? 1000 : config.DropDelay;
-                txtAuthor.Text = config.Author;
-                txtDescription.Text =
-                txtSavedDesc.Text = DocConvert.IsBase64Encoded(config.Description) ? DocConvert.Unzip(config.Description) : config.Description ?? "Description"; ;
-                var description = txtSavedDesc.Text ?? "Description";
-                if (description.StartsWith("{\\rtf") || description.StartsWith("{\rtf"))
-                    rtbInfo.Rtf = description; //mainTabControl.SelectedTab = tabInfo;
-                else
-                    rtbInfo.Text = config.Description;
-                
-            }
-        }
-
-        public void OnConfigurationChanged(Configuration config)
-        {
-            if (InvokeRequired)
-            {
-                Invoke((Action)delegate
-                {
-                    ApplyConfiguration(config);
-                });
-            }
-            else
-            {
-                ApplyConfiguration(config);
-            }
-        }
-
-        public void OnIndexChanged(int index)
-        {
-            if (index > -1)
-            {
-                if (InvokeRequired)
-                {
-                    Invoke((Action)delegate
-                    {
-                        lstCommands.SelectedIndex = index;
-                    });
-                }
-                else
-                {
-                    lstCommands.SelectedIndex = index;
-                }
-            }
-        }
-
-        public void OnSkillIndexChanged(int index)
-        {
-            if (index > -1 && index < lstSkills.Items.Count)
-            {
-                Invoke((Action)delegate
-                {
-                    lstSkills.SelectedIndex = index;
-                });
-            }
-        }
-
-        public void OnIsRunningChanged(bool isRunning)
-        {
-            if (!isRunning)
-            {
-                ActiveBotEngine.IsRunningChanged -= OnIsRunningChanged;
-                ActiveBotEngine.IndexChanged -= OnIndexChanged;
-                ActiveBotEngine.ConfigurationChanged -= OnConfigurationChanged;
-
-                void Action()
-                {
-                    btnUp.Enabled = true;
-                    btnDown.Enabled = true;
-                    btnClear.Enabled = true;
-                    btnRemove.Enabled = true;
-                }
-
-                if (InvokeRequired)
-                    Invoke((Action)Action);
-                else
-                    Action();
-            }
-
-            if (InvokeRequired)
-                Invoke(new Action(() => { chkEnable.Checked = isRunning; }));
-            else
-                chkEnable.Checked = isRunning;
-
-            Root.Instance.chkStartBot.Checked = isRunning;
-
-            selectionMode(isRunning ? SelectionMode.One : SelectionMode.MultiExtended);
-
-            BotStateChanged(isRunning);
-
-            /*Invoke((Action)delegate
-            {
-                if (!IsRunning)
-                {
-                    ActiveBotEngine.IsRunningChanged -= OnIsRunningChanged;
-                    ActiveBotEngine.IndexChanged -= OnIndexChanged;
-                    ActiveBotEngine.ConfigurationChanged -= OnConfigurationChanged;
-                }
-                BotStateChanged(IsRunning);
-            });*/
-        }
-
-        private void lstSkills_DoubleClick(object sender, EventArgs e)
-        {
-            /*int index = lstSkills.SelectedIndex;
-            if (index > -1)
-            {
-                object cmd = lstSkills.Items[index];
-                string result = JsonConvert.SerializeObject(cmd, Formatting.Indented, _serializerSettings);
-                string mod = RawCommandEditor.Show(result);
-
-                if (mod != null)
-                {
-                    try
-                    {
-                        Skill modifiedCmd = (Skill)JsonConvert.DeserializeObject(mod, cmd.GetType());
-                        lstSkills.Items.Remove(cmd);
-                        lstSkills.Items.Insert(index, modifiedCmd);
-                    }
-                    catch { }
-                }
-            }*/
-
-
-            if (lstSkills.Items.Count <= 0)
-            {
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
-                {
-                    openFileDialog.Title = "Load bot";
-                    openFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
-                    openFileDialog.Filter = "Grimoire bots|*.gbot";
-                    openFileDialog.DefaultExt = ".gbot";
-                    if (openFileDialog.ShowDialog() == DialogResult.OK && TryDeserialize(File.ReadAllText(openFileDialog.FileName), out Configuration config))
-                    {
-                        ApplyConfiguration(config);
-                    }
-                }
-            }
-            else if (lstSkills.SelectedIndex > -1)
-            {
-                int selectedIndex = lstSkills.SelectedIndex;
-                object obj = lstSkills.Items[selectedIndex];
-                string text = UserFriendlyCommandEditor.Show(obj);
-                //string text = RawCommandEditor.Show(JsonConvert.SerializeObject(obj, Formatting.Indented, _serializerSettings));
-                if (text != null)
-                {
-                    try
-                    {
-                        Skill item = (Skill)JsonConvert.DeserializeObject(text, obj.GetType());
-                        lstSkills.Items.Remove(obj);
-                        lstSkills.Items.Insert(selectedIndex, item);
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            }
-        }
-
-        private void lstCommands_DoubleClick(object sender, EventArgs e)
-        {
-            if (lstCommands.Items.Count <= 0)
-            {
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
-                {
-                    openFileDialog.Title = "Load bot";
-                    openFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
-                    openFileDialog.Filter = "Grimoire bots|*.gbot";
-                    openFileDialog.DefaultExt = ".gbot";
-                    if (openFileDialog.ShowDialog() == DialogResult.OK && TryDeserialize(File.ReadAllText(openFileDialog.FileName), out Configuration config))
-                    {
-                        ApplyConfiguration(config);
-                    }
-                }
-            }
-            else if (lstCommands.SelectedIndex > -1)
-            {
-                int selectedIndex = lstCommands.SelectedIndex;
-                object obj = lstCommands.Items[selectedIndex];
-                string text = UserFriendlyCommandEditor.Show(obj);
-                //string text = RawCommandEditor.Show(JsonConvert.SerializeObject(obj, Formatting.Indented, _serializerSettings));
-                if (text != null)
-                {
-                    try
-                    {
-                        IBotCommand item = (IBotCommand)JsonConvert.DeserializeObject(text, obj.GetType());
-                        lstCommands.Items.Remove(obj);
-                        lstCommands.Items.Insert(selectedIndex, item);
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            }
-        }
-
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-            if (SelectedList.SelectedItem != null)
-            {
-                int selectedIndex = SelectedList.SelectedIndex;
-                if (selectedIndex > -1)
-                {
-                    _RemoveListBoxItem();
-                }
-            }
-            GetAllCommands<CmdLabel>(lbLabels);
-        }
-
-        private void btnDown_Click(object sender, EventArgs e)
-        {
-            _MoveListBoxDown();
-        }
-
-        private void btnUp_Click(object sender, EventArgs e)
-        {
-            _MoveListBoxUp();
-        }
-
-        private void _RemoveListBoxItem()
-        {
-            SelectedList.BeginUpdate();
-            for (int x = SelectedList.SelectedIndices.Count - 1; x >= 0; x--)
-            {
-                int idx = SelectedList.SelectedIndices[x];
-                SelectedList.Items.RemoveAt(idx);
-            }
-            SelectedList.EndUpdate();
-        }
-
-        private void _MoveListBoxUp()
-        {
-            //MoveListItem(-1);
-            SelectedList.BeginUpdate();
-            int numberOfSelectedItems = SelectedList.SelectedItems.Count;
-            for (int i = 0; i < numberOfSelectedItems; i++)
-            {
-                // only if it's not the first item
-                if (SelectedList.SelectedIndices[i] > 0)
-                {
-                    // the index of the item above the item that we wanna move up
-                    int indexToInsertIn = SelectedList.SelectedIndices[i] - 1;
-                    // insert UP the item that we want to move up
-                    SelectedList.Items.Insert(indexToInsertIn, SelectedList.SelectedItems[i]);
-                    // removing it from its old place
-                    SelectedList.Items.RemoveAt(indexToInsertIn + 2);
-                    // highlighting it in its new place
-                    SelectedList.SelectedItem = SelectedList.Items[indexToInsertIn];
-                }
-            }
-            SelectedList.EndUpdate();
-        }
-
-        private void _MoveListBoxDown()
-        {
-            //MoveListItem(1);
-            SelectedList.BeginUpdate();
-            int numberOfSelectedItems = SelectedList.SelectedItems.Count;
-            // when going down, instead of moving through the selected items from top to bottom
-            // we'll go from bottom to top, it's easier to handle this way.
-            for (int i = numberOfSelectedItems - 1; i >= 0; i--)
-            {
-                // only if it's not the last item
-                if (SelectedList.SelectedIndices[i] < SelectedList.Items.Count - 1)
-                {
-                    // the index of the item that is currently below the selected item
-                    int indexToInsertIn = SelectedList.SelectedIndices[i] + 2;
-                    // insert DOWN the item that we want to move down
-                    SelectedList.Items.Insert(indexToInsertIn, SelectedList.SelectedItems[i]);
-                    // removing it from its old place
-                    SelectedList.Items.RemoveAt(indexToInsertIn - 2);
-                    // highlighting it in its new place
-                    SelectedList.SelectedItem = SelectedList.Items[indexToInsertIn - 1];
-                }
-            }
-            SelectedList.EndUpdate();
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            if (chkAll.Checked)
-            {
-                lstBoosts.Items.Clear();
-                lstCommands.Items.Clear();
-                lstDrops.Items.Clear();
-                lstItems.Items.Clear();
-                lstQuests.Items.Clear();
-                lstSkills.Items.Clear();
-            }
-            else
-            {
-                SelectedList.Items.Clear();
-            }
-        }
-
-        private void cbLists_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lstBoosts.Visible = SelectedList == lstBoosts;
-            lstCommands.Visible = SelectedList == lstCommands;
-            lstDrops.Visible = SelectedList == lstDrops;
-            lstItems.Visible = SelectedList == lstItems;
-            lstQuests.Visible = SelectedList == lstQuests;
-            lstSkills.Visible = SelectedList == lstSkills;
-        }
-
-        private void BotManager_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-                Hide();
-            }
-        }
-
-        private void btnKill_Click(object sender, EventArgs e)
-        {
-            string monster = string.IsNullOrEmpty(txtMonster.Text) ? "*" : txtMonster.Text;
-            if (txtMonster.Text == "Monster (* = random)")
-            {
-                monster = "*";
-            }
-            AddCommand(new CmdKill
-            {
-                Monster = monster
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnKillF_Click(object sender, EventArgs e)
-        {
-            if (txtKillFItem.Text.Length > 0 && txtKillFQ.Text.Length > 0)
-            {
-                if (chkAddToWhiteList.Checked)
-                {
-                    if (txtKillFItem.Text.Length <= 0) return;
-                    string[] items = txtKillFItem.Text.Split(new char[] {
-                        ','
-                    });
-
-                    foreach (string _item in items)
-                    {
-                        if (!lstDrops.Items.Cast<string>().ToList().Any((string d) => d.Equals(_item, StringComparison.OrdinalIgnoreCase)))
-                            lstDrops.Items.Add(_item);
-                    }
-                };
-
-                string monster = string.IsNullOrEmpty(txtKillFMon.Text) || txtKillFMon.Text == "Monster (* = random)" ? "*" : txtKillFMon.Text;
-                string text = txtKillFItem.Text;
-                string text2 = string.IsNullOrEmpty(txtKillFQ.Text) || txtKillFQ.Text == "Quantity (* = any)" ? "*" : txtKillFQ.Text;
-                AddCommand(new CmdKillFor
-                {
-                    ItemType = (!rbItems.Checked) ? ItemType.TempItems : ItemType.Items,
-                    Monster = monster,
-                    ItemName = text,
-                    Quantity = text2
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
-
-        private void btnAddSkill_Click(object sender, EventArgs e)
-        {
-            string index = numSkill.Text;
-            AddSkill(new Skill
-            {
-                Text = Skill.GetSkillName(index),
-                Index = index,
-                Type = Skill.SkillType.Normal
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnAddSafe_Click(object sender, EventArgs e)
-        {
-            string index = numSkill.Text;
-            int safe = (int)numSafe.Value;
-
-            Skill.SafeType safeType = Skill.SafeType.LowerThan;
-            if (cbSafeType.SelectedIndex == 0)
-            {
-                safeType = Skill.SafeType.LowerThan;
-            }
-            else if (cbSafeType.SelectedIndex == 1)
-            {
-                safeType = Skill.SafeType.GreaterThan;
-            }
-            lstSkills.Items.Add(new Skill
-            {
-                Text = Skill.GetSkillName(index),
-                Index = index,
-                SafeValue = safe,
-                SType = safeType,
-                Type = Skill.SkillType.Safe,
-                IsSafeMp = chkSafeMp.Checked
-            });
-        }
-
-        private void btnRest_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdRest(), (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnRestF_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdRest
-            {
-                Full = true
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnJoin_Click(object sender, EventArgs e)
-        {
-            string text = txtJoin.Text;
-            string cell = string.IsNullOrEmpty(txtJoinCell.Text) ? "Enter" : txtJoinCell.Text;
-            string pad = string.IsNullOrEmpty(txtJoinPad.Text) ? "Spawn" : txtJoinPad.Text;
-            if (text.Length > 0)
-            {
-                AddCommand(new CmdJoin
-                {
-                    Map = txtJoin.Text,
-                    Cell = cell,
-                    Pad = pad
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
-
-        private void btnCellSwap_Click(object sender, EventArgs e)
-        {
-            DarkButton s = sender as DarkButton;
-            if (s.Text == "<")
-            {
-                txtJoin.Text = Player.Map + "-" + Flash.Call<string>("RoomNumber", new object[0]);
-                txtJoinCell.Text = txtCell.Text;
-                txtJoinPad.Text = txtPad.Text;
-            }
-            else if (s.Text == ">")
-            {
-                txtCell.Text = txtJoinCell.Text;
-                txtPad.Text = txtJoinPad.Text;
-            }
-        }
-
-        private void btnCurrCell_Click(object sender, EventArgs e)
-        {
-            txtCell.Text = Player.Cell;
-            txtPad.Text = Player.Pad;
-        }
-
-        private void btnJump_Click(object sender, EventArgs e)
-        {
-            string cell = string.IsNullOrEmpty(txtCell.Text) ? "Enter" : txtCell.Text;
-            string pad = string.IsNullOrEmpty(txtPad.Text) ? "Spawn" : txtPad.Text;
-            AddCommand(new CmdMoveToCell
-            {
-                Cell = cell,
-                Pad = pad
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnWalk_Click(object sender, EventArgs e)
-        {
-            string x = numWalkX.Value.ToString();
-            string y = numWalkY.Value.ToString();
-            AddCommand(new CmdWalk
-            {
-                X = x,
-                Y = y
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnWalkCur_Click(object sender, EventArgs e)
-        {
-            float[] position = Player.Position;
-            numWalkX.Value = (decimal)position[0];
-            numWalkY.Value = (decimal)position[1];
-        }
-
-        private void btnWalkRdm_Click(object sender, EventArgs e)
-        {
-            string x = numWalkX.Value.ToString();
-            string y = numWalkY.Value.ToString();
-            AddCommand(new CmdWalk
-            {
-                Type = "Random",
-                X = x,
-                Y = y
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnItem_Click(object sender, EventArgs e)
-        {
-            string text = txtItem.Text;
-            if (text.Length > 0 && cbItemCmds.SelectedIndex > -1)
-            {
-                IBotCommand cmd;
-                switch (cbItemCmds.SelectedIndex)
-                {
-                    case 0:
-                        cmd = new CmdGetDrop
-                        {
-                            ItemName = text
-                        };
-                        break;
-
-                    case 1:
-                        cmd = new CmdSell
-                        {
-                            ItemName = text
-                        };
-                        break;
-
-                    case 2:
-                        cmd = new CmdEquip
-                        {
-                            ItemName = text,
-                            Safe = true
-                        };
-                        break;
-
-                    case 3:
-                        cmd = new CmdEquip
-                        {
-                            ItemName = text,
-                            Safe = false
-                        };
-                        break;
-
-                    case 4:
-                        cmd = new CmdBankTransfer
-                        {
-                            ItemName = text,
-                            TransferFromBank = false
-                        };
-                        break;
-
-                    case 5:
-                        cmd = new CmdBankTransfer
-                        {
-                            ItemName = text,
-                            TransferFromBank = true
-                        };
-                        break;
-
-                    case 6:
-                        cmd = new CmdEquipSet
-                        {
-                            ItemName = text
-                        };
-                        break;
-
-                    case 7:
-                        cmd = new CmdWhitelist
-                        {
-                            ItemName = text,
-                            state = State.Add
-                        };
-                        break;
-
-                    case 8:
-                        cmd = new CmdWhitelist
-                        {
-                            ItemName = text,
-                            state = State.Remove
-                        };
-                        break;
-
-                    default:
-                        cmd = new CmdGetDrop
-                        {
-                            ItemName = text
-                        };
-                        break;
-                }
-                AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
-
-        private void btnMapItem_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdMapItem
-            {
-                ItemId = (int)numMapItem.Value
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnBoth_Click(object sender, EventArgs e)
-        {
-            string text = txtWhitelist.Text;
-            if (text.Length > 0)
-            {
-                AddDrop(text);
-                AddItem(text);
-            }
-        }
-
-        private void btnWhitelist_Click(object sender, EventArgs e)
-        {
-            string text = txtWhitelist.Text;
-            if (text.Length > 0)
-            {
-                AddDrop(text);
-            }
-        }
-
-        private void btnSwap_Click(object sender, EventArgs e)
-        {
-            string text = txtSwapBank.Text;
-            string text2 = txtSwapInv.Text;
-            if (text.Length > 0 && text2.Length > 0)
-            {
-                AddCommand(new CmdBankSwap
-                {
-                    InventoryItemName = text2,
-                    BankItemName = text
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
-
-        private void btnBoost_Click(object sender, EventArgs e)
-        {
-            if (cbBoosts.SelectedIndex > -1)
-            {
-                lstBoosts.Items.Add(cbBoosts.SelectedItem);
-            }
-        }
-
-        private void cbBoosts_Click(object sender, EventArgs e)
-        {
-            cbBoosts.Items.Clear();
-            DarkComboBox.ObjectCollection items = cbBoosts.Items;
-            object[] array = Player.Inventory.Items.Where((InventoryItem i) => i.Category == "ServerUse").ToArray();
-            object[] items2 = array;
-            items.AddRange(items2);
-        }
-
-        private void btnBuy_Click(object sender, EventArgs e)
-        {
-            if (txtShopItem.TextLength > 0)
-            {
-                AddCommand(new CmdBuy
-                {
-                    ItemName = txtShopItem.Text,
-                    ShopId = (int)numShopId.Value
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
-
-        private void btnQuestAdd_Click(object sender, EventArgs e)
-        {
-            AddQuest((int)numQuestID.Value, chkQuestItem.Checked ? numQuestItem.Value.ToString() : null, chkInBlankCell.Checked);
-        }
-
-        private void btnQuestComplete_Click(object sender, EventArgs e)
-        {
-            Quest q = new Quest();
-            CmdCompleteQuest cmd = new CmdCompleteQuest
-            {
-                CompleteTry = (int)numEnsureTries.Value,
-                LogoutFailed = chkReloginCompleteQuest.Checked,
-                InBlank = chkInBlankCell.Checked
-            };
-            q.Id = (int)numQuestID.Value;
-            if (chkQuestItem.Checked)
-                q.ItemId = numQuestItem.Value.ToString();
-            cmd.Quest = q;
-            this.AddCommand(cmd, (Control.ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnQuestAccept_Click(object sender, EventArgs e)
-        {
-            Quest quest = new Quest
-            {
-                Id = (int)numQuestID.Value
-            };
-            AddCommand(new CmdAcceptQuest
-            {
-                Quest = quest
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void chkQuestItem_CheckedChanged(object sender, EventArgs e)
-        {
-            numQuestItem.Enabled = chkQuestItem.Checked;
-        }
-
-        private void btnPacket_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdPacket
-            {
-                Packet = txtPacket.Text,
-                SpamTimes = Decimal.ToInt32(numSpamTimes.Value)
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnDelay_Click(object sender, EventArgs e)
-        {
-            int delay = (int)numDelay.Value;
-            AddCommand(new CmdDelay
-            {
-                Delay = delay
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnGoto_Click(object sender, EventArgs e)
-        {
-            string text = txtPlayer.Text;
-            if (text.Length > 0)
-            {
-                AddCommand(new CmdGotoPlayer
-                {
-                    PlayerName = text
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
-
-        private void btnBotDelay_Click(object sender, EventArgs e)
-        {
-            int delay = (int)numBotDelay.Value;
-            AddCommand(new CmdBotDelay
-            {
-                Delay = delay
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdStop(), (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnRestart_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdRestart(), (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        public void btnLoad_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Title = "Load bot";
-                openFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
-                openFileDialog.Filter = "Grimoire bots|*.gbot";
-                openFileDialog.DefaultExt = ".gbot";
-                if (openFileDialog.ShowDialog() == DialogResult.OK && TryDeserialize(File.ReadAllText(openFileDialog.FileName), out Configuration config))
-                {
-                    ApplyConfiguration(config);
-                    GetAllCommands<CmdLabel>(lbLabels);
-                }
-            }
-        }
-
-        private bool TryDeserialize(string json, out Configuration config)
-        {
-            try {
-                config = JsonConvert.DeserializeObject<Configuration>(json, _saveSerializerSettings);
-                return true;
-            }
-            catch (Exception e) { MessageBox.Show(e.ToString()); }
-            config = null;
-            return false;
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-            {
-                saveFileDialog.Title = "Save bot";
-                saveFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
-                saveFileDialog.DefaultExt = ".gbot";
-                saveFileDialog.Filter = "Grimoire bots|*.gbot";
-                saveFileDialog.CheckFileExists = false;
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Configuration value = SaveConfiguration();
-                    try
-                    {
-                        File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _saveSerializerSettings));
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Unable to save bot: " + ex.Message);
-                    }
-                }
-            }
-        }
-
-        private void btnLoadCmd_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                string initialDirectory = Path.Combine(Application.StartupPath, "Bots");
-                openFileDialog.Title = "Select bot to load";
-                openFileDialog.Filter = "Grimoire bots|*.gbot";
-                openFileDialog.InitialDirectory = initialDirectory;
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    AddCommand(new CmdLoadBot
-                    {
-                        BotFilePath = Extensions.MakeRelativePathFrom(Application.StartupPath, openFileDialog.FileName), // Path.GetFullPath(openFileDialog.FileName)
-                        BotFileName = Path.GetFileName(openFileDialog.FileName)
-
-                    }, (ModifierKeys & Keys.Control) == Keys.Control);
-                }
-            }
-        }
-
-        private void cbStatement_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbCategories.SelectedIndex > -1 && cbStatement.SelectedIndex > -1)
-            {
-                StatementCommand statementCommand = (StatementCommand)cbStatement.SelectedItem;
-                txtStatement1.Enabled = statementCommand.Description1 != null;
-                txtStatement2.Enabled = statementCommand.Description2 != null;
-                txtStatement1.Text = statementCommand.Description1;
-                txtStatement2.Text = statementCommand.Description2;
-            }
-        }
-
-        private void btnStatementAdd_Click(object sender, EventArgs e)
-        {
-            if (cbCategories.SelectedIndex > -1 && cbStatement.SelectedIndex > -1)
-            {
-                string text = txtStatement1.Text;
-                string text2 = txtStatement2.Text;
-                StatementCommand statementCommand = (StatementCommand)Activator.CreateInstance(cbStatement.SelectedItem.GetType());
-                statementCommand.Value1 = text;
-                statementCommand.Value2 = text2;
-                AddCommand((IBotCommand)statementCommand, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
-
-        private void cbCategories_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbCategories.SelectedIndex > -1)
-            {
-                cbStatement.Items.Clear();
-                string text = cbCategories.SelectedItem.ToString();
-                DarkComboBox.ObjectCollection items = cbStatement.Items;
-                object[] array = _statementCommands.Where((StatementCommand s) => s.Tag == text).ToArray();
-                object[] items2 = array;
-                items.AddRange(items2);
-            }
-        }
-
-        private void btnGotoLabel_Click(object sender, EventArgs e)
-        {
-            if (txtLabel.TextLength > 0)
-            {
-                AddCommand(new CmdGotoLabel
-                {
-                    Label = txtLabel.Text
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-            GetAllCommands<CmdLabel>(lbLabels);
-        }
-
-        private void btnAddLabel_Click(object sender, EventArgs e)
-        {
-            if (txtLabel.TextLength > 0)
-            {
-                AddCommand(new CmdLabel
-                {
-                    Name = txtLabel.Text
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-            GetAllCommands<CmdLabel>(lbLabels);
-        }
-
-        private void GetAllCommands<T>(ListBox lb)
-        {
-            lb.Items.Clear();
-            T[] allItems = lstCommands.Items.OfType<T>().ToArray();
-            string[] allStrings = new string[allItems.Count()];
-            for(int i = 0; i < allItems.Count(); i++)
-                allStrings[i] = allItems[i].ToString();
-            lb.Items.AddRange(allStrings);
-        }
-
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdLogout(), (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void UpdateTree()
-        {
-            if (!string.IsNullOrEmpty(txtSaved.Text) && Directory.Exists(txtSaved.Text))
-            {
-                lblBots.Text = string.Format("Number of Bots: {0}", Directory.EnumerateFiles(txtSaved.Text, "*.gbot", SearchOption.AllDirectories).Count());
-                treeBots.Nodes.Clear();
-                AddTreeNodes(treeBots, txtSaved.Text);
-            }
-        }
-
-        private void treeBots_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            string path = Path.Combine(txtSaved.Text, e.Node.FullPath);
-            if (File.Exists(path))
-            {
-                if (!TryDeserialize(File.ReadAllText(path), out Configuration config))
-                {
-                    return;
-                }
-                ApplyConfiguration(config);
-            }
-            lblCommands.Text = $"Number of{Environment.NewLine}Commands: {lstCommands.Items.Count}";
-            lblSkills.Text = $"Skills: {lstSkills.Items.Count}";
-            lblQuests.Text = $"Quests: {lstQuests.Items.Count}";
-            lblDrops.Text = $"Drops: {lstDrops.Items.Count}";
-            lblBoosts.Text = $"Boosts: {lstBoosts.Items.Count}";
-            lblItems.Text = $"Items: {lstItems.Items.Count}";
-        }
-
-        private void treeBots_AfterExpand(object sender, TreeViewEventArgs e)
-        {
-            string path = Path.Combine(txtSaved.Text, e.Node.FullPath);
-            if (Directory.Exists(path))
-            {
-                AddTreeNodes(e.Node, path);
-                if (e.Node.Nodes.Count > 0 && e.Node.Nodes[0].Text == "Loading...")
-                {
-                    e.Node.Nodes.RemoveAt(0);
-                }
-            }
-        }
-
-        private void AddTreeNodes(TreeNode node, string path)
-        {
-            foreach (string item in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly))
-            {
-                string add = Path.GetFileName(item);
-                if (node.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add))
-                {
-                    node.Nodes.Add(add).Nodes.Add("Loading...");
-                }
-            }
-            foreach (string item2 in Directory.EnumerateFiles(path, "*.gbot", SearchOption.TopDirectoryOnly))
-            {
-                string add2 = Path.GetFileName(item2);
-                if (node.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add2))
-                {
-                    node.Nodes.Add(add2);
-                }
-            }
-        }
-
-        private void AddTreeNodes(TreeView tree, string path)
-        {
-            foreach (string item in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly))
-            {
-                string add = Path.GetFileName(item);
-                if (tree.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add))
-                {
-                    tree.Nodes.Add(add).Nodes.Add("Loading...");
-                }
-            }
-            foreach (string item2 in Directory.EnumerateFiles(path, "*.gbot", SearchOption.TopDirectoryOnly))
-            {
-                string add2 = Path.GetFileName(item2);
-                if (tree.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add2))
-                {
-                    tree.Nodes.Add(add2);
-                }
-            }
-        }
-
-        private void btnSavedAdd_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtSaved.Text))
-            {
-                string path = Path.Combine(txtSaved.Text, txtSavedAdd.Text);
-                if (!Directory.Exists(path))
-                {
-                    try
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Unable to create directory: " + ex.Message, "Grimoire", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                    }
-                }
-                UpdateTree();
-            }
-        }
-
-        private void btnSoundAdd_Click(object sender, EventArgs e)
-        {
-            if (txtSoundItem.TextLength > 0)
-            {
-                lstSoundItems.Items.Add(txtSoundItem.Text);
-            }
-        }
-
-        private void btnSoundDelete_Click(object sender, EventArgs e)
-        {
-            int selectedIndex = lstSoundItems.SelectedIndex;
-            if (selectedIndex > -1)
-            {
-                lstSoundItems.Items.RemoveAt(selectedIndex);
-            }
-        }
-
-        private void btnSoundClear_Click(object sender, EventArgs e)
-        {
-            lstSoundItems.Items.Clear();
-        }
-
-        private void btnSoundTest_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                Console.Beep();
-            }
-        }
-
-        private void chkInfiniteRange_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.InfiniteRange = chkInfiniteRange.Checked;
-            Root.Instance.infRangeToolStripMenuItem.Checked = chkInfiniteRange.Checked;
-        }
-
-        private void chkProvoke_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.ProvokeMonsters = chkProvoke.Checked;
-            Root.Instance.provokeToolStripMenuItem1.Checked = chkProvoke.Checked;
-        }
-
-        private void chkMagnet_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.EnemyMagnet = chkMagnet.Checked;
-            Root.Instance.enemyMagnetToolStripMenuItem.Checked = chkMagnet.Checked;
-        }
-
-        private void chkLag_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.LagKiller = chkLag.Checked;
-            Root.Instance.lagKillerToolStripMenuItem.Checked = chkLag.Checked;
-        }
-
-        private void chkHidePlayers_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.HidePlayers = chkHidePlayers.Checked;
-            Root.Instance.hidePlayersToolStripMenuItem.Checked = chkHidePlayers.Checked;
-        }
-
-        private void chkSkipCutscenes_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.SkipCutscenes = chkSkipCutscenes.Checked;
-            Root.Instance.skipCutscenesToolStripMenuItem.Checked = chkSkipCutscenes.Checked;
-        }
-
-        private void numWalkSpeed_ValueChanged(object sender, EventArgs e)
-        {
-            OptionsManager.WalkSpeed = (int)numWalkSpeed.Value;
-        }
-
-        private void chkDisableAnims_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.DisableAnimations = chkDisableAnims.Checked;
-            Root.Instance.disableAnimationsToolStripMenuItem.Checked = chkDisableAnims.Checked;
-        }
-
-        private void OnOptionsStateChanged(bool state)
-        {
-            if (InvokeRequired)
-            {
-                Invoke((Action)delegate
-                {
-                    chkEnableSettings.Checked = state;
-                });
-            }
-            else
-            {
-                chkEnableSettings.Checked = state;
-            }
-        }
-
-        private void chkEnableSettings_Click(object sender, EventArgs e)
-        {
-            if (chkEnableSettings.Checked)
-                OptionsManager.Start();
-            else
-                OptionsManager.Stop();
-        }
-        
-        private void lstBoxs_KeyPress(object sender, KeyEventArgs e)
-        {
-            if      (ModifierKeys == Keys.Control && e.KeyCode == Keys.Up)
-            {
-                _MoveListBoxUp();
-                e.Handled = true;
-            }
-            else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.Down)
-            {
-                _MoveListBoxDown();
-                e.Handled = true;
-            }
-            else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.Delete)
-            {
-                btnRemove.PerformClick();
-                e.Handled = true;
-            }
-            else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.D && SelectedList.SelectedIndex > -1)
-            {
-                var selectedItems = SelectedList.SelectedItems;
-                for (int i = 0; selectedItems.Count > i; i++)
-                {
-                    SelectedList.Items.Insert(SelectedList.SelectedIndex + selectedItems.Count + i, selectedItems[i]);
-                }
-                e.Handled = true;
-            }
-            else if ((ModifierKeys == (Keys.Control | Keys.Shift) && e.KeyCode == Keys.C && SelectedList.SelectedIndex > -1))
-            {
-                Clipboard.Clear();
-                Configuration items = new Configuration
-                {
-                    Commands = lstCommands.SelectedItems.Cast<IBotCommand>().ToList()
-                };
-                string[] itemsString = new string[items.Commands.Count];
-                for (int i = 0; i < items.Commands.Count; i++)
-                {
-                    itemsString[i] = items.Commands[i].ToString();
-                }
-                Clipboard.SetText(String.Join(Environment.NewLine, itemsString));
-                e.Handled = true;
-            }
-            else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.C && SelectedList.SelectedIndex > -1)
-            {
-                Clipboard.Clear();
-                Configuration items = new Configuration {
-                    Commands = lstCommands.SelectedItems.Cast<IBotCommand>().ToList(),
-                    Skills = lstSkills.SelectedItems.Cast<Skill>().ToList(),
-                    Quests = lstQuests.SelectedItems.Cast<Quest>().ToList(),
-                    Boosts = lstBoosts.SelectedItems.Cast<InventoryItem>().ToList(),
-                    Drops = lstDrops.SelectedItems.Cast<string>().ToList(),
-                    Items = lstItems.SelectedItems.Cast<string>().ToList()
-                };
-                Clipboard.SetText(JsonConvert.SerializeObject(items, Formatting.Indented, _saveSerializerSettings));
-                e.Handled = true;
-            }
-            else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.V)
-            {
-                TryDeserialize(Clipboard.GetText(), out Configuration config);
-                List<IBotCommand> commands = config.Commands;
-                if (commands != null && commands.Count > 0)
-                {
-                    List<IBotCommand> items = lstCommands.Items.Cast<IBotCommand>().ToList();
-                    int selectedIndex = lstCommands.SelectedIndex;
-                    lstCommands.SelectedIndex = -1;
-                    items.InsertRange(++selectedIndex, commands);
-                    lstCommands.Items.Clear();
-                    lstCommands.Items.AddRange(items.ToArray());
-                    for (int i = 0; i < commands.Count; i++)
-                        lstCommands.SelectedIndex = selectedIndex + i;
-                    
-                    /* Deprecated
-                    ListBox.ObjectCollection items = lstCommands.Items;
-                    object[] array = config.Commands.ToArray();
-                    int selectedIndex = lstCommands.SelectedIndex;
-                    lstCommands.SelectedIndex = -1;
-                    for (int i = 0; array.Count() > i; i++)
-                    {
-                        items.Insert(selectedIndex + i + 1, array[i]);
-                        lstCommands.SelectedIndex = selectedIndex + i + 1;
-                    }
-                    */
-                }
-                List<Skill> skills = config.Skills;
-                if (skills != null && skills.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstSkills.Items;
-                    object[] array = config.Skills.ToArray();
-                    items.AddRange(array);
-                }
-                List<Quest> quests = config.Quests;
-                if (quests != null && quests.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstQuests.Items;
-                    object[] array = config.Quests.ToArray();
-                    items.AddRange(array);
-                }
-                List<InventoryItem> boosts = config.Boosts;
-                if (boosts != null && boosts.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstBoosts.Items;
-                    object[] array = config.Boosts.ToArray();
-                    items.AddRange(array);
-                }
-                List<string> drops = config.Drops;
-                if (drops != null && drops.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstDrops.Items;
-                    object[] array = config.Drops.ToArray();
-                    items.AddRange(array);
-                }
-                List<string> item = config.Items;
-                if (item != null && item.Count > 0)
-                {
-                    ListBox.ObjectCollection items = lstItems.Items;
-                    object[] array = config.Items.ToArray();
-                    items.AddRange(array);
-                }
-                e.Handled = true;
-            }
-            else if (Control.ModifierKeys == Keys.Control && e.KeyCode == Keys.X && this.SelectedList.SelectedIndex > -1)
-            {
-                Clipboard.Clear();
-                Configuration value = new Configuration
-                {
-                    Commands = this.lstCommands.SelectedItems.Cast<IBotCommand>().ToList<IBotCommand>(),
-                    Skills = this.lstSkills.SelectedItems.Cast<Skill>().ToList<Skill>(),
-                    Quests = this.lstQuests.SelectedItems.Cast<Quest>().ToList<Quest>(),
-                    Boosts = this.lstBoosts.SelectedItems.Cast<InventoryItem>().ToList<InventoryItem>(),
-                    Drops = this.lstDrops.SelectedItems.Cast<string>().ToList<string>(),
-                };
-                Clipboard.SetText(JsonConvert.SerializeObject(value, Formatting.Indented, this._serializerSettings));
-                this.btnRemove.PerformClick();
-                e.Handled = true;
-                return;
-            }
-            else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.S)
-            {
-                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-                {
-                    saveFileDialog.Title = "Save bot";
-                    saveFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
-                    saveFileDialog.DefaultExt = ".gbot";
-                    saveFileDialog.Filter = "Grimoire bots|*.gbot";
-                    saveFileDialog.CheckFileExists = false;
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        Configuration value = SaveConfiguration();
-                        try
-                        {
-                            File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _saveSerializerSettings));
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Unable to save bot: " + ex.Message);
-                        }
-                    }
-                }
-                e.Handled = true;
-            }
-        }
-
-        public void AddCommand(IBotCommand cmd, bool Insert = false)
-        {
-            if (Insert)
-            {
-                lstCommands.Items.Insert((lstCommands.SelectedIndex > -1) ? lstCommands.SelectedIndex : lstCommands.Items.Count, cmd);
-            }
-            else
-            {
-                lstCommands.Items.Add(cmd);
-            }
-        }
-
-        private void AddSkill(Skill skill, bool Insert)
-        {
-            if (Insert)
-            {
-                lstSkills.Items.Insert((lstSkills.SelectedIndex > -1) ? lstSkills.SelectedIndex : lstSkills.Items.Count, skill);
-            }
-            else
-            {
-                lstSkills.Items.Add(skill);
-            }
-        }
-
-        private async void chkEnableBot_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkEnable.Checked && (lstCommands.Items.Count <= 0 || !Player.IsLoggedIn))
-            {
-                chkEnable.Checked = false;
-                return;
-            }
-
-            if (chkEnable.Checked)
-            {
-                selectionMode(SelectionMode.One);
-                ActiveBotEngine.IsRunningChanged += OnIsRunningChanged;
-                ActiveBotEngine.IndexChanged += OnIndexChanged;
-                ActiveBotEngine.ConfigurationChanged += OnConfigurationChanged;
-                ActiveBotEngine.Start(GenerateConfiguration());
-                BotStateChanged(IsRunning: true);
-                Root.Instance.BotStateChanged(IsRunning: true);
-                Root.Instance.chkStartBot.Checked = true;
-            }
-            else
-            {
-                if (lstItems != null && this.chkBankOnStop.Checked)
-                {
-                    foreach (InventoryItem item in Player.Inventory.Items)
-                    {
-                        if (!item.IsEquipped && item.IsAcItem && item.Category != "Class" && item.Name.ToLower() != "treasure potion" && lstItems.Items.Contains(item.Name))
-                        {
-                            Player.Bank.TransferToBank(item.Name);
-                            await Task.Delay(70);
-                            LogForm.Instance.AppendDebug("Transferred to Bank: " + item.Name + "\r\n");
-                        }
-                    }
-                    LogForm.Instance.AppendDebug("Banked all AC Items in Items list \r\n");
-                }
-                ActiveBotEngine.Stop();
-                selectionMode(SelectionMode.MultiExtended);
-                BotStateChanged(IsRunning: false);
-                Root.Instance.BotStateChanged(IsRunning: false);
-                Root.Instance.chkStartBot.Checked = false;
-            }
-        }
-
-
-        private void selectionMode(SelectionMode mode)
-        {
-            this.lstCommands.SelectionMode = mode;
-            this.lstSkills.SelectionMode = mode;
-            this.lstQuests.SelectionMode = mode;
-            this.lstDrops.SelectionMode = mode;
-            this.lstBoosts.SelectionMode = mode;
-            this.lstItems.SelectionMode = mode;
-        }
-
-        public void BotStateChanged(bool IsRunning)
-        {
-            /*if (IsRunning)
-            {
-                btnBotStart.Hide();
-                btnBotStop.Show();
-            }
-            else
-            {
-                btnBotStop.Hide();
-                btnBotStart.Show();
-            }*/
-            btnUp.Enabled = !IsRunning;
-            btnDown.Enabled = !IsRunning;
-            btnClear.Enabled = !IsRunning;
-            btnRemove.Enabled = !IsRunning;
-        }
-
-        public void AddQuest(int QuestID, string ItemID = null, bool completeInBlank = false)
-        {
-            Quest quest = new Quest
-            {
-                Id = QuestID,
-                ItemId = ItemID,
-                CompleteInBlank = completeInBlank
-            };
-            quest.Text = (quest.ItemId != null) ? $"{quest.Id}:{quest.ItemId}" : quest.Id.ToString();
-            if (!lstQuests.Items.Contains(quest))
-            {
-                lstQuests.Items.Add(quest);
-            }
-        }
-
-        public void AddDrop(string Name)
-        {
-            if (!lstDrops.Items.Contains(Name))
-            {
-                lstDrops.Items.Add(Name);
-            }
-        }
-
-        private void btnAddSkillSet_Click(object sender, EventArgs e)
-        {
-            if (txtSkillSet.TextLength > 0)
-            {
-                AddSkill(new Skill
-                {
-                    Text = "[" + txtSkillSet.Text.ToUpper() + "]",
-                    Type = Skill.SkillType.Label
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
-
-        private void btnUseSkillSet_Click(object sender, EventArgs e)
-        {
-            if (txtSkillSet.TextLength > 0)
-            {
-                AddCommand(new CmdSkillSet
-                {
-                    Name = txtSkillSet.Text.ToUpper()
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && components != null)
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private void InitializeComponent()
-        {
+		private BotManager()
+		{
+			InitializeComponent();
+			cbSafeType.SelectedIndex = 0;
+			botPacketSpammer = new PacketSpammer();
+		}
+
+		private void BotManager_Load(object sender, EventArgs e)
+		{
+			lstBoosts.DisplayMember = "Text";
+			//lstQuests.DisplayMember = "Text";
+			//lstSkills.DisplayMember = "Text";
+			cbBoosts.DisplayMember = "Name";
+			cbServers.DisplayMember = "Name";
+			lstItems.DisplayMember = "Text";
+			cbStatement.DisplayMember = "Text";
+			cbLists.SelectedIndex = 0;
+			_statementCommands = JsonConvert.DeserializeObject<List<StatementCommand>>(Resources.statementcmds, _serializerSettings);
+			_defaultControlText = JsonConvert.DeserializeObject<Dictionary<string, string>>(Resources.defaulttext, _serializerSettings);
+			OptionsManager.StateChanged += OnOptionsStateChanged;
+			Config c = Config.Load(Application.StartupPath + "\\config.cfg");
+			string font = c.Get("font");
+			//float fontSize = float.Parse(Config.Load(Application.StartupPath + "\\config.cfg").Get("fontSize") ?? "8.25", System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+			if (font != null)
+				this.Font = new Font(font, 8.25f, FontStyle.Regular, GraphicsUnit.Point, 0);
+			lstCommands.ItemHeight = int.Parse(c.Get("CommandsSize") ?? "60");
+			lstCommands.Font = new Font(font, lstCommands.ItemHeight / 4 - (float)6.5, FontStyle.Regular, GraphicsUnit.Point, 0);
+			lstCommands.ItemHeight = lstCommands.ItemHeight / 4;
+		}
+
+		private void TextboxEnter(object sender, EventArgs e)
+		{
+			TextBox t = (TextBox)sender;
+			if (t.Text == _defaultControlText[t.Name])
+				t.Clear();
+		}
+
+		private void TextboxLeave(object sender, EventArgs e)
+		{
+			TextBox t = (TextBox)sender;
+			if (string.IsNullOrEmpty(t.Text))
+			{
+				if (_defaultControlText.TryGetValue(t.Name, out string def))
+					t.Text = def;
+			}
+		}
+
+		public void OnServersLoaded(Server[] servers)
+		{
+			if (servers != null && servers.Length != 0 && cbServers.Items.Count <= 1)
+			{
+				cbServers.Items.AddRange(servers);
+				cbServers.SelectedIndex = 0;
+				Root.Instance.changeServerList.Items.AddRange(servers);
+				Root.Instance.changeServerList.SelectedIndex = 0;
+			}
+		}
+
+		private void MoveListItem(int direction)
+		{
+			if (SelectedList.SelectedItem != null && SelectedList.SelectedIndex >= 0)
+			{
+				int num = SelectedList.SelectedIndex + direction;
+				if (num >= 0 && num < SelectedList.Items.Count)
+				{
+					object selectedItem = SelectedList.SelectedItem;
+					SelectedList.Items.Remove(selectedItem);
+					SelectedList.Items.Insert(num, selectedItem);
+					SelectedList.SetSelected(num, value: true);
+				}
+			}
+		}
+
+		private void MoveListItemByKey(int direction)
+		{
+			if (SelectedList.SelectedItem == null || SelectedList.SelectedIndex < 0)
+			{
+				return;
+			}
+			int num = SelectedList.SelectedIndex + direction;
+			if (num >= 0 && num < SelectedList.Items.Count)
+			{
+				object selectedItem = SelectedList.SelectedItem;
+				SelectedList.Items.Remove(selectedItem);
+				SelectedList.Items.Insert(num, selectedItem);
+				if (direction == 1)
+				{
+					SelectedList.SetSelected(num - 1, value: true);
+				}
+			}
+		}
+
+		public Configuration GenerateConfiguration()
+		{
+			return new Configuration
+			{
+				Author = txtAuthor.Text,
+				Description = rtbInfo.Rtf ?? rtbInfo.Text,
+				Commands = lstCommands.Items.Cast<IBotCommand>().ToList(),
+				Skills = lstSkills.Items.Cast<Skill>().ToList(),
+				Quests = lstQuests.Items.Cast<Quest>().ToList(),
+				Boosts = lstBoosts.Items.Cast<InventoryItem>().ToList(),
+				Drops = lstDrops.Items.Cast<string>().ToList(),
+				Items = lstItems.Items.Cast<string>().ToList(),
+				SkillDelay = (int)numSkillD.Value,
+				ExitCombatBeforeRest = chkExitRest.Checked,
+				ExitCombatBeforeQuest = chkExistQuest.Checked,
+				Server = (Server)cbServers.SelectedItem,
+				AutoRelogin = chkRelog.Checked,
+				RelogDelay = (int)numRelogDelay.Value,
+				RelogRetryUponFailure = chkRelogRetry.Checked,
+				BotDelay = (int)numBotDelay.Value,
+				EnablePickup = chkPickup.Checked,
+				EnableRejection = chkReject.Checked,
+				EnablePickupAll = chkPickupAll.Checked,
+				EnablePickupAcTagged = chkPickupAcTag.Checked,
+				EnableRejectAll = chkRejectAll.Checked,
+				WaitForAllSkills = chkAllSkillsCD.Checked,
+				WaitForSkill = chkSkillCD.Checked,
+				SkipDelayIndexIf = chkSkip.Checked,
+				InfiniteAttackRange = chkInfiniteRange.Checked,
+				ProvokeMonsters = chkProvoke.Checked,
+				EnemyMagnet = chkMagnet.Checked,
+				LagKiller = chkLag.Checked,
+				HidePlayers = chkHidePlayers.Checked,
+				SkipCutscenes = chkSkipCutscenes.Checked,
+				WalkSpeed = (int)numWalkSpeed.Value,
+				NotifyUponDrop = lstSoundItems.Items.Cast<string>().ToList(),
+				RestIfMp = chkMP.Checked,
+				RestIfHp = chkHP.Checked,
+				BankOnStop = chkBankOnStop.Checked,
+				RestMp = (int)numRestMP.Value,
+				RestHp = (int)numRest.Value,
+				RestartUponDeath = chkRestartDeath.Checked,
+				AFK = chkAFK.Checked,
+				AntiCounter = chkAntiCounter.Checked,
+				DropDelay = (int)numDropDelay.Value,
+				DisableAnimations = chkDisableAnims.Checked
+			};
+		}
+
+		public Configuration SaveConfiguration()
+		{
+			var compressed = DocConvert.Zip<string>(txtDescription.Text);
+
+			return new Configuration
+			{
+				Author = txtAuthor.Text,
+				Description = compressed.Length > txtDescription.Text.Length ? txtDescription.Text : compressed,
+				Commands = lstCommands.Items.Cast<IBotCommand>().ToList(),
+				Skills = lstSkills.Items.Cast<Skill>().ToList(),
+				Quests = lstQuests.Items.Cast<Quest>().ToList(),
+				Boosts = lstBoosts.Items.Cast<InventoryItem>().ToList(),
+				Drops = lstDrops.Items.Cast<string>().ToList(),
+				Items = lstItems.Items.Cast<string>().ToList(),
+				SkillDelay = (int)numSkillD.Value,
+				ExitCombatBeforeRest = chkExitRest.Checked,
+				ExitCombatBeforeQuest = chkExistQuest.Checked,
+				Server = (Server)cbServers.SelectedItem,
+				AutoRelogin = chkRelog.Checked,
+				RelogDelay = (int)numRelogDelay.Value,
+				RelogRetryUponFailure = chkRelogRetry.Checked,
+				BotDelay = (int)numBotDelay.Value,
+				EnablePickup = chkPickup.Checked,
+				EnableRejection = chkReject.Checked,
+				EnablePickupAll = chkPickupAll.Checked,
+				EnablePickupAcTagged = chkPickupAcTag.Checked,
+				EnableRejectAll = chkRejectAll.Checked,
+				WaitForAllSkills = chkAllSkillsCD.Checked,
+				WaitForSkill = chkSkillCD.Checked,
+				SkipDelayIndexIf = chkSkip.Checked,
+				InfiniteAttackRange = chkInfiniteRange.Checked,
+				ProvokeMonsters = chkProvoke.Checked,
+				EnemyMagnet = chkMagnet.Checked,
+				LagKiller = chkLag.Checked,
+				HidePlayers = chkHidePlayers.Checked,
+				SkipCutscenes = chkSkipCutscenes.Checked,
+				WalkSpeed = (int)numWalkSpeed.Value,
+				NotifyUponDrop = lstSoundItems.Items.Cast<string>().ToList(),
+				RestIfMp = chkMP.Checked,
+				RestIfHp = chkHP.Checked,
+				BankOnStop = chkBankOnStop.Checked,
+				RestMp = (int)numRestMP.Value,
+				RestHp = (int)numRest.Value,
+				RestartUponDeath = chkRestartDeath.Checked,
+				AFK = chkAFK.Checked,
+				AntiCounter = chkAntiCounter.Checked,
+				DropDelay = (int)numDropDelay.Value,
+				DisableAnimations = chkDisableAnims.Checked
+			};
+		}
+
+		public void ApplyConfiguration(Configuration config)
+		{
+			if (config != null)
+			{
+				if (!chkMerge.Checked || ActiveBotEngine.IsRunning)
+				{
+					lstCommands.Items.Clear();
+					lstBoosts.Items.Clear();
+					lstDrops.Items.Clear();
+					lstQuests.Items.Clear();
+					lstSkills.Items.Clear();
+					lstItems.Items.Clear();
+					lstSoundItems.Items.Clear();
+				}
+				txtSavedAuthor.Text = config.Author ?? "Author";
+				txtSavedDesc.Text = DocConvert.IsBase64Encoded(config.Description) ? DocConvert.Unzip(config.Description) : config.Description ?? "Description";
+				List<IBotCommand> commands = config.Commands;
+				if (commands != null && commands.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstCommands.Items;
+					object[] array = config.Commands.ToArray();
+					items.AddRange(array);
+				}
+				List<Skill> skills = config.Skills;
+				if (skills != null && skills.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstSkills.Items;
+					object[] array = config.Skills.ToArray();
+					items.AddRange(array);
+				}
+				List<Quest> quests = config.Quests;
+				if (quests != null && quests.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstQuests.Items;
+					object[] array = config.Quests.ToArray();
+					items.AddRange(array);
+				}
+				List<InventoryItem> boosts = config.Boosts;
+				if (boosts != null && boosts.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstBoosts.Items;
+					object[] array = config.Boosts.ToArray();
+					items.AddRange(array);
+				}
+				List<string> drops = config.Drops;
+				if (drops != null && drops.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstDrops.Items;
+					object[] array = config.Drops.ToArray();
+					items.AddRange(array);
+				}
+				List<string> item = config.Items;
+				if (item != null && item.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstItems.Items;
+					object[] array = config.Items.ToArray();
+					items.AddRange(array);
+				}
+				numSkillD.Value = config.SkillDelay;
+				chkExitRest.Checked = config.ExitCombatBeforeRest;
+				chkExistQuest.Checked = config.ExitCombatBeforeQuest;
+				if (config.Server != null)
+				{
+					cbServers.SelectedIndex = cbServers.Items.Cast<Server>().ToList().FindIndex((Server s) => s.Name == config.Server.Name);
+				}
+				chkRelog.Checked = config.AutoRelogin;
+				numRelogDelay.Value = config.RelogDelay;
+				chkRelogRetry.Checked = config.RelogRetryUponFailure;
+				numBotDelay.Value = config.BotDelay;
+				chkPickup.Checked = config.EnablePickup;
+				chkReject.Checked = config.EnableRejection;
+				chkPickupAll.Checked = config.EnablePickupAll;
+				chkRejectAll.Checked = config.EnableRejectAll;
+				chkAllSkillsCD.Checked = config.WaitForAllSkills;
+				chkSkillCD.Checked = config.WaitForSkill;
+				chkSkip.Checked = config.SkipDelayIndexIf;
+				chkInfiniteRange.Checked = config.InfiniteAttackRange;
+				chkProvoke.Checked = config.ProvokeMonsters;
+				chkLag.Checked = config.LagKiller;
+				chkMagnet.Checked = config.EnemyMagnet;
+				chkHidePlayers.Checked = config.HidePlayers;
+				chkSkipCutscenes.Checked = config.SkipCutscenes;
+				chkDisableAnims.Checked = config.DisableAnimations;
+				numWalkSpeed.Value = (config.WalkSpeed <= 0) ? 8 : config.WalkSpeed;
+				List<string> notifyUponDrop = config.NotifyUponDrop;
+				if (notifyUponDrop != null && notifyUponDrop.Count > 0)
+				{
+					ListBox.ObjectCollection items14 = lstSoundItems.Items;
+					object[] array = config.NotifyUponDrop.ToArray();
+					object[] items15 = array;
+					items14.AddRange(items15);
+				}
+				numRestMP.Value = config.RestMp;
+				numRest.Value = config.RestHp;
+				chkMP.Checked = config.RestIfMp;
+				chkHP.Checked = config.RestIfHp;
+				chkBankOnStop.Checked = config.BankOnStop;
+				chkRestartDeath.Checked = config.RestartUponDeath;
+				chkAFK.Checked = config.AFK;
+				chkAntiCounter.Checked = config.AntiCounter;
+				numDropDelay.Value = config.DropDelay <= 0 ? 1000 : config.DropDelay;
+				txtAuthor.Text = config.Author;
+				txtDescription.Text =
+				txtSavedDesc.Text = DocConvert.IsBase64Encoded(config.Description) ? DocConvert.Unzip(config.Description) : config.Description ?? "Description"; ;
+				var description = txtSavedDesc.Text ?? "Description";
+				if (description.StartsWith("{\\rtf") || description.StartsWith("{\rtf"))
+					rtbInfo.Rtf = description; //mainTabControl.SelectedTab = tabInfo;
+				else
+					rtbInfo.Text = config.Description;
+			}
+		}
+
+		public void OnConfigurationChanged(Configuration config)
+		{
+			if (InvokeRequired)
+			{
+				Invoke((Action)delegate
+				{
+					ApplyConfiguration(config);
+				});
+			}
+			else
+			{
+				ApplyConfiguration(config);
+			}
+		}
+
+		public void OnIndexChanged(int index)
+		{
+			if (index > -1)
+			{
+				if (InvokeRequired)
+				{
+					Invoke((Action)delegate
+					{
+						lstCommands.SelectedIndex = index;
+					});
+				}
+				else
+				{
+					lstCommands.SelectedIndex = index;
+				}
+			}
+		}
+
+		public void OnSkillIndexChanged(int index)
+		{
+			if (index > -1 && index < lstSkills.Items.Count)
+			{
+				Invoke((Action)delegate
+				{
+					lstSkills.SelectedIndex = index;
+				});
+			}
+		}
+
+		public void OnIsRunningChanged(bool isRunning)
+		{
+			if (!isRunning)
+			{
+				ActiveBotEngine.IsRunningChanged -= OnIsRunningChanged;
+				ActiveBotEngine.IndexChanged -= OnIndexChanged;
+				ActiveBotEngine.ConfigurationChanged -= OnConfigurationChanged;
+
+				void Action()
+				{
+					btnUp.Enabled = true;
+					btnDown.Enabled = true;
+					btnClear.Enabled = true;
+					btnRemove.Enabled = true;
+				}
+
+				if (InvokeRequired)
+					Invoke((Action)Action);
+				else
+					Action();
+			}
+
+			if (InvokeRequired)
+				Invoke(new Action(() => { chkEnable.Checked = isRunning; }));
+			else
+				chkEnable.Checked = isRunning;
+
+			Root.Instance.chkStartBot.Checked = isRunning;
+
+			selectionMode(isRunning ? SelectionMode.One : SelectionMode.MultiExtended);
+
+			BotStateChanged(isRunning);
+
+			/*Invoke((Action)delegate
+			{
+				if (!IsRunning)
+				{
+					ActiveBotEngine.IsRunningChanged -= OnIsRunningChanged;
+					ActiveBotEngine.IndexChanged -= OnIndexChanged;
+					ActiveBotEngine.ConfigurationChanged -= OnConfigurationChanged;
+				}
+				BotStateChanged(IsRunning);
+			});*/
+		}
+
+		private void lstSkills_DoubleClick(object sender, EventArgs e)
+		{
+			/*int index = lstSkills.SelectedIndex;
+			if (index > -1)
+			{
+				object cmd = lstSkills.Items[index];
+				string result = JsonConvert.SerializeObject(cmd, Formatting.Indented, _serializerSettings);
+				string mod = RawCommandEditor.Show(result);
+
+				if (mod != null)
+				{
+					try
+					{
+						Skill modifiedCmd = (Skill)JsonConvert.DeserializeObject(mod, cmd.GetType());
+						lstSkills.Items.Remove(cmd);
+						lstSkills.Items.Insert(index, modifiedCmd);
+					}
+					catch { }
+				}
+			}*/
+
+
+			if (lstSkills.Items.Count <= 0)
+			{
+				using (OpenFileDialog openFileDialog = new OpenFileDialog())
+				{
+					openFileDialog.Title = "Load bot";
+					openFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
+					openFileDialog.Filter = "Grimoire bots|*.gbot";
+					openFileDialog.DefaultExt = ".gbot";
+					if (openFileDialog.ShowDialog() == DialogResult.OK && TryDeserialize(File.ReadAllText(openFileDialog.FileName), out Configuration config))
+					{
+						ApplyConfiguration(config);
+					}
+				}
+			}
+			else if (lstSkills.SelectedIndex > -1)
+			{
+				int selectedIndex = lstSkills.SelectedIndex;
+				object obj = lstSkills.Items[selectedIndex];
+				string text = UserFriendlyCommandEditor.Show(obj);
+				//string text = RawCommandEditor.Show(JsonConvert.SerializeObject(obj, Formatting.Indented, _serializerSettings));
+				if (text != null)
+				{
+					try
+					{
+						Skill item = (Skill)JsonConvert.DeserializeObject(text, obj.GetType());
+						lstSkills.Items.Remove(obj);
+						lstSkills.Items.Insert(selectedIndex, item);
+					}
+					catch
+					{
+
+					}
+				}
+			}
+		}
+
+		private void lstQuests_DoubleClick(object sender, EventArgs e)
+		{
+			if (lstQuests.Items.Count <= 0)
+			{
+				using (OpenFileDialog openFileDialog = new OpenFileDialog())
+				{
+					openFileDialog.Title = "Load bot";
+					openFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
+					openFileDialog.Filter = "Grimoire bots|*.gbot";
+					openFileDialog.DefaultExt = ".gbot";
+					if (openFileDialog.ShowDialog() == DialogResult.OK && TryDeserialize(File.ReadAllText(openFileDialog.FileName), out Configuration config))
+					{
+						ApplyConfiguration(config);
+					}
+				}
+			}
+			else if (lstQuests.SelectedIndex > -1)
+			{
+				int selectedIndex = lstQuests.SelectedIndex;
+				object obj = lstQuests.Items[selectedIndex];
+				string text = UserFriendlyCommandEditor.Show(obj);
+				//string text = RawCommandEditor.Show(JsonConvert.SerializeObject(obj, Formatting.Indented, _serializerSettings));
+				if (text != null)
+				{
+					try
+					{
+						Quest item = (Quest)JsonConvert.DeserializeObject(text, obj.GetType());
+						lstQuests.Items.Remove(obj);
+						lstQuests.Items.Insert(selectedIndex, item);
+					}
+					catch
+					{
+
+					}
+				}
+			}
+		}
+
+		private void lstCommands_DoubleClick(object sender, EventArgs e)
+		{
+			if (lstCommands.Items.Count <= 0)
+			{
+				using (OpenFileDialog openFileDialog = new OpenFileDialog())
+				{
+					openFileDialog.Title = "Load bot";
+					openFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
+					openFileDialog.Filter = "Grimoire bots|*.gbot";
+					openFileDialog.DefaultExt = ".gbot";
+					if (openFileDialog.ShowDialog() == DialogResult.OK && TryDeserialize(File.ReadAllText(openFileDialog.FileName), out Configuration config))
+					{
+						ApplyConfiguration(config);
+					}
+				}
+			}
+			else if (lstCommands.SelectedIndex > -1)
+			{
+				int selectedIndex = lstCommands.SelectedIndex;
+				object obj = lstCommands.Items[selectedIndex];
+				string text = UserFriendlyCommandEditor.Show(obj);
+				//string text = RawCommandEditor.Show(JsonConvert.SerializeObject(obj, Formatting.Indented, _serializerSettings));
+				if (text != null)
+				{
+					try
+					{
+						IBotCommand item = (IBotCommand)JsonConvert.DeserializeObject(text, obj.GetType());
+						lstCommands.Items.Remove(obj);
+						lstCommands.Items.Insert(selectedIndex, item);
+					}
+					catch
+					{
+
+					}
+				}
+			}
+		}
+
+		private void btnRemove_Click(object sender, EventArgs e)
+		{
+			if (SelectedList.SelectedItem != null)
+			{
+				int selectedIndex = SelectedList.SelectedIndex;
+				if (selectedIndex > -1)
+				{
+					_RemoveListBoxItem();
+				}
+			}
+			GetAllCommands<CmdLabel>(lbLabels);
+		}
+
+		private void btnDown_Click(object sender, EventArgs e)
+		{
+			_MoveListBoxDown();
+		}
+
+		private void btnUp_Click(object sender, EventArgs e)
+		{
+			_MoveListBoxUp();
+		}
+
+		private void _RemoveListBoxItem()
+		{
+			SelectedList.BeginUpdate();
+			for (int x = SelectedList.SelectedIndices.Count - 1; x >= 0; x--)
+			{
+				int idx = SelectedList.SelectedIndices[x];
+				SelectedList.Items.RemoveAt(idx);
+			}
+			SelectedList.EndUpdate();
+		}
+
+		private void _MoveListBoxUp()
+		{
+			//MoveListItem(-1);
+			SelectedList.BeginUpdate();
+			int numberOfSelectedItems = SelectedList.SelectedItems.Count;
+			for (int i = 0; i < numberOfSelectedItems; i++)
+			{
+				// only if it's not the first item
+				if (SelectedList.SelectedIndices[i] > 0)
+				{
+					// the index of the item above the item that we wanna move up
+					int indexToInsertIn = SelectedList.SelectedIndices[i] - 1;
+					// insert UP the item that we want to move up
+					SelectedList.Items.Insert(indexToInsertIn, SelectedList.SelectedItems[i]);
+					// removing it from its old place
+					SelectedList.Items.RemoveAt(indexToInsertIn + 2);
+					// highlighting it in its new place
+					SelectedList.SelectedItem = SelectedList.Items[indexToInsertIn];
+				}
+			}
+			SelectedList.EndUpdate();
+		}
+
+		private void _MoveListBoxDown()
+		{
+			//MoveListItem(1);
+			SelectedList.BeginUpdate();
+			int numberOfSelectedItems = SelectedList.SelectedItems.Count;
+			// when going down, instead of moving through the selected items from top to bottom
+			// we'll go from bottom to top, it's easier to handle this way.
+			for (int i = numberOfSelectedItems - 1; i >= 0; i--)
+			{
+				// only if it's not the last item
+				if (SelectedList.SelectedIndices[i] < SelectedList.Items.Count - 1)
+				{
+					// the index of the item that is currently below the selected item
+					int indexToInsertIn = SelectedList.SelectedIndices[i] + 2;
+					// insert DOWN the item that we want to move down
+					SelectedList.Items.Insert(indexToInsertIn, SelectedList.SelectedItems[i]);
+					// removing it from its old place
+					SelectedList.Items.RemoveAt(indexToInsertIn - 2);
+					// highlighting it in its new place
+					SelectedList.SelectedItem = SelectedList.Items[indexToInsertIn - 1];
+				}
+			}
+			SelectedList.EndUpdate();
+		}
+
+		private void btnClear_Click(object sender, EventArgs e)
+		{
+			if (chkAll.Checked)
+			{
+				lstBoosts.Items.Clear();
+				lstCommands.Items.Clear();
+				lstDrops.Items.Clear();
+				lstItems.Items.Clear();
+				lstQuests.Items.Clear();
+				lstSkills.Items.Clear();
+			}
+			else
+			{
+				SelectedList.Items.Clear();
+			}
+		}
+
+		private void cbLists_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			lstBoosts.Visible = SelectedList == lstBoosts;
+			lstCommands.Visible = SelectedList == lstCommands;
+			lstDrops.Visible = SelectedList == lstDrops;
+			lstItems.Visible = SelectedList == lstItems;
+			lstQuests.Visible = SelectedList == lstQuests;
+			lstSkills.Visible = SelectedList == lstSkills;
+		}
+
+		private void BotManager_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (e.CloseReason == CloseReason.UserClosing)
+			{
+				e.Cancel = true;
+				Hide();
+			}
+		}
+
+		private void btnKill_Click(object sender, EventArgs e)
+		{
+			string monster = string.IsNullOrEmpty(txtMonster.Text) ? "*" : txtMonster.Text;
+			if (txtMonster.Text == "Monster (* = random)")
+			{
+				monster = "*";
+			}
+			AddCommand(new CmdKill
+			{
+				Monster = monster
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnKillF_Click(object sender, EventArgs e)
+		{
+			if (txtKillFItem.Text.Length > 0 && txtKillFQ.Text.Length > 0)
+			{
+				if (chkAddToWhiteList.Checked)
+				{
+					if (txtKillFItem.Text.Length <= 0) return;
+					string[] items = txtKillFItem.Text.Split(new char[] {
+						','
+					});
+
+					foreach (string _item in items)
+					{
+						if (!lstDrops.Items.Cast<string>().ToList().Any((string d) => d.Equals(_item, StringComparison.OrdinalIgnoreCase)))
+							lstDrops.Items.Add(_item);
+					}
+				};
+
+				string monster = string.IsNullOrEmpty(txtKillFMon.Text) || txtKillFMon.Text == "Monster (* = random)" ? "*" : txtKillFMon.Text;
+				string text = txtKillFItem.Text;
+				string text2 = string.IsNullOrEmpty(txtKillFQ.Text) || txtKillFQ.Text == "Quantity (* = any)" ? "*" : txtKillFQ.Text;
+				AddCommand(new CmdKillFor
+				{
+					ItemType = (!rbItems.Checked) ? ItemType.TempItems : ItemType.Items,
+					Monster = monster,
+					ItemName = text,
+					Quantity = text2
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		private void btnAddSkill_Click(object sender, EventArgs e)
+		{
+			string index = numSkill.Text;
+			AddSkill(new Skill
+			{
+				Text = Skill.GetSkillName(index),
+				Index = index,
+				Type = Skill.SkillType.Normal
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnAddSafe_Click(object sender, EventArgs e)
+		{
+			string index = numSkill.Text;
+			int safe = (int)numSafe.Value;
+
+			Skill.SafeType safeType = Skill.SafeType.LowerThan;
+			if (cbSafeType.SelectedIndex == 0)
+			{
+				safeType = Skill.SafeType.LowerThan;
+			}
+			else if (cbSafeType.SelectedIndex == 1)
+			{
+				safeType = Skill.SafeType.GreaterThan;
+			}
+			lstSkills.Items.Add(new Skill
+			{
+				Text = Skill.GetSkillName(index),
+				Index = index,
+				SafeValue = safe,
+				SType = safeType,
+				Type = Skill.SkillType.Safe,
+				IsSafeMp = chkSafeMp.Checked
+			});
+		}
+
+		private void btnRest_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdRest(), (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnRestF_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdRest
+			{
+				Full = true
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnJoin_Click(object sender, EventArgs e)
+		{
+			string text = txtJoin.Text;
+			string cell = string.IsNullOrEmpty(txtJoinCell.Text) ? "Enter" : txtJoinCell.Text;
+			string pad = string.IsNullOrEmpty(txtJoinPad.Text) ? "Spawn" : txtJoinPad.Text;
+			if (text.Length > 0)
+			{
+				AddCommand(new CmdJoin
+				{
+					Map = txtJoin.Text,
+					Cell = cell,
+					Pad = pad
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		private void btnCellSwap_Click(object sender, EventArgs e)
+		{
+			DarkButton s = sender as DarkButton;
+			if (s.Text == "<")
+			{
+				txtJoin.Text = Player.Map + "-" + Flash.Call<string>("RoomNumber", new object[0]);
+				txtJoinCell.Text = txtCell.Text;
+				txtJoinPad.Text = txtPad.Text;
+			}
+			else if (s.Text == ">")
+			{
+				txtCell.Text = txtJoinCell.Text;
+				txtPad.Text = txtJoinPad.Text;
+			}
+		}
+
+		private void btnCurrCell_Click(object sender, EventArgs e)
+		{
+			txtCell.Text = Player.Cell;
+			txtPad.Text = Player.Pad;
+		}
+
+		private void btnJump_Click(object sender, EventArgs e)
+		{
+			string cell = string.IsNullOrEmpty(txtCell.Text) ? "Enter" : txtCell.Text;
+			string pad = string.IsNullOrEmpty(txtPad.Text) ? "Spawn" : txtPad.Text;
+			AddCommand(new CmdMoveToCell
+			{
+				Cell = cell,
+				Pad = pad
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnWalk_Click(object sender, EventArgs e)
+		{
+			string x = numWalkX.Value.ToString();
+			string y = numWalkY.Value.ToString();
+			AddCommand(new CmdWalk
+			{
+				X = x,
+				Y = y
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnWalkCur_Click(object sender, EventArgs e)
+		{
+			float[] position = Player.Position;
+			numWalkX.Value = (decimal)position[0];
+			numWalkY.Value = (decimal)position[1];
+		}
+
+		private void btnWalkRdm_Click(object sender, EventArgs e)
+		{
+			string x = numWalkX.Value.ToString();
+			string y = numWalkY.Value.ToString();
+			AddCommand(new CmdWalk
+			{
+				Type = "Random",
+				X = x,
+				Y = y
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnItem_Click(object sender, EventArgs e)
+		{
+			string text = txtItem.Text;
+			if (text.Length > 0 && cbItemCmds.SelectedIndex > -1)
+			{
+				IBotCommand cmd;
+				switch (cbItemCmds.SelectedIndex)
+				{
+					case 0:
+						cmd = new CmdGetDrop
+						{
+							ItemName = text
+						};
+						break;
+
+					case 1:
+						cmd = new CmdSell
+						{
+							ItemName = text
+						};
+						break;
+
+					case 2:
+						cmd = new CmdEquip
+						{
+							ItemName = text,
+							Safe = true
+						};
+						break;
+
+					case 3:
+						cmd = new CmdEquip
+						{
+							ItemName = text,
+							Safe = false
+						};
+						break;
+
+					case 4:
+						cmd = new CmdBankTransfer
+						{
+							ItemName = text,
+							TransferFromBank = false
+						};
+						break;
+
+					case 5:
+						cmd = new CmdBankTransfer
+						{
+							ItemName = text,
+							TransferFromBank = true
+						};
+						break;
+
+					case 6:
+						cmd = new CmdEquipSet
+						{
+							ItemName = text
+						};
+						break;
+
+					case 7:
+						cmd = new CmdWhitelist
+						{
+							ItemName = text,
+							state = State.Add
+						};
+						break;
+
+					case 8:
+						cmd = new CmdWhitelist
+						{
+							ItemName = text,
+							state = State.Remove
+						};
+						break;
+
+					default:
+						cmd = new CmdGetDrop
+						{
+							ItemName = text
+						};
+						break;
+				}
+				AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		private void btnMapItem_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdMapItem
+			{
+				ItemId = (int)numMapItem.Value
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnBoth_Click(object sender, EventArgs e)
+		{
+			string text = txtWhitelist.Text;
+			if (text.Length > 0)
+			{
+				AddDrop(text);
+				AddItem(text);
+			}
+		}
+
+		private void btnWhitelist_Click(object sender, EventArgs e)
+		{
+			string text = txtWhitelist.Text;
+			if (text.Length > 0)
+			{
+				AddDrop(text);
+			}
+		}
+
+		private void btnSwap_Click(object sender, EventArgs e)
+		{
+			string text = txtSwapBank.Text;
+			string text2 = txtSwapInv.Text;
+			if (text.Length > 0 && text2.Length > 0)
+			{
+				AddCommand(new CmdBankSwap
+				{
+					InventoryItemName = text2,
+					BankItemName = text
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		private void btnBoost_Click(object sender, EventArgs e)
+		{
+			if (cbBoosts.SelectedIndex > -1)
+			{
+				lstBoosts.Items.Add(cbBoosts.SelectedItem);
+			}
+		}
+
+		private void cbBoosts_Click(object sender, EventArgs e)
+		{
+			cbBoosts.Items.Clear();
+			DarkComboBox.ObjectCollection items = cbBoosts.Items;
+			object[] array = Player.Inventory.Items.Where((InventoryItem i) => i.Category == "ServerUse").ToArray();
+			object[] items2 = array;
+			items.AddRange(items2);
+		}
+
+		private void btnBuy_Click(object sender, EventArgs e)
+		{
+			if (txtShopItem.TextLength > 0)
+			{
+				AddCommand(new CmdBuy
+				{
+					ItemName = txtShopItem.Text,
+					ShopId = (int)numShopId.Value
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		private void btnQuestAdd_Click(object sender, EventArgs e)
+		{
+			AddQuest((int)numQuestID.Value, chkQuestItem.Checked ? numQuestItem.Value.ToString() : null, chkInBlankCell.Checked);
+		}
+
+		private void btnQuestComplete_Click(object sender, EventArgs e)
+		{
+			Quest q = new Quest();
+			CmdCompleteQuest cmd = new CmdCompleteQuest
+			{
+				CompleteTry = (int)numEnsureTries.Value,
+				LogoutFailed = chkReloginCompleteQuest.Checked,
+				InBlank = chkInBlankCell.Checked
+			};
+			q.Id = (int)numQuestID.Value;
+			if (chkQuestItem.Checked)
+				q.ItemId = numQuestItem.Value.ToString();
+			cmd.Quest = q;
+			this.AddCommand(cmd, (Control.ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnQuestAccept_Click(object sender, EventArgs e)
+		{
+			Quest quest = new Quest
+			{
+				Id = (int)numQuestID.Value
+			};
+			AddCommand(new CmdAcceptQuest
+			{
+				Quest = quest
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void chkQuestItem_CheckedChanged(object sender, EventArgs e)
+		{
+			numQuestItem.Enabled = chkQuestItem.Checked;
+		}
+
+		private void btnPacket_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdPacket
+			{
+				Packet = txtPacket.Text,
+				SpamTimes = Decimal.ToInt32(numSpamTimes.Value)
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnDelay_Click(object sender, EventArgs e)
+		{
+			int delay = (int)numDelay.Value;
+			AddCommand(new CmdDelay
+			{
+				Delay = delay
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnGoto_Click(object sender, EventArgs e)
+		{
+			string text = txtPlayer.Text;
+			if (text.Length > 0)
+			{
+				AddCommand(new CmdGotoPlayer
+				{
+					PlayerName = text
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		private void btnBotDelay_Click(object sender, EventArgs e)
+		{
+			int delay = (int)numBotDelay.Value;
+			AddCommand(new CmdBotDelay
+			{
+				Delay = delay
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnStop_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdStop(), (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnRestart_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdRestart(), (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		public void btnLoad_Click(object sender, EventArgs e)
+		{
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
+			{
+				openFileDialog.Title = "Load bot";
+				openFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
+				openFileDialog.Filter = "Grimoire bots|*.gbot";
+				openFileDialog.DefaultExt = ".gbot";
+				if (openFileDialog.ShowDialog() == DialogResult.OK && TryDeserialize(File.ReadAllText(openFileDialog.FileName), out Configuration config))
+				{
+					ApplyConfiguration(config);
+					GetAllCommands<CmdLabel>(lbLabels);
+				}
+			}
+		}
+
+		private bool TryDeserialize(string json, out Configuration config)
+		{
+			try {
+				config = JsonConvert.DeserializeObject<Configuration>(json, _saveSerializerSettings);
+				return true;
+			}
+			catch (Exception e) { MessageBox.Show(e.ToString()); }
+			config = null;
+			return false;
+		}
+
+		private void btnSave_Click(object sender, EventArgs e)
+		{
+			using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+			{
+				saveFileDialog.Title = "Save bot";
+				saveFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
+				saveFileDialog.DefaultExt = ".gbot";
+				saveFileDialog.Filter = "Grimoire bots|*.gbot";
+				saveFileDialog.CheckFileExists = false;
+				if (saveFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					Configuration value = SaveConfiguration();
+					try
+					{
+						File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _saveSerializerSettings));
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show("Unable to save bot: " + ex.Message);
+					}
+				}
+			}
+		}
+
+		private void btnLoadCmd_Click(object sender, EventArgs e)
+		{
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
+			{
+				string initialDirectory = Path.Combine(Application.StartupPath, "Bots");
+				openFileDialog.Title = "Select bot to load";
+				openFileDialog.Filter = "Grimoire bots|*.gbot";
+				openFileDialog.InitialDirectory = initialDirectory;
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					AddCommand(new CmdLoadBot
+					{
+						BotFilePath = Extensions.MakeRelativePathFrom(Application.StartupPath, openFileDialog.FileName), // Path.GetFullPath(openFileDialog.FileName)
+						BotFileName = Path.GetFileName(openFileDialog.FileName)
+
+					}, (ModifierKeys & Keys.Control) == Keys.Control);
+				}
+			}
+		}
+
+		private void cbStatement_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (cbCategories.SelectedIndex > -1 && cbStatement.SelectedIndex > -1)
+			{
+				StatementCommand statementCommand = (StatementCommand)cbStatement.SelectedItem;
+				txtStatement1.Enabled = statementCommand.Description1 != null;
+				txtStatement2.Enabled = statementCommand.Description2 != null;
+				txtStatement1.Text = statementCommand.Description1;
+				txtStatement2.Text = statementCommand.Description2;
+			}
+		}
+
+		private void btnStatementAdd_Click(object sender, EventArgs e)
+		{
+			if (cbCategories.SelectedIndex > -1 && cbStatement.SelectedIndex > -1)
+			{
+				string text = txtStatement1.Text;
+				string text2 = txtStatement2.Text;
+				StatementCommand statementCommand = (StatementCommand)Activator.CreateInstance(cbStatement.SelectedItem.GetType());
+				statementCommand.Value1 = text;
+				statementCommand.Value2 = text2;
+				AddCommand((IBotCommand)statementCommand, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		private void cbCategories_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (cbCategories.SelectedIndex > -1)
+			{
+				cbStatement.Items.Clear();
+				string text = cbCategories.SelectedItem.ToString();
+				DarkComboBox.ObjectCollection items = cbStatement.Items;
+				object[] array = _statementCommands.Where((StatementCommand s) => s.Tag == text).ToArray();
+				object[] items2 = array;
+				items.AddRange(items2);
+			}
+		}
+
+		private void btnGotoLabel_Click(object sender, EventArgs e)
+		{
+			if (txtLabel.TextLength > 0)
+			{
+				AddCommand(new CmdGotoLabel
+				{
+					Label = txtLabel.Text
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+			GetAllCommands<CmdLabel>(lbLabels);
+		}
+
+		private void btnAddLabel_Click(object sender, EventArgs e)
+		{
+			if (txtLabel.TextLength > 0)
+			{
+				AddCommand(new CmdLabel
+				{
+					Name = txtLabel.Text
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+			GetAllCommands<CmdLabel>(lbLabels);
+		}
+
+		private void GetAllCommands<T>(ListBox lb)
+		{
+			lb.Items.Clear();
+			T[] allItems = lstCommands.Items.OfType<T>().ToArray();
+			string[] allStrings = new string[allItems.Count()];
+			for(int i = 0; i < allItems.Count(); i++)
+				allStrings[i] = allItems[i].ToString();
+			lb.Items.AddRange(allStrings);
+		}
+
+		private void btnLogout_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdLogout(), (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void UpdateTree()
+		{
+			if (!string.IsNullOrEmpty(txtSaved.Text) && Directory.Exists(txtSaved.Text))
+			{
+				lblBots.Text = string.Format("Number of Bots: {0}", Directory.EnumerateFiles(txtSaved.Text, "*.gbot", SearchOption.AllDirectories).Count());
+				treeBots.Nodes.Clear();
+				AddTreeNodes(treeBots, txtSaved.Text);
+			}
+		}
+
+		private void treeBots_AfterSelect(object sender, TreeViewEventArgs e)
+		{
+			string path = Path.Combine(txtSaved.Text, e.Node.FullPath);
+			if (File.Exists(path))
+			{
+				if (!TryDeserialize(File.ReadAllText(path), out Configuration config))
+				{
+					return;
+				}
+				ApplyConfiguration(config);
+			}
+			lblCommands.Text = $"Number of{Environment.NewLine}Commands: {lstCommands.Items.Count}";
+			lblSkills.Text = $"Skills: {lstSkills.Items.Count}";
+			lblQuests.Text = $"Quests: {lstQuests.Items.Count}";
+			lblDrops.Text = $"Drops: {lstDrops.Items.Count}";
+			lblBoosts.Text = $"Boosts: {lstBoosts.Items.Count}";
+			lblItems.Text = $"Items: {lstItems.Items.Count}";
+		}
+
+		private void treeBots_AfterExpand(object sender, TreeViewEventArgs e)
+		{
+			string path = Path.Combine(txtSaved.Text, e.Node.FullPath);
+			if (Directory.Exists(path))
+			{
+				AddTreeNodes(e.Node, path);
+				if (e.Node.Nodes.Count > 0 && e.Node.Nodes[0].Text == "Loading...")
+				{
+					e.Node.Nodes.RemoveAt(0);
+				}
+			}
+		}
+
+		private void AddTreeNodes(TreeNode node, string path)
+		{
+			foreach (string item in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly))
+			{
+				string add = Path.GetFileName(item);
+				if (node.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add))
+				{
+					node.Nodes.Add(add).Nodes.Add("Loading...");
+				}
+			}
+			foreach (string item2 in Directory.EnumerateFiles(path, "*.gbot", SearchOption.TopDirectoryOnly))
+			{
+				string add2 = Path.GetFileName(item2);
+				if (node.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add2))
+				{
+					node.Nodes.Add(add2);
+				}
+			}
+		}
+
+		private void AddTreeNodes(TreeView tree, string path)
+		{
+			foreach (string item in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly))
+			{
+				string add = Path.GetFileName(item);
+				if (tree.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add))
+				{
+					tree.Nodes.Add(add).Nodes.Add("Loading...");
+				}
+			}
+			foreach (string item2 in Directory.EnumerateFiles(path, "*.gbot", SearchOption.TopDirectoryOnly))
+			{
+				string add2 = Path.GetFileName(item2);
+				if (tree.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add2))
+				{
+					tree.Nodes.Add(add2);
+				}
+			}
+		}
+
+		private void btnSavedAdd_Click(object sender, EventArgs e)
+		{
+			if (!string.IsNullOrEmpty(txtSaved.Text))
+			{
+				string path = Path.Combine(txtSaved.Text, txtSavedAdd.Text);
+				if (!Directory.Exists(path))
+				{
+					try
+					{
+						Directory.CreateDirectory(path);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show("Unable to create directory: " + ex.Message, "Grimoire", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+					}
+				}
+				UpdateTree();
+			}
+		}
+
+		private void btnSoundAdd_Click(object sender, EventArgs e)
+		{
+			if (txtSoundItem.TextLength > 0)
+			{
+				lstSoundItems.Items.Add(txtSoundItem.Text);
+			}
+		}
+
+		private void btnSoundDelete_Click(object sender, EventArgs e)
+		{
+			int selectedIndex = lstSoundItems.SelectedIndex;
+			if (selectedIndex > -1)
+			{
+				lstSoundItems.Items.RemoveAt(selectedIndex);
+			}
+		}
+
+		private void btnSoundClear_Click(object sender, EventArgs e)
+		{
+			lstSoundItems.Items.Clear();
+		}
+
+		private void btnSoundTest_Click(object sender, EventArgs e)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				Console.Beep();
+			}
+		}
+
+		private void chkInfiniteRange_CheckedChanged(object sender, EventArgs e)
+		{
+			OptionsManager.InfiniteRange = chkInfiniteRange.Checked;
+			Root.Instance.infRangeToolStripMenuItem.Checked = chkInfiniteRange.Checked;
+		}
+
+		private void chkProvoke_CheckedChanged(object sender, EventArgs e)
+		{
+			OptionsManager.ProvokeMonsters = chkProvoke.Checked;
+			Root.Instance.provokeToolStripMenuItem1.Checked = chkProvoke.Checked;
+		}
+
+		private void chkMagnet_CheckedChanged(object sender, EventArgs e)
+		{
+			OptionsManager.EnemyMagnet = chkMagnet.Checked;
+			Root.Instance.enemyMagnetToolStripMenuItem.Checked = chkMagnet.Checked;
+		}
+
+		private void chkLag_CheckedChanged(object sender, EventArgs e)
+		{
+			OptionsManager.LagKiller = chkLag.Checked;
+			Root.Instance.lagKillerToolStripMenuItem.Checked = chkLag.Checked;
+		}
+
+		private void chkHidePlayers_CheckedChanged(object sender, EventArgs e)
+		{
+			OptionsManager.HidePlayers = chkHidePlayers.Checked;
+			Root.Instance.hidePlayersToolStripMenuItem.Checked = chkHidePlayers.Checked;
+		}
+
+		private void chkSkipCutscenes_CheckedChanged(object sender, EventArgs e)
+		{
+			OptionsManager.SkipCutscenes = chkSkipCutscenes.Checked;
+			Root.Instance.skipCutscenesToolStripMenuItem.Checked = chkSkipCutscenes.Checked;
+		}
+
+		private void numWalkSpeed_ValueChanged(object sender, EventArgs e)
+		{
+			OptionsManager.WalkSpeed = (int)numWalkSpeed.Value;
+		}
+
+		private void chkDisableAnims_CheckedChanged(object sender, EventArgs e)
+		{
+			OptionsManager.DisableAnimations = chkDisableAnims.Checked;
+			Root.Instance.disableAnimationsToolStripMenuItem.Checked = chkDisableAnims.Checked;
+		}
+
+		private void OnOptionsStateChanged(bool state)
+		{
+			if (InvokeRequired)
+			{
+				Invoke((Action)delegate
+				{
+					chkEnableSettings.Checked = state;
+				});
+			}
+			else
+			{
+				chkEnableSettings.Checked = state;
+			}
+		}
+
+		private void chkEnableSettings_Click(object sender, EventArgs e)
+		{
+			if (chkEnableSettings.Checked)
+				OptionsManager.Start();
+			else
+				OptionsManager.Stop();
+		}
+		
+		private void lstBoxs_KeyPress(object sender, KeyEventArgs e)
+		{
+			if      (ModifierKeys == Keys.Control && e.KeyCode == Keys.Up)
+			{
+				_MoveListBoxUp();
+				e.Handled = true;
+			}
+			else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.Down)
+			{
+				_MoveListBoxDown();
+				e.Handled = true;
+			}
+			else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.Delete)
+			{
+				btnRemove.PerformClick();
+				e.Handled = true;
+			}
+			else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.D && SelectedList.SelectedIndex > -1)
+			{
+				var selectedItems = SelectedList.SelectedItems;
+				for (int i = 0; selectedItems.Count > i; i++)
+				{
+					SelectedList.Items.Insert(SelectedList.SelectedIndex + selectedItems.Count + i, selectedItems[i]);
+				}
+				e.Handled = true;
+			}
+			else if ((ModifierKeys == (Keys.Control | Keys.Shift) && e.KeyCode == Keys.C && SelectedList.SelectedIndex > -1))
+			{
+				Clipboard.Clear();
+				Configuration items = new Configuration
+				{
+					Commands = lstCommands.SelectedItems.Cast<IBotCommand>().ToList()
+				};
+				string[] itemsString = new string[items.Commands.Count];
+				for (int i = 0; i < items.Commands.Count; i++)
+				{
+					itemsString[i] = items.Commands[i].ToString();
+				}
+				Clipboard.SetText(String.Join(Environment.NewLine, itemsString));
+				e.Handled = true;
+			}
+			else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.C && SelectedList.SelectedIndex > -1)
+			{
+				Clipboard.Clear();
+				Configuration items = new Configuration {
+					Commands = lstCommands.SelectedItems.Cast<IBotCommand>().ToList(),
+					Skills = lstSkills.SelectedItems.Cast<Skill>().ToList(),
+					Quests = lstQuests.SelectedItems.Cast<Quest>().ToList(),
+					Boosts = lstBoosts.SelectedItems.Cast<InventoryItem>().ToList(),
+					Drops = lstDrops.SelectedItems.Cast<string>().ToList(),
+					Items = lstItems.SelectedItems.Cast<string>().ToList()
+				};
+				Clipboard.SetText(JsonConvert.SerializeObject(items, Formatting.Indented, _saveSerializerSettings));
+				e.Handled = true;
+			}
+			else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.V)
+			{
+				TryDeserialize(Clipboard.GetText(), out Configuration config);
+				List<IBotCommand> commands = config.Commands;
+				if (commands != null && commands.Count > 0)
+				{
+					List<IBotCommand> items = lstCommands.Items.Cast<IBotCommand>().ToList();
+					int selectedIndex = lstCommands.SelectedIndex;
+					lstCommands.SelectedIndex = -1;
+					items.InsertRange(++selectedIndex, commands);
+					lstCommands.Items.Clear();
+					lstCommands.Items.AddRange(items.ToArray());
+					for (int i = 0; i < commands.Count; i++)
+						lstCommands.SelectedIndex = selectedIndex + i;
+					
+					/* Deprecated
+					ListBox.ObjectCollection items = lstCommands.Items;
+					object[] array = config.Commands.ToArray();
+					int selectedIndex = lstCommands.SelectedIndex;
+					lstCommands.SelectedIndex = -1;
+					for (int i = 0; array.Count() > i; i++)
+					{
+						items.Insert(selectedIndex + i + 1, array[i]);
+						lstCommands.SelectedIndex = selectedIndex + i + 1;
+					}
+					*/
+				}
+				List<Skill> skills = config.Skills;
+				if (skills != null && skills.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstSkills.Items;
+					object[] array = config.Skills.ToArray();
+					items.AddRange(array);
+				}
+				List<Quest> quests = config.Quests;
+				if (quests != null && quests.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstQuests.Items;
+					object[] array = config.Quests.ToArray();
+					items.AddRange(array);
+				}
+				List<InventoryItem> boosts = config.Boosts;
+				if (boosts != null && boosts.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstBoosts.Items;
+					object[] array = config.Boosts.ToArray();
+					items.AddRange(array);
+				}
+				List<string> drops = config.Drops;
+				if (drops != null && drops.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstDrops.Items;
+					object[] array = config.Drops.ToArray();
+					items.AddRange(array);
+				}
+				List<string> item = config.Items;
+				if (item != null && item.Count > 0)
+				{
+					ListBox.ObjectCollection items = lstItems.Items;
+					object[] array = config.Items.ToArray();
+					items.AddRange(array);
+				}
+				e.Handled = true;
+			}
+			else if (Control.ModifierKeys == Keys.Control && e.KeyCode == Keys.X && this.SelectedList.SelectedIndex > -1)
+			{
+				Clipboard.Clear();
+				Configuration value = new Configuration
+				{
+					Commands = this.lstCommands.SelectedItems.Cast<IBotCommand>().ToList<IBotCommand>(),
+					Skills = this.lstSkills.SelectedItems.Cast<Skill>().ToList<Skill>(),
+					Quests = this.lstQuests.SelectedItems.Cast<Quest>().ToList<Quest>(),
+					Boosts = this.lstBoosts.SelectedItems.Cast<InventoryItem>().ToList<InventoryItem>(),
+					Drops = this.lstDrops.SelectedItems.Cast<string>().ToList<string>(),
+				};
+				Clipboard.SetText(JsonConvert.SerializeObject(value, Formatting.Indented, this._serializerSettings));
+				this.btnRemove.PerformClick();
+				e.Handled = true;
+				return;
+			}
+			else if (ModifierKeys == Keys.Control && e.KeyCode == Keys.S)
+			{
+				using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+				{
+					saveFileDialog.Title = "Save bot";
+					saveFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
+					saveFileDialog.DefaultExt = ".gbot";
+					saveFileDialog.Filter = "Grimoire bots|*.gbot";
+					saveFileDialog.CheckFileExists = false;
+					if (saveFileDialog.ShowDialog() == DialogResult.OK)
+					{
+						Configuration value = SaveConfiguration();
+						try
+						{
+							File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _saveSerializerSettings));
+						}
+						catch (Exception ex)
+						{
+							MessageBox.Show("Unable to save bot: " + ex.Message);
+						}
+					}
+				}
+				e.Handled = true;
+			}
+		}
+
+		public void AddCommand(IBotCommand cmd, bool Insert = false)
+		{
+			if (Insert)
+			{
+				lstCommands.Items.Insert((lstCommands.SelectedIndex > -1) ? lstCommands.SelectedIndex : lstCommands.Items.Count, cmd);
+			}
+			else
+			{
+				lstCommands.Items.Add(cmd);
+			}
+		}
+
+		private void AddSkill(Skill skill, bool Insert)
+		{
+			if (Insert)
+			{
+				lstSkills.Items.Insert((lstSkills.SelectedIndex > -1) ? lstSkills.SelectedIndex : lstSkills.Items.Count, skill);
+			}
+			else
+			{
+				lstSkills.Items.Add(skill);
+			}
+		}
+
+		private async void chkEnableBot_CheckedChanged(object sender, EventArgs e)
+		{
+			if (chkEnable.Checked && (lstCommands.Items.Count <= 0 || !Player.IsLoggedIn))
+			{
+				chkEnable.Checked = false;
+				return;
+			}
+
+			if (chkEnable.Checked)
+			{
+				selectionMode(SelectionMode.One);
+				ActiveBotEngine.IsRunningChanged += OnIsRunningChanged;
+				ActiveBotEngine.IndexChanged += OnIndexChanged;
+				ActiveBotEngine.ConfigurationChanged += OnConfigurationChanged;
+				ActiveBotEngine.Start(GenerateConfiguration());
+				BotStateChanged(IsRunning: true);
+				Root.Instance.BotStateChanged(IsRunning: true);
+				Root.Instance.chkStartBot.Checked = true;
+			}
+			else
+			{
+				if (lstItems != null && this.chkBankOnStop.Checked)
+				{
+					foreach (InventoryItem item in Player.Inventory.Items)
+					{
+						if (!item.IsEquipped && item.IsAcItem && item.Category != "Class" && item.Name.ToLower() != "treasure potion" && lstItems.Items.Contains(item.Name))
+						{
+							Player.Bank.TransferToBank(item.Name);
+							await Task.Delay(70);
+							LogForm.Instance.AppendDebug("Transferred to Bank: " + item.Name + "\r\n");
+						}
+					}
+					LogForm.Instance.AppendDebug("Banked all AC Items in Items list \r\n");
+				}
+				ActiveBotEngine.Stop();
+				selectionMode(SelectionMode.MultiExtended);
+				BotStateChanged(IsRunning: false);
+				Root.Instance.BotStateChanged(IsRunning: false);
+				Root.Instance.chkStartBot.Checked = false;
+			}
+		}
+
+
+		private void selectionMode(SelectionMode mode)
+		{
+			this.lstCommands.SelectionMode = mode;
+			this.lstSkills.SelectionMode = mode;
+			this.lstQuests.SelectionMode = mode;
+			this.lstDrops.SelectionMode = mode;
+			this.lstBoosts.SelectionMode = mode;
+			this.lstItems.SelectionMode = mode;
+		}
+
+		public void BotStateChanged(bool IsRunning)
+		{
+			/*if (IsRunning)
+			{
+				btnBotStart.Hide();
+				btnBotStop.Show();
+			}
+			else
+			{
+				btnBotStop.Hide();
+				btnBotStart.Show();
+			}*/
+			btnUp.Enabled = !IsRunning;
+			btnDown.Enabled = !IsRunning;
+			btnClear.Enabled = !IsRunning;
+			btnRemove.Enabled = !IsRunning;
+		}
+
+		public void AddQuest(int QuestID, string ItemID = null, bool completeInBlank = false)
+		{
+			Quest quest = new Quest
+			{
+				Id = QuestID,
+				ItemId = ItemID,
+				CompleteInBlank = completeInBlank
+			};
+			quest.Text = (quest.ItemId != null) ? $"{quest.Id}:{quest.ItemId}" : quest.Id.ToString();
+			if (!lstQuests.Items.Contains(quest))
+			{
+				lstQuests.Items.Add(quest);
+			}
+		}
+
+		public void AddDrop(string Name)
+		{
+			if (!lstDrops.Items.Contains(Name))
+			{
+				lstDrops.Items.Add(Name);
+			}
+		}
+
+		private void btnAddSkillSet_Click(object sender, EventArgs e)
+		{
+			if (txtSkillSet.TextLength > 0)
+			{
+				AddSkill(new Skill
+				{
+					Text = "[" + txtSkillSet.Text.ToUpper() + "]",
+					Type = Skill.SkillType.Label
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		private void btnUseSkillSet_Click(object sender, EventArgs e)
+		{
+			if (txtSkillSet.TextLength > 0)
+			{
+				AddCommand(new CmdSkillSet
+				{
+					Name = txtSkillSet.Text.ToUpper()
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && components != null)
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
+
+		private void InitializeComponent()
+		{
             this.components = new System.ComponentModel.Container();
             this.lstCommands = new System.Windows.Forms.ListBox();
             this.lstBoosts = new System.Windows.Forms.ListBox();
@@ -2261,6 +2294,11 @@ namespace Grimoire.UI
             this.txtItem = new DarkUI.Controls.DarkTextBox();
             this.cbItemCmds = new DarkUI.Controls.DarkComboBox();
             this.tabQuest = new System.Windows.Forms.TabPage();
+            this.chkQRequirements = new DarkUI.Controls.DarkCheckBox();
+            this.chkQRewards = new DarkUI.Controls.DarkCheckBox();
+            this.btnQAddToWhitelist = new DarkUI.Controls.DarkButton();
+            this.numQQuestId = new DarkUI.Controls.DarkNumericUpDown();
+            this.darkLabel4 = new DarkUI.Controls.DarkLabel();
             this.chkReloginCompleteQuest = new DarkUI.Controls.DarkCheckBox();
             this.chkInBlankCell = new DarkUI.Controls.DarkCheckBox();
             this.label14 = new DarkUI.Controls.DarkLabel();
@@ -2310,8 +2348,8 @@ namespace Grimoire.UI
             this.btnStatementAdd = new DarkUI.Controls.DarkButton();
             this.txtStatement2 = new DarkUI.Controls.DarkTextBox();
             this.txtStatement1 = new DarkUI.Controls.DarkTextBox();
-            this.cbStatement = new System.Windows.Forms.ComboBox();
-            this.cbCategories = new System.Windows.Forms.ComboBox();
+            this.cbStatement = new DarkUI.Controls.DarkComboBox();
+            this.cbCategories = new DarkUI.Controls.DarkComboBox();
             this.txtPacket = new DarkUI.Controls.DarkTextBox();
             this.btnClientPacket = new DarkUI.Controls.DarkButton();
             this.btnPacket = new DarkUI.Controls.DarkButton();
@@ -2333,22 +2371,13 @@ namespace Grimoire.UI
             this.txtAuthor = new DarkUI.Controls.DarkTextBox();
             this.txtDescription = new DarkUI.Controls.DarkTextBox();
             this.chkMerge = new DarkUI.Controls.DarkCheckBox();
-            this.numSetFPS = new DarkUI.Controls.DarkNumericUpDown();
-            this.btnSetFPSCmd = new DarkUI.Controls.DarkButton();
             this.darkGroupBox1 = new DarkUI.Controls.DarkGroupBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSpammerStart = new DarkUI.Controls.DarkButton();
-            this.btnSpammerRefresh = new DarkUI.Controls.DarkButton();
-            this.btnSpammerStop = new DarkUI.Controls.DarkButton();
-            this.btnSpammerReset = new DarkUI.Controls.DarkButton();
-            this.btnSpammerRemove = new DarkUI.Controls.DarkButton();
-            this.btnSpammerSetDelay = new DarkUI.Controls.DarkButton();
-            this.label21 = new System.Windows.Forms.Label();
-            this.numSpammerDelay = new DarkUI.Controls.DarkNumericUpDown();
-            this.btnSpammerAdd = new DarkUI.Controls.DarkButton();
-            this.btnDelayedPacket = new DarkUI.Controls.DarkButton();
-            this.numDelayedPacket = new DarkUI.Controls.DarkNumericUpDown();
-            this.txtPacketSpammer = new DarkUI.Controls.DarkTextBox();
+            this.btnBSStop = new DarkUI.Controls.DarkButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbBSLabel = new DarkUI.Controls.DarkTextBox();
+            this.numBSDelay = new DarkUI.Controls.DarkNumericUpDown();
+            this.tbBSPacket = new DarkUI.Controls.DarkTextBox();
+            this.btnBSStart = new DarkUI.Controls.DarkButton();
             this.tabOptions = new System.Windows.Forms.TabPage();
             this.chkWalkSpeed = new DarkUI.Controls.DarkCheckBox();
             this.darkGroupBox6 = new DarkUI.Controls.DarkGroupBox();
@@ -2360,7 +2389,6 @@ namespace Grimoire.UI
             this.label5 = new DarkUI.Controls.DarkLabel();
             this.label6 = new DarkUI.Controls.DarkLabel();
             this.numOptionsTimer = new DarkUI.Controls.DarkNumericUpDown();
-            this.chkUntarget = new DarkUI.Controls.DarkCheckBox();
             this.chkEnableSettings = new DarkUI.Controls.DarkCheckBox();
             this.chkDisableAnims = new DarkUI.Controls.DarkCheckBox();
             this.txtSoundItem = new DarkUI.Controls.DarkTextBox();
@@ -2383,25 +2411,27 @@ namespace Grimoire.UI
             this.chkRelog = new DarkUI.Controls.DarkCheckBox();
             this.numRelogDelay = new DarkUI.Controls.DarkNumericUpDown();
             this.label7 = new DarkUI.Controls.DarkLabel();
-            this.chkGender = new DarkUI.Controls.DarkCheckBox();
             this.tabOptions2 = new System.Windows.Forms.TabPage();
+            this.btnSetSpawn2 = new DarkUI.Controls.DarkButton();
+            this.darkLabel6 = new DarkUI.Controls.DarkLabel();
+            this.numSaveProgress = new DarkUI.Controls.DarkNumericUpDown();
+            this.chkSaveProgress = new DarkUI.Controls.DarkCheckBox();
+            this.chkAntiCounter = new DarkUI.Controls.DarkCheckBox();
+            this.numPrivateRoom = new DarkUI.Controls.DarkTextBox();
+            this.chkPrivateRoom = new DarkUI.Controls.DarkCheckBox();
+            this.chkGender = new DarkUI.Controls.DarkCheckBox();
+            this.numSetFPS = new DarkUI.Controls.DarkNumericUpDown();
+            this.btnSetFPS = new DarkUI.Controls.DarkButton();
             this.lblUP = new System.Windows.Forms.Label();
             this.btnSetLevelCmd = new DarkUI.Controls.DarkButton();
             this.btnSetLevel = new DarkUI.Controls.DarkButton();
             this.tbLevel = new DarkUI.Controls.DarkTextBox();
-            this.chkAntiCounter = new DarkUI.Controls.DarkCheckBox();
             this.groupBox1 = new DarkUI.Controls.DarkGroupBox();
             this.btnAddInfoMsg = new DarkUI.Controls.DarkButton();
             this.btnAddWarnMsg = new DarkUI.Controls.DarkButton();
             this.inputMsgClient = new DarkUI.Controls.DarkTextBox();
             this.btnSearchCmd = new DarkUI.Controls.DarkButton();
             this.txtSearchCmd = new DarkUI.Controls.DarkTextBox();
-            this.numSetLevel = new DarkUI.Controls.DarkNumericUpDown();
-            this.chkChangeRoomTag = new DarkUI.Controls.DarkCheckBox();
-            this.chkChangeChat = new DarkUI.Controls.DarkCheckBox();
-            this.chkSetJoinLevel = new DarkUI.Controls.DarkCheckBox();
-            this.chkHideYulgarPlayers = new DarkUI.Controls.DarkCheckBox();
-            this.chkAntiAfk = new DarkUI.Controls.DarkCheckBox();
             this.grpAccessLevel = new DarkUI.Controls.DarkGroupBox();
             this.chkToggleMute = new DarkUI.Controls.DarkCheckBox();
             this.btnSetMem = new DarkUI.Controls.DarkButton();
@@ -2455,9 +2485,9 @@ namespace Grimoire.UI
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.rtbInfo = new System.Windows.Forms.RichTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.cbLists = new DarkUI.Controls.DarkComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnDown = new DarkUI.Controls.DarkButton();
-            this.cbLists = new DarkUI.Controls.DarkComboBox();
             this.chkAll = new DarkUI.Controls.DarkCheckBox();
             this.btnClear = new DarkUI.Controls.DarkButton();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -2494,6 +2524,7 @@ namespace Grimoire.UI
             this.darkGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDropDelay)).BeginInit();
             this.tabQuest.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numQQuestId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numEnsureTries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numQuestItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numQuestID)).BeginInit();
@@ -2523,11 +2554,8 @@ namespace Grimoire.UI
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSetFPS)).BeginInit();
             this.darkGroupBox1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSpammerDelay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDelayedPacket)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numBSDelay)).BeginInit();
             this.tabOptions.SuspendLayout();
             this.darkGroupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
@@ -2539,8 +2567,9 @@ namespace Grimoire.UI
             this.grpLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRelogDelay)).BeginInit();
             this.tabOptions2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSaveProgress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSetFPS)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSetLevel)).BeginInit();
             this.grpAccessLevel.SuspendLayout();
             this.grpAlignment.SuspendLayout();
             this.tabHunt.SuspendLayout();
@@ -2582,7 +2611,7 @@ namespace Grimoire.UI
             this.lstCommands.Name = "lstCommands";
             this.lstCommands.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lstCommands.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstCommands.Size = new System.Drawing.Size(268, 254);
+            this.lstCommands.Size = new System.Drawing.Size(258, 254);
             this.lstCommands.TabIndex = 1;
             this.lstCommands.Click += new System.EventHandler(this.lstCommands_Click);
             this.lstCommands.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstCommands_DrawItem);
@@ -2591,8 +2620,6 @@ namespace Grimoire.UI
             this.lstCommands.DoubleClick += new System.EventHandler(this.lstCommands_DoubleClick);
             this.lstCommands.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstBoxs_KeyPress);
             this.lstCommands.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstCommands_KeyPress);
-            this.lstCommands.MouseEnter += new System.EventHandler(this.lstCommands_MouseEnter);
-            this.lstCommands.MouseLeave += new System.EventHandler(this.lstCommands_MouseLeave);
             // 
             // lstBoosts
             // 
@@ -2606,7 +2633,7 @@ namespace Grimoire.UI
             this.lstBoosts.Location = new System.Drawing.Point(0, 0);
             this.lstBoosts.Name = "lstBoosts";
             this.lstBoosts.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstBoosts.Size = new System.Drawing.Size(268, 251);
+            this.lstBoosts.Size = new System.Drawing.Size(258, 251);
             this.lstBoosts.TabIndex = 25;
             this.lstBoosts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstBoxs_KeyPress);
             // 
@@ -2622,7 +2649,7 @@ namespace Grimoire.UI
             this.lstDrops.Location = new System.Drawing.Point(0, 0);
             this.lstDrops.Name = "lstDrops";
             this.lstDrops.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstDrops.Size = new System.Drawing.Size(268, 251);
+            this.lstDrops.Size = new System.Drawing.Size(258, 251);
             this.lstDrops.TabIndex = 26;
             this.lstDrops.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstBoxs_KeyPress);
             // 
@@ -2638,7 +2665,7 @@ namespace Grimoire.UI
             this.lstItems.Location = new System.Drawing.Point(0, 0);
             this.lstItems.Name = "lstItems";
             this.lstItems.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstItems.Size = new System.Drawing.Size(268, 251);
+            this.lstItems.Size = new System.Drawing.Size(258, 251);
             this.lstItems.TabIndex = 145;
             this.lstItems.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstBoxs_KeyPress);
             // 
@@ -2654,7 +2681,7 @@ namespace Grimoire.UI
             this.lstQuests.Location = new System.Drawing.Point(0, 0);
             this.lstQuests.Name = "lstQuests";
             this.lstQuests.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstQuests.Size = new System.Drawing.Size(268, 251);
+            this.lstQuests.Size = new System.Drawing.Size(258, 251);
             this.lstQuests.TabIndex = 27;
             this.lstQuests.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstBoxs_KeyPress);
             // 
@@ -2670,7 +2697,7 @@ namespace Grimoire.UI
             this.lstSkills.Location = new System.Drawing.Point(0, 0);
             this.lstSkills.Name = "lstSkills";
             this.lstSkills.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstSkills.Size = new System.Drawing.Size(268, 251);
+            this.lstSkills.Size = new System.Drawing.Size(258, 251);
             this.lstSkills.TabIndex = 28;
             this.lstSkills.DoubleClick += new System.EventHandler(this.lstSkills_DoubleClick);
             this.lstSkills.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstBoxs_KeyPress);
@@ -2694,7 +2721,7 @@ namespace Grimoire.UI
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.Padding = new System.Drawing.Point(3, 2);
             this.mainTabControl.SelectedIndex = 0;
-            this.mainTabControl.Size = new System.Drawing.Size(559, 328);
+            this.mainTabControl.Size = new System.Drawing.Size(539, 328);
             this.mainTabControl.TabIndex = 146;
             this.mainTabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
@@ -2749,7 +2776,7 @@ namespace Grimoire.UI
             this.tabCombat.Margin = new System.Windows.Forms.Padding(0);
             this.tabCombat.Name = "tabCombat";
             this.tabCombat.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCombat.Size = new System.Drawing.Size(551, 301);
+            this.tabCombat.Size = new System.Drawing.Size(531, 301);
             this.tabCombat.TabIndex = 0;
             this.tabCombat.Text = "Combat";
             // 
@@ -3278,9 +3305,9 @@ namespace Grimoire.UI
             // btnCurrBlank
             // 
             this.btnCurrBlank.Checked = false;
-            this.btnCurrBlank.Location = new System.Drawing.Point(191, 77);
+            this.btnCurrBlank.Location = new System.Drawing.Point(192, 79);
             this.btnCurrBlank.Name = "btnCurrBlank";
-            this.btnCurrBlank.Size = new System.Drawing.Size(112, 23);
+            this.btnCurrBlank.Size = new System.Drawing.Size(111, 23);
             this.btnCurrBlank.TabIndex = 143;
             this.btnCurrBlank.Text = "Jump Blank";
             this.btnCurrBlank.Click += new System.EventHandler(this.btnCurrBlank_Click);
@@ -3390,9 +3417,9 @@ namespace Grimoire.UI
             // button2
             // 
             this.button2.Checked = false;
-            this.button2.Location = new System.Drawing.Point(144, 3);
+            this.button2.Location = new System.Drawing.Point(133, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(21, 22);
+            this.button2.Size = new System.Drawing.Size(42, 22);
             this.button2.TabIndex = 34;
             this.button2.Text = ">";
             this.button2.Click += new System.EventHandler(this.btnCellSwap_Click);
@@ -3400,9 +3427,9 @@ namespace Grimoire.UI
             // btnCellSwap
             // 
             this.btnCellSwap.Checked = false;
-            this.btnCellSwap.Location = new System.Drawing.Point(144, 29);
+            this.btnCellSwap.Location = new System.Drawing.Point(133, 29);
             this.btnCellSwap.Name = "btnCellSwap";
-            this.btnCellSwap.Size = new System.Drawing.Size(21, 22);
+            this.btnCellSwap.Size = new System.Drawing.Size(42, 22);
             this.btnCellSwap.TabIndex = 34;
             this.btnCellSwap.Text = "<";
             this.btnCellSwap.Click += new System.EventHandler(this.btnCellSwap_Click);
@@ -3513,7 +3540,7 @@ namespace Grimoire.UI
             this.tabItem.Margin = new System.Windows.Forms.Padding(0);
             this.tabItem.Name = "tabItem";
             this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabItem.Size = new System.Drawing.Size(551, 301);
+            this.tabItem.Size = new System.Drawing.Size(192, 73);
             this.tabItem.TabIndex = 1;
             this.tabItem.Text = "Item";
             // 
@@ -3937,6 +3964,11 @@ namespace Grimoire.UI
             // tabQuest
             // 
             this.tabQuest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.tabQuest.Controls.Add(this.chkQRequirements);
+            this.tabQuest.Controls.Add(this.chkQRewards);
+            this.tabQuest.Controls.Add(this.btnQAddToWhitelist);
+            this.tabQuest.Controls.Add(this.numQQuestId);
+            this.tabQuest.Controls.Add(this.darkLabel4);
             this.tabQuest.Controls.Add(this.chkReloginCompleteQuest);
             this.tabQuest.Controls.Add(this.chkInBlankCell);
             this.tabQuest.Controls.Add(this.label14);
@@ -3953,9 +3985,75 @@ namespace Grimoire.UI
             this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
             this.tabQuest.Name = "tabQuest";
             this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabQuest.Size = new System.Drawing.Size(192, 73);
+            this.tabQuest.Size = new System.Drawing.Size(531, 301);
             this.tabQuest.TabIndex = 3;
             this.tabQuest.Text = "Quest";
+            // 
+            // chkQRequirements
+            // 
+            this.chkQRequirements.AutoSize = true;
+            this.chkQRequirements.Location = new System.Drawing.Point(80, 207);
+            this.chkQRequirements.Name = "chkQRequirements";
+            this.chkQRequirements.Size = new System.Drawing.Size(85, 17);
+            this.chkQRequirements.TabIndex = 23;
+            this.chkQRequirements.Text = "Requirments";
+            // 
+            // chkQRewards
+            // 
+            this.chkQRewards.AutoSize = true;
+            this.chkQRewards.Location = new System.Drawing.Point(6, 207);
+            this.chkQRewards.Name = "chkQRewards";
+            this.chkQRewards.Size = new System.Drawing.Size(68, 17);
+            this.chkQRewards.TabIndex = 22;
+            this.chkQRewards.Text = "Rewards";
+            // 
+            // btnQAddToWhitelist
+            // 
+            this.btnQAddToWhitelist.Checked = false;
+            this.btnQAddToWhitelist.Location = new System.Drawing.Point(7, 232);
+            this.btnQAddToWhitelist.Name = "btnQAddToWhitelist";
+            this.btnQAddToWhitelist.Size = new System.Drawing.Size(129, 22);
+            this.btnQAddToWhitelist.TabIndex = 21;
+            this.btnQAddToWhitelist.Text = "Add item whitelist";
+            this.btnQAddToWhitelist.Click += new System.EventHandler(this.btnQAddToWhitelist_Click);
+            // 
+            // numQQuestId
+            // 
+            this.numQQuestId.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+            this.numQQuestId.Location = new System.Drawing.Point(6, 181);
+            this.numQQuestId.LoopValues = false;
+            this.numQQuestId.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numQQuestId.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numQQuestId.Name = "numQQuestId";
+            this.numQQuestId.Size = new System.Drawing.Size(129, 20);
+            this.numQQuestId.TabIndex = 20;
+            this.numQQuestId.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // darkLabel4
+            // 
+            this.darkLabel4.AutoSize = true;
+            this.darkLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.darkLabel4.Location = new System.Drawing.Point(3, 165);
+            this.darkLabel4.Name = "darkLabel4";
+            this.darkLabel4.Size = new System.Drawing.Size(49, 13);
+            this.darkLabel4.TabIndex = 19;
+            this.darkLabel4.Text = "Quest ID";
             // 
             // chkReloginCompleteQuest
             // 
@@ -3979,16 +4077,14 @@ namespace Grimoire.UI
             // 
             this.label14.AutoSize = true;
             this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.label14.Location = new System.Drawing.Point(189, 77);
+            this.label14.Location = new System.Drawing.Point(187, 78);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(30, 13);
+            this.label14.Size = new System.Drawing.Size(26, 13);
             this.label14.TabIndex = 16;
-            this.label14.Text = "Tries";
-            this.label14.Visible = false;
+            this.label14.Text = "tries";
             // 
             // numEnsureTries
             // 
-            this.numEnsureTries.Enabled = false;
             this.numEnsureTries.IncrementAlternate = new decimal(new int[] {
             10,
             0,
@@ -4005,11 +4101,10 @@ namespace Grimoire.UI
             this.numEnsureTries.Size = new System.Drawing.Size(42, 20);
             this.numEnsureTries.TabIndex = 15;
             this.numEnsureTries.Value = new decimal(new int[] {
-            3,
+            1,
             0,
             0,
             0});
-            this.numEnsureTries.Visible = false;
             // 
             // btnQuestAccept
             // 
@@ -4148,7 +4243,7 @@ namespace Grimoire.UI
             this.tabMisc.Margin = new System.Windows.Forms.Padding(0);
             this.tabMisc.Name = "tabMisc";
             this.tabMisc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMisc.Size = new System.Drawing.Size(551, 301);
+            this.tabMisc.Size = new System.Drawing.Size(531, 301);
             this.tabMisc.TabIndex = 4;
             this.tabMisc.Text = "Misc";
             // 
@@ -4220,7 +4315,7 @@ namespace Grimoire.UI
             this.darkPanel2.Controls.Add(this.darkGroupBox11);
             this.darkPanel2.Location = new System.Drawing.Point(318, 6);
             this.darkPanel2.Name = "darkPanel2";
-            this.darkPanel2.Size = new System.Drawing.Size(233, 173);
+            this.darkPanel2.Size = new System.Drawing.Size(207, 169);
             this.darkPanel2.TabIndex = 165;
             // 
             // darkGroupBox11
@@ -4230,7 +4325,7 @@ namespace Grimoire.UI
             this.darkGroupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.darkGroupBox11.Location = new System.Drawing.Point(0, 0);
             this.darkGroupBox11.Name = "darkGroupBox11";
-            this.darkGroupBox11.Size = new System.Drawing.Size(233, 173);
+            this.darkGroupBox11.Size = new System.Drawing.Size(207, 169);
             this.darkGroupBox11.TabIndex = 163;
             this.darkGroupBox11.TabStop = false;
             this.darkGroupBox11.Text = "Labels";
@@ -4240,9 +4335,9 @@ namespace Grimoire.UI
             this.panel7.Controls.Add(this.splitContainer4);
             this.panel7.Controls.Add(this.txtLabel);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel7.Location = new System.Drawing.Point(3, 127);
+            this.panel7.Location = new System.Drawing.Point(3, 123);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(227, 43);
+            this.panel7.Size = new System.Drawing.Size(201, 43);
             this.panel7.TabIndex = 161;
             // 
             // splitContainer4
@@ -4291,7 +4386,7 @@ namespace Grimoire.UI
             this.txtLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtLabel.Location = new System.Drawing.Point(0, 0);
             this.txtLabel.Name = "txtLabel";
-            this.txtLabel.Size = new System.Drawing.Size(227, 20);
+            this.txtLabel.Size = new System.Drawing.Size(201, 20);
             this.txtLabel.TabIndex = 113;
             this.txtLabel.Text = "Label name";
             // 
@@ -4306,7 +4401,7 @@ namespace Grimoire.UI
             this.lbLabels.ItemHeight = 18;
             this.lbLabels.Location = new System.Drawing.Point(3, 16);
             this.lbLabels.Name = "lbLabels";
-            this.lbLabels.Size = new System.Drawing.Size(227, 154);
+            this.lbLabels.Size = new System.Drawing.Size(201, 150);
             this.lbLabels.TabIndex = 114;
             this.lbLabels.DoubleClick += new System.EventHandler(this.lbLabels_DoubleClick);
             // 
@@ -4566,6 +4661,11 @@ namespace Grimoire.UI
             // 
             // numDelay
             // 
+            this.numDelay.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.numDelay.IncrementAlternate = new decimal(new int[] {
             10,
             0,
@@ -4624,10 +4724,7 @@ namespace Grimoire.UI
             // 
             // cbStatement
             // 
-            this.cbStatement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.cbStatement.DisplayMember = "Text";
-            this.cbStatement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbStatement.ForeColor = System.Drawing.Color.Gainsboro;
             this.cbStatement.FormattingEnabled = true;
             this.cbStatement.Location = new System.Drawing.Point(5, 55);
             this.cbStatement.MaxDropDownItems = 15;
@@ -4640,9 +4737,6 @@ namespace Grimoire.UI
             // 
             // cbCategories
             // 
-            this.cbCategories.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.cbCategories.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbCategories.ForeColor = System.Drawing.Color.Gainsboro;
             this.cbCategories.FormattingEnabled = true;
             this.cbCategories.Items.AddRange(new object[] {
             "Item",
@@ -4707,15 +4801,13 @@ namespace Grimoire.UI
             this.tabMisc2.Controls.Add(this.darkGroupBox10);
             this.tabMisc2.Controls.Add(this.darkGroupBox9);
             this.tabMisc2.Controls.Add(this.chkMerge);
-            this.tabMisc2.Controls.Add(this.numSetFPS);
-            this.tabMisc2.Controls.Add(this.btnSetFPSCmd);
             this.tabMisc2.Controls.Add(this.darkGroupBox1);
             this.tabMisc2.ForeColor = System.Drawing.Color.Gainsboro;
             this.tabMisc2.Location = new System.Drawing.Point(4, 23);
             this.tabMisc2.Margin = new System.Windows.Forms.Padding(0);
             this.tabMisc2.Name = "tabMisc2";
             this.tabMisc2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMisc2.Size = new System.Drawing.Size(551, 301);
+            this.tabMisc2.Size = new System.Drawing.Size(531, 301);
             this.tabMisc2.TabIndex = 8;
             this.tabMisc2.Text = "Misc 2";
             // 
@@ -4729,7 +4821,7 @@ namespace Grimoire.UI
             this.darkGroupBox13.Controls.Add(this.chkRestartDeath);
             this.darkGroupBox13.Location = new System.Drawing.Point(9, 202);
             this.darkGroupBox13.Name = "darkGroupBox13";
-            this.darkGroupBox13.Size = new System.Drawing.Size(166, 93);
+            this.darkGroupBox13.Size = new System.Drawing.Size(231, 93);
             this.darkGroupBox13.TabIndex = 161;
             this.darkGroupBox13.TabStop = false;
             this.darkGroupBox13.Text = "Bot Delay";
@@ -4758,7 +4850,7 @@ namespace Grimoire.UI
             // btnBotDelay
             // 
             this.btnBotDelay.Checked = false;
-            this.btnBotDelay.Location = new System.Drawing.Point(98, 18);
+            this.btnBotDelay.Location = new System.Drawing.Point(99, 19);
             this.btnBotDelay.Name = "btnBotDelay";
             this.btnBotDelay.Size = new System.Drawing.Size(61, 23);
             this.btnBotDelay.TabIndex = 70;
@@ -4777,7 +4869,7 @@ namespace Grimoire.UI
             0,
             0,
             65536});
-            this.numBotDelay.Location = new System.Drawing.Point(48, 19);
+            this.numBotDelay.Location = new System.Drawing.Point(49, 20);
             this.numBotDelay.LoopValues = false;
             this.numBotDelay.Maximum = new decimal(new int[] {
             9000,
@@ -4809,7 +4901,7 @@ namespace Grimoire.UI
             this.darkGroupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.darkGroupBox10.Controls.Add(this.btnStop);
             this.darkGroupBox10.Controls.Add(this.btnRestart);
-            this.darkGroupBox10.Location = new System.Drawing.Point(359, 247);
+            this.darkGroupBox10.Location = new System.Drawing.Point(246, 244);
             this.darkGroupBox10.Name = "darkGroupBox10";
             this.darkGroupBox10.Size = new System.Drawing.Size(132, 51);
             this.darkGroupBox10.TabIndex = 117;
@@ -4848,7 +4940,7 @@ namespace Grimoire.UI
             this.darkGroupBox9.Controls.Add(this.txtDescription);
             this.darkGroupBox9.Location = new System.Drawing.Point(246, 6);
             this.darkGroupBox9.Name = "darkGroupBox9";
-            this.darkGroupBox9.Size = new System.Drawing.Size(359, 228);
+            this.darkGroupBox9.Size = new System.Drawing.Size(282, 228);
             this.darkGroupBox9.TabIndex = 116;
             this.darkGroupBox9.TabStop = false;
             this.darkGroupBox9.Text = "Save/Load";
@@ -4868,8 +4960,8 @@ namespace Grimoire.UI
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.btnLoad);
-            this.splitContainer3.Size = new System.Drawing.Size(295, 22);
-            this.splitContainer3.SplitterDistance = 136;
+            this.splitContainer3.Size = new System.Drawing.Size(275, 22);
+            this.splitContainer3.SplitterDistance = 124;
             this.splitContainer3.TabIndex = 118;
             // 
             // btnSave
@@ -4878,7 +4970,7 @@ namespace Grimoire.UI
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.Location = new System.Drawing.Point(0, 0);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(136, 22);
+            this.btnSave.Size = new System.Drawing.Size(124, 22);
             this.btnSave.TabIndex = 75;
             this.btnSave.Text = "Save bot";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -4889,7 +4981,7 @@ namespace Grimoire.UI
             this.btnLoad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLoad.Location = new System.Drawing.Point(0, 0);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(155, 22);
+            this.btnLoad.Size = new System.Drawing.Size(147, 22);
             this.btnLoad.TabIndex = 67;
             this.btnLoad.Text = "Load bot";
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
@@ -4901,7 +4993,7 @@ namespace Grimoire.UI
             this.txtAuthor.Location = new System.Drawing.Point(8, 45);
             this.txtAuthor.Multiline = true;
             this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.Size = new System.Drawing.Size(294, 20);
+            this.txtAuthor.Size = new System.Drawing.Size(276, 20);
             this.txtAuthor.TabIndex = 110;
             this.txtAuthor.Text = "Author";
             this.txtAuthor.Enter += new System.EventHandler(this.TextboxEnter);
@@ -4916,7 +5008,7 @@ namespace Grimoire.UI
             this.txtDescription.MaxLength = 2147483647;
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(295, 154);
+            this.txtDescription.Size = new System.Drawing.Size(275, 154);
             this.txtDescription.TabIndex = 109;
             this.txtDescription.Text = "Description (Write in RTF)";
             this.txtDescription.Enter += new System.EventHandler(this.TextboxEnter);
@@ -4926,238 +5018,110 @@ namespace Grimoire.UI
             // 
             this.chkMerge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkMerge.AutoSize = true;
-            this.chkMerge.Location = new System.Drawing.Point(742, 56);
+            this.chkMerge.Location = new System.Drawing.Point(722, 56);
             this.chkMerge.Name = "chkMerge";
             this.chkMerge.Size = new System.Drawing.Size(56, 17);
             this.chkMerge.TabIndex = 115;
             this.chkMerge.Text = "Merge";
             // 
-            // numSetFPS
-            // 
-            this.numSetFPS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numSetFPS.IncrementAlternate = new decimal(new int[] {
-            10,
-            0,
-            0,
-            65536});
-            this.numSetFPS.Location = new System.Drawing.Point(197, 266);
-            this.numSetFPS.LoopValues = false;
-            this.numSetFPS.Name = "numSetFPS";
-            this.numSetFPS.Size = new System.Drawing.Size(43, 20);
-            this.numSetFPS.TabIndex = 62;
-            this.numSetFPS.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            // 
-            // btnSetFPSCmd
-            // 
-            this.btnSetFPSCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSetFPSCmd.Checked = false;
-            this.btnSetFPSCmd.Location = new System.Drawing.Point(246, 265);
-            this.btnSetFPSCmd.Name = "btnSetFPSCmd";
-            this.btnSetFPSCmd.Size = new System.Drawing.Size(88, 23);
-            this.btnSetFPSCmd.TabIndex = 61;
-            this.btnSetFPSCmd.Text = "Set FPS (cmd)";
-            this.btnSetFPSCmd.Click += new System.EventHandler(this.btnSetFPSCmd_Click);
-            // 
             // darkGroupBox1
             // 
-            this.darkGroupBox1.Controls.Add(this.flowLayoutPanel1);
+            this.darkGroupBox1.Controls.Add(this.btnBSStop);
+            this.darkGroupBox1.Controls.Add(this.label8);
+            this.darkGroupBox1.Controls.Add(this.tbBSLabel);
+            this.darkGroupBox1.Controls.Add(this.numBSDelay);
+            this.darkGroupBox1.Controls.Add(this.tbBSPacket);
+            this.darkGroupBox1.Controls.Add(this.btnBSStart);
             this.darkGroupBox1.Location = new System.Drawing.Point(6, 6);
             this.darkGroupBox1.Name = "darkGroupBox1";
-            this.darkGroupBox1.Size = new System.Drawing.Size(234, 165);
+            this.darkGroupBox1.Size = new System.Drawing.Size(234, 148);
             this.darkGroupBox1.TabIndex = 59;
             this.darkGroupBox1.TabStop = false;
-            this.darkGroupBox1.Text = "Packet Spammer";
+            this.darkGroupBox1.Text = "Background Spammer";
             // 
-            // flowLayoutPanel1
+            // btnBSStop
             // 
-            this.flowLayoutPanel1.Controls.Add(this.btnSpammerStart);
-            this.flowLayoutPanel1.Controls.Add(this.btnSpammerRefresh);
-            this.flowLayoutPanel1.Controls.Add(this.btnSpammerStop);
-            this.flowLayoutPanel1.Controls.Add(this.btnSpammerReset);
-            this.flowLayoutPanel1.Controls.Add(this.btnSpammerRemove);
-            this.flowLayoutPanel1.Controls.Add(this.btnSpammerSetDelay);
-            this.flowLayoutPanel1.Controls.Add(this.label21);
-            this.flowLayoutPanel1.Controls.Add(this.numSpammerDelay);
-            this.flowLayoutPanel1.Controls.Add(this.btnSpammerAdd);
-            this.flowLayoutPanel1.Controls.Add(this.btnDelayedPacket);
-            this.flowLayoutPanel1.Controls.Add(this.numDelayedPacket);
-            this.flowLayoutPanel1.Controls.Add(this.txtPacketSpammer);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(228, 146);
-            this.flowLayoutPanel1.TabIndex = 60;
+            this.btnBSStop.Checked = false;
+            this.btnBSStop.Enabled = false;
+            this.btnBSStop.Location = new System.Drawing.Point(86, 110);
+            this.btnBSStop.Name = "btnBSStop";
+            this.btnBSStop.Size = new System.Drawing.Size(70, 23);
+            this.btnBSStop.TabIndex = 166;
+            this.btnBSStop.Text = "Stop";
+            this.btnBSStop.Click += new System.EventHandler(this.btnBSStop_Click);
             // 
-            // btnSpammerStart
+            // label8
             // 
-            this.btnSpammerStart.Checked = false;
-            this.btnSpammerStart.Location = new System.Drawing.Point(3, 3);
-            this.btnSpammerStart.Name = "btnSpammerStart";
-            this.btnSpammerStart.Size = new System.Drawing.Size(70, 23);
-            this.btnSpammerStart.TabIndex = 0;
-            this.btnSpammerStart.Text = "Start";
-            this.btnSpammerStart.Click += new System.EventHandler(this.btnSpammer_Click);
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(66, 78);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(20, 13);
+            this.label8.TabIndex = 165;
+            this.label8.Text = "ms";
             // 
-            // btnSpammerRefresh
+            // tbBSLabel
             // 
-            this.btnSpammerRefresh.Checked = false;
-            this.btnSpammerRefresh.Location = new System.Drawing.Point(79, 3);
-            this.btnSpammerRefresh.Name = "btnSpammerRefresh";
-            this.btnSpammerRefresh.Size = new System.Drawing.Size(70, 23);
-            this.btnSpammerRefresh.TabIndex = 55;
-            this.btnSpammerRefresh.Text = "Restart";
-            this.btnSpammerRefresh.Click += new System.EventHandler(this.btnSpammer_Click);
+            this.tbBSLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbBSLabel.Location = new System.Drawing.Point(6, 21);
+            this.tbBSLabel.Name = "tbBSLabel";
+            this.tbBSLabel.Size = new System.Drawing.Size(222, 20);
+            this.tbBSLabel.TabIndex = 164;
+            this.tbBSLabel.Text = "Packet Label";
             // 
-            // btnSpammerStop
+            // numBSDelay
             // 
-            this.btnSpammerStop.Checked = false;
-            this.btnSpammerStop.Location = new System.Drawing.Point(155, 3);
-            this.btnSpammerStop.Name = "btnSpammerStop";
-            this.btnSpammerStop.Size = new System.Drawing.Size(70, 23);
-            this.btnSpammerStop.TabIndex = 0;
-            this.btnSpammerStop.Text = "Stop";
-            this.btnSpammerStop.Click += new System.EventHandler(this.btnSpammer_Click);
-            // 
-            // btnSpammerReset
-            // 
-            this.btnSpammerReset.Checked = false;
-            this.btnSpammerReset.Location = new System.Drawing.Point(3, 32);
-            this.btnSpammerReset.Name = "btnSpammerReset";
-            this.btnSpammerReset.Size = new System.Drawing.Size(70, 23);
-            this.btnSpammerReset.TabIndex = 0;
-            this.btnSpammerReset.Text = "Clear";
-            this.btnSpammerReset.Click += new System.EventHandler(this.btnSpammer_Click);
-            // 
-            // btnSpammerRemove
-            // 
-            this.btnSpammerRemove.Checked = false;
-            this.btnSpammerRemove.Location = new System.Drawing.Point(79, 32);
-            this.btnSpammerRemove.Name = "btnSpammerRemove";
-            this.btnSpammerRemove.Size = new System.Drawing.Size(70, 23);
-            this.btnSpammerRemove.TabIndex = 0;
-            this.btnSpammerRemove.Text = "Remove";
-            this.btnSpammerRemove.Click += new System.EventHandler(this.btnSpammer_Click);
-            // 
-            // btnSpammerSetDelay
-            // 
-            this.btnSpammerSetDelay.Checked = false;
-            this.btnSpammerSetDelay.Location = new System.Drawing.Point(155, 32);
-            this.btnSpammerSetDelay.Name = "btnSpammerSetDelay";
-            this.btnSpammerSetDelay.Size = new System.Drawing.Size(70, 23);
-            this.btnSpammerSetDelay.TabIndex = 0;
-            this.btnSpammerSetDelay.Text = "Set Delay";
-            this.btnSpammerSetDelay.Click += new System.EventHandler(this.btnSpammer_Click);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(3, 58);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(37, 13);
-            this.label21.TabIndex = 59;
-            this.label21.Text = "Delay:";
-            // 
-            // numSpammerDelay
-            // 
-            this.numSpammerDelay.Increment = new decimal(new int[] {
-            25,
+            this.numBSDelay.Increment = new decimal(new int[] {
+            100,
             0,
             0,
             0});
-            this.numSpammerDelay.IncrementAlternate = new decimal(new int[] {
+            this.numBSDelay.IncrementAlternate = new decimal(new int[] {
             10,
             0,
             0,
             65536});
-            this.numSpammerDelay.Location = new System.Drawing.Point(46, 61);
-            this.numSpammerDelay.LoopValues = false;
-            this.numSpammerDelay.Maximum = new decimal(new int[] {
+            this.numBSDelay.Location = new System.Drawing.Point(6, 71);
+            this.numBSDelay.LoopValues = false;
+            this.numBSDelay.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.numSpammerDelay.Minimum = new decimal(new int[] {
-            100,
+            this.numBSDelay.Minimum = new decimal(new int[] {
+            1000,
             0,
             0,
             0});
-            this.numSpammerDelay.Name = "numSpammerDelay";
-            this.numSpammerDelay.Size = new System.Drawing.Size(50, 20);
-            this.numSpammerDelay.TabIndex = 56;
-            this.numSpammerDelay.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // btnSpammerAdd
-            // 
-            this.btnSpammerAdd.Checked = false;
-            this.btnSpammerAdd.Location = new System.Drawing.Point(102, 61);
-            this.btnSpammerAdd.Name = "btnSpammerAdd";
-            this.btnSpammerAdd.Size = new System.Drawing.Size(120, 23);
-            this.btnSpammerAdd.TabIndex = 0;
-            this.btnSpammerAdd.Text = "Add Packet";
-            this.btnSpammerAdd.Click += new System.EventHandler(this.btnSpammer_Click);
-            // 
-            // btnDelayedPacket
-            // 
-            this.btnDelayedPacket.Checked = false;
-            this.btnDelayedPacket.Location = new System.Drawing.Point(3, 90);
-            this.btnDelayedPacket.Name = "btnDelayedPacket";
-            this.btnDelayedPacket.Size = new System.Drawing.Size(120, 23);
-            this.btnDelayedPacket.TabIndex = 57;
-            this.btnDelayedPacket.Text = "Add Delayed Packet";
-            this.btnDelayedPacket.Visible = false;
-            // 
-            // numDelayedPacket
-            // 
-            this.numDelayedPacket.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.numDelayedPacket.IncrementAlternate = new decimal(new int[] {
-            10,
-            0,
-            0,
-            65536});
-            this.numDelayedPacket.Location = new System.Drawing.Point(129, 90);
-            this.numDelayedPacket.LoopValues = false;
-            this.numDelayedPacket.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numDelayedPacket.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numDelayedPacket.Name = "numDelayedPacket";
-            this.numDelayedPacket.Size = new System.Drawing.Size(96, 20);
-            this.numDelayedPacket.TabIndex = 58;
-            this.numDelayedPacket.Value = new decimal(new int[] {
+            this.numBSDelay.Name = "numBSDelay";
+            this.numBSDelay.Size = new System.Drawing.Size(58, 20);
+            this.numBSDelay.TabIndex = 164;
+            this.numBSDelay.Value = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             // 
-            // txtPacketSpammer
+            // tbBSPacket
             // 
-            this.txtPacketSpammer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbBSPacket.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPacketSpammer.Location = new System.Drawing.Point(3, 119);
-            this.txtPacketSpammer.Name = "txtPacketSpammer";
-            this.txtPacketSpammer.Size = new System.Drawing.Size(222, 20);
-            this.txtPacketSpammer.TabIndex = 54;
-            this.txtPacketSpammer.Text = "%xt%zm%.........";
-            this.txtPacketSpammer.Enter += new System.EventHandler(this.TextboxEnter);
-            this.txtPacketSpammer.Leave += new System.EventHandler(this.TextboxLeave);
+            this.tbBSPacket.Location = new System.Drawing.Point(6, 45);
+            this.tbBSPacket.Name = "tbBSPacket";
+            this.tbBSPacket.Size = new System.Drawing.Size(222, 20);
+            this.tbBSPacket.TabIndex = 163;
+            this.tbBSPacket.Text = "%xt%zm%.........";
+            // 
+            // btnBSStart
+            // 
+            this.btnBSStart.Checked = false;
+            this.btnBSStart.Enabled = false;
+            this.btnBSStart.Location = new System.Drawing.Point(6, 110);
+            this.btnBSStart.Name = "btnBSStart";
+            this.btnBSStart.Size = new System.Drawing.Size(70, 23);
+            this.btnBSStart.TabIndex = 162;
+            this.btnBSStart.Text = "Start";
+            this.btnBSStart.Click += new System.EventHandler(this.btnBSStart_Click);
             // 
             // tabOptions
             // 
@@ -5166,7 +5130,6 @@ namespace Grimoire.UI
             this.tabOptions.Controls.Add(this.darkGroupBox6);
             this.tabOptions.Controls.Add(this.label6);
             this.tabOptions.Controls.Add(this.numOptionsTimer);
-            this.tabOptions.Controls.Add(this.chkUntarget);
             this.tabOptions.Controls.Add(this.chkEnableSettings);
             this.tabOptions.Controls.Add(this.chkDisableAnims);
             this.tabOptions.Controls.Add(this.txtSoundItem);
@@ -5183,20 +5146,19 @@ namespace Grimoire.UI
             this.tabOptions.Controls.Add(this.chkProvoke);
             this.tabOptions.Controls.Add(this.chkInfiniteRange);
             this.tabOptions.Controls.Add(this.grpLogin);
-            this.tabOptions.Controls.Add(this.chkGender);
             this.tabOptions.ForeColor = System.Drawing.Color.Gainsboro;
             this.tabOptions.Location = new System.Drawing.Point(4, 23);
             this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions.Size = new System.Drawing.Size(192, 73);
+            this.tabOptions.Size = new System.Drawing.Size(531, 301);
             this.tabOptions.TabIndex = 5;
             this.tabOptions.Text = "Options";
             // 
             // chkWalkSpeed
             // 
             this.chkWalkSpeed.AutoSize = true;
-            this.chkWalkSpeed.Location = new System.Drawing.Point(150, 184);
+            this.chkWalkSpeed.Location = new System.Drawing.Point(149, 150);
             this.chkWalkSpeed.Name = "chkWalkSpeed";
             this.chkWalkSpeed.Size = new System.Drawing.Size(83, 17);
             this.chkWalkSpeed.TabIndex = 160;
@@ -5342,7 +5304,7 @@ namespace Grimoire.UI
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.label6.Location = new System.Drawing.Point(195, 254);
+            this.label6.Location = new System.Drawing.Point(196, 276);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 157;
@@ -5355,7 +5317,7 @@ namespace Grimoire.UI
             0,
             0,
             65536});
-            this.numOptionsTimer.Location = new System.Drawing.Point(150, 251);
+            this.numOptionsTimer.Location = new System.Drawing.Point(149, 272);
             this.numOptionsTimer.LoopValues = false;
             this.numOptionsTimer.Maximum = new decimal(new int[] {
             10000,
@@ -5363,34 +5325,24 @@ namespace Grimoire.UI
             0,
             0});
             this.numOptionsTimer.Minimum = new decimal(new int[] {
-            1,
+            100,
             0,
             0,
             0});
             this.numOptionsTimer.Name = "numOptionsTimer";
-            this.numOptionsTimer.Size = new System.Drawing.Size(42, 20);
+            this.numOptionsTimer.Size = new System.Drawing.Size(46, 20);
             this.numOptionsTimer.TabIndex = 156;
             this.numOptionsTimer.Value = new decimal(new int[] {
-            250,
+            1000,
             0,
             0,
             0});
             this.numOptionsTimer.ValueChanged += new System.EventHandler(this.numOptionsTimer_ValueChanged);
             // 
-            // chkUntarget
-            // 
-            this.chkUntarget.AutoSize = true;
-            this.chkUntarget.Location = new System.Drawing.Point(150, 165);
-            this.chkUntarget.Name = "chkUntarget";
-            this.chkUntarget.Size = new System.Drawing.Size(86, 17);
-            this.chkUntarget.TabIndex = 154;
-            this.chkUntarget.Text = "Untarget self";
-            this.chkUntarget.CheckedChanged += new System.EventHandler(this.chkUntarget_CheckedChanged);
-            // 
             // chkEnableSettings
             // 
             this.chkEnableSettings.AutoSize = true;
-            this.chkEnableSettings.Location = new System.Drawing.Point(150, 205);
+            this.chkEnableSettings.Location = new System.Drawing.Point(149, 241);
             this.chkEnableSettings.Name = "chkEnableSettings";
             this.chkEnableSettings.Size = new System.Drawing.Size(97, 30);
             this.chkEnableSettings.TabIndex = 132;
@@ -5409,7 +5361,7 @@ namespace Grimoire.UI
             // 
             // txtSoundItem
             // 
-            this.txtSoundItem.Location = new System.Drawing.Point(6, 228);
+            this.txtSoundItem.Location = new System.Drawing.Point(3, 248);
             this.txtSoundItem.Name = "txtSoundItem";
             this.txtSoundItem.Size = new System.Drawing.Size(139, 20);
             this.txtSoundItem.TabIndex = 130;
@@ -5419,7 +5371,7 @@ namespace Grimoire.UI
             // btnSoundAdd
             // 
             this.btnSoundAdd.Checked = false;
-            this.btnSoundAdd.Location = new System.Drawing.Point(51, 250);
+            this.btnSoundAdd.Location = new System.Drawing.Point(48, 270);
             this.btnSoundAdd.Name = "btnSoundAdd";
             this.btnSoundAdd.Size = new System.Drawing.Size(43, 22);
             this.btnSoundAdd.TabIndex = 129;
@@ -5429,7 +5381,7 @@ namespace Grimoire.UI
             // btnSoundDelete
             // 
             this.btnSoundDelete.Checked = false;
-            this.btnSoundDelete.Location = new System.Drawing.Point(96, 250);
+            this.btnSoundDelete.Location = new System.Drawing.Point(92, 270);
             this.btnSoundDelete.Name = "btnSoundDelete";
             this.btnSoundDelete.Size = new System.Drawing.Size(50, 22);
             this.btnSoundDelete.TabIndex = 128;
@@ -5439,7 +5391,7 @@ namespace Grimoire.UI
             // btnSoundTest
             // 
             this.btnSoundTest.Checked = false;
-            this.btnSoundTest.Location = new System.Drawing.Point(5, 250);
+            this.btnSoundTest.Location = new System.Drawing.Point(3, 270);
             this.btnSoundTest.Name = "btnSoundTest";
             this.btnSoundTest.Size = new System.Drawing.Size(43, 22);
             this.btnSoundTest.TabIndex = 126;
@@ -5452,7 +5404,7 @@ namespace Grimoire.UI
             this.lstSoundItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstSoundItems.ForeColor = System.Drawing.Color.Gainsboro;
             this.lstSoundItems.FormattingEnabled = true;
-            this.lstSoundItems.Location = new System.Drawing.Point(6, 169);
+            this.lstSoundItems.Location = new System.Drawing.Point(3, 190);
             this.lstSoundItems.Name = "lstSoundItems";
             this.lstSoundItems.Size = new System.Drawing.Size(139, 54);
             this.lstSoundItems.TabIndex = 125;
@@ -5461,7 +5413,7 @@ namespace Grimoire.UI
             // 
             this.label9.AutoSize = true;
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.label9.Location = new System.Drawing.Point(10, 141);
+            this.label9.Location = new System.Drawing.Point(6, 161);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(134, 26);
             this.label9.TabIndex = 124;
@@ -5474,7 +5426,7 @@ namespace Grimoire.UI
             0,
             0,
             65536});
-            this.numWalkSpeed.Location = new System.Drawing.Point(233, 182);
+            this.numWalkSpeed.Location = new System.Drawing.Point(232, 148);
             this.numWalkSpeed.LoopValues = false;
             this.numWalkSpeed.Maximum = new decimal(new int[] {
             99,
@@ -5566,7 +5518,7 @@ namespace Grimoire.UI
             this.grpLogin.Controls.Add(this.label7);
             this.grpLogin.Location = new System.Drawing.Point(4, 3);
             this.grpLogin.Name = "grpLogin";
-            this.grpLogin.Size = new System.Drawing.Size(141, 138);
+            this.grpLogin.Size = new System.Drawing.Size(141, 141);
             this.grpLogin.TabIndex = 115;
             this.grpLogin.TabStop = false;
             this.grpLogin.Text = "Auto relogin";
@@ -5656,33 +5608,26 @@ namespace Grimoire.UI
             this.label7.TabIndex = 87;
             this.label7.Text = "Delay before starting the bot";
             // 
-            // chkGender
-            // 
-            this.chkGender.AutoSize = true;
-            this.chkGender.Location = new System.Drawing.Point(150, 146);
-            this.chkGender.Name = "chkGender";
-            this.chkGender.Size = new System.Drawing.Size(89, 17);
-            this.chkGender.TabIndex = 137;
-            this.chkGender.Text = "Gender swap";
-            this.chkGender.CheckedChanged += new System.EventHandler(this.changeGenderAsync);
-            // 
             // tabOptions2
             // 
             this.tabOptions2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.tabOptions2.Controls.Add(this.btnSetSpawn2);
+            this.tabOptions2.Controls.Add(this.darkLabel6);
+            this.tabOptions2.Controls.Add(this.numSaveProgress);
+            this.tabOptions2.Controls.Add(this.chkSaveProgress);
+            this.tabOptions2.Controls.Add(this.chkAntiCounter);
+            this.tabOptions2.Controls.Add(this.numPrivateRoom);
+            this.tabOptions2.Controls.Add(this.chkPrivateRoom);
+            this.tabOptions2.Controls.Add(this.chkGender);
+            this.tabOptions2.Controls.Add(this.numSetFPS);
+            this.tabOptions2.Controls.Add(this.btnSetFPS);
             this.tabOptions2.Controls.Add(this.lblUP);
             this.tabOptions2.Controls.Add(this.btnSetLevelCmd);
             this.tabOptions2.Controls.Add(this.btnSetLevel);
             this.tabOptions2.Controls.Add(this.tbLevel);
-            this.tabOptions2.Controls.Add(this.chkAntiCounter);
             this.tabOptions2.Controls.Add(this.groupBox1);
             this.tabOptions2.Controls.Add(this.btnSearchCmd);
             this.tabOptions2.Controls.Add(this.txtSearchCmd);
-            this.tabOptions2.Controls.Add(this.numSetLevel);
-            this.tabOptions2.Controls.Add(this.chkChangeRoomTag);
-            this.tabOptions2.Controls.Add(this.chkChangeChat);
-            this.tabOptions2.Controls.Add(this.chkSetJoinLevel);
-            this.tabOptions2.Controls.Add(this.chkHideYulgarPlayers);
-            this.tabOptions2.Controls.Add(this.chkAntiAfk);
             this.tabOptions2.Controls.Add(this.grpAccessLevel);
             this.tabOptions2.Controls.Add(this.grpAlignment);
             this.tabOptions2.Controls.Add(this.txtUsername);
@@ -5696,15 +5641,140 @@ namespace Grimoire.UI
             this.tabOptions2.Margin = new System.Windows.Forms.Padding(0);
             this.tabOptions2.Name = "tabOptions2";
             this.tabOptions2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOptions2.Size = new System.Drawing.Size(192, 73);
+            this.tabOptions2.Size = new System.Drawing.Size(531, 301);
             this.tabOptions2.TabIndex = 7;
             this.tabOptions2.Text = "Client";
+            // 
+            // btnSetSpawn2
+            // 
+            this.btnSetSpawn2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSetSpawn2.Checked = false;
+            this.btnSetSpawn2.Location = new System.Drawing.Point(12, 241);
+            this.btnSetSpawn2.Name = "btnSetSpawn2";
+            this.btnSetSpawn2.Size = new System.Drawing.Size(123, 23);
+            this.btnSetSpawn2.TabIndex = 168;
+            this.btnSetSpawn2.Text = "Set Spawnpoint";
+            this.btnSetSpawn2.Click += new System.EventHandler(this.btnSetSpawn2_Click);
+            // 
+            // darkLabel6
+            // 
+            this.darkLabel6.AutoSize = true;
+            this.darkLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.darkLabel6.Location = new System.Drawing.Point(413, 83);
+            this.darkLabel6.Name = "darkLabel6";
+            this.darkLabel6.Size = new System.Drawing.Size(43, 13);
+            this.darkLabel6.TabIndex = 167;
+            this.darkLabel6.Text = "minutes";
+            // 
+            // numSaveProgress
+            // 
+            this.numSaveProgress.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+            this.numSaveProgress.Location = new System.Drawing.Point(359, 76);
+            this.numSaveProgress.LoopValues = false;
+            this.numSaveProgress.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.numSaveProgress.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numSaveProgress.Name = "numSaveProgress";
+            this.numSaveProgress.Size = new System.Drawing.Size(52, 20);
+            this.numSaveProgress.TabIndex = 166;
+            this.numSaveProgress.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // chkSaveProgress
+            // 
+            this.chkSaveProgress.AutoSize = true;
+            this.chkSaveProgress.Location = new System.Drawing.Point(340, 57);
+            this.chkSaveProgress.Name = "chkSaveProgress";
+            this.chkSaveProgress.Size = new System.Drawing.Size(123, 17);
+            this.chkSaveProgress.TabIndex = 165;
+            this.chkSaveProgress.Text = "Save progress every";
+            this.chkSaveProgress.CheckedChanged += new System.EventHandler(this.chkSaveProgress_CheckedChanged);
+            // 
+            // chkAntiCounter
+            // 
+            this.chkAntiCounter.AutoSize = true;
+            this.chkAntiCounter.Location = new System.Drawing.Point(339, 6);
+            this.chkAntiCounter.Name = "chkAntiCounter";
+            this.chkAntiCounter.Size = new System.Drawing.Size(116, 17);
+            this.chkAntiCounter.TabIndex = 162;
+            this.chkAntiCounter.Text = "Anti counter attack";
+            // 
+            // numPrivateRoom
+            // 
+            this.numPrivateRoom.Location = new System.Drawing.Point(427, 29);
+            this.numPrivateRoom.Name = "numPrivateRoom";
+            this.numPrivateRoom.Size = new System.Drawing.Size(54, 20);
+            this.numPrivateRoom.TabIndex = 158;
+            this.numPrivateRoom.Text = "rand";
+            // 
+            // chkPrivateRoom
+            // 
+            this.chkPrivateRoom.AutoSize = true;
+            this.chkPrivateRoom.Location = new System.Drawing.Point(339, 31);
+            this.chkPrivateRoom.Name = "chkPrivateRoom";
+            this.chkPrivateRoom.Size = new System.Drawing.Size(85, 17);
+            this.chkPrivateRoom.TabIndex = 157;
+            this.chkPrivateRoom.Text = "Private room";
+            this.chkPrivateRoom.CheckedChanged += new System.EventHandler(this.chkPrivateRoom_CheckedChanged);
+            // 
+            // chkGender
+            // 
+            this.chkGender.AutoSize = true;
+            this.chkGender.Location = new System.Drawing.Point(12, 218);
+            this.chkGender.Name = "chkGender";
+            this.chkGender.Size = new System.Drawing.Size(89, 17);
+            this.chkGender.TabIndex = 155;
+            this.chkGender.Text = "Gender swap";
+            // 
+            // numSetFPS
+            // 
+            this.numSetFPS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.numSetFPS.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+            this.numSetFPS.Location = new System.Drawing.Point(196, 170);
+            this.numSetFPS.LoopValues = false;
+            this.numSetFPS.Name = "numSetFPS";
+            this.numSetFPS.Size = new System.Drawing.Size(51, 20);
+            this.numSetFPS.TabIndex = 154;
+            this.numSetFPS.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // btnSetFPS
+            // 
+            this.btnSetFPS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSetFPS.Checked = false;
+            this.btnSetFPS.Location = new System.Drawing.Point(253, 168);
+            this.btnSetFPS.Name = "btnSetFPS";
+            this.btnSetFPS.Size = new System.Drawing.Size(66, 23);
+            this.btnSetFPS.TabIndex = 153;
+            this.btnSetFPS.Text = "Set FPS";
+            this.btnSetFPS.Click += new System.EventHandler(this.btnSetFPS_Click);
             // 
             // lblUP
             // 
             this.lblUP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblUP.AutoSize = true;
-            this.lblUP.Location = new System.Drawing.Point(206, -55);
+            this.lblUP.Location = new System.Drawing.Point(195, 199);
             this.lblUP.Name = "lblUP";
             this.lblUP.Size = new System.Drawing.Size(106, 13);
             this.lblUP.TabIndex = 152;
@@ -5739,22 +5809,12 @@ namespace Grimoire.UI
             this.tbLevel.TabIndex = 149;
             this.tbLevel.Text = "Level";
             // 
-            // chkAntiCounter
-            // 
-            this.chkAntiCounter.AutoSize = true;
-            this.chkAntiCounter.Location = new System.Drawing.Point(195, 243);
-            this.chkAntiCounter.Name = "chkAntiCounter";
-            this.chkAntiCounter.Size = new System.Drawing.Size(118, 17);
-            this.chkAntiCounter.TabIndex = 7;
-            this.chkAntiCounter.Text = "Anti-Counter Attack";
-            this.chkAntiCounter.CheckedChanged += new System.EventHandler(this.chkAntiCounter_CheckedChanged);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnAddInfoMsg);
             this.groupBox1.Controls.Add(this.btnAddWarnMsg);
             this.groupBox1.Controls.Add(this.inputMsgClient);
-            this.groupBox1.Location = new System.Drawing.Point(195, 65);
+            this.groupBox1.Location = new System.Drawing.Point(196, 58);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(124, 101);
             this.groupBox1.TabIndex = 148;
@@ -5769,6 +5829,7 @@ namespace Grimoire.UI
             this.btnAddInfoMsg.Size = new System.Drawing.Size(112, 23);
             this.btnAddInfoMsg.TabIndex = 150;
             this.btnAddInfoMsg.Text = "Add Info";
+            this.btnAddInfoMsg.Click += new System.EventHandler(this.btnAddInfoMsg_Click);
             // 
             // btnAddWarnMsg
             // 
@@ -5778,6 +5839,7 @@ namespace Grimoire.UI
             this.btnAddWarnMsg.Size = new System.Drawing.Size(112, 23);
             this.btnAddWarnMsg.TabIndex = 149;
             this.btnAddWarnMsg.Text = "Add Warning";
+            this.btnAddWarnMsg.Click += new System.EventHandler(this.btnAddWarnMsg_Click);
             // 
             // inputMsgClient
             // 
@@ -5804,86 +5866,6 @@ namespace Grimoire.UI
             this.txtSearchCmd.Size = new System.Drawing.Size(124, 20);
             this.txtSearchCmd.TabIndex = 146;
             this.txtSearchCmd.Text = "Search Commands";
-            // 
-            // numSetLevel
-            // 
-            this.numSetLevel.Enabled = false;
-            this.numSetLevel.IncrementAlternate = new decimal(new int[] {
-            10,
-            0,
-            0,
-            65536});
-            this.numSetLevel.Location = new System.Drawing.Point(324, 5);
-            this.numSetLevel.LoopValues = false;
-            this.numSetLevel.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numSetLevel.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numSetLevel.Name = "numSetLevel";
-            this.numSetLevel.Size = new System.Drawing.Size(51, 20);
-            this.numSetLevel.TabIndex = 145;
-            this.numSetLevel.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // chkChangeRoomTag
-            // 
-            this.chkChangeRoomTag.AutoSize = true;
-            this.chkChangeRoomTag.Location = new System.Drawing.Point(12, 221);
-            this.chkChangeRoomTag.Name = "chkChangeRoomTag";
-            this.chkChangeRoomTag.Size = new System.Drawing.Size(107, 17);
-            this.chkChangeRoomTag.TabIndex = 144;
-            this.chkChangeRoomTag.Text = "Anonymous room";
-            this.chkChangeRoomTag.CheckedChanged += new System.EventHandler(this.chkChangeRoomTag_CheckedChanged);
-            // 
-            // chkChangeChat
-            // 
-            this.chkChangeChat.AutoSize = true;
-            this.chkChangeChat.Location = new System.Drawing.Point(12, 243);
-            this.chkChangeChat.Name = "chkChangeChat";
-            this.chkChangeChat.Size = new System.Drawing.Size(105, 17);
-            this.chkChangeChat.TabIndex = 144;
-            this.chkChangeChat.Text = "Anonymous chat";
-            this.chkChangeChat.CheckedChanged += new System.EventHandler(this.chkChangeChat_CheckedChanged);
-            // 
-            // chkSetJoinLevel
-            // 
-            this.chkSetJoinLevel.AutoSize = true;
-            this.chkSetJoinLevel.Enabled = false;
-            this.chkSetJoinLevel.Location = new System.Drawing.Point(381, 7);
-            this.chkSetJoinLevel.Name = "chkSetJoinLevel";
-            this.chkSetJoinLevel.Size = new System.Drawing.Size(110, 17);
-            this.chkSetJoinLevel.TabIndex = 144;
-            this.chkSetJoinLevel.Text = "Toggle Join Level";
-            this.chkSetJoinLevel.CheckedChanged += new System.EventHandler(this.chkSetJoinLevel_CheckedChanged);
-            // 
-            // chkHideYulgarPlayers
-            // 
-            this.chkHideYulgarPlayers.AutoSize = true;
-            this.chkHideYulgarPlayers.Location = new System.Drawing.Point(12, 266);
-            this.chkHideYulgarPlayers.Name = "chkHideYulgarPlayers";
-            this.chkHideYulgarPlayers.Size = new System.Drawing.Size(126, 17);
-            this.chkHideYulgarPlayers.TabIndex = 144;
-            this.chkHideYulgarPlayers.Text = "Hide Players Upstairs";
-            this.chkHideYulgarPlayers.CheckedChanged += new System.EventHandler(this.chkHideYulgarPlayers_CheckedChanged);
-            // 
-            // chkAntiAfk
-            // 
-            this.chkAntiAfk.AutoSize = true;
-            this.chkAntiAfk.Location = new System.Drawing.Point(195, 221);
-            this.chkAntiAfk.Name = "chkAntiAfk";
-            this.chkAntiAfk.Size = new System.Drawing.Size(67, 17);
-            this.chkAntiAfk.TabIndex = 144;
-            this.chkAntiAfk.Text = "Anti-AFK";
-            this.chkAntiAfk.CheckedChanged += new System.EventHandler(this.chkAntiAfk_CheckedChanged);
             // 
             // grpAccessLevel
             // 
@@ -6070,7 +6052,7 @@ namespace Grimoire.UI
             this.tabHunt.Margin = new System.Windows.Forms.Padding(0);
             this.tabHunt.Name = "tabHunt";
             this.tabHunt.Padding = new System.Windows.Forms.Padding(3);
-            this.tabHunt.Size = new System.Drawing.Size(192, 73);
+            this.tabHunt.Size = new System.Drawing.Size(531, 301);
             this.tabHunt.TabIndex = 3;
             this.tabHunt.Text = "Hunt";
             // 
@@ -6244,7 +6226,7 @@ namespace Grimoire.UI
             this.tabBots.Margin = new System.Windows.Forms.Padding(0);
             this.tabBots.Name = "tabBots";
             this.tabBots.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBots.Size = new System.Drawing.Size(551, 301);
+            this.tabBots.Size = new System.Drawing.Size(531, 301);
             this.tabBots.TabIndex = 6;
             this.tabBots.Text = "Bots";
             // 
@@ -6256,7 +6238,7 @@ namespace Grimoire.UI
             this.darkPanel1.Controls.Add(this.treeBots);
             this.darkPanel1.Location = new System.Drawing.Point(4, 27);
             this.darkPanel1.Name = "darkPanel1";
-            this.darkPanel1.Size = new System.Drawing.Size(320, 232);
+            this.darkPanel1.Size = new System.Drawing.Size(307, 232);
             this.darkPanel1.TabIndex = 148;
             // 
             // treeBots
@@ -6270,7 +6252,7 @@ namespace Grimoire.UI
             this.treeBots.LineColor = System.Drawing.Color.DarkGray;
             this.treeBots.Location = new System.Drawing.Point(0, 0);
             this.treeBots.Name = "treeBots";
-            this.treeBots.Size = new System.Drawing.Size(320, 232);
+            this.treeBots.Size = new System.Drawing.Size(307, 232);
             this.treeBots.TabIndex = 17;
             this.treeBots.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeBots_AfterExpand);
             this.treeBots.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeBots_AfterSelect);
@@ -6280,7 +6262,7 @@ namespace Grimoire.UI
             this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.Controls.Add(this.txtSavedDesc);
-            this.panel6.Location = new System.Drawing.Point(334, 90);
+            this.panel6.Location = new System.Drawing.Point(321, 90);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(193, 169);
             this.panel6.TabIndex = 147;
@@ -6303,7 +6285,7 @@ namespace Grimoire.UI
             this.lblBoosts.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblBoosts.AutoSize = true;
             this.lblBoosts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblBoosts.Location = new System.Drawing.Point(293, 275);
+            this.lblBoosts.Location = new System.Drawing.Point(283, 275);
             this.lblBoosts.Name = "lblBoosts";
             this.lblBoosts.Size = new System.Drawing.Size(42, 13);
             this.lblBoosts.TabIndex = 25;
@@ -6315,7 +6297,7 @@ namespace Grimoire.UI
             this.lblDrops.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblDrops.AutoSize = true;
             this.lblDrops.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblDrops.Location = new System.Drawing.Point(237, 275);
+            this.lblDrops.Location = new System.Drawing.Point(227, 275);
             this.lblDrops.Name = "lblDrops";
             this.lblDrops.Size = new System.Drawing.Size(38, 13);
             this.lblDrops.TabIndex = 24;
@@ -6327,7 +6309,7 @@ namespace Grimoire.UI
             this.lblQuests.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblQuests.AutoSize = true;
             this.lblQuests.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblQuests.Location = new System.Drawing.Point(179, 275);
+            this.lblQuests.Location = new System.Drawing.Point(169, 275);
             this.lblQuests.Name = "lblQuests";
             this.lblQuests.Size = new System.Drawing.Size(43, 13);
             this.lblQuests.TabIndex = 23;
@@ -6339,7 +6321,7 @@ namespace Grimoire.UI
             this.lblSkills.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblSkills.AutoSize = true;
             this.lblSkills.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblSkills.Location = new System.Drawing.Point(129, 275);
+            this.lblSkills.Location = new System.Drawing.Point(119, 275);
             this.lblSkills.Name = "lblSkills";
             this.lblSkills.Size = new System.Drawing.Size(34, 13);
             this.lblSkills.TabIndex = 22;
@@ -6351,7 +6333,7 @@ namespace Grimoire.UI
             this.lblCommands.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblCommands.AutoSize = true;
             this.lblCommands.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblCommands.Location = new System.Drawing.Point(48, 262);
+            this.lblCommands.Location = new System.Drawing.Point(38, 262);
             this.lblCommands.Name = "lblCommands";
             this.lblCommands.Size = new System.Drawing.Size(62, 26);
             this.lblCommands.TabIndex = 21;
@@ -6363,7 +6345,7 @@ namespace Grimoire.UI
             this.lblItems.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblItems.AutoSize = true;
             this.lblItems.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblItems.Location = new System.Drawing.Point(355, 275);
+            this.lblItems.Location = new System.Drawing.Point(345, 275);
             this.lblItems.Name = "lblItems";
             this.lblItems.Size = new System.Drawing.Size(35, 13);
             this.lblItems.TabIndex = 146;
@@ -6373,7 +6355,7 @@ namespace Grimoire.UI
             // txtSavedAuthor
             // 
             this.txtSavedAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSavedAuthor.Location = new System.Drawing.Point(334, 64);
+            this.txtSavedAuthor.Location = new System.Drawing.Point(321, 64);
             this.txtSavedAuthor.Name = "txtSavedAuthor";
             this.txtSavedAuthor.Size = new System.Drawing.Size(193, 20);
             this.txtSavedAuthor.TabIndex = 19;
@@ -6384,7 +6366,7 @@ namespace Grimoire.UI
             this.lblBots.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBots.AutoSize = true;
             this.lblBots.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblBots.Location = new System.Drawing.Point(330, 50);
+            this.lblBots.Location = new System.Drawing.Point(317, 50);
             this.lblBots.Name = "lblBots";
             this.lblBots.Size = new System.Drawing.Size(83, 13);
             this.lblBots.TabIndex = 18;
@@ -6393,7 +6375,7 @@ namespace Grimoire.UI
             // txtSavedAdd
             // 
             this.txtSavedAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSavedAdd.Location = new System.Drawing.Point(334, 27);
+            this.txtSavedAdd.Location = new System.Drawing.Point(321, 27);
             this.txtSavedAdd.Name = "txtSavedAdd";
             this.txtSavedAdd.Size = new System.Drawing.Size(118, 20);
             this.txtSavedAdd.TabIndex = 16;
@@ -6402,7 +6384,7 @@ namespace Grimoire.UI
             // 
             this.btnSavedAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSavedAdd.Checked = false;
-            this.btnSavedAdd.Location = new System.Drawing.Point(458, 27);
+            this.btnSavedAdd.Location = new System.Drawing.Point(445, 27);
             this.btnSavedAdd.Name = "btnSavedAdd";
             this.btnSavedAdd.Size = new System.Drawing.Size(69, 22);
             this.btnSavedAdd.TabIndex = 15;
@@ -6415,7 +6397,7 @@ namespace Grimoire.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSaved.Location = new System.Drawing.Point(4, 4);
             this.txtSaved.Name = "txtSaved";
-            this.txtSaved.Size = new System.Drawing.Size(523, 20);
+            this.txtSaved.Size = new System.Drawing.Size(510, 20);
             this.txtSaved.TabIndex = 13;
             this.txtSaved.TextChanged += new System.EventHandler(this.txtSaved_TextChanged);
             // 
@@ -6481,8 +6463,8 @@ namespace Grimoire.UI
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.splitContainer1.Panel1.Controls.Add(this.panel3);
             this.splitContainer1.Panel1.Controls.Add(this.cbLists);
+            this.splitContainer1.Panel1.Controls.Add(this.panel3);
             this.splitContainer1.Panel1.Controls.Add(this.chkAll);
             this.splitContainer1.Panel1.Controls.Add(this.btnClear);
             this.splitContainer1.Panel1MinSize = 0;
@@ -6492,32 +6474,10 @@ namespace Grimoire.UI
             this.splitContainer1.Panel2.Controls.Add(this.panel4);
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Panel2MinSize = 0;
-            this.splitContainer1.Size = new System.Drawing.Size(268, 75);
-            this.splitContainer1.SplitterDistance = 129;
+            this.splitContainer1.Size = new System.Drawing.Size(258, 75);
+            this.splitContainer1.SplitterDistance = 124;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 149;
-            // 
-            // panel3
-            // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Controls.Add(this.btnDown);
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(125, 22);
-            this.panel3.TabIndex = 148;
-            // 
-            // btnDown
-            // 
-            this.btnDown.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDown.Checked = false;
-            this.btnDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDown.Location = new System.Drawing.Point(0, 0);
-            this.btnDown.Name = "btnDown";
-            this.btnDown.Size = new System.Drawing.Size(125, 22);
-            this.btnDown.TabIndex = 166;
-            this.btnDown.Text = "▼";
-            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
             // 
             // cbLists
             // 
@@ -6533,15 +6493,37 @@ namespace Grimoire.UI
             "Items"});
             this.cbLists.Location = new System.Drawing.Point(1, 51);
             this.cbLists.Name = "cbLists";
-            this.cbLists.Size = new System.Drawing.Size(124, 21);
+            this.cbLists.Size = new System.Drawing.Size(119, 21);
             this.cbLists.TabIndex = 169;
             this.cbLists.SelectedIndexChanged += new System.EventHandler(this.cbLists_SelectedIndexChanged);
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.btnDown);
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(120, 22);
+            this.panel3.TabIndex = 148;
+            // 
+            // btnDown
+            // 
+            this.btnDown.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDown.Checked = false;
+            this.btnDown.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDown.Location = new System.Drawing.Point(0, 0);
+            this.btnDown.Name = "btnDown";
+            this.btnDown.Size = new System.Drawing.Size(120, 22);
+            this.btnDown.TabIndex = 166;
+            this.btnDown.Text = "▼";
+            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
             // 
             // chkAll
             // 
             this.chkAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAll.AutoSize = true;
-            this.chkAll.Location = new System.Drawing.Point(90, 28);
+            this.chkAll.Location = new System.Drawing.Point(85, 28);
             this.chkAll.Name = "chkAll";
             this.chkAll.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkAll.Size = new System.Drawing.Size(36, 17);
@@ -6555,7 +6537,7 @@ namespace Grimoire.UI
             this.btnClear.Checked = false;
             this.btnClear.Location = new System.Drawing.Point(1, 25);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(83, 22);
+            this.btnClear.Size = new System.Drawing.Size(78, 22);
             this.btnClear.TabIndex = 167;
             this.btnClear.Text = "Clear";
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -6568,7 +6550,7 @@ namespace Grimoire.UI
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 22);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(138, 51);
+            this.panel4.Size = new System.Drawing.Size(133, 51);
             this.panel4.TabIndex = 148;
             // 
             // chkEnable
@@ -6591,7 +6573,7 @@ namespace Grimoire.UI
             this.btnRemove.Checked = false;
             this.btnRemove.Location = new System.Drawing.Point(0, 3);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(137, 22);
+            this.btnRemove.Size = new System.Drawing.Size(132, 22);
             this.btnRemove.TabIndex = 166;
             this.btnRemove.Text = "Remove";
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
@@ -6603,7 +6585,7 @@ namespace Grimoire.UI
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(138, 22);
+            this.panel2.Size = new System.Drawing.Size(133, 22);
             this.panel2.TabIndex = 147;
             // 
             // btnUp
@@ -6613,7 +6595,7 @@ namespace Grimoire.UI
             this.btnUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnUp.Location = new System.Drawing.Point(0, 0);
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(138, 22);
+            this.btnUp.Size = new System.Drawing.Size(133, 22);
             this.btnUp.TabIndex = 165;
             this.btnUp.Text = "▲";
             this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
@@ -6630,7 +6612,7 @@ namespace Grimoire.UI
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(277, 328);
+            this.panel1.Size = new System.Drawing.Size(267, 328);
             this.panel1.TabIndex = 150;
             // 
             // splitContainer2
@@ -6648,8 +6630,8 @@ namespace Grimoire.UI
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.mainTabControl);
-            this.splitContainer2.Size = new System.Drawing.Size(840, 328);
-            this.splitContainer2.SplitterDistance = 277;
+            this.splitContainer2.Size = new System.Drawing.Size(810, 328);
+            this.splitContainer2.SplitterDistance = 267;
             this.splitContainer2.TabIndex = 150;
             // 
             // checkBox1
@@ -6713,16 +6695,15 @@ namespace Grimoire.UI
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.ClientSize = new System.Drawing.Size(854, 342);
+            this.ClientSize = new System.Drawing.Size(824, 342);
             this.ContextMenuStrip = this.BotManagerMenuStrip;
             this.Controls.Add(this.splitContainer2);
-            this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = global::Properties.Resources.GrimoireIcon;
             this.Name = "BotManager";
             this.Padding = new System.Windows.Forms.Padding(7);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " Bot";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BotManager_FormClosing);
@@ -6752,6 +6733,7 @@ namespace Grimoire.UI
             ((System.ComponentModel.ISupportInitialize)(this.numDropDelay)).EndInit();
             this.tabQuest.ResumeLayout(false);
             this.tabQuest.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numQQuestId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numEnsureTries)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numQuestItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numQuestID)).EndInit();
@@ -6790,12 +6772,9 @@ namespace Grimoire.UI
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numSetFPS)).EndInit();
             this.darkGroupBox1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSpammerDelay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDelayedPacket)).EndInit();
+            this.darkGroupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numBSDelay)).EndInit();
             this.tabOptions.ResumeLayout(false);
             this.tabOptions.PerformLayout();
             this.darkGroupBox6.ResumeLayout(false);
@@ -6811,9 +6790,10 @@ namespace Grimoire.UI
             ((System.ComponentModel.ISupportInitialize)(this.numRelogDelay)).EndInit();
             this.tabOptions2.ResumeLayout(false);
             this.tabOptions2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSaveProgress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSetFPS)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSetLevel)).EndInit();
             this.grpAccessLevel.ResumeLayout(false);
             this.grpAccessLevel.PerformLayout();
             this.grpAlignment.ResumeLayout(false);
@@ -6843,1156 +6823,1171 @@ namespace Grimoire.UI
             this.BotManagerMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
-        }
+		}
 
-        static BotManager()
-        {
-            Instance = new BotManager();
-            Log = new LogForm();
-        }
+		static BotManager()
+		{
+			Instance = new BotManager();
+			Log = new LogForm();
+		}
 
-        private void btnBuyFast_Click(object sender, EventArgs e)
-        {
-            if (txtShopItem.TextLength > 0)
-            {
-                AddCommand(new CmdBuyFast
-                {
-                    ItemName = txtShopItem.Text
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
+		private void btnBuyFast_Click(object sender, EventArgs e)
+		{
+			if (txtShopItem.TextLength > 0)
+			{
+				AddCommand(new CmdBuyFast
+				{
+					ItemName = txtShopItem.Text
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
 
-        private void btnLoadShop_Click(object sender, EventArgs e)
-        {
-            AddCommand(new Botting.Commands.Item.CmdLoad
-            {
-                ShopId = (int)numShopId.Value
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
+		private void btnLoadShop_Click(object sender, EventArgs e)
+		{
+			AddCommand(new Botting.Commands.Item.CmdLoad
+			{
+				ShopId = (int)numShopId.Value
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
 
-        public void changeGenderAsync(object sender, EventArgs e)
-        {
-            int num = Flash.Call<int>("UserID", new string[0]);
-            string text = Flash.Call<string>("Gender", new string[0]);
-            text = (!text.Contains("M")) ? "M" : "F";
-            string data = $"{{\"t\":\"xt\",\"b\":{{\"r\":-1,\"o\":{{\"cmd\":\"genderSwap\",\"bitSuccess\":1,\"gender\":\"{text}\",\"intCoins\":0,\"uid\":\"{num}\",\"strHairFileName\":\"\",\"HairID\":\"\",\"strHairName\":\"\"}}}}}}";
-            _ = Proxy.Instance.SendToClient(data);
-        }
+		public void changeGenderAsync(object sender, EventArgs e)
+		{
+			int num = Flash.Call<int>("UserID", new string[0]);
+			string text = Flash.Call<string>("Gender", new string[0]);
+			text = (!text.Contains("M")) ? "M" : "F";
+			string data = $"{{\"t\":\"xt\",\"b\":{{\"r\":-1,\"o\":{{\"cmd\":\"genderSwap\",\"bitSuccess\":1,\"gender\":\"{text}\",\"intCoins\":0,\"uid\":\"{num}\",\"strHairFileName\":\"\",\"HairID\":\"\",\"strHairName\":\"\"}}}}}}";
+			_ = Proxy.Instance.SendToClient(data);
+		}
 
-        private void logScript(object sender, EventArgs e)
-        {
-            AddCommand(new CmdLog
-            {
-                Text = txtLog.Text
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
+		private void logScript(object sender, EventArgs e)
+		{
+			AddCommand(new CmdLog
+			{
+				Text = txtLog.Text
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
 
-        private void logDebug(object sender, EventArgs e)
-        {
-            AddCommand(new CmdLog
-            {
-                Text = txtLog.Text,
-                Debug = true
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
+		private void logDebug(object sender, EventArgs e)
+		{
+			AddCommand(new CmdLog
+			{
+				Text = txtLog.Text,
+				Debug = true
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
 
-        private void logsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LogForm.Instance.Show();
-            LogForm.Instance.BringToFront();
-        }
+		private void logsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			LogForm.Instance.Show();
+			LogForm.Instance.BringToFront();
+		}
 
-        private void btnYulgar_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdYulgar(), (ModifierKeys & Keys.Control) == Keys.Control);
-        }
+		private void btnYulgar_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdYulgar(), (ModifierKeys & Keys.Control) == Keys.Control);
+		}
 
-        private void btnProvoke_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdToggleProvoke
-            {
-                Type = 2
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
+		private void btnProvoke_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdToggleProvoke
+			{
+				Type = 2
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
 
-        private void btnchangeName_Click(object sender, EventArgs e)
-        {
-            foreach (string n in Configuration.BlockedPlayers)
-            {
-                if (txtUsername.Text.ToLower() == n)
-                {
-                    Environment.Exit(0);
-                }
-            }
-            CustomName = txtUsername.Text;
-        }
+		private void btnchangeName_Click(object sender, EventArgs e)
+		{
+			foreach (string n in Configuration.BlockedPlayers)
+			{
+				if (txtUsername.Text.ToLower() == n)
+				{
+					Environment.Exit(0);
+				}
+			}
+			CustomName = txtUsername.Text;
+		}
 
-        private void btnchangeGuild_Click(object sender, EventArgs e)
-        {
-            foreach (string n in Configuration.BlockedPlayers)
-            {
-                if (txtUsername.Text.ToLower() == n)
-                {
-                    Environment.Exit(0);
-                }
-            }
-            CustomGuild = txtGuild.Text;
-        }
+		private void btnchangeGuild_Click(object sender, EventArgs e)
+		{
+			foreach (string n in Configuration.BlockedPlayers)
+			{
+				if (txtUsername.Text.ToLower() == n)
+				{
+					Environment.Exit(0);
+				}
+			}
+			CustomGuild = txtGuild.Text;
+		}
 
-        private void btnProvokeOn_Click(object sender, EventArgs e)
-        {
-            /*AddCommand(new CmdToggleProvoke
-            {
-                Type = 1
-            }, (ModifierKeys & Keys.Control) == Keys.Control);*/
+		private void btnProvokeOn_Click(object sender, EventArgs e)
+		{
+			/*AddCommand(new CmdToggleProvoke
+			{
+				Type = 1
+			}, (ModifierKeys & Keys.Control) == Keys.Control);*/
 
-            AddCommand(new CmdProvoke
-            {
-                Set = true
-            }, (ModifierKeys & Keys.Control) == Keys.Control) ;
-        }
+			AddCommand(new CmdProvoke
+			{
+				Set = true
+			}, (ModifierKeys & Keys.Control) == Keys.Control) ;
+		}
 
-        private void btnProvokeOff_Click(object sender, EventArgs e)
-        {
-            /*AddCommand(new CmdToggleProvoke
-            {
-                Type = 0
-            }, (ModifierKeys & Keys.Control) == Keys.Control);*/
+		private void btnProvokeOff_Click(object sender, EventArgs e)
+		{
+			/*AddCommand(new CmdToggleProvoke
+			{
+				Type = 0
+			}, (ModifierKeys & Keys.Control) == Keys.Control);*/
 
-            AddCommand(new CmdProvoke
-            {
-                Set = false
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
+			AddCommand(new CmdProvoke
+			{
+				Set = false
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
 
-        public void AddItem(string Name)
-        {
-            if (!lstItems.Items.Contains(Name))
-            {
-                lstItems.Items.Add(Name);
-            }
-        }
+		public void AddItem(string Name)
+		{
+			if (!lstItems.Items.Contains(Name))
+			{
+				lstItems.Items.Add(Name);
+			}
+		}
 
-        private void btnUnbanklst_Click(object sender, EventArgs e)
-        {
-            string text = txtWhitelist.Text;
-            if (text.Length > 0)
-            {
-                AddItem(text);
-            }
-        }
+		private void btnUnbanklst_Click(object sender, EventArgs e)
+		{
+			string text = txtWhitelist.Text;
+			if (text.Length > 0)
+			{
+				AddItem(text);
+			}
+		}
 
-        private void chkPacket_CheckChanged(object sender, EventArgs e)
-        {
-            OptionsManager.Packet = chkPacket.Checked;
-        }
+		private void chkPacket_CheckChanged(object sender, EventArgs e)
+		{
+			OptionsManager.Packet = chkPacket.Checked;
+		}
 
-        private void lstLogText_KeyDown(object sender, KeyEventArgs e)
-        {
-            bool flag = e.Control && e.KeyCode == Keys.C;
-            if (flag)
-            {
-                string data = this.lstLogText.SelectedItem.ToString();
-                Clipboard.SetData(DataFormats.StringFormat, data);
-            }
-        }
+		private void lstLogText_KeyDown(object sender, KeyEventArgs e)
+		{
+			bool flag = e.Control && e.KeyCode == Keys.C;
+			if (flag)
+			{
+				string data = this.lstLogText.SelectedItem.ToString();
+				Clipboard.SetData(DataFormats.StringFormat, data);
+			}
+		}
 
-        private void numOptionsTimer_ValueChanged(object sender, EventArgs e)
-        {
-            OptionsManager.Timer = (int)numOptionsTimer.Value;
-        }
+		private void numOptionsTimer_ValueChanged(object sender, EventArgs e)
+		{
+			OptionsManager.Timer = (int)numOptionsTimer.Value;
+		}
 
-        private void tabControl1_Selected(object sender, TabControlEventArgs e)
-        {
-            if (e.TabPage == tabBots)
-            {
-                this.txtSaved.Text = Path.Combine(Application.StartupPath, "Bots");
-                UpdateTree();
-            }
-            else if (e.TabPage == tabMisc)
-            {
-                GetAllCommands<CmdLabel>(lbLabels);
-            }
-        }
+		private void tabControl1_Selected(object sender, TabControlEventArgs e)
+		{
+			if (e.TabPage == tabBots)
+			{
+				this.txtSaved.Text = Path.Combine(Application.StartupPath, "Bots");
+				UpdateTree();
+			}
+			else if (e.TabPage == tabMisc)
+			{
+				GetAllCommands<CmdLabel>(lbLabels);
+			}
+		}
 
-        private void txtSaved_TextChanged(object sender, EventArgs e)
-        {
-            UpdateTree();
-        }
+		private void txtSaved_TextChanged(object sender, EventArgs e)
+		{
+			UpdateTree();
+		}
 
-        private void lstLogText_DoubleClick(object sender, EventArgs e)
-        {
-            string data = this.txtLog.Text == "Logs" ? "" : txtLog.Text + " ";
-            string data2 = this.lstLogText.SelectedItem.ToString();
-            this.txtLog.Text = $"{data}{data2}";
-        }
+		private void lstLogText_DoubleClick(object sender, EventArgs e)
+		{
+			string data = this.txtLog.Text == "Logs" ? "" : txtLog.Text + " ";
+			string data2 = this.lstLogText.SelectedItem.ToString();
+			this.txtLog.Text = $"{data}{data2}";
+		}
 
-        public void MultiMode()
-        {
-            if (this.lstCommands.SelectionMode != SelectionMode.MultiExtended)
-            {
-                this.lstCommands.SelectionMode = SelectionMode.MultiExtended;
-                this.lstItems.SelectionMode = SelectionMode.MultiExtended;
-                this.lstSkills.SelectionMode = SelectionMode.MultiExtended;
-                this.lstQuests.SelectionMode = SelectionMode.MultiExtended;
-                this.lstDrops.SelectionMode = SelectionMode.MultiExtended;
-                this.lstBoosts.SelectionMode = SelectionMode.MultiExtended;
-            }
-            else
-            {
-                this.lstCommands.SelectionMode = SelectionMode.One;
-                this.lstItems.SelectionMode = SelectionMode.One;
-                this.lstSkills.SelectionMode = SelectionMode.One;
-                this.lstQuests.SelectionMode = SelectionMode.One;
-                this.lstDrops.SelectionMode = SelectionMode.One;
-                this.lstBoosts.SelectionMode = SelectionMode.One;
-            }
-        }
+		public void MultiMode()
+		{
+			if (this.lstCommands.SelectionMode != SelectionMode.MultiExtended)
+			{
+				this.lstCommands.SelectionMode = SelectionMode.MultiExtended;
+				this.lstItems.SelectionMode = SelectionMode.MultiExtended;
+				this.lstSkills.SelectionMode = SelectionMode.MultiExtended;
+				this.lstQuests.SelectionMode = SelectionMode.MultiExtended;
+				this.lstDrops.SelectionMode = SelectionMode.MultiExtended;
+				this.lstBoosts.SelectionMode = SelectionMode.MultiExtended;
+			}
+			else
+			{
+				this.lstCommands.SelectionMode = SelectionMode.One;
+				this.lstItems.SelectionMode = SelectionMode.One;
+				this.lstSkills.SelectionMode = SelectionMode.One;
+				this.lstQuests.SelectionMode = SelectionMode.One;
+				this.lstDrops.SelectionMode = SelectionMode.One;
+				this.lstBoosts.SelectionMode = SelectionMode.One;
+			}
+		}
 
-        private void chkUntarget_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.Untarget = chkUntarget.Checked;
-        }
+		private void lstCommands_DragDrop(object sender, DragEventArgs e)
+		{
+			Configuration config;
+			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+			if (files.Length > 1) return;
+			if (TryDeserialize(File.ReadAllText(files[0]), out config))
+			{
+				ApplyConfiguration(config);
+				GetAllCommands<CmdLabel>(lbLabels);
+			}
+		}
 
-        private void lstCommands_DragDrop(object sender, DragEventArgs e)
-        {
-            Configuration config;
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (files.Length > 1) return;
-            if (TryDeserialize(File.ReadAllText(files[0]), out config))
-            {
-                ApplyConfiguration(config);
-                GetAllCommands<CmdLabel>(lbLabels);
-            }
-        }
+		private void lstCommands_DragEnter(object sender, DragEventArgs e)
+		{
+			e.Effect = DragDropEffects.All;
+		}
 
-        private void lstCommands_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.All;
-        }
+		private void lstCommands_Click(object sender, EventArgs e)
+		{
+			
+		}
+		
+		private void lstCommands_MouseEnter(object sender, EventArgs e)
+		{
+			if (lstCommands.Items.Count <= 0)
+			{
+				Color c1 = lstCommands.BackColor;
+				Color c2 = Color.FromArgb(c1.A, (int)(c1.R * 0.8), (int)(c1.G * 0.8), (int)(c1.B * 0.8));
+				lstCommands.BackColor = c2;
+			}
+		}
 
-        private void lstCommands_Click(object sender, EventArgs e)
-        {
-            
-        }
-        
-        private void lstCommands_MouseEnter(object sender, EventArgs e)
-        {
-            if (lstCommands.Items.Count <= 0)
-            {
-                Color c1 = lstCommands.BackColor;
-                Color c2 = Color.FromArgb(c1.A, (int)(c1.R * 0.8), (int)(c1.G * 0.8), (int)(c1.B * 0.8));
-                lstCommands.BackColor = c2;
-            }
-        }
+		private void lstCommands_MouseLeave(object sender, EventArgs e)
+		{
+			Color lstCommandsBackColor = Color.FromArgb(60, 63, 65);
+			lstCommands.BackColor = lstCommandsBackColor;
+		}
 
-        private void lstCommands_MouseLeave(object sender, EventArgs e)
-        {
-            Color lstCommandsBackColor = Color.FromArgb(60, 63, 65);
-            lstCommands.BackColor = lstCommandsBackColor;
-        }
+		private void btnBlank_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdBlank3 { Text = "(Write Text Here)", Alpha = 1, R = 220, G = 220, B = 220 }, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
 
-        private void btnBlank_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdBlank3 { Text = "(Write Text Here)", Alpha = 1, R = 220, G = 220, B = 220 }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
+		private void chkAFK_CheckedChanged(object sender, EventArgs e)
+		{
+			OptionsManager.AFK = chkAFK.Checked;
+		}
 
-        private void chkAFK_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.AFK = chkAFK.Checked;
-        }
+		private void chkRelog_CheckedChanged(object sender, EventArgs e)
+		{
+			this.chkAFK.Enabled = chkRelog.Checked;
+		}
 
-        private void chkRelog_CheckedChanged(object sender, EventArgs e)
-        {
-            this.chkAFK.Enabled = chkRelog.Checked;
-        }
+		private void btnCurrBlank_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdMoveToCell
+			{
+				Cell = "Blank",
+				Pad = "Spawn"
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+		private void btnSetSpawn_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdSetSpawn(), (ModifierKeys & Keys.Control) == Keys.Control);
+		}
 
-        private void btnCurrBlank_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdMoveToCell
-            {
-                Cell = "Blank",
-                Pad = "Spawn"
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-        private void btnSetSpawn_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdSetSpawn(), (ModifierKeys & Keys.Control) == Keys.Control);
-        }
+		private void btnBeep_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdBeep
+			{
+				Times = (int)numBeepTimes.Value
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
 
-        private void btnBeep_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdBeep
-            {
-                Times = (int)numBeepTimes.Value
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
+		private void btnAddSkillCmd_Click(object sender, EventArgs e)
+		{
+			string index = numSkill.Text;
+			Skill skill = new Skill
+			{
+				Text = Skill.GetSkillName(index),
+				Index = index,
+				Type = Skill.SkillType.Normal
+			};
 
-        private void btnAddSkillCmd_Click(object sender, EventArgs e)
-        {
-            string text = numSkill.Text;
-            AddCommand(new CmdUseSkill
-            {
-                Index = text,
-                SafeHp = (int)this.numSafe.Value,
-                SafeMp = (int)this.numSafe.Value,
-                Wait = this.chkSkillCD.Checked,
-                Skill = text + ": " + Skill.GetSkillName(text)
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
+			AddCommand(new CmdUseSkill
+			{
+				Skill = skill,
+				Wait = this.chkSkillCD.Checked,
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
 
-        private void chkBuffup_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.Buff = chkBuffup.Checked;
-        }
+		private void chkBuffup_CheckedChanged(object sender, EventArgs e)
+		{
+			OptionsManager.Buff = chkBuffup.Checked;
+		}
 
-        private void btnSetHero_Click(object sender, EventArgs e)
-        {
+		private void btnSetHero_Click(object sender, EventArgs e)
+		{
 #pragma warning disable CS4014 // Because this call is not awaited
-            Button s = (Button)sender;
-            switch(s.Name)
-            {
-                case "btnSetGood":
-                    Proxy.Instance.SendToServer("%xt%zm%updateQuest%218701%41%1%");
-                    break;
-                case "btnSetEvil":
-                    Proxy.Instance.SendToServer("%xt%zm%updateQuest%218701%41%2%");
-                    break;
-                case "btnSetChaos":
-                    Proxy.Instance.SendToServer("%xt%zm%updateQuest%218701%41%3%");
-                    break;
-                case "btnSetUndecided":
-                    Proxy.Instance.SendToServer("%xt%zm%updateQuest%218701%41%5%");
-                    break;
-                case "btnSetMem":
-                    Player.ChangeAccessLevel("Member");
-                    break;
-                case "btnSetNonMem":
-                    Player.ChangeAccessLevel("Non Member");
-                    break;
-                case "btnSetModerator":
-                    Player.ChangeAccessLevel("Moderator");
-                    break;
-            } 
+			Button s = (Button)sender;
+			switch(s.Name)
+			{
+				case "btnSetGood":
+					Proxy.Instance.SendToServer("%xt%zm%updateQuest%218701%41%1%");
+					break;
+				case "btnSetEvil":
+					Proxy.Instance.SendToServer("%xt%zm%updateQuest%218701%41%2%");
+					break;
+				case "btnSetChaos":
+					Proxy.Instance.SendToServer("%xt%zm%updateQuest%218701%41%3%");
+					break;
+				case "btnSetUndecided":
+					Proxy.Instance.SendToServer("%xt%zm%updateQuest%218701%41%5%");
+					break;
+				case "btnSetMem":
+					Player.ChangeAccessLevel("Member");
+					break;
+				case "btnSetNonMem":
+					Player.ChangeAccessLevel("Non Member");
+					break;
+				case "btnSetModerator":
+					Player.ChangeAccessLevel("Moderator");
+					break;
+			} 
 #pragma warning restore CS4014 // Because this call is not awaited
-        }
+		}
 
-        private void chkToggleMute_CheckedChanged(object sender, EventArgs e)
-        {
-            Player.ToggleMute(chkToggleMute.Checked);
-        }
+		private void chkToggleMute_CheckedChanged(object sender, EventArgs e)
+		{
+			Player.ToggleMute(!chkToggleMute.Checked);
+		}
 
-        private void changeFontsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FontDialog fdlg = new FontDialog();
-            if (fdlg.ShowDialog() == DialogResult.OK)
-            {
-                this.Font = new Font(fdlg.Font.FontFamily, fdlg.Font.Size, FontStyle.Regular, GraphicsUnit.Point, 0);
-                foreach (Control control in this.Controls)
+		private void changeFontsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			FontDialog fdlg = new FontDialog();
+			if (fdlg.ShowDialog() == DialogResult.OK)
+			{
+				this.Font = new Font(fdlg.Font.FontFamily, fdlg.Font.Size, FontStyle.Regular, GraphicsUnit.Point, 0);
+				foreach (Control control in this.Controls)
+				{
+					control.Font = new Font(fdlg.Font.FontFamily, fdlg.Font.Size, FontStyle.Regular, GraphicsUnit.Point, 0);
+				}
+				var selectedOption = MessageBox.Show("Would you like to Save style and have it load on the next startup?", "Save?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (selectedOption == DialogResult.Yes)
+				{
+					Config c = Config.Load(Application.StartupPath + "\\config.cfg");
+					c.Set("font", fdlg.Font.FontFamily.Name.ToString());
+					c.Set("fontSize", fdlg.Font.Size.ToString());
+					c.Save();
+				}
+			}
+		}
+
+		private void numDropDelay_ValueChanged(object sender, EventArgs e)
+		{
+			Bot.Instance.DropDelay = (int)numDropDelay.Value;
+		}
+
+		private void btnAttack_Click(object sender, EventArgs e)
+		{
+			string monster = string.IsNullOrEmpty(txtMonster.Text) ? "*" : txtMonster.Text;
+			AddCommand(new CmdAttack
+			{
+				Monster = txtMonster.Text == "Monster (* = random)" ? "*" : txtMonster.Text
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void chkBankOnStop_CheckedChanged(object sender, EventArgs e)
+		{
+			Configuration.Instance.BankOnStop = chkBankOnStop.Checked;
+		}
+
+		private void btnGotoIndex_Click(object sender, EventArgs e)
+		{
+			IBotCommand cmd;
+			switch (((Button)sender).Text)
+			{
+				case "Up++":
+					cmd = new CmdIndex
+					{
+						Type = CmdIndex.IndexCommand.Up,
+						Index = (int)numIndexCmd.Value
+					};
+					break;
+				case "Down--":
+					cmd = new CmdIndex
+					{
+						Type = CmdIndex.IndexCommand.Down,
+						Index = (int)numIndexCmd.Value
+					};
+					break;
+				default:
+					cmd = new CmdIndex
+					{
+						Type = CmdIndex.IndexCommand.Goto,
+						Index = (int)numIndexCmd.Value
+					};
+					break;
+			}
+			AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void TogglePages()
+		{
+			Size p1 = splitContainer2.Panel1.ClientSize;
+			int p1w = splitContainer2.Panel1.ClientSize.Width;
+			Size p2 = splitContainer2.Panel2.ClientSize;
+			int p2w = splitContainer2.Panel2.ClientSize.Width;
+			if (mainTabControl.Visible)
+			{
+				this.ClientSize = new Size(p1w, ClientSize.Height);
+				mainTabControl.Visible = false;
+				splitContainer2.Panel2Collapsed = true;
+			}
+			else
+			{
+				this.ClientSize = new Size(p1w + 500, ClientSize.Height);
+				splitContainer2.Panel2Collapsed = false;
+				mainTabControl.Visible = true;
+			}
+		}
+
+		public Dictionary<string, Color> CurrentColors = new Dictionary<string, Color>();
+
+		public Color GetCurrentColor(string cmd)
+		{
+			if (!CurrentColors.ContainsKey(cmd))
+				CurrentColors[cmd] = GetColor(cmd);
+			return CurrentColors[cmd];
+		}
+
+		public Color GetColor(string name)
+		{
+			Config c = Config.Load(Application.StartupPath + "\\config.cfg");
+			return Color.FromArgb(int.Parse(c.Get(name + "Color") ?? "FFDCDCDC", System.Globalization.NumberStyles.HexNumber));
+		}
+
+		public Dictionary<string, bool> CurrentCentered = new Dictionary<string, bool>();
+
+		private bool GetCurrentBoolCentered(string cmd)
+		{
+			if (!CurrentCentered.ContainsKey(cmd))
+				CurrentCentered[cmd] = GetBoolCentered(cmd);
+			return CurrentCentered[cmd];
+		}
+
+		private bool GetBoolCentered(string name)
+		{
+			Config c = Config.Load(Application.StartupPath + "\\config.cfg");
+			return bool.Parse(c.Get(name + "Centered") ?? "false");
+		}
+
+		private void lstCommands_DrawItem(object sender, DrawItemEventArgs e)
+		{
+			if (!(e.Index > -1))
+				return;
+			e.DrawBackground();
+			if (!colorfulCommands.Checked)
+			{
+				// Define the default color of the brush as black.
+				Brush myBrush = Brushes.Gainsboro;
+				// Draw the current item text based on the current Font 
+				// and the custom brush settings.
+				e.Graphics.DrawString(lstCommands.Items[e.Index].ToString(),
+					e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+				// If the ListBox has focus, draw a focus rectangle around the selected item.
+				e.DrawFocusRectangle();
+				return;
+			}
+
+			#region Settings
+			IBotCommand cmd = (IBotCommand)lstCommands.Items[e.Index];
+			string[] count = cmd.GetType().ToString().Split('.');
+			string scmd = count[count.Count() - 1].Replace("Cmd", "");
+			//string WindowText = SystemColors.WindowText.ToArgb().ToString();
+			SolidBrush color = new SolidBrush(GetCurrentColor(scmd));
+			SolidBrush varColor = new SolidBrush(GetCurrentColor("Variable"));
+			SolidBrush eVarColor = new SolidBrush(GetCurrentColor("ExtendedVariable"));
+			SolidBrush indexcolor = new SolidBrush(GetCurrentColor("Index"));
+			RectangleF region = new RectangleF(e.Bounds.X, e.Bounds.Y + 2, e.Bounds.Width, e.Bounds.Height);
+			Font font = new Font(e.Font.FontFamily, e.Font.Size, FontStyle.Regular);
+			StringFormat centered = new StringFormat()
+			{
+					Alignment = StringAlignment.Center,
+				LineAlignment = StringAlignment.Center
+			};
+			#endregion
+
+			string[] LabelLess = new string[]
+			{
+				"Label",
+				"GotoLabel",
+				"Blank",
+				"Blank2",
+				"StatementCommand",
+				"Index",
+				"SkillSet"
+			};
+
+			if (cmd is CmdBlank || cmd is CmdBlank2 || cmd is CmdBlank3)
+			{
+				string txt = lstCommands.Items[e.Index].ToString();
+				Font cmdFont = new Font("Arial", e.Font.Size + (float)6.5, FontStyle.Bold, GraphicsUnit.Pixel);
+				if (cmd is CmdBlank2 && txt.Contains("[RGB]"))
+					using (Font the_font = new Font("Times New Roman", e.Font.Size + (float)6.5, FontStyle.Bold, GraphicsUnit.Pixel))
+					{
+						var font_info = new FontInfo(e.Graphics, the_font);
+						SizeF text_size = e.Graphics.MeasureString(txt, the_font);
+						int x0 = (int)((this.ClientSize.Width - text_size.Width) / 2);
+						int y0 = (int)((this.ClientSize.Height - text_size.Height) / 2);
+						int brush_y0 = (int)(y0 + font_info.InternalLeadingPixels) + (int)font_info.InternalLeadingPixels;
+						int brush_y1 = (int)(y0 + font_info.AscentPixels) + 5;
+						using (LinearGradientBrush rainbowbrush = new LinearGradientBrush(new Point(x0, brush_y0), new Point(x0, brush_y1), Color.Red, Color.Violet))
+						{
+							Color[] colors = new Color[]
+							{
+								Color.FromArgb(255, 0, 0),
+								Color.FromArgb(255, 0, 0),
+								Color.FromArgb(255, 128, 0),
+								Color.FromArgb(255, 255, 0),
+								Color.FromArgb(0, 255, 0),
+								Color.FromArgb(0, 255, 128),
+								Color.FromArgb(0, 255, 255),
+								Color.FromArgb(0, 128, 255),
+								Color.FromArgb(0, 0, 255),
+								Color.FromArgb(0, 0, 255),
+							};
+							int num_colors = colors.Length;
+							float[] blend_positions = new float[num_colors];
+							for (int i = 0; i < num_colors; i++)
+								blend_positions[i] = i / (num_colors - 1f);
+							ColorBlend color_blend = new ColorBlend
+							{
+								Colors = colors,
+								Positions = blend_positions
+							};
+							rainbowbrush.InterpolationColors = color_blend;
+
+							// Draw the text.
+							txt = txt.Replace("[RGB]", "");
+							e.Graphics.DrawString(txt, the_font, rainbowbrush, e.Bounds, centered);
+						}
+					}
+				else if(cmd is CmdBlank2 && txt.StartsWith("["))
+				{
+					try
+					{
+						string[] rgbarray = txt.Replace("[", "").Split(']')[0].Split(',');
+						SolidBrush b2b = new SolidBrush(Color.Black);
+						if (rgbarray.Length == 3)
+							b2b = new SolidBrush(Color.FromArgb(int.Parse(rgbarray[0]), int.Parse(rgbarray[1]), int.Parse(rgbarray[2])));
+						else if (rgbarray.Length == 4)
+							b2b = new SolidBrush(Color.FromArgb(int.Parse(rgbarray[0]), int.Parse(rgbarray[1]), int.Parse(rgbarray[2]), int.Parse(rgbarray[3])));
+						txt = Regex.Replace(txt, @"\[.*?\]", "");
+						if (txt.Contains("(TROLL)"))
+							e.Graphics.DrawString(txt.Replace("(TROLL)", ""), e.Font, b2b, e.Bounds, StringFormat.GenericDefault);
+						else
+							e.Graphics.DrawString(txt, cmdFont, b2b, e.Bounds, centered);
+					}catch{}
+				}
+				else if(cmd is CmdBlank3)
+				{
+					var jsonObj = JsonConvert.DeserializeObject<CmdBlank3>(JsonConvert.SerializeObject(cmd));
+					try
+					{
+						SolidBrush colorBrush = new SolidBrush(jsonObj.Argb());
+						e.Graphics.DrawString(txt, cmdFont, colorBrush, e.Bounds, centered);
+					}
+					catch { }
+				}
+				else if (txt.Contains("(TROLL)"))
+					e.Graphics.DrawString(txt.Replace("(TROLL)", ""), e.Font, new SolidBrush(Color.White), e.Bounds, StringFormat.GenericDefault);
+				return;
+			}
+
+			if (!LabelLess.Contains(scmd))
+			{
+				//Draw Index
+				//Region first = DrawString(e.Graphics, $"[{e.Index.ToString()}] ", this.Font, indexcolor, region, new StringFormat(StringFormatFlags.DirectionRightToLeft));
+				Region first = DrawString(e.Graphics, $"[{e.Index.ToString()}] ", font, indexcolor, region, StringFormat.GenericDefault);
+				// Adjust the region we wish to print with a +3 offset.
+				region = new RectangleF(region.X + first.GetBounds(e.Graphics).Width + 3, region.Y, region.Width, region.Height);
+			}
+
+			// Draw the second string (rest of the string, in this case Command type).
+			string cmdText = lstCommands.Items[e.Index].ToString();
+			string[] toDraw;
+			if (cmdText.Contains(':')) {
+				toDraw = lstCommands.Items[e.Index].ToString().Split(':');
+				Region second = DrawString(e.Graphics, toDraw[0], font, color, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
+				region = new RectangleF(region.X + second.GetBounds(e.Graphics).Width + 3, region.Y, region.Width, region.Height);
+				if(toDraw[1].Contains(","))
+				{
+					toDraw = toDraw[1].Split(',');
+					Region third = DrawString(e.Graphics, toDraw[0], font, varColor, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
+					for (int i = 1; i < toDraw.Length; i++)
+					{
+						region = new RectangleF(region.X + third.GetBounds(e.Graphics).Width + 3, region.Y, region.Width, region.Height);
+						third = DrawString(e.Graphics, toDraw[i], font, eVarColor, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
+					}
+				}
+				else
+					DrawString(e.Graphics, toDraw[1], font, varColor, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
+			}
+			else
+				DrawString(e.Graphics, cmdText, font, color, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
+
+		}
+
+		private Region DrawString(Graphics g, string s, Font font, Brush brush, RectangleF layoutRectangle, StringFormat format)
+		{
+			format.SetMeasurableCharacterRanges(new[] { new CharacterRange(0, s.Length) });
+			format.Alignment = StringAlignment.Near;
+			g.DrawString(s, font, brush, layoutRectangle, format);
+			return g.MeasureCharacterRanges(s, font, layoutRectangle, format)[0];
+		}
+
+		private Region DrawRTLString(Graphics g, string s, Font font, Brush brush, RectangleF layoutRectangle)
+		{
+			var format = new StringFormat()
+			{
+				Alignment = StringAlignment.Near,
+				FormatFlags = StringFormatFlags.DirectionRightToLeft
+			};
+			format.SetMeasurableCharacterRanges(new[] { new CharacterRange(0, s.Length) });
+			//g.DrawString(s, font, brush, layoutRectangle, format);
+			Region length = g.MeasureCharacterRanges(s, font, layoutRectangle, format)[0];
+			layoutRectangle = new RectangleF(layoutRectangle.Width, layoutRectangle.Y, length.GetBounds(g).Width, layoutRectangle.Height);
+			DrawString(g, s, font, brush, layoutRectangle, format);
+			return length;
+		}
+
+		private void multilineToggleToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MultiMode();
+		}
+
+		private void toggleTabpagesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			TogglePages();
+		}
+
+		private void commandColorsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Root.Instance.ShowForm(CommandColorForm.Instance);
+		}
+
+		private void btnChangeCmd_Click(object sender, EventArgs e)
+		{
+			IBotCommand cmd;
+			switch(((Button)sender).Name)
+			{
+				case "btnChangeGuildCmd":
+					cmd = new CmdChange
+					{
+						Guild = true,
+						Text = txtGuild.Text
+					};
+					break;
+				default:
+					cmd = new CmdChange
+					{
+						Guild = false,
+						Text = txtUsername.Text
+					};
+					break;
+			}
+			AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void treeBots_DragEnter(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(DataFormats.FileDrop))
+				e.Effect = DragDropEffects.Copy;
+		}
+
+		private void btnClientPacket_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdPacket
+			{
+				Packet = txtPacket.Text,
+				SpamTimes = Decimal.ToInt32(numSpamTimes.Value),
+				ForClient = true
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnSetInt_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdInt
+			{
+				Int = txtSetInt.Text,
+				Value = (int)numSetInt.Value,
+				type = CmdInt.Types.Set
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnIncreaseInt_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdInt
+			{
+				Int = txtSetInt.Text,
+				Value = (int)numSetInt.Value,
+				type = CmdInt.Types.Upper
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnDecreaseInt_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdInt
+			{
+				Int = txtSetInt.Text,
+				Value = (int)numSetInt.Value,
+				type = CmdInt.Types.Lower
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void lstCommands_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			e.Handled = true;
+		}
+
+		private void btnWhitelistOn_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdWhitelist
+			{
+				state = CmdWhitelist.State.On
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnWhitelistOff_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdWhitelist
+			{
+				state = CmdWhitelist.State.Off
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnWhitelistToggle_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdWhitelist
+			{
+				state = CmdWhitelist.State.Toggle
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		// Experimental!
+		public int LastIndexedSearch = 0;
+		public string SKeyword = "";
+		public List<int> Filtered = new List<int>();
+
+		private void btnSearchCmd_Click(object sender, EventArgs e)
+		{
+			string Keyword = this.txtSearchCmd.Text;
+			ListBox.ObjectCollection lists = lstCommands.Items;
+
+			if (Keyword != SKeyword)
+			{
+				SKeyword = "";
+				Filtered.Clear();
+			}
+
+			// Collect all filtered result
+			for (int i = 0; i < lists.Count; i++)
+			{
+				if (Keyword == SKeyword)
+				{
+					Console.WriteLine("Using Cached List.");
+					break;
+				}
+
+				bool KeywordMatch = Regex.IsMatch(lists[i].ToString(), $@"(^|\s){Keyword}(\s|$)");
+
+				// Collect all filtered result
+				if (KeywordMatch)
+				{
+					Filtered.Add(i);
+				}
+			}
+
+			SKeyword = Keyword;
+			// Use the filtered Index
+			if ( Filtered.Count > 0 )
+			{
+				lstCommands.SelectedIndex = -1;
+				lstCommands.SelectedIndex = Filtered[LastIndexedSearch];
+				LastIndexedSearch++;
+
+				if ( LastIndexedSearch >= Filtered.Count )
+				{
+					LastIndexedSearch = 0;
+				}
+			}
+		}
+
+		private void btnClientMessageEvt(object sender, EventArgs e)
+		{
+			IBotCommand cmd;
+			switch (((Button)sender).Name)
+			{
+				case "btnAddWarnMsg":
+					cmd = new CmdClientMessage
+					{
+						IsWarning = true,
+						Messages = (string)inputMsgClient.Text
+					};
+					break;
+				case "btnAddInfoMsg":
+					cmd = new CmdClientMessage
+					{
+						Messages = (string)inputMsgClient.Text
+					};
+					break;
+				default:
+					cmd = new CmdClientMessage
+					{
+						Messages = (string)inputMsgClient.Text
+					};
+					break;
+			};
+
+			AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnReturnCmd_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdReturn(), (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnClearTempVar_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdClearTemp(), (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnSaveAllCommands_Click(object sender, EventArgs e)
+		{
+			using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+			{
+				saveFileDialog.Title = "Save bot";
+				saveFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
+				saveFileDialog.DefaultExt = ".gbot";
+				saveFileDialog.Filter = "Grimoire bots|*.gbot";
+				saveFileDialog.CheckFileExists = false;
+				if (saveFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					Configuration oldConfig = GenerateConfiguration();
+					chkAll.Checked = true;
+					btnClear.PerformClick();
+					chkAll.Checked = false;
+
+					var type = typeof(IBotCommand); // Get the type of our interface
+					var types = AppDomain.CurrentDomain.GetAssemblies() // Get the assemblies associated with our project
+						.SelectMany(s => s.GetTypes()) // Get all the types
+						.Where(p => type.IsAssignableFrom(p) && !p.IsInterface); // Filter to find any type that can be assigned to an IModule
+
+					var typeList = types as Type[] ?? types.ToArray(); // Convert to an array
+					for (int i = 0; i < typeList.Count(); i++)
+					{
+						//AddCommand(new typeList[i]);
+						//someone figure out how to do this thx
+					}
+
+					Configuration value = GenerateConfiguration();
+					try
+					{
+						File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _saveSerializerSettings));
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show("Unable to save bot: " + ex.Message);
+					}
+					finally
+					{
+						ApplyConfiguration(oldConfig);
+					}
+				}
+			}
+			
+		}
+
+		private void btnSetFPSCmd_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdSetFPS {
+				FPS = (int)numSetFPS.Value
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void lbLabels_DoubleClick(object sender, EventArgs e)
+		{
+			object selected = lbLabels.SelectedItem;
+			if (selected != null)
+				txtLabel.Text = selected.ToString().Substring(1, selected.ToString().Length - 2);
+		}
+
+		private void richTextBox2_TextChanged(object sender, EventArgs e)
+		{
+			try {
+				rtbInfo.Rtf = richTextBox2.Text;
+				return;
+
+				var currDir = System.AppDomain.CurrentDomain.BaseDirectory;
+				var tempDoc = $@"{currDir}/tempdoc";
+				var target = $@"{currDir}/temprtf";
+				if (File.Exists(tempDoc))
+				{
+					File.Delete(tempDoc);
+				}
+				using (FileStream newFile = File.Create(tempDoc))
+				{
+					byte[] toWrite = new UTF8Encoding(true).GetBytes(richTextBox2.Text);
+					newFile.Write(toWrite, 0, toWrite.Length);
+				}
+				var tempRtf = "";
+				Task.WaitAll(Task.Run(() => DocConvert.toRtf(tempDoc, target, out tempRtf)));
+				rtbInfo.Rtf = File.ReadAllText(tempRtf);
+			} catch { };
+		}
+
+		private void rtbInfo_LinkClicked(object sender, LinkClickedEventArgs e)
+		{
+			Process.Start(e.LinkText);
+		}
+
+		private async void btnSetLevel_Click(object sender, EventArgs e)
+		{
+			if (!int.TryParse(tbLevel.Text, out _)) return;
+
+			string packet =
+				"{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"levelUp\",\"intExpToLevel\":\"2000\",\"intLevel\":" + tbLevel.Text + "}}}";
+			await Proxy.Instance.SendToClient(packet);
+		}
+
+		private void btnSetLevelCmd_Click(object sender, EventArgs e)
+		{
+			if (!int.TryParse(tbLevel.Text, out _)) return;
+
+			string packet = "Level " + tbLevel.Text;
+			this.AddCommand(new CmdPacket
+			{
+				Packet = packet,
+				SpamTimes = 1,
+				ForClient = true
+			}, (Control.ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private async void chkWalkSpeed_CheckedChanged(object sender, EventArgs e)
+		{
+			if (chkWalkSpeed.Checked)
+			{
+				Flash.Call("SetWalkSpeed", new string[] { numWalkSpeed.Value.ToString() });
+
+				//string cell = Player.Cell;
+				while (chkWalkSpeed.Checked && (int)numWalkSpeed.Value != 8)
+				{
+					//if (Player.Cell != cell)
+					await Task.Delay(200);
+					Flash.Call("SetWalkSpeed", new string[] { numWalkSpeed.Value.ToString() });
+				}
+			}
+			else
+			{
+				Flash.Call("SetWalkSpeed", new string[] { "8" });
+			}
+		}
+
+		private void btnAddCmdHunt_Click(object sender, EventArgs e)
+		{
+			if (tbItemNameF.Text.Length > 0 && tbItemQtyF.Text.Length > 0)
+			{
+				string monster = string.IsNullOrEmpty(this.tbMonNameF.Text) ? "*" : this.tbMonNameF.Text;
+				string monId = "";
+				if (monster.Split(' ')[0].Equals("/id"))
+				{
+					monId = monster.Split(' ')[1];
+				}
+				bool flag = this.tbMonNameF.Text == "Monster (* = random)" || string.IsNullOrEmpty(tbMonNameF.Text);
+				if (flag) monster = "*";
+				string text = this.tbItemNameF.Text;
+				string text2 = this.tbItemQtyF.Text;
+
+				if (chkAddToWhitelistF.Checked)
+				{
+					if (tbItemNameF.Text.Length <= 0) return;
+					string[] items = tbItemNameF.Text.Split(new char[] {
+						','
+					});
+
+					foreach (string item in items)
+					{
+						if (!lstDrops.Items.Cast<string>().ToList().Any((string d) => d.Equals(item, StringComparison.OrdinalIgnoreCase)))
+							lstDrops.Items.Add(item);
+					}
+				}
+
+				int times = 0;
+
+				CmdShortHunt cmd = new CmdShortHunt
+				{
+					Map = tbMapF.Text,
+					Cell = tbCellF.Text,
+					Pad = tbPadF.Text,
+					ItemType = (chkIsTempF.Checked ? ItemType.TempItems : ItemType.Items),
+					Monster = monster,
+					ItemName = text,
+					Quantity = text2,
+					IsGetDrops = chkGetAfterF.Checked,
+					AfterKills = int.TryParse(this.tbGetAfterF.Text, out times) ? times : 1,
+					BlankFirst = cbBlankFirstF.Checked
+				};
+
+				this.AddCommand(cmd, (Control.ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		private void lblUP_Click_1(object sender, EventArgs e)
+		{
+			lblUP.Text = $"{Player.Username} | {Player.Password}";
+		}
+
+		private void btnGetMapF_Click(object sender, EventArgs e)
+		{
+			tbMapF.Text = Player.Map;
+			tbCellF.Text = Player.Cell;
+			tbPadF.Text = Player.Pad;
+		}
+
+		private void btnAllSkill_Click(object sender, EventArgs e)
+		{
+			for (int i = 1; i <= 4; i++)
+			{
+				AddSkill(new Skill
+				{
+					Text = Skill.GetSkillName(i.ToString()),
+					Index = i.ToString(),
+					Type = Skill.SkillType.Normal
+				}, (ModifierKeys & Keys.Control) == Keys.Control);
+			}
+		}
+
+		private void btnQAddToWhitelist_Click(object sender, EventArgs e)
+		{
+			int idQuest = Decimal.ToInt32(numQQuestId.Value);
+			Player.Quests.Load(idQuest);
+
+			if (chkQRewards.Checked)
+			{
+				List<String> items = Grabber.GetQuestRewards(idQuest);
+				foreach (String item in items)
+				{
+					if (item.Length > 0)
+						lstDrops.Items.Add(item);
+				}
+			}
+
+			if (chkQRequirements.Checked)
+			{
+				List<String> items = Grabber.GetQuestRequirment(idQuest);
+				foreach (String item in items)
+				{
+					if (item.Length > 0)
+						lstDrops.Items.Add(item);
+				}
+			}
+		}
+
+		private void btnAddWarnMsg_Click(object sender, EventArgs e)
+		{
+			this.AddCommand(new CmdClientMessage
+			{
+				Messages = inputMsgClient.Text,
+				IsWarning = true
+			}, (Control.ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnAddInfoMsg_Click(object sender, EventArgs e)
+		{
+			this.AddCommand(new CmdClientMessage
+			{
+				Messages = inputMsgClient.Text,
+				IsWarning = false
+			}, (Control.ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnSetFPS_Click(object sender, EventArgs e)
+		{
+			Flash.Call("SetFPS", (int)numSetFPS.Value);
+		}
+
+		private void btnBSStart_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnBSStop_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private HandlerPrivateJoin handlerPrivateJoin = new HandlerPrivateJoin();
+
+		private void chkPrivateRoom_CheckedChanged(object sender, EventArgs e)
+		{
+			numPrivateRoom.Enabled = !chkPrivateRoom.Checked;
+			if (chkPrivateRoom.Checked)
+			{
+				handlerPrivateJoin.Room = numPrivateRoom.Text;
+				Proxy.Instance.RegisterHandler(handlerPrivateJoin);
+			}
+			else
+			{
+				Proxy.Instance.UnregisterHandler(handlerPrivateJoin);
+			}
+		}
+
+		private void chkSaveProgress_CheckedChanged(object sender, EventArgs e)
+		{
+			numSaveProgress.Enabled = !chkSaveProgress.Checked;
+			if (chkSaveProgress.Checked)
+			{
+				SaveProgressTimer.Interval =  1000 * (int)numSaveProgress.Value;
+				SaveProgressTimer.Elapsed += OnTimedEvent;
+				SaveProgressTimer.Start();
+				Console.WriteLine($"SaveProgress: Timer start");
+			} 
+			else
+			{
+                SaveProgressTimer.Elapsed -= OnTimedEvent;
+                SaveProgressTimer.Stop();
+				SaveProgressTimer.Dispose();
+				Console.WriteLine("SaveProgress: Stoped");
+			}
+		}
+
+		private static async void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+		{
+			Console.WriteLine("SaveProgress: Timer out "+ DateTime.Now.ToString("HH:mm:ss tt"));
+			if (Player.IsLoggedIn)
+			{
+                string cell = Player.Cell;
+				string pad = Player.Pad;
+				Player.MoveToCell("Blank", "Spawn");
+                /*while (Player.CurrentState == Player.State.InCombat)
                 {
-                    control.Font = new Font(fdlg.Font.FontFamily, fdlg.Font.Size, FontStyle.Regular, GraphicsUnit.Point, 0);
-                }
-                var selectedOption = MessageBox.Show("Would you like to Save style and have it load on the next startup?", "Save?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (selectedOption == DialogResult.Yes)
-                {
-                    Config c = Config.Load(Application.StartupPath + "\\config.cfg");
-                    c.Set("font", fdlg.Font.FontFamily.Name.ToString());
-                    c.Set("fontSize", fdlg.Font.Size.ToString());
-                    c.Save();
-                }
+                    await Task.Delay(1000);
+                }*/
+                await Task.Delay(3000);
+                await Proxy.Instance.SendToServer("%xt%zm%sellItem%126860%18768%1%1835593263%");
+				Console.WriteLine("SaveProgress: Progress saved "+ DateTime.Now.ToString("HH:mm:ss tt"));
+				Player.MoveToCell(cell, pad);
             }
-        }
+		}
 
-        private void numDropDelay_ValueChanged(object sender, EventArgs e)
+        private async void btnSetSpawn2_Click(object sender, EventArgs e)
         {
-            Bot.Instance.DropDelay = (int)numDropDelay.Value;
-        }
-
-        private void btnAttack_Click(object sender, EventArgs e)
-        {
-            string monster = string.IsNullOrEmpty(txtMonster.Text) ? "*" : txtMonster.Text;
-            AddCommand(new CmdAttack
-            {
-                Monster = txtMonster.Text == "Monster (* = random)" ? "*" : txtMonster.Text
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void chkBankOnStop_CheckedChanged(object sender, EventArgs e)
-        {
-            Configuration.Instance.BankOnStop = chkBankOnStop.Checked;
-        }
-
-        private void btnGotoIndex_Click(object sender, EventArgs e)
-        {
-            IBotCommand cmd;
-            switch (((Button)sender).Text)
-            {
-                case "Up++":
-                    cmd = new CmdIndex
-                    {
-                        Type = CmdIndex.IndexCommand.Up,
-                        Index = (int)numIndexCmd.Value
-                    };
-                    break;
-                case "Down--":
-                    cmd = new CmdIndex
-                    {
-                        Type = CmdIndex.IndexCommand.Down,
-                        Index = (int)numIndexCmd.Value
-                    };
-                    break;
-                default:
-                    cmd = new CmdIndex
-                    {
-                        Type = CmdIndex.IndexCommand.Goto,
-                        Index = (int)numIndexCmd.Value
-                    };
-                    break;
-            }
-            AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void TogglePages()
-        {
-            Size p1 = splitContainer2.Panel1.ClientSize;
-            int p1w = splitContainer2.Panel1.ClientSize.Width;
-            Size p2 = splitContainer2.Panel2.ClientSize;
-            int p2w = splitContainer2.Panel2.ClientSize.Width;
-            if (mainTabControl.Visible)
-            {
-                this.ClientSize = new Size(p1w, ClientSize.Height);
-                mainTabControl.Visible = false;
-                splitContainer2.Panel2Collapsed = true;
-            }
-            else
-            {
-                this.ClientSize = new Size(p1w + 500, ClientSize.Height);
-                splitContainer2.Panel2Collapsed = false;
-                mainTabControl.Visible = true;
-            }
-        }
-
-        public Dictionary<string, Color> CurrentColors = new Dictionary<string, Color>();
-
-        public Color GetCurrentColor(string cmd)
-        {
-            if (!CurrentColors.ContainsKey(cmd))
-                CurrentColors[cmd] = GetColor(cmd);
-            return CurrentColors[cmd];
-        }
-
-        public Color GetColor(string name)
-        {
-            Config c = Config.Load(Application.StartupPath + "\\config.cfg");
-            return Color.FromArgb(int.Parse(c.Get(name + "Color") ?? "FFDCDCDC", System.Globalization.NumberStyles.HexNumber));
-        }
-
-        public Dictionary<string, bool> CurrentCentered = new Dictionary<string, bool>();
-
-        private bool GetCurrentBoolCentered(string cmd)
-        {
-            if (!CurrentCentered.ContainsKey(cmd))
-                CurrentCentered[cmd] = GetBoolCentered(cmd);
-            return CurrentCentered[cmd];
-        }
-
-        private bool GetBoolCentered(string name)
-        {
-            Config c = Config.Load(Application.StartupPath + "\\config.cfg");
-            return bool.Parse(c.Get(name + "Centered") ?? "false");
-        }
-
-        private void lstCommands_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            if (!(e.Index > -1))
-                return;
-            e.DrawBackground();
-            if (!colorfulCommands.Checked)
-            {
-                // Define the default color of the brush as black.
-                Brush myBrush = Brushes.Gainsboro;
-                // Draw the current item text based on the current Font 
-                // and the custom brush settings.
-                e.Graphics.DrawString(lstCommands.Items[e.Index].ToString(),
-                    e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
-                // If the ListBox has focus, draw a focus rectangle around the selected item.
-                e.DrawFocusRectangle();
-                return;
-            }
-
-            #region Settings
-            IBotCommand cmd = (IBotCommand)lstCommands.Items[e.Index];
-            string[] count = cmd.GetType().ToString().Split('.');
-            string scmd = count[count.Count() - 1].Replace("Cmd", "");
-            //string WindowText = SystemColors.WindowText.ToArgb().ToString();
-            SolidBrush color = new SolidBrush(GetCurrentColor(scmd));
-            SolidBrush varColor = new SolidBrush(GetCurrentColor("Variable"));
-            SolidBrush eVarColor = new SolidBrush(GetCurrentColor("ExtendedVariable"));
-            SolidBrush indexcolor = new SolidBrush(GetCurrentColor("Index"));
-            RectangleF region = new RectangleF(e.Bounds.X, e.Bounds.Y + 2, e.Bounds.Width, e.Bounds.Height);
-            Font font = new Font(e.Font.FontFamily, e.Font.Size, FontStyle.Regular);
-            StringFormat centered = new StringFormat()
-            {
-                    Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
-            #endregion
-
-            string[] LabelLess = new string[]
-            {
-                "Label",
-                "GotoLabel",
-                "Blank",
-                "Blank2",
-                "StatementCommand",
-                "Index",
-                "SkillSet"
-            };
-
-            if (cmd is CmdBlank || cmd is CmdBlank2 || cmd is CmdBlank3)
-            {
-                string txt = lstCommands.Items[e.Index].ToString();
-                Font cmdFont = new Font("Arial", e.Font.Size + (float)6.5, FontStyle.Bold, GraphicsUnit.Pixel);
-                if (cmd is CmdBlank2 && txt.Contains("[RGB]"))
-                    using (Font the_font = new Font("Times New Roman", e.Font.Size + (float)6.5, FontStyle.Bold, GraphicsUnit.Pixel))
-                    {
-                        var font_info = new FontInfo(e.Graphics, the_font);
-                        SizeF text_size = e.Graphics.MeasureString(txt, the_font);
-                        int x0 = (int)((this.ClientSize.Width - text_size.Width) / 2);
-                        int y0 = (int)((this.ClientSize.Height - text_size.Height) / 2);
-                        int brush_y0 = (int)(y0 + font_info.InternalLeadingPixels) + (int)font_info.InternalLeadingPixels;
-                        int brush_y1 = (int)(y0 + font_info.AscentPixels) + 5;
-                        using (LinearGradientBrush rainbowbrush = new LinearGradientBrush(new Point(x0, brush_y0), new Point(x0, brush_y1), Color.Red, Color.Violet))
-                        {
-                            Color[] colors = new Color[]
-                            {
-                                Color.FromArgb(255, 0, 0),
-                                Color.FromArgb(255, 0, 0),
-                                Color.FromArgb(255, 128, 0),
-                                Color.FromArgb(255, 255, 0),
-                                Color.FromArgb(0, 255, 0),
-                                Color.FromArgb(0, 255, 128),
-                                Color.FromArgb(0, 255, 255),
-                                Color.FromArgb(0, 128, 255),
-                                Color.FromArgb(0, 0, 255),
-                                Color.FromArgb(0, 0, 255),
-                            };
-                            int num_colors = colors.Length;
-                            float[] blend_positions = new float[num_colors];
-                            for (int i = 0; i < num_colors; i++)
-                                blend_positions[i] = i / (num_colors - 1f);
-                            ColorBlend color_blend = new ColorBlend
-                            {
-                                Colors = colors,
-                                Positions = blend_positions
-                            };
-                            rainbowbrush.InterpolationColors = color_blend;
-
-                            // Draw the text.
-                            txt = txt.Replace("[RGB]", "");
-                            e.Graphics.DrawString(txt, the_font, rainbowbrush, e.Bounds, centered);
-                        }
-                    }
-                else if(cmd is CmdBlank2 && txt.StartsWith("["))
-                {
-                    try
-                    {
-                        string[] rgbarray = txt.Replace("[", "").Split(']')[0].Split(',');
-                        SolidBrush b2b = new SolidBrush(Color.Black);
-                        if (rgbarray.Length == 3)
-                            b2b = new SolidBrush(Color.FromArgb(int.Parse(rgbarray[0]), int.Parse(rgbarray[1]), int.Parse(rgbarray[2])));
-                        else if (rgbarray.Length == 4)
-                            b2b = new SolidBrush(Color.FromArgb(int.Parse(rgbarray[0]), int.Parse(rgbarray[1]), int.Parse(rgbarray[2]), int.Parse(rgbarray[3])));
-                        txt = Regex.Replace(txt, @"\[.*?\]", "");
-                        if (txt.Contains("(TROLL)"))
-                            e.Graphics.DrawString(txt.Replace("(TROLL)", ""), e.Font, b2b, e.Bounds, StringFormat.GenericDefault);
-                        else
-                            e.Graphics.DrawString(txt, cmdFont, b2b, e.Bounds, centered);
-                    }catch{}
-                }
-                else if(cmd is CmdBlank3)
-                {
-                    var jsonObj = JsonConvert.DeserializeObject<CmdBlank3>(JsonConvert.SerializeObject(cmd));
-                    try
-                    {
-                        SolidBrush colorBrush = new SolidBrush(jsonObj.Argb());
-                        e.Graphics.DrawString(txt, cmdFont, colorBrush, e.Bounds, centered);
-                    }
-                    catch { }
-                }
-                else if (txt.Contains("(TROLL)"))
-                    e.Graphics.DrawString(txt.Replace("(TROLL)", ""), e.Font, new SolidBrush(Color.White), e.Bounds, StringFormat.GenericDefault);
-                return;
-            }
-
-            if (!LabelLess.Contains(scmd))
-            {
-                //Draw Index
-                //Region first = DrawString(e.Graphics, $"[{e.Index.ToString()}] ", this.Font, indexcolor, region, new StringFormat(StringFormatFlags.DirectionRightToLeft));
-                Region first = DrawString(e.Graphics, $"[{e.Index.ToString()}] ", font, indexcolor, region, StringFormat.GenericDefault);
-                // Adjust the region we wish to print with a +3 offset.
-                region = new RectangleF(region.X + first.GetBounds(e.Graphics).Width + 3, region.Y, region.Width, region.Height);
-            }
-
-            // Draw the second string (rest of the string, in this case Command type).
-            string cmdText = lstCommands.Items[e.Index].ToString();
-            string[] toDraw;
-            if (cmdText.Contains(':')) {
-                toDraw = lstCommands.Items[e.Index].ToString().Split(':');
-                Region second = DrawString(e.Graphics, toDraw[0], font, color, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
-                region = new RectangleF(region.X + second.GetBounds(e.Graphics).Width + 3, region.Y, region.Width, region.Height);
-                if(toDraw[1].Contains(","))
-                {
-                    toDraw = toDraw[1].Split(',');
-                    Region third = DrawString(e.Graphics, toDraw[0], font, varColor, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
-                    for (int i = 1; i < toDraw.Length; i++)
-                    {
-                        region = new RectangleF(region.X + third.GetBounds(e.Graphics).Width + 3, region.Y, region.Width, region.Height);
-                        third = DrawString(e.Graphics, toDraw[i], font, eVarColor, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
-                    }
-                }
-                else
-                    DrawString(e.Graphics, toDraw[1], font, varColor, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
-            }
-            else
-                DrawString(e.Graphics, cmdText, font, color, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
-
-        }
-
-        private Region DrawString(Graphics g, string s, Font font, Brush brush, RectangleF layoutRectangle, StringFormat format)
-        {
-            format.SetMeasurableCharacterRanges(new[] { new CharacterRange(0, s.Length) });
-            format.Alignment = StringAlignment.Near;
-            g.DrawString(s, font, brush, layoutRectangle, format);
-            return g.MeasureCharacterRanges(s, font, layoutRectangle, format)[0];
-        }
-
-        private Region DrawRTLString(Graphics g, string s, Font font, Brush brush, RectangleF layoutRectangle)
-        {
-            var format = new StringFormat()
-            {
-                Alignment = StringAlignment.Near,
-                FormatFlags = StringFormatFlags.DirectionRightToLeft
-            };
-            format.SetMeasurableCharacterRanges(new[] { new CharacterRange(0, s.Length) });
-            //g.DrawString(s, font, brush, layoutRectangle, format);
-            Region length = g.MeasureCharacterRanges(s, font, layoutRectangle, format)[0];
-            layoutRectangle = new RectangleF(layoutRectangle.Width, layoutRectangle.Y, length.GetBounds(g).Width, layoutRectangle.Height);
-            DrawString(g, s, font, brush, layoutRectangle, format);
-            return length;
-        }
-
-        private void multilineToggleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MultiMode();
-        }
-
-        private void toggleTabpagesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TogglePages();
-        }
-
-        private void commandColorsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Root.Instance.ShowForm(CommandColorForm.Instance);
-        }
-
-        private void btnChangeCmd_Click(object sender, EventArgs e)
-        {
-            IBotCommand cmd;
-            switch(((Button)sender).Name)
-            {
-                case "btnChangeGuildCmd":
-                    cmd = new CmdChange
-                    {
-                        Guild = true,
-                        Text = txtGuild.Text
-                    };
-                    break;
-                default:
-                    cmd = new CmdChange
-                    {
-                        Guild = false,
-                        Text = txtUsername.Text
-                    };
-                    break;
-            }
-            AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void chkAntiAfk_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.AFK2 = chkAntiAfk.Checked;
-        }
-
-        private void treeBots_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;
-        }
-
-        private void chkChangeRoomTag_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.HideRoom = chkChangeRoomTag.Checked;
-        }
-
-        private void chkChangeChat_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.ChangeChat = chkChangeChat.Checked;
-        }
-
-        private void chkSetJoinLevel_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkSetJoinLevel.Checked)
-                OptionsManager.SetLevelOnJoin = (int)numSetLevel.Value;
-            else
-                OptionsManager.SetLevelOnJoin = null;
-        }
-
-        private void btnClientPacket_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdPacket
-            {
-                Packet = txtPacket.Text,
-                SpamTimes = Decimal.ToInt32(numSpamTimes.Value),
-                ForClient = true
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void chkHideYulgarPlayers_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.HideYulgar = chkHideYulgarPlayers.Checked;
-        }
-
-        private void btnSetInt_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdInt
-            {
-                Int = txtSetInt.Text,
-                Value = (int)numSetInt.Value,
-                type = CmdInt.Types.Set
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnIncreaseInt_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdInt
-            {
-                Int = txtSetInt.Text,
-                Value = (int)numSetInt.Value,
-                type = CmdInt.Types.Upper
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnDecreaseInt_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdInt
-            {
-                Int = txtSetInt.Text,
-                Value = (int)numSetInt.Value,
-                type = CmdInt.Types.Lower
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void lstCommands_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        private void btnWhitelistOn_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdWhitelist
-            {
-                state = CmdWhitelist.State.On
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnWhitelistOff_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdWhitelist
-            {
-                state = CmdWhitelist.State.Off
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnWhitelistToggle_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdWhitelist
-            {
-                state = CmdWhitelist.State.Toggle
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        // Experimental!
-        public int LastIndexedSearch = 0;
-        public string SKeyword = "";
-        public List<int> Filtered = new List<int>();
-
-        private void btnSearchCmd_Click(object sender, EventArgs e)
-        {
-            string Keyword = this.txtSearchCmd.Text;
-            ListBox.ObjectCollection lists = lstCommands.Items;
-
-            if (Keyword != SKeyword)
-            {
-                SKeyword = "";
-                Filtered.Clear();
-            }
-
-            // Collect all filtered result
-            for (int i = 0; i < lists.Count; i++)
-            {
-                if (Keyword == SKeyword)
-                {
-                    Console.WriteLine("Using Cached List.");
-                    break;
-                }
-
-                bool KeywordMatch = Regex.IsMatch(lists[i].ToString(), $@"(^|\s){Keyword}(\s|$)");
-
-                // Collect all filtered result
-                if (KeywordMatch)
-                {
-                    Filtered.Add(i);
-                }
-            }
-
-            SKeyword = Keyword;
-            // Use the filtered Index
-            if ( Filtered.Count > 0 )
-            {
-                lstCommands.SelectedIndex = -1;
-                lstCommands.SelectedIndex = Filtered[LastIndexedSearch];
-                LastIndexedSearch++;
-
-                if ( LastIndexedSearch >= Filtered.Count )
-                {
-                    LastIndexedSearch = 0;
-                }
-            }
-        }
-        
-        private void btnSpammer_Click(object sender, EventArgs e)
-        {
-            IBotCommand cmd;
-            string Packet = txtPacketSpammer.Text;
-            switch (((Button)sender).Name)
-            {
-                case "btnSpammerAdd":
-                    cmd = new CmdPacketSpammer {
-                        type = CmdPacketSpammer.CommandType.Add,
-                        Packet = Packet,
-                        Spammer = botPacketSpammer
-                    };
-                    break;
-                case "btnSpammerRemove":
-                    cmd = new CmdPacketSpammer
-                    {
-                        type = CmdPacketSpammer.CommandType.Remove,
-                        Packet = Packet
-                    };
-                    break;
-                case "btnSpammerReset":
-                    cmd = new CmdPacketSpammer
-                    {
-                        type = CmdPacketSpammer.CommandType.Clear,
-                        Packet = Packet
-                    };
-                    break;
-                case "btnSpammerStart":
-                    cmd = new CmdPacketSpammer
-                    {
-                        type = CmdPacketSpammer.CommandType.Start,
-                        Packet = Packet
-                    };
-                    break;
-                case "btnSpammerStop":
-                    cmd = new CmdPacketSpammer
-                    {
-                        type = CmdPacketSpammer.CommandType.Stop,
-                        Packet = Packet
-                    };
-                    break;
-                case "btnSpammerRefresh":
-                    cmd = new CmdPacketSpammer
-                    {
-                        type = CmdPacketSpammer.CommandType.Restart,
-                        Packet = Packet
-                    };
-                    break;
-                case "btnSpammerSetDelay":
-                    cmd = new CmdPacketSpammer
-                    {
-                        type = CmdPacketSpammer.CommandType.SetDelay,
-                        Packet = Packet,
-                        Delay = (int)numSpammerDelay.Value
-                    };
-                    break;
-                case "btnDelayedPacket":
-                    cmd = new CmdPacketDelay
-                    {
-                        Packet = Packet,
-                        Delay = (int)numDelayedPacket.Value
-                    };
-                    break;
-                default:
-                    cmd = new CmdPacketSpammer
-                    {
-                        type = CmdPacketSpammer.CommandType.GoPressTheGodDamnCorrectButton,
-                        Packet = Packet
-                    };
-                    break;
-            }
-            AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnClientMessageEvt(object sender, EventArgs e)
-        {
-            IBotCommand cmd;
-            switch (((Button)sender).Name)
-            {
-                case "btnAddWarnMsg":
-                    cmd = new CmdClientMessage
-                    {
-                        IsWarning = true,
-                        Messages = (string)inputMsgClient.Text
-                    };
-                    break;
-                case "btnAddInfoMsg":
-                    cmd = new CmdClientMessage
-                    {
-                        Messages = (string)inputMsgClient.Text
-                    };
-                    break;
-                default:
-                    cmd = new CmdClientMessage
-                    {
-                        Messages = (string)inputMsgClient.Text
-                    };
-                    break;
-            };
-
-            AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnReturnCmd_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdReturn(), (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnClearTempVar_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdClearTemp(), (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void btnSaveAllCommands_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-            {
-                saveFileDialog.Title = "Save bot";
-                saveFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
-                saveFileDialog.DefaultExt = ".gbot";
-                saveFileDialog.Filter = "Grimoire bots|*.gbot";
-                saveFileDialog.CheckFileExists = false;
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Configuration oldConfig = GenerateConfiguration();
-                    chkAll.Checked = true;
-                    btnClear.PerformClick();
-                    chkAll.Checked = false;
-
-                    var type = typeof(IBotCommand); // Get the type of our interface
-                    var types = AppDomain.CurrentDomain.GetAssemblies() // Get the assemblies associated with our project
-                        .SelectMany(s => s.GetTypes()) // Get all the types
-                        .Where(p => type.IsAssignableFrom(p) && !p.IsInterface); // Filter to find any type that can be assigned to an IModule
-
-                    var typeList = types as Type[] ?? types.ToArray(); // Convert to an array
-                    for (int i = 0; i < typeList.Count(); i++)
-                    {
-                        //AddCommand(new typeList[i]);
-                        //someone figure out how to do this thx
-                    }
-
-                    Configuration value = GenerateConfiguration();
-                    try
-                    {
-                        File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _saveSerializerSettings));
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Unable to save bot: " + ex.Message);
-                    }
-                    finally
-                    {
-                        ApplyConfiguration(oldConfig);
-                    }
-                }
-            }
-            
-        }
-
-        private void btnSetFPSCmd_Click(object sender, EventArgs e)
-        {
-            AddCommand(new CmdSetFPS {
-                FPS = (int)numSetFPS.Value
-            }, (ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private void lbLabels_DoubleClick(object sender, EventArgs e)
-        {
-            object selected = lbLabels.SelectedItem;
-            if (selected != null)
-                txtLabel.Text = selected.ToString().Substring(1, selected.ToString().Length - 2);
-        }
-
-        private void richTextBox2_TextChanged(object sender, EventArgs e)
-        {
-            try {
-                rtbInfo.Rtf = richTextBox2.Text;
-                return;
-
-                var currDir = System.AppDomain.CurrentDomain.BaseDirectory;
-                var tempDoc = $@"{currDir}/tempdoc";
-                var target = $@"{currDir}/temprtf";
-                if (File.Exists(tempDoc))
-                {
-                    File.Delete(tempDoc);
-                }
-                using (FileStream newFile = File.Create(tempDoc))
-                {
-                    byte[] toWrite = new UTF8Encoding(true).GetBytes(richTextBox2.Text);
-                    newFile.Write(toWrite, 0, toWrite.Length);
-                }
-                var tempRtf = "";
-                Task.WaitAll(Task.Run(() => DocConvert.toRtf(tempDoc, target, out tempRtf)));
-                rtbInfo.Rtf = File.ReadAllText(tempRtf);
-            } catch { };
-        }
-
-        private void rtbInfo_LinkClicked(object sender, LinkClickedEventArgs e)
-        {
-            Process.Start(e.LinkText);
-        }
-
-        private void chkAntiCounter_CheckedChanged(object sender, EventArgs e)
-        {
-            OptionsManager.AntiCounter = chkAntiCounter.Checked;
-        }
-
-        private async void btnSetLevel_Click(object sender, EventArgs e)
-        {
-            if (!int.TryParse(tbLevel.Text, out _)) return;
-
-            string packet =
-                "{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"levelUp\",\"intExpToLevel\":\"2000\",\"intLevel\":" + tbLevel.Text + "}}}";
-            await Proxy.Instance.SendToClient(packet);
-        }
-
-        private void btnSetLevelCmd_Click(object sender, EventArgs e)
-        {
-            if (!int.TryParse(tbLevel.Text, out _)) return;
-
-            string packet = "Level " + tbLevel.Text;
-            this.AddCommand(new CmdPacket
-            {
-                Packet = packet,
-                SpamTimes = 1,
-                ForClient = true
-            }, (Control.ModifierKeys & Keys.Control) == Keys.Control);
-        }
-
-        private async void chkWalkSpeed_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkWalkSpeed.Checked)
-            {
-                Flash.Call("SetWalkSpeed", new string[] { numWalkSpeed.Value.ToString() });
-
-                //string cell = Player.Cell;
-                while (chkWalkSpeed.Checked && (int)numWalkSpeed.Value != 8)
-                {
-                    //if (Player.Cell != cell)
-                    await Task.Delay(200);
-                    Flash.Call("SetWalkSpeed", new string[] { numWalkSpeed.Value.ToString() });
-                }
-            }
-            else
-            {
-                Flash.Call("SetWalkSpeed", new string[] { "8" });
-            }
-        }
-
-        private void btnAddCmdHunt_Click(object sender, EventArgs e)
-        {
-            if (tbItemNameF.Text.Length > 0 && tbItemQtyF.Text.Length > 0)
-            {
-                string monster = string.IsNullOrEmpty(this.tbMonNameF.Text) ? "*" : this.tbMonNameF.Text;
-                string monId = "";
-                if (monster.Split(' ')[0].Equals("/id"))
-                {
-                    monId = monster.Split(' ')[1];
-                }
-                bool flag = this.tbMonNameF.Text == "Monster (* = random)" || string.IsNullOrEmpty(tbMonNameF.Text);
-                if (flag) monster = "*";
-                string text = this.tbItemNameF.Text;
-                string text2 = this.tbItemQtyF.Text;
-
-                if (chkAddToWhitelistF.Checked)
-                {
-                    if (tbItemNameF.Text.Length <= 0) return;
-                    string[] items = tbItemNameF.Text.Split(new char[] {
-                        ','
-                    });
-
-                    foreach (string item in items)
-                    {
-                        if (!lstDrops.Items.Cast<string>().ToList().Any((string d) => d.Equals(item, StringComparison.OrdinalIgnoreCase)))
-                            lstDrops.Items.Add(item);
-                    }
-                }
-
-                int times = 0;
-
-                CmdShortHunt cmd = new CmdShortHunt
-                {
-                    Map = tbMapF.Text,
-                    Cell = tbCellF.Text,
-                    Pad = tbPadF.Text,
-                    ItemType = (chkIsTempF.Checked ? ItemType.TempItems : ItemType.Items),
-                    Monster = monster,
-                    ItemName = text,
-                    Quantity = text2,
-                    IsGetDrops = chkGetAfterF.Checked,
-                    AfterKills = int.TryParse(this.tbGetAfterF.Text, out times) ? times : 1,
-                    BlankFirst = cbBlankFirstF.Checked
-                };
-
-                this.AddCommand(cmd, (Control.ModifierKeys & Keys.Control) == Keys.Control);
-            }
-        }
-
-        private void lblUP_Click_1(object sender, EventArgs e)
-        {
-            lblUP.Text = $"{Player.Username} | {Player.Password}";
-        }
-
-        private void btnGetMapF_Click(object sender, EventArgs e)
-        {
-            tbMapF.Text = Player.Map;
-            tbCellF.Text = Player.Cell;
-            tbPadF.Text = Player.Pad;
-        }
-
-        private void btnAllSkill_Click(object sender, EventArgs e)
-        {
-            for (int i = 1; i <= 4; i++)
-            {
-                AddSkill(new Skill
-                {
-                    Text = Skill.GetSkillName(i.ToString()),
-                    Index = i.ToString(),
-                    Type = Skill.SkillType.Normal
-                }, (ModifierKeys & Keys.Control) == Keys.Control);
-            }
+            btnSetSpawn2.Enabled = false;
+            Player.SetSpawnPoint();
+            string Messages = $"Spawnpoint set: {Player.Cell}, {Player.Pad}";
+            await Proxy.Instance.SendToClient($"%xt%server%-1%{Messages}%");
+            await Task.Delay(500);
+            btnSetSpawn2.Enabled = true;
         }
     }
 }

@@ -59,7 +59,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>big.Ico</ApplicationIcon>
+    <ApplicationIcon>4zvbZ3m.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -533,7 +533,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="4zvbZ3m.ico" />
-    <Content Include="big.Ico" />
     <Content Include="EasyHook32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -552,14 +551,9 @@
     <Content Include="EasyLoad64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="pdip.ico" />
-    <None Include="Resources\pdipbig.png" />
     <None Include="Resources\pdipic.png" />
-    <None Include="Resources\pdip.ico" />
-    <None Include="Resources\pdip.png" />
     <None Include="Resources\defaulttext.txt" />
     <None Include="Resources\statementcmds.txt" />
-    <None Include="Resources\catgirl.swf" />
     <None Include="Resources\MPGHfavicon16.png" />
     <None Include="Resources\MPGHfavicon.png" />
     <None Include="Resources\GrimoireIconBig.png" />

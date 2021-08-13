@@ -9,12 +9,9 @@ namespace Grimoire.UI
     public class RawCommandEditor : DarkForm
     {
         private IContainer components;
-
-        private Button btnOK;
-
-        private Button btnCancel;
-
-        private TextBox txtCmd;
+        private DarkButton btnOK;
+        private DarkButton btnCancel;
+        private DarkTextBox txtCmd;
 
         public string Input => txtCmd.Text;
 
@@ -40,9 +37,9 @@ namespace Grimoire.UI
         {
             switch (e.KeyCode)
             {
-                case Keys.Return:
+                /*case Keys.Return:
                     btnOK.PerformClick();
-                    break;
+                    break;*/
 
                 case Keys.Escape:
                     btnCancel.PerformClick();
@@ -72,46 +69,60 @@ namespace Grimoire.UI
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(RawCommandEditor));
-            btnOK = new DarkButton();
-            btnCancel = new DarkButton();
-            txtCmd = new DarkTextBox();
-            SuspendLayout();
-            btnOK.DialogResult = DialogResult.OK;
-            btnOK.Location = new System.Drawing.Point(197, 166);
-            btnOK.Name = "btnOK";
-            btnOK.Size = new System.Drawing.Size(75, 23);
-            btnOK.TabIndex = 0;
-            btnOK.Text = "OK";
-            btnOK.UseVisualStyleBackColor = true;
-            btnCancel.DialogResult = DialogResult.Cancel;
-            btnCancel.Location = new System.Drawing.Point(116, 166);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new System.Drawing.Size(75, 23);
-            btnCancel.TabIndex = 1;
-            btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = true;
-            txtCmd.Location = new System.Drawing.Point(12, 12);
-            txtCmd.Multiline = true;
-            txtCmd.Name = "txtCmd";
-            txtCmd.Size = new System.Drawing.Size(260, 148);
-            txtCmd.TabIndex = 2;
-            txtCmd.KeyDown += new KeyEventHandler(txtCmd_KeyDown);
-            AutoScaleDimensions = new System.Drawing.SizeF(6f, 13f);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(284, 201);
-            Controls.Add(txtCmd);
-            Controls.Add(btnCancel);
-            Controls.Add(btnOK);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
-            Name = "RawCommandEditor";
-            Text = "Raw Command Editor";
-            TopMost = true;
-            Load += new EventHandler(RawCommandEditor_Load);
-            ResumeLayout(false);
-            PerformLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RawCommandEditor));
+            this.btnOK = new DarkUI.Controls.DarkButton();
+            this.btnCancel = new DarkUI.Controls.DarkButton();
+            this.txtCmd = new DarkUI.Controls.DarkTextBox();
+            this.SuspendLayout();
+            // 
+            // btnOK
+            // 
+            this.btnOK.Checked = false;
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOK.Location = new System.Drawing.Point(197, 197);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 0;
+            this.btnOK.Text = "OK";
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Checked = false;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(116, 197);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "Cancel";
+            // 
+            // txtCmd
+            // 
+            this.txtCmd.Location = new System.Drawing.Point(12, 12);
+            this.txtCmd.Multiline = true;
+            this.txtCmd.Name = "txtCmd";
+            this.txtCmd.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCmd.Size = new System.Drawing.Size(260, 179);
+            this.txtCmd.TabIndex = 2;
+            this.txtCmd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCmd_KeyDown);
+            // 
+            // RawCommandEditor
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(284, 232);
+            this.Controls.Add(this.txtCmd);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.Name = "RawCommandEditor";
+            this.Text = "Raw Command Editor";
+            this.TopMost = true;
+            this.Load += new System.EventHandler(this.RawCommandEditor_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
     }
 }

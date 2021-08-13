@@ -343,19 +343,31 @@ namespace Grimoire.Botting
             BotData.BotState = BotData.State.Quest;
             string pCell = Player.Cell;
             string pPad = Player.Pad;
+            bool provokeMons = this.Configuration.ProvokeMonsters;
+            if (provokeMons) this.Configuration.ProvokeMonsters = false;
             if (_config.ExitCombatBeforeQuest)
             {
-                while (Player.CurrentState == Player.State.InCombat)
+                if (quest.CompleteInBlank)
                 {
                     Player.MoveToCell("Blank", "Left");
-                    await Task.Delay(2200);
+                } 
+                else
+                {
+                    Player.MoveToCell(pCell, pPad);
                 }
+                await this.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
+                await Task.Delay(1000);
             }
-            quest.Complete();
-            if (_config.ExitCombatBeforeQuest && Player.Cell != pCell)
+            while (quest.CanComplete)
+            {
+                quest.Complete();
+                await Task.Delay(1000);
+            }
+            if (quest.CompleteInBlank)
             {
                 Player.MoveToCell(pCell, pPad);
             }
+            this.Configuration.ProvokeMonsters = provokeMons;
             BotData.BotState = TempState;
             _questDelayCounter.Restart();
         }

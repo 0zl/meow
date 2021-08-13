@@ -41,6 +41,54 @@ namespace Grimoire.Game.Data
 			Equals
 		}
 
+		public void ExecuteSkill()
+		{
+			Skill s = this;
+			if (s.Type == Skill.SkillType.Safe)
+			{
+				if (s.IsSafeMp)
+				{
+					switch (s.SType)
+					{
+						case Skill.SafeType.LowerThan:
+							if ((double)Player.Mana / Player.ManaMax * 100 <= s.SafeValue)
+								Player.UseSkill(s.Index);
+							break;
+						case Skill.SafeType.GreaterThan:
+							if ((double)Player.Mana / Player.ManaMax * 100 >= s.SafeValue)
+								Player.UseSkill(s.Index);
+							break;
+						case Skill.SafeType.Equals:
+							if ((double)Player.Mana / Player.ManaMax * 100 == s.SafeValue)
+								Player.UseSkill(s.Index);
+							break;
+					}
+				}
+				else
+				{
+					switch (s.SType)
+					{
+						case Skill.SafeType.LowerThan:
+							if ((double)Player.Health / Player.HealthMax * 100 <= s.SafeValue)
+								Player.UseSkill(s.Index);
+							break;
+						case Skill.SafeType.GreaterThan:
+							if ((double)Player.Health / Player.HealthMax * 100 >= s.SafeValue)
+								Player.UseSkill(s.Index);
+							break;
+						case Skill.SafeType.Equals:
+							if ((double)Player.Health / Player.HealthMax * 100 == s.SafeValue)
+								Player.UseSkill(s.Index);
+							break;
+					}
+				}
+			}
+			else
+			{
+				Player.UseSkill(s.Index);
+			}
+		}
+
 		public override string ToString()
 		{
 			string text = Text;

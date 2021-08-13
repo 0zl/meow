@@ -47,6 +47,7 @@ namespace Grimoire.Botting.Commands.Combat
                 if (BlankFirst)
                 {
                     Player.MoveToCell("Blank", "Left");
+                    await instance.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
                     await Task.Delay(1000);
                 }
 

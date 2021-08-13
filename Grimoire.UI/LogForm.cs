@@ -122,9 +122,9 @@ namespace Grimoire.UI
         //
         // Append Debug
         //
-        public void AppendDebug(string text)
+        public void AppendDebug(string text, bool force = false)
         {
-            if (/*Visible*/ true)
+            if (/*Visible || force*/ true)
             {
                 if (text.Contains("{CLEAR}"))
                     txtLogDebug.Clear();
@@ -184,9 +184,9 @@ namespace Grimoire.UI
         //
         // Append Script
         //
-        public void AppendScript(string text, bool ignoreInvoke = false)
+        public void AppendScript(string text, bool ignoreInvoke = false, bool force = false)
         {
-            if (/*Visible*/ true)
+            if (/*Visible || force*/ true)
             {
                 if (text.Contains("{CLEAR}"))
                     txtLogScript.Clear();

@@ -17,53 +17,61 @@ namespace Grimoire.Botting.Commands.Map
 		{
 			BotData.BotState = BotData.State.Move;
 			await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer), null, 15);
-			string cmdMap = this.Map.Contains("-") ? this.Map.Split(new char[]
+
+			string _mapName = this.Map.Contains("-") ? this.Map.Split(new char[]
 			{
 				'-'
 			})[0] : this.Map;
-			string text = this.Map.Substring(cmdMap.Length);
-			if (!cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
+			string namName = (instance.IsVar(_mapName) ? Configuration.Tempvariable[instance.GetVar(_mapName)] : _mapName);
+
+			string _roomNumber = this.Map.Contains("-") ? this.Map.Split(new char[]
 			{
-				int n;
-				if (!int.TryParse(text, out n) && text != "")
+				'-'
+			})[1] : "1";
+			string roomNumber = (instance.IsVar(_roomNumber) ? Configuration.Tempvariable[instance.GetVar(_roomNumber)] : _roomNumber);
+
+			if (!namName.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
+			{
+				if (!int.TryParse(roomNumber, out int n) && roomNumber != "")
 				{
 					Random random = new Random();
 					int num = random.Next(1000, 99999);
-					text = "-" + num;
+					roomNumber = num.ToString();
 				}
 
-				await this.TryJoin(instance, cmdMap, text);
+				await this.TryJoin(instance, namName, roomNumber);
 			}
-			if (cmdMap.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
+
+			if (namName.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
 			{
 				if (!Player.Cell.Equals(this.Cell, StringComparison.OrdinalIgnoreCase))
 				{
 					Player.MoveToCell(this.Cell, this.Pad);
-					await Task.Delay(1250);
+					await Task.Delay(500);
 				}
 				World.SetSpawnPoint();
-				BotData.BotMap = cmdMap;
+				BotData.BotMap = namName;
 				BotData.BotCell = this.Cell;
 				BotData.BotPad = this.Pad;
 			}
 		}
 
-		public async Task TryJoin(IBotEngine instance, string MapName, string RoomProp = "")
+		public async Task TryJoin(IBotEngine instance, string MapName, string RoomNumber = "1")
 		{
+			bool provoke = instance.Configuration.ProvokeMonsters;
+			if (provoke) instance.Configuration.ProvokeMonsters = false;
 			await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer), null, 15);
 			if (Player.CurrentState == Player.State.InCombat)
 			{
 				Player.MoveToCell(Player.Cell, Player.Pad);
-				await Task.Delay(1250);
+				await instance.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
+				await Task.Delay(1500);
 			}
-			while (Player.HasTarget)
-			{
-				Player.CancelTarget();
-				await Task.Delay(500);
-			}
-			Player.JoinMap(MapName + RoomProp, this.Cell, this.Pad);
+			Console.WriteLine($"Map: {MapName}-{RoomNumber}");
+			Player.JoinMap($"{MapName}-{RoomNumber}", this.Cell, this.Pad);
 			await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 5);
 			await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
+			if (provoke) instance.Configuration.ProvokeMonsters = true;
 		}
 
 

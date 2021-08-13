@@ -17,6 +17,7 @@ namespace Grimoire.Botting.Commands.Item
         public async Task Execute(IBotEngine instance)
         {
             BotData.BotState = BotData.State.Transaction;
+            string ItemName = (instance.IsVar(this.ItemName) ? Configuration.Tempvariable[instance.GetVar(this.ItemName)] : this.ItemName);
             await instance.WaitUntil(() => World.IsActionAvailable(LockActions.SellItem));
             InventoryItem item = Player.Inventory.Items.FirstOrDefault((InventoryItem i) => i.Name.Equals(ItemName, StringComparison.OrdinalIgnoreCase));
             if (item != null)
