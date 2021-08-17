@@ -191,6 +191,7 @@ namespace Grimoire.Botting
                     bool skipCutscene = OptionsManager.SkipCutscenes;
                     bool playerAnim = OptionsManager.DisableAnimations;
                     bool enemyMagnet = OptionsManager.EnemyMagnet;
+                    bool reloginOnAFK = OptionsManager.AFK;
 
                     OptionsManager.Stop();
                     await AutoRelogin.Login(Configuration.Server, Configuration.RelogDelay, _ctsBot, Configuration.RelogRetryUponFailure);
@@ -204,6 +205,7 @@ namespace Grimoire.Botting
                     OptionsManager.SkipCutscenes = skipCutscene;
                     OptionsManager.DisableAnimations = playerAnim;
                     OptionsManager.EnemyMagnet = enemyMagnet;
+                    OptionsManager.AFK = reloginOnAFK;
 
                     OptionsManager.Start();
                 }

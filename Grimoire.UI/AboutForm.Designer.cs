@@ -124,9 +124,9 @@ namespace Grimoire.UI
             this.darkLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.darkLabel2.Location = new System.Drawing.Point(16, 36);
             this.darkLabel2.Name = "darkLabel2";
-            this.darkLabel2.Size = new System.Drawing.Size(117, 13);
+            this.darkLabel2.Size = new System.Drawing.Size(93, 13);
             this.darkLabel2.TabIndex = 14;
-            this.darkLabel2.Text = "Version 1.4 (13082021)";
+            this.darkLabel2.Text = "Version 17082021";
             // 
             // rtbCredits
             // 

@@ -75,18 +75,6 @@ namespace Grimoire.Botting
             set;
         }
 
-        public static bool IsReloginEvery
-        {
-            get;
-            set;
-        } = false;
-
-        public static int ReloginEvery
-        {
-            get;
-            set;
-        } = 60;
-
         public static bool AFK
         {
             get => _afk;

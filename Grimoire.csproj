@@ -154,6 +154,7 @@
   <ItemGroup>
     <Compile Include="EoL\Bypass.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdAttack.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Combat\CmdFollow.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdKill.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdKillFor.cs" />
     <Compile Include="Grimoire.Botting.Commands.Combat\CmdRest.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdHealthGreaterThan.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdHealthLessThan.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdInBank.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdInBankOrInvent.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdInCombat.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdInHouse.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdInInventory.cs" />
@@ -199,6 +201,7 @@
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntIsNot.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntLessThan.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntNotEqualInt.cs" />
+    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdNotInBankAndInvent.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsMaxStack.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsMember.cs" />
     <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsNotMaxStack.cs" />

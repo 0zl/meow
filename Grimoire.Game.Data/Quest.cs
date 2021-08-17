@@ -195,8 +195,9 @@ namespace Grimoire.Game.Data
 
         public override string ToString()
         {
-            string isInBlank = CompleteInBlank ? "[InBlank]" : "";
-            return $"{Id} {isInBlank}";
+            string isInBlank = CompleteInBlank ? " [InBlank]" : " ";
+            string itemId = ItemId != null ? $": {ItemId}" : " ";
+            return $"{Id}{itemId}{isInBlank}";
         }
 
         #region ShouldSerialize
