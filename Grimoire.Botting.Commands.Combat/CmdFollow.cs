@@ -22,17 +22,22 @@ namespace Grimoire.Botting.Commands.Combat
             int maxTry = MaxGotoTry == 0 ? 999 : MaxGotoTry;
             bool following = true;
 
+            Proxy.Instance.ReceivedFromServer += FollowHandler;
+
             while (instance.IsRunning && Player.IsLoggedIn && (following && !WaitForever))
             {
-                Proxy.Instance.ReceivedFromServer += FollowHandler;
+                if (!Player.IsAlive)
+                {
+                    await Task.Delay(1000);
+                    continue;
+                }
 
                 List<string> mapPlayers = World.PlayersInMap;
                 mapPlayers.ConvertAll<string>(a => a.ToLower());
 
                 if (!mapPlayers.Contains(playerName))
                 {
-                    Console.WriteLine("gotoDelay: "+gotoDelay);
-                    if (Player.Cell != "Blank") Player.MoveToCell("Blank");
+                    Player.MoveToCell("Blank");
                     await instance.WaitUntil(() => Player.State.InCombat != Player.CurrentState);
                     await Task.Delay(gotoDelay);
                     Player.GoToPlayer(playerName);
@@ -65,7 +70,7 @@ namespace Grimoire.Botting.Commands.Combat
             }
 
             Proxy.Instance.ReceivedFromServer -= FollowHandler;
-            Console.WriteLine("FollowHandler Unregistered");
+            Console.WriteLine("Unregistered");
         }
 
         private void FollowHandler(Message message)
@@ -78,6 +83,7 @@ namespace Grimoire.Botting.Commands.Combat
                 string cell = getBetweenString(msg, "strFrame:", ",");
                 string pad = getBetweenString(msg, "strPad:", ",");
                 Player.MoveToCell(cell, pad);
+                Player.SetSpawnPoint();
             }
 
             //%xt%exitArea%-1%21959%surga%

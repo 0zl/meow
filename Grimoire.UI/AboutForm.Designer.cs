@@ -32,6 +32,9 @@ namespace Grimoire.UI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblSwfInfo = new DarkUI.Controls.DarkLabel();
+            this.btnLoadSWF = new DarkUI.Controls.DarkButton();
+            this.tbGameSWF = new DarkUI.Controls.DarkTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.darkLabel6 = new DarkUI.Controls.DarkLabel();
             this.darkLabel3 = new DarkUI.Controls.DarkLabel();
@@ -63,6 +66,9 @@ namespace Grimoire.UI
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblSwfInfo);
+            this.panel1.Controls.Add(this.btnLoadSWF);
+            this.panel1.Controls.Add(this.tbGameSWF);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.darkLabel6);
             this.panel1.Controls.Add(this.darkLabel3);
@@ -86,6 +92,37 @@ namespace Grimoire.UI
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(551, 440);
             this.panel1.TabIndex = 3;
+            // 
+            // lblSwfInfo
+            // 
+            this.lblSwfInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSwfInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.lblSwfInfo.Location = new System.Drawing.Point(421, 369);
+            this.lblSwfInfo.Name = "lblSwfInfo";
+            this.lblSwfInfo.Size = new System.Drawing.Size(118, 13);
+            this.lblSwfInfo.TabIndex = 21;
+            this.lblSwfInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnLoadSWF
+            // 
+            this.btnLoadSWF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLoadSWF.Checked = false;
+            this.btnLoadSWF.Location = new System.Drawing.Point(421, 411);
+            this.btnLoadSWF.Name = "btnLoadSWF";
+            this.btnLoadSWF.Size = new System.Drawing.Size(118, 22);
+            this.btnLoadSWF.TabIndex = 19;
+            this.btnLoadSWF.Text = "Load Game SWF";
+            this.btnLoadSWF.Click += new System.EventHandler(this.btnLoadSWF_Click);
+            // 
+            // tbGameSWF
+            // 
+            this.tbGameSWF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbGameSWF.Location = new System.Drawing.Point(421, 385);
+            this.tbGameSWF.Name = "tbGameSWF";
+            this.tbGameSWF.Size = new System.Drawing.Size(118, 20);
+            this.tbGameSWF.TabIndex = 18;
+            this.tbGameSWF.Text = "Loader/grimoire.swf";
             // 
             // pictureBox1
             // 
@@ -114,9 +151,9 @@ namespace Grimoire.UI
             this.darkLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.darkLabel3.Location = new System.Drawing.Point(14, 97);
             this.darkLabel3.Name = "darkLabel3";
-            this.darkLabel3.Size = new System.Drawing.Size(82, 13);
+            this.darkLabel3.Size = new System.Drawing.Size(104, 13);
             this.darkLabel3.TabIndex = 15;
-            this.darkLabel3.Text = "Grimlite Li Team";
+            this.darkLabel3.Text = "The Grimlite Li Team";
             // 
             // darkLabel2
             // 
@@ -124,9 +161,9 @@ namespace Grimoire.UI
             this.darkLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.darkLabel2.Location = new System.Drawing.Point(16, 36);
             this.darkLabel2.Name = "darkLabel2";
-            this.darkLabel2.Size = new System.Drawing.Size(93, 13);
+            this.darkLabel2.Size = new System.Drawing.Size(117, 13);
             this.darkLabel2.TabIndex = 14;
-            this.darkLabel2.Text = "Version 17082021";
+            this.darkLabel2.Text = "Version 1.2 (24082021)";
             // 
             // rtbCredits
             // 
@@ -137,7 +174,7 @@ namespace Grimoire.UI
             this.rtbCredits.ForeColor = System.Drawing.Color.Gainsboro;
             this.rtbCredits.Location = new System.Drawing.Point(16, 307);
             this.rtbCredits.Name = "rtbCredits";
-            this.rtbCredits.Size = new System.Drawing.Size(523, 121);
+            this.rtbCredits.Size = new System.Drawing.Size(269, 121);
             this.rtbCredits.TabIndex = 13;
             this.rtbCredits.Text = resources.GetString("rtbCredits.Text");
             // 
@@ -332,5 +369,8 @@ namespace Grimoire.UI
         private DarkUI.Controls.DarkLabel darkLabel2;
         private DarkUI.Controls.DarkLabel darkLabel6;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private DarkUI.Controls.DarkTextBox tbGameSWF;
+        private DarkUI.Controls.DarkButton btnLoadSWF;
+        private DarkUI.Controls.DarkLabel lblSwfInfo;
     }
 }

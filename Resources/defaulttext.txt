@@ -26,5 +26,7 @@
   "txtLabel": "Label name",
   "txtSkillSet": "Skill Set Name",
   "txtUsername": "Username",
-  "txtGuild":"Guild"
+  "txtGuild":"Guild",
+  "txtShopItem":"Shop Item",
+  "tbFollowPlayer":"Player"
 }

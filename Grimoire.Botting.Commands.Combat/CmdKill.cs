@@ -86,6 +86,10 @@ namespace Grimoire.Botting.Commands.Combat
 						if (World.IsMonsterAvailable("Stalagbite"))
 							Player.AttackMonster("Stalagbite");
 						break;
+					case "ultra avatar tyndarius":
+						if (World.IsMonsterAvailable("Ultra Fire Orb"))
+							Player.AttackMonster("Ultra Fire Orb");
+						break;
 				}
 
 				if (ClassIndex != -1)

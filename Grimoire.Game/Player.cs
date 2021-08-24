@@ -69,7 +69,7 @@ namespace Grimoire.Game
             }
         }
 
-        private static bool usernamecheck = true;
+        private static bool usernamecheck = false;
         /// <summary>
         /// Grabs Username string.
         /// </summary>
