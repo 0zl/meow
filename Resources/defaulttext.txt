@@ -28,5 +28,6 @@
   "txtUsername": "Username",
   "txtGuild":"Guild",
   "txtShopItem":"Shop Item",
-  "tbFollowPlayer":"Player"
+  "tbFollowPlayer":"Player",
+  "txtDescription":"Description (Write in RTF)"
 }
