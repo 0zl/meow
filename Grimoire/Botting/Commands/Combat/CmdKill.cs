@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Grimoire.Game;
@@ -11,9 +12,10 @@ namespace Grimoire.Botting.Commands.Combat
 	public class CmdKill : IBotCommand
 	{
 		public string Monster { get; set; }
-		public string MonId { get; set; }
+		public string KillPriority { get; set; } = "";
 
 		private bool antiCounter = false;
+
 		private bool onPause = false;
 
 		public async Task Execute(IBotEngine instance)
@@ -77,7 +79,7 @@ namespace Grimoire.Botting.Commands.Combat
 				}
 
 				switch (this.Monster.ToLower())
-                {
+				{
 					case "escherion":
 						if (World.IsMonsterAvailable("Staff of Inversion"))
 							Player.AttackMonster("Staff of Inversion");
@@ -90,6 +92,27 @@ namespace Grimoire.Botting.Commands.Combat
 						if (World.IsMonsterAvailable("Ultra Fire Orb"))
 							Player.AttackMonster("Ultra Fire Orb");
 						break;
+				}
+
+				if (KillPriority.Length > 0) {
+					List<string> priorities =  new List<string>();
+					if (KillPriority.Contains(","))
+					{
+						foreach (string p in KillPriority.Split(','))
+						{
+							priorities.Add(p);
+						}
+					}
+					else {
+						priorities.Add(KillPriority);
+					}
+
+					foreach (string p in priorities) {
+						if (World.IsMonsterAvailable(p)) {
+							Player.AttackMonster(p);
+							break;
+						}
+					}
 				}
 
 				if (ClassIndex != -1)

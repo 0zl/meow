@@ -1344,6 +1344,7 @@ namespace Grimoire.UI
 
 		private void btnGetCell_Click(object sender, EventArgs e)
 		{
+            if (!Player.IsLoggedIn) return;
 			cbPads.SelectedIndexChanged -= cbPads_SelectedIndexChanged;
 			cbCells.SelectedIndexChanged -= cbCells_SelectedIndexChanged;
 

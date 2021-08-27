@@ -19,6 +19,9 @@ namespace Grimoire.Botting.Commands.Item
 
         public async Task Execute(IBotEngine instance)
         {
+            string BankItemName = (instance.IsVar(this.BankItemName) ? Configuration.Tempvariable[instance.GetVar(this.BankItemName)] : this.BankItemName);
+            string InventoryItemName = (instance.IsVar(this.InventoryItemName) ? Configuration.Tempvariable[instance.GetVar(this.InventoryItemName)] : this.InventoryItemName);
+
             BotData.BotState = BotData.State.Others;
             if (CanExecute())
             {
