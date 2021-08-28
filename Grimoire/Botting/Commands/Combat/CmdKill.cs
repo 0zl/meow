@@ -65,19 +65,10 @@ namespace Grimoire.Botting.Commands.Combat
 			}
 			int Count = instance.Configuration.Skills.Count - 1;
 			this.Index = ClassIndex;
-			while (!this._cts.IsCancellationRequested && !onPause)
-			{
-				bool flag2 = !Player.IsLoggedIn || !Player.IsAlive;
-				if (flag2)
-				{
-					while (Player.HasTarget)
-					{
-						Player.CancelTarget();
-						await Task.Delay(500);
-					}
-					return;
-				}
 
+			bool hasTarget = Player.HasTarget;
+			while (!this._cts.IsCancellationRequested && !onPause && hasTarget)
+			{
 				switch (this.Monster.ToLower())
 				{
 					case "escherion":
@@ -107,8 +98,10 @@ namespace Grimoire.Botting.Commands.Combat
 						priorities.Add(KillPriority);
 					}
 
-					foreach (string p in priorities) {
-						if (World.IsMonsterAvailable(p)) {
+					foreach (string p in priorities)
+					{
+						if (World.IsMonsterAvailable(p))
+						{
 							Player.AttackMonster(p);
 							break;
 						}
@@ -166,6 +159,7 @@ namespace Grimoire.Botting.Commands.Combat
 					await Task.Delay(instance.Configuration.SkillDelay);
 				}
 				await Task.Delay(instance.Configuration.SkillDelay);
+				hasTarget = Player.HasTarget;
 			}
 
 			while (Player.HasTarget)

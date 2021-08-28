@@ -360,10 +360,13 @@ namespace Grimoire.Botting
                 await this.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
                 await Task.Delay(1000);
             }
+            int tryComplete = 0;
             while (quest.CanComplete)
             {
                 quest.Complete();
                 await Task.Delay(1000);
+                tryComplete++;
+                if (tryComplete > 5) Player.Logout();
             }
             if (quest.CompleteInBlank)
             {

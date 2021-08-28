@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 
 namespace Grimoire.Botting.Commands.Misc
@@ -23,8 +24,23 @@ namespace Grimoire.Botting.Commands.Misc
             set;
         }
 
+        public string IndexString
+        {
+            get;
+            set;
+        } = "";
+
         public Task Execute(IBotEngine instance)
         {
+            int Index = this.Index;
+            if (IndexString.Length > 0) {
+                string IndexString = (instance.IsVar(this.IndexString) ? Configuration.Tempvariable[instance.GetVar(this.IndexString)] : this.IndexString);
+                if (int.TryParse(IndexString, out int i))
+                {
+                    Index = i;
+                }
+            }
+
             switch (Type)
             {
                 case IndexCommand.Down:
@@ -74,7 +90,7 @@ namespace Grimoire.Botting.Commands.Misc
                     return $"Index up: {Index}";
 
                 default:
-                    return $"Goto index: {Index}";
+                    return "Goto index: " + (IndexString.Length > 0 ? IndexString : Index.ToString());
             }
         }
     }

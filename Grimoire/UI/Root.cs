@@ -108,7 +108,6 @@ namespace Grimoire.UI
             Task.Factory.StartNew(Proxy.Instance.Start, TaskCreationOptions.LongRunning);
             Flash.flash = flashPlayer;
             flashPlayer.FlashCall += Flash.ProcessFlashCall;
-            Flash.SwfLoadProgress += OnLoadProgress;
             InitFlashMovie(defFlashFile);
             Hotkeys.Instance.LoadHotkeys();
             Config c = Config.Load(System.Windows.Forms.Application.StartupPath + "\\config.cfg");
@@ -190,8 +189,10 @@ namespace Grimoire.UI
 		}
 
 		public void InitFlashMovie(string gameSwf)
-		{
-			byte[] aqlitegrimoire;
+        {
+            Flash.SwfLoadProgress += OnLoadProgress;
+
+            byte[] aqlitegrimoire;
 
 			/*
 			if (!System.Diagnostics.Debugger.IsAttached)
@@ -342,7 +343,7 @@ namespace Grimoire.UI
             "Bottom",
             "Up",
             "Down"});
-            this.cbPads.Location = new System.Drawing.Point(699, 3);
+            this.cbPads.Location = new System.Drawing.Point(695, 3);
             this.cbPads.MaxDropDownItems = 50;
             this.cbPads.Name = "cbPads";
             this.cbPads.Size = new System.Drawing.Size(91, 21);
@@ -353,7 +354,7 @@ namespace Grimoire.UI
             // 
             this.cbCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCells.FormattingEnabled = true;
-            this.cbCells.Location = new System.Drawing.Point(792, 3);
+            this.cbCells.Location = new System.Drawing.Point(788, 3);
             this.cbCells.MaxDropDownItems = 50;
             this.cbCells.Name = "cbCells";
             this.cbCells.Size = new System.Drawing.Size(91, 21);
@@ -368,7 +369,7 @@ namespace Grimoire.UI
             this.flashPlayer.Location = new System.Drawing.Point(0, 0);
             this.flashPlayer.Name = "flashPlayer";
             this.flashPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("flashPlayer.OcxState")));
-            this.flashPlayer.Size = new System.Drawing.Size(964, 605);
+            this.flashPlayer.Size = new System.Drawing.Size(960, 597);
             this.flashPlayer.TabIndex = 2;
             // 
             // botToolStripMenuItem
@@ -763,7 +764,7 @@ namespace Grimoire.UI
             this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.darkMenuStrip1.Name = "darkMenuStrip1";
             this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(2);
-            this.darkMenuStrip1.Size = new System.Drawing.Size(964, 27);
+            this.darkMenuStrip1.Size = new System.Drawing.Size(960, 27);
             this.darkMenuStrip1.TabIndex = 35;
             this.darkMenuStrip1.Text = "darkMenuStrip1";
             this.darkMenuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuMain_MouseDown);
@@ -820,7 +821,7 @@ namespace Grimoire.UI
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.splitContainer1.Panel2Collapsed = true;
-            this.splitContainer1.Size = new System.Drawing.Size(964, 27);
+            this.splitContainer1.Size = new System.Drawing.Size(960, 27);
             this.splitContainer1.SplitterDistance = 824;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 38;
@@ -831,7 +832,7 @@ namespace Grimoire.UI
             this.btnReloadBank.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.btnReloadBank.Checked = false;
             this.btnReloadBank.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnReloadBank.Location = new System.Drawing.Point(959, 2);
+            this.btnReloadBank.Location = new System.Drawing.Point(955, 2);
             this.btnReloadBank.Name = "btnReloadBank";
             this.btnReloadBank.Size = new System.Drawing.Size(53, 23);
             this.btnReloadBank.TabIndex = 40;
@@ -844,7 +845,7 @@ namespace Grimoire.UI
             this.btnGetCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.btnGetCell.Checked = false;
             this.btnGetCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnGetCell.Location = new System.Drawing.Point(885, 2);
+            this.btnGetCell.Location = new System.Drawing.Point(881, 2);
             this.btnGetCell.Name = "btnGetCell";
             this.btnGetCell.Size = new System.Drawing.Size(18, 23);
             this.btnGetCell.TabIndex = 39;
@@ -856,7 +857,7 @@ namespace Grimoire.UI
             this.chkStartBot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkStartBot.AutoSize = true;
             this.chkStartBot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.chkStartBot.Location = new System.Drawing.Point(545, 5);
+            this.chkStartBot.Location = new System.Drawing.Point(541, 5);
             this.chkStartBot.Name = "chkStartBot";
             this.chkStartBot.Size = new System.Drawing.Size(67, 17);
             this.chkStartBot.TabIndex = 38;
@@ -869,7 +870,7 @@ namespace Grimoire.UI
             this.chkAutoAttack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAutoAttack.AutoSize = true;
             this.chkAutoAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.chkAutoAttack.Location = new System.Drawing.Point(616, 5);
+            this.chkAutoAttack.Location = new System.Drawing.Point(612, 5);
             this.chkAutoAttack.Name = "chkAutoAttack";
             this.chkAutoAttack.Size = new System.Drawing.Size(82, 17);
             this.chkAutoAttack.TabIndex = 37;
@@ -883,7 +884,7 @@ namespace Grimoire.UI
             this.btnBank.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.btnBank.Checked = false;
             this.btnBank.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnBank.Location = new System.Drawing.Point(906, 2);
+            this.btnBank.Location = new System.Drawing.Point(902, 2);
             this.btnBank.Name = "btnBank";
             this.btnBank.Size = new System.Drawing.Size(53, 23);
             this.btnBank.TabIndex = 36;
@@ -895,9 +896,9 @@ namespace Grimoire.UI
             this.prgLoader.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.prgLoader.Location = new System.Drawing.Point(25, 262);
+            this.prgLoader.Location = new System.Drawing.Point(24, 256);
             this.prgLoader.Name = "prgLoader";
-            this.prgLoader.Size = new System.Drawing.Size(914, 23);
+            this.prgLoader.Size = new System.Drawing.Size(910, 24);
             this.prgLoader.TabIndex = 39;
             this.prgLoader.Visible = false;
             // 
@@ -906,7 +907,7 @@ namespace Grimoire.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(964, 605);
+            this.ClientSize = new System.Drawing.Size(960, 597);
             this.Controls.Add(this.prgLoader);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.flashPlayer);
@@ -1060,7 +1061,8 @@ namespace Grimoire.UI
 		{
 			bool check = lagKillerToolStripMenuItem.Checked;
 			OptionsManager.LagKiller = check;
-			botManager.chkLag.Checked = check;
+            OptionsManager.SetLagKiller();
+            botManager.chkLag.Checked = check;
 		}
 
 		private void hidePlayersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1311,7 +1313,7 @@ namespace Grimoire.UI
 				{
 					Player.UseSkill(i.ToString());
 				}
-				await Task.Delay(200);
+				await Task.Delay(100);
 				i++;
 				if (i > (listSkillReady ? listSkill.Count - 1 : 4)) i = 1;
 			}

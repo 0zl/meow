@@ -119,6 +119,9 @@ namespace Grimoire.Botting.Commands.Combat
 					}
 				}
 
+				Player.CancelTarget();
+				await Task.Delay(500);
+
 				if (IsGetDrops)
 				{
 					foreach (string _removed in removedList)

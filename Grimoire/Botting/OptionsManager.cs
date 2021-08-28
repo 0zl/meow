@@ -179,7 +179,7 @@ namespace Grimoire.Botting
 
         private static void SetEnemyMagnet() => Flash.Call("SetEnemyMagnet", empty);
 
-        private static void SetLagKiller() => Flash.Call("SetLagKiller", LagKiller ? bool.TrueString : bool.FalseString);
+        public static void SetLagKiller() => Flash.Call("SetLagKiller", LagKiller ? bool.TrueString : bool.FalseString);
 
         public static void DestroyPlayers() => Flash.Call("DestroyPlayers", empty);
 

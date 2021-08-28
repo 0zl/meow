@@ -18,6 +18,8 @@ namespace Grimoire.Botting.Commands.Map
 			BotData.BotState = BotData.State.Move;
 			await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer), null, 15);
 
+			//[MAP]-[NUMBER]
+
 			string _mapName = this.Map.Contains("-") ? this.Map.Split(new char[]
 			{
 				'-'
