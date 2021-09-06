@@ -13,6 +13,11 @@ namespace Grimoire.Botting.Commands.Combat
 
         public async Task Execute(IBotEngine instance)
         {
+            if (instance.Configuration.SkipAttack)
+            {
+                if (Player.HasTarget) Player.CancelTarget();
+                return;
+            }
 
             if (instance.IsRunning && Player.IsAlive && Player.IsLoggedIn)
             {

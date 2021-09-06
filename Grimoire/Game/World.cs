@@ -40,6 +40,10 @@ namespace Grimoire.Game
 
         public static int RoomNumber => Flash.Call<int>("RoomNumber", new string[0]);
 
+        public static int GetPlayerHealthPercentage(string username) => Flash.Call<int>("GetPlayerHealthPercentage", username);
+        
+        public static int GetPlayerHealth(string username) => Flash.Call<int>("GetPlayerHealth", username);
+
         public static event Action<InventoryItem> ItemDropped;
 
         public static event Action<ShopInfo> ShopLoaded;

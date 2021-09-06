@@ -20,7 +20,7 @@ namespace Grimoire.Botting.Commands.Quest
             while (!Player.Quests.IsInProgress(Quest.Id) && Player.IsLoggedIn && instance.IsRunning)
             {
                 Quest.Accept();
-                await Task.Delay(1000);
+                await Task.Delay(1500);
             }
             //await instance.WaitUntil(() => Player.Quests.IsInProgress(Quest.Id));
         }

@@ -19,6 +19,11 @@ namespace Grimoire.Tools
             Flash.Call("Login", new string[0]);
         }
 
+        public static void Login(String username, String password)
+        {
+            Flash.Call("FixLogin", username, password);
+        }
+
         public static bool ResetServers()
         {
             return Flash.Call<bool>("ResetServers", new string[0]);
@@ -55,7 +60,15 @@ namespace Grimoire.Tools
                 return;
             }
             ResetServers();
-            Login();
+
+            if (OptionsManager.LoginUsername != null && OptionsManager.LoginPassword != null) {
+                Login(OptionsManager.LoginUsername, OptionsManager.LoginPassword);
+            } 
+            else
+            {
+                Login();
+            }
+
             await BotManager.Instance.ActiveBotEngine.WaitUntil(() => AreServersLoaded, () => !cts.IsCancellationRequested, 30);
             if (cts.IsCancellationRequested)
             {

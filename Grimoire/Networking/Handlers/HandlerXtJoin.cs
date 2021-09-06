@@ -47,17 +47,22 @@ namespace Grimoire.Networking.Handlers
 			int num = random.Next(1000, 99999);
 
 			string map = message.Arguments[7].ToString();
+			string room = Room;
 			string parts;
 
-			if (map.Contains("-"))
+			if (map.Contains("-") && !Room.StartsWith("f"))
 			{
 				parts = map;
 			} 
 			else
 			{
-				if (int.TryParse(Room, out _))
+				if (Room.StartsWith("f")) {
+					room = Room.Replace("f", "");
+					map = map.Split('-')[0];
+				}
+				if (int.TryParse(room, out int i))
 				{
-					parts = $"{map}-{Room}";
+					parts = $"{map}-{i}";
 				} 
 				else
 				{

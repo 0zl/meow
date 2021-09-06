@@ -13,16 +13,19 @@ namespace Grimoire.Botting.Commands.Combat
 	{
 		public string Monster { get; set; }
 		public string KillPriority { get; set; } = "";
-
-		private bool antiCounter = false;
+		public bool AntiCounter { get; set; } = false;
 
 		private bool onPause = false;
 
 		public async Task Execute(IBotEngine instance)
 		{
-			string Monster = instance.IsVar(this.Monster) ? Configuration.Tempvariable[instance.GetVar(this.Monster)] : this.Monster;
+			if (instance.Configuration.SkipAttack)
+			{
+				if (Player.HasTarget) Player.CancelTarget();
+				return;
+			}
 
-			antiCounter = instance.Configuration.AntiCounter;
+			string Monster = instance.IsVar(this.Monster) ? Configuration.Tempvariable[instance.GetVar(this.Monster)] : this.Monster;
 
 			await instance.WaitUntil(() => World.IsMonsterAvailable(Monster), null, 3);
 
@@ -34,7 +37,12 @@ namespace Grimoire.Botting.Commands.Combat
 			if (!instance.IsRunning || !Player.IsAlive || !Player.IsLoggedIn)
 				return;
 
-			if (antiCounter) Proxy.Instance.ReceivedFromServer += CapturePlayerData;
+			bool disableAnims = OptionsManager.DisableAnimations;
+			if (AntiCounter)
+			{
+				OptionsManager.DisableAnimations = false;
+				Proxy.Instance.ReceivedFromServer += CapturePlayerData;
+			}
 
 			Player.AttackMonster(Monster);
 
@@ -44,7 +52,11 @@ namespace Grimoire.Botting.Commands.Combat
 			await instance.WaitUntil(() => !Player.HasTarget && !onPause, null, 360);
 			Player.CancelTarget();
 
-			if (antiCounter) Proxy.Instance.ReceivedFromServer -= CapturePlayerData;
+			if (AntiCounter)
+			{
+				OptionsManager.DisableAnimations = disableAnims;
+				Proxy.Instance.ReceivedFromServer -= CapturePlayerData;
+			}
 
 			_cts?.Cancel(false);
 		}

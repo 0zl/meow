@@ -23,6 +23,18 @@ namespace Grimoire.Botting
 
         private static bool _infMana;
 
+        public static String LoginUsername
+        {
+            get;
+            set;
+        }
+
+        public static String LoginPassword
+        {
+            get;
+            set;
+        }
+
         public static bool InfMana
         {
             get => _infMana;

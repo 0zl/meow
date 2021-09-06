@@ -208,6 +208,7 @@ namespace Grimoire.Botting
                     OptionsManager.AFK = reloginOnAFK;
 
                     OptionsManager.Start();
+                    LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Relogin. \r\n");
                 }
                 if (!_ctsBot.IsCancellationRequested)
                 {
@@ -219,11 +220,11 @@ namespace Grimoire.Botting
                     }
                     if (!_ctsBot.IsCancellationRequested)
                     {
-                        if (Player.IsAfk)
+                        /*if (Player.IsAfk)
                         {
                             Player.MoveToCell(Player.Cell, Player.Pad);
                             Index = Index > 0 ? Index-- : Index;
-                        }
+                        }*/
                         if (Configuration.RestIfHp)
                         {
                             await RestHealth();
@@ -358,7 +359,7 @@ namespace Grimoire.Botting
                     Player.MoveToCell(pCell, pPad);
                 }
                 await this.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
-                await Task.Delay(1000);
+                await Task.Delay(2000);
             }
             int tryComplete = 0;
             while (quest.CanComplete)

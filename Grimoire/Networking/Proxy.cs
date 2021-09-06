@@ -134,6 +134,7 @@ namespace Grimoire.Networking
 			if (_listener == null)
 			{
 				_listener = new TcpListener(IPAddress.Loopback, ListenerPort);
+				Console.WriteLine($"listen ip: {IPAddress.Loopback} port: {ListenerPort}");
 			}
 			while (!AppClosingToken.IsCancellationRequested)
 			{
@@ -146,7 +147,6 @@ namespace Grimoire.Networking
 					}
 					catch
 					{
-
 					}
 				}
 				else

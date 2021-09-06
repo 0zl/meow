@@ -120,6 +120,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms">
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Windows.Forms\v4.0_4.0.0.0__b77a5c561934e089\System.Windows.Forms.dll</HintPath>
     </Reference>
@@ -217,6 +218,7 @@
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdFactionRankLessThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdGoldGreaterThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdGoldLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdHasTarget.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdHealthGreaterThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdHealthLessThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdInBank.cs" />
@@ -250,12 +252,15 @@
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonstersGreaterThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonstersLessThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotEquipped.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotHasTarget.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInBank.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInBankAndInvent.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInCombat.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInHouse.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInInventory.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInTemp.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerHPGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerHPLessThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerInRoom.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerIsInCell.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerIsInMyCell.cs" />

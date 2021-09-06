@@ -15,6 +15,7 @@ namespace Grimoire.Botting.Commands.Combat
 		public int MaxGotoTry { get; set; } = 5;
 
 		public bool WaitForever { get; set; } = false;
+		public bool AntiCounter { get; set; } = false;
 
 		public async Task Execute(IBotEngine instance)
 		{
@@ -63,7 +64,8 @@ namespace Grimoire.Botting.Commands.Combat
 					CmdKill kill = new CmdKill
 					{
 						Monster = "*",
-						KillPriority = KillPriority
+						KillPriority = KillPriority,
+						AntiCounter = AntiCounter
 					};
 
 					await kill.Execute(instance);
@@ -120,7 +122,7 @@ namespace Grimoire.Botting.Commands.Combat
 
 		public override string ToString()
 		{
-			return $"Follow: {PlayerName}";
+			return $"Follow kills: {PlayerName}";
 		}
 
 	}

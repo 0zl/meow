@@ -163,7 +163,7 @@ namespace Grimoire.UI
             this.darkLabel2.Name = "darkLabel2";
             this.darkLabel2.Size = new System.Drawing.Size(126, 13);
             this.darkLabel2.TabIndex = 14;
-            this.darkLabel2.Text = "Version 1.2.1 (30082021)";
+            this.darkLabel2.Text = "Version 1.3.2 (05092021)";
             // 
             // rtbCredits
             // 

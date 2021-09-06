@@ -389,6 +389,30 @@
       "Text": "Item is in bank or inventory",
       "Description1": "Item name",
       "Description2": "Quantity (* = any)"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdPlayersHPGreaterThan, Grimoire",
+      "Tag": "Player",
+      "Text": "Health is greater than",
+      "Description1": "Player name",
+      "Description2": "Health in percentage"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdPlayersHPLessThan, Grimoire",
+      "Tag": "Player",
+      "Text": "Health is less than",
+      "Description1": "Player name",
+      "Description2": "Health in percentage"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdHasTarget, Grimoire",
+      "Tag": "This player",
+      "Text": "Is has target"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdNotHasTarget, Grimoire",
+      "Tag": "This player",
+      "Text": "Is not has target"
     }
   ]
 }

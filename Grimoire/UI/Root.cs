@@ -541,6 +541,7 @@ namespace Grimoire.UI
             this.changeServerMenuItem.Name = "changeServerMenuItem";
             this.changeServerMenuItem.Size = new System.Drawing.Size(187, 22);
             this.changeServerMenuItem.Text = "Change Server";
+            this.changeServerMenuItem.Visible = false;
             // 
             // changeServerList
             // 

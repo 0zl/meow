@@ -4,6 +4,7 @@ using Grimoire.Networking;
 using Grimoire.UI;
 using Grimoire.Utils;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -213,15 +214,59 @@ namespace Grimoire.Tools
 			}
 		}
 
-		private static string ModifyServerList(string xml)
+		private static string ModifyServerList(string response)
 		{
-			if (!xml.StartsWith("<login") || !xml.EndsWith("</login>"))
+			if (response.StartsWith("{\"login\"") && response.EndsWith("]}"))
 			{
-				return xml;
+				return ServersFromJson(response);
 			}
+			if (response.StartsWith("<login") && response.EndsWith("</login>"))
+			{
+				return ServersFromXml(response);
+			}
+			return response;
+		}
+
+		private static string ServersFromJson(String json)
+		{
+			JObject packet = (JObject)JObject.Parse(json);
+			JObject login = (JObject)packet["login"];
+			JArray servers = (JArray)packet["servers"];
+			Server[] array = new Server[servers.Count];
+
+			login["iUpg"] = 1;
+			login["iUpgDays"] = 999;
+
+			for (int i = 0; i < servers.Count; i++)
+			{
+				JObject server = (JObject)servers[i];
+				array[i] = new Server
+				{
+					IsChatRestricted = server.GetValue("iChat")?.ToString() == "0",
+					PlayerCount = int.Parse(server.GetValue("iCount")?.ToString()),
+					IsMemberOnly = server.GetValue("bUpg")?.ToString() == "1",
+					IsOnline = server.GetValue("bOnline")?.ToString() == "1",
+					Name = server.GetValue("sName")?.ToString(),
+					Port = int.Parse(server.GetValue("iPort")?.ToString())
+				};
+				server["RealAddress"] = server["sIP"];
+				server["RealPort"] = server["iPort"].ToString();
+				server["sIP"] = "127.0.0.1";
+				server["iPort"] = Proxy.Instance.ListenerPort.ToString();
+			}
+			BotManager.Instance.OnServersLoaded(array);
+			return packet.ToString(Newtonsoft.Json.Formatting.None);
+		}
+
+		private static string ServersFromXml(String xml)
+		{
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.LoadXml(xml);
 			XmlElement xmlElement = xmlDocument["login"];
+
+			xmlElement.Attributes["iUpg"].Value = "1";
+			xmlElement.Attributes["iUpgDays"].Value = "999";
+
 			Server[] array = new Server[xmlElement.ChildNodes.Count];
 			for (int i = 0; i < xmlElement.ChildNodes.Count; i++)
 			{

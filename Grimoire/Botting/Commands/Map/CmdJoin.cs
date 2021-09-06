@@ -20,16 +20,10 @@ namespace Grimoire.Botting.Commands.Map
 
 			//[MAP]-[NUMBER]
 
-			string _mapName = this.Map.Contains("-") ? this.Map.Split(new char[]
-			{
-				'-'
-			})[0] : this.Map;
+			string _mapName = this.Map.Contains("-") ? this.Map.Split('-')[0] : this.Map;
 			string namName = (instance.IsVar(_mapName) ? Configuration.Tempvariable[instance.GetVar(_mapName)] : _mapName);
 
-			string _roomNumber = this.Map.Contains("-") ? this.Map.Split(new char[]
-			{
-				'-'
-			})[1] : "1";
+			string _roomNumber = this.Map.Contains("-") ? this.Map.Split('-')[1] : "";
 			string roomNumber = (instance.IsVar(_roomNumber) ? Configuration.Tempvariable[instance.GetVar(_roomNumber)] : _roomNumber);
 
 			if (!namName.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
@@ -58,7 +52,7 @@ namespace Grimoire.Botting.Commands.Map
 			}
 		}
 
-		public async Task TryJoin(IBotEngine instance, string MapName, string RoomNumber = "1")
+		public async Task TryJoin(IBotEngine instance, string MapName, string RoomNumber)
 		{
 			bool provoke = instance.Configuration.ProvokeMonsters;
 			if (provoke) instance.Configuration.ProvokeMonsters = false;
@@ -69,8 +63,8 @@ namespace Grimoire.Botting.Commands.Map
 				await instance.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
 				await Task.Delay(1500);
 			}
-			Console.WriteLine($"Map: {MapName}-{RoomNumber}");
-			Player.JoinMap($"{MapName}-{RoomNumber}", this.Cell, this.Pad);
+			String join = RoomNumber.Length > 0 ? $"{MapName}-{RoomNumber}" : MapName;
+			Player.JoinMap(join, this.Cell, this.Pad);
 			await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 5);
 			await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
 			if (provoke) instance.Configuration.ProvokeMonsters = true;

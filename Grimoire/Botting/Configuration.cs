@@ -279,6 +279,12 @@ namespace Grimoire.Botting
             set;
         }
 
+        public bool SkipAttack
+        {
+            get;
+            set;
+        } = false;
+
         public static Dictionary<string, int> Tempvalues = new Dictionary<string, int>();
         public static Dictionary<string, string> Tempvariable = new Dictionary<string, string>();
 

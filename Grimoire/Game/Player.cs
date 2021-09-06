@@ -203,6 +203,11 @@ namespace Grimoire.Game
         public static void WalkToPoint(string x, string y) => Flash.Call("WalkToPoint", x, y);
 
         /// <summary>
+        /// Cancels Auto Attack
+        /// </summary>
+        public static void CancelAutoAttack() => Flash.Call("CancelAutoAttack", new string[0]);
+
+        /// <summary>
         /// Cancels Target
         /// </summary>
         public static void CancelTarget() => Flash.Call("CancelTarget", new string[0]);
@@ -255,6 +260,8 @@ namespace Grimoire.Game
         public static void GetMapItem(int id) => Flash.Call("GetMapItem", id.ToString());
 
         public static void Logout() => Flash.Call("Logout", new string[0]);
+
+        public static void SetTargetPlayer(string username) => Flash.Call("SetTargetPlayer", username);
 
         static Player()
         {
