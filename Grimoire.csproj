@@ -345,6 +345,7 @@
     <Compile Include="Grimoire\Tools\DocToRtf.cs" />
     <Compile Include="Grimoire\Tools\Flash.cs" />
     <Compile Include="Grimoire\Tools\Grabber.cs" />
+    <Compile Include="Grimoire\Networking\GrimoireClient.cs" />
     <Compile Include="Grimoire\Tools\Hotkey.cs" />
     <Compile Include="Grimoire\Tools\IntStringConverter.cs" />
     <Compile Include="Grimoire\Tools\KeyboardHook.cs" />

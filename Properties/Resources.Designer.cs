@@ -61,16 +61,6 @@ namespace Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] catgirl {
-            get {
-                object obj = ResourceManager.GetObject("catgirl", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {
         ///  &quot;txtMonster&quot;: &quot;Monster (* = random)&quot;,
         ///  &quot;txtKillFMon&quot;: &quot;Monster (* = random)&quot;,

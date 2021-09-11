@@ -29,6 +29,7 @@
   "txtGuild":"Guild",
   "txtShopItem":"Shop Item",
   "tbFollowPlayer":"Player",
+  "tbFollowPlayer2":"Player",
   "txtDescription":"Description (Write in RTF)",
   "tbLoginUsername":"Username",
   "tbLoginPassword":"Password"

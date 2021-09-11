@@ -9,7 +9,7 @@ namespace Grimoire.Botting.Commands.Combat
     {
         public string Monster { get; set; }
 
-        public bool UseSkill { get; set; } = true;
+        public bool UseSkill { get; set; } = false;
 
         public async Task Execute(IBotEngine instance)
         {

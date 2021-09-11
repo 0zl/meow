@@ -216,14 +216,14 @@ namespace Grimoire.Tools
 
 		private static string ModifyServerList(string response)
 		{
-			if (response.StartsWith("{\"login\"") && response.EndsWith("]}"))
-			{
-				return ServersFromJson(response);
-			}
-			if (response.StartsWith("<login") && response.EndsWith("</login>"))
-			{
-				return ServersFromXml(response);
-			}
+            if (response.StartsWith("{\"login\"") && response.EndsWith("]}"))
+            {
+                return ServersFromJson(response);
+            }
+            if (response.StartsWith("<login") && response.EndsWith("</login>"))
+            {
+                return ServersFromXml(response);
+            }
 			return response;
 		}
 

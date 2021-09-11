@@ -21,11 +21,13 @@ namespace Grimoire
             if (FindAvailablePort(out int port))
             {
                 Proxy.Instance.ListenerPort = port;
+                PluginsManager = new Tools.Plugins.PluginManager();
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(defaultValue: false);
-                PluginsManager = new Tools.Plugins.PluginManager();
                 BotManager.Instance.Load += Program.OnMainFormLoaded;
                 Application.Run(new Root());
+                Program.PluginsManager.UnloadAll();
+                Proxy.Instance.Stop(appClosing: false);
             }
         }
 

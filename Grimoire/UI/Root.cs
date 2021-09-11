@@ -1076,7 +1076,8 @@ namespace Grimoire.UI
 		private void skipCutscenesToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			bool check = skipCutscenesToolStripMenuItem.Checked;
-			OptionsManager.SkipCutscenes = check;
+            if (check) OptionsManager.SetSkipCutscenes();
+            OptionsManager.SkipCutscenes = check;
 			botManager.chkSkipCutscenes.Checked = check;
 		}
 

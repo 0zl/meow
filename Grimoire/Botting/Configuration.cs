@@ -285,6 +285,18 @@ namespace Grimoire.Botting
             set;
         } = false;
 
+        public bool FollowCheck
+        {
+            get;
+            set;
+        }
+
+        public string FollowName
+        {
+            get;
+            set;
+        }
+
         public static Dictionary<string, int> Tempvalues = new Dictionary<string, int>();
         public static Dictionary<string, string> Tempvariable = new Dictionary<string, string>();
 

@@ -195,7 +195,7 @@ namespace Grimoire.Botting
 
         public static void DestroyPlayers() => Flash.Call("DestroyPlayers", empty);
 
-        private static void SetSkipCutscenes() => Flash.Call("SetSkipCutscenes", empty);
+        public static void SetSkipCutscenes() => Flash.Call("SetSkipCutscenes", empty);
 
         public static void SetWalkSpeed() => Flash.Call("SetWalkSpeed", WalkSpeed.ToString());
 
