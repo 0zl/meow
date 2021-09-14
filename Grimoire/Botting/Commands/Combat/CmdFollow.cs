@@ -61,6 +61,7 @@ namespace Grimoire.Botting.Commands.Combat
 				{
 					gotoTry = 0;
 
+					Player.SetSpawnPoint();
 					CmdKill kill = new CmdKill
 					{
 						Monster = "*",

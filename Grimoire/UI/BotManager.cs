@@ -2089,7 +2089,9 @@ namespace Grimoire.UI
 				return;
 			}
 
-			if (chkEnable.Checked)
+            chkAntiMod.Enabled = !chkEnable.Checked;
+
+            if (chkEnable.Checked)
 			{
 				selectionMode(SelectionMode.One);
 				ActiveBotEngine.IsRunningChanged += OnIsRunningChanged;
@@ -2120,8 +2122,10 @@ namespace Grimoire.UI
 				BotStateChanged(IsRunning: false);
 				Root.Instance.BotStateChanged(IsRunning: false);
 				Root.Instance.chkStartBot.Checked = false;
-			}
-		}
+            }
+
+            toggleAntiMod(chkAntiMod.Checked);
+        }
 
 
 		private void selectionMode(SelectionMode mode)
@@ -4966,7 +4970,7 @@ namespace Grimoire.UI
             this.txtAuthor.Location = new System.Drawing.Point(7, 45);
             this.txtAuthor.Multiline = true;
             this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.Size = new System.Drawing.Size(266, 20);
+            this.txtAuthor.Size = new System.Drawing.Size(273, 20);
             this.txtAuthor.TabIndex = 119;
             this.txtAuthor.Text = "Author";
             // 
@@ -5785,12 +5789,13 @@ namespace Grimoire.UI
             // chkAntiMod
             // 
             this.chkAntiMod.AutoSize = true;
+            this.chkAntiMod.Checked = true;
+            this.chkAntiMod.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAntiMod.Location = new System.Drawing.Point(6, 19);
             this.chkAntiMod.Name = "chkAntiMod";
             this.chkAntiMod.Size = new System.Drawing.Size(59, 17);
             this.chkAntiMod.TabIndex = 169;
             this.chkAntiMod.Text = "Enable";
-            this.chkAntiMod.CheckedChanged += new System.EventHandler(this.chkAntiMod_CheckedChanged);
             this.chkAntiMod.MouseHover += new System.EventHandler(this.chkAntiMod_MouseHover);
             // 
             // btnSetSpawn2
@@ -5846,9 +5851,9 @@ namespace Grimoire.UI
             this.chkSaveProgress.AutoSize = true;
             this.chkSaveProgress.Location = new System.Drawing.Point(342, 215);
             this.chkSaveProgress.Name = "chkSaveProgress";
-            this.chkSaveProgress.Size = new System.Drawing.Size(123, 17);
+            this.chkSaveProgress.Size = new System.Drawing.Size(91, 17);
             this.chkSaveProgress.TabIndex = 165;
-            this.chkSaveProgress.Text = "Save progress every";
+            this.chkSaveProgress.Text = "Relogin every";
             this.chkSaveProgress.CheckedChanged += new System.EventHandler(this.chkSaveProgress_CheckedChanged);
             this.chkSaveProgress.MouseHover += new System.EventHandler(this.chkSaveProgress_MouseHover);
             // 
@@ -6216,6 +6221,7 @@ namespace Grimoire.UI
             this.btnTargetSet.Size = new System.Drawing.Size(96, 23);
             this.btnTargetSet.TabIndex = 172;
             this.btnTargetSet.Text = "Set";
+            this.btnTargetSet.Visible = false;
             this.btnTargetSet.Click += new System.EventHandler(this.btnTargetSet_Click);
             // 
             // tbTargetUsername
@@ -6225,6 +6231,7 @@ namespace Grimoire.UI
             this.tbTargetUsername.Size = new System.Drawing.Size(96, 20);
             this.tbTargetUsername.TabIndex = 171;
             this.tbTargetUsername.Text = "Username";
+            this.tbTargetUsername.Visible = false;
             // 
             // btnAddCmdHunt
             // 
@@ -8119,7 +8126,7 @@ namespace Grimoire.UI
 		private void chkSaveProgress_MouseHover(object sender, EventArgs e) 
 		{
 			ToolTip tooltip = new ToolTip();
-			tooltip.SetToolTip(this.chkSaveProgress, "Join house every ... To prevent losing rep/level/class point progress when you disconnected.");
+			tooltip.SetToolTip(this.chkSaveProgress, "Just logout every...");
 		}
 
 
@@ -8127,10 +8134,11 @@ namespace Grimoire.UI
 		{
 			if (Player.IsLoggedIn)
 			{
-				Player.MoveToCell("Blank", "Spawn");
+                /*Player.MoveToCell("Blank", "Spawn");
 				await Task.Delay(3000);
 				string username = OptionsManager.LoginUsername != null ? OptionsManager.LoginUsername : Player.Username;
-				await Proxy.Instance.SendToServer($"%xt%zm%house%1%{username}%");
+				await Proxy.Instance.SendToServer($"%xt%zm%house%1%{username}%");*/
+                Player.Logout();
 				LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Progress saved.\r\n");
 			}
 		}
@@ -8153,9 +8161,9 @@ namespace Grimoire.UI
 			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
-		private void chkAntiMod_CheckedChanged(object sender, EventArgs e)
+		private void toggleAntiMod(bool enable)
 		{
-			if (chkAntiMod.Checked)
+			if (enable)
 			{
 				Proxy.Instance.ReceivedFromServer += CapturePlayerData;
 				chkHidePlayers.Checked = false;
@@ -8207,7 +8215,7 @@ namespace Grimoire.UI
 						this.accessLevel = accessLevel;
 						this.username = username;
 						showLog(this.username, this.accessLevel);
-					}
+                    }
 				}
 
 				//"cmd": "initUserData"
@@ -8221,8 +8229,6 @@ namespace Grimoire.UI
 					this.accessLevel = accessLevel?.ToString();
 					this.username = username?.ToString();
 					showLog(this.username, this.accessLevel);
-
-					Console.WriteLine($"Log1: {this.username} | {this.accessLevel}");
 				}
 			}
 			catch (Exception e)
@@ -8265,10 +8271,11 @@ namespace Grimoire.UI
 					strip += "-";
 				log += $"{strip} {Environment.NewLine} {text} {Environment.NewLine} {strip} {Environment.NewLine}";
 				modAction();
-			}
+                LogForm.Instance.AppendDebug(log);
+            }
 
-			LogForm.Instance.AppendDebug(log);
-		}
+            Console.WriteLine($"AntiMod: {this.username} | {this.accessLevel}");
+        }
 
 		private async void modAction()
 		{

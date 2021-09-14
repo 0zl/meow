@@ -1293,7 +1293,7 @@ namespace Grimoire.UI
 				listSkill = BotManager.Instance.lstSkills.Items.Cast<Skill>().ToList();
 			}
 			bool hasLabel = false;
-			foreach (Skill skill in listSkill)
+            foreach (Skill skill in listSkill)
             {
 				if (skill.Type == Skill.SkillType.Label)
                 {
