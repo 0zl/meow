@@ -4970,7 +4970,7 @@ namespace Grimoire.UI
             this.txtAuthor.Location = new System.Drawing.Point(7, 45);
             this.txtAuthor.Multiline = true;
             this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.Size = new System.Drawing.Size(273, 20);
+            this.txtAuthor.Size = new System.Drawing.Size(266, 20);
             this.txtAuthor.TabIndex = 119;
             this.txtAuthor.Text = "Author";
             // 

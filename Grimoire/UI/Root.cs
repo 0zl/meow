@@ -10,17 +10,14 @@ using System.Windows.Forms;
 using Grimoire.Botting;
 using Grimoire.Game.Data;
 using System.Diagnostics;
-using EoL;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Drawing;
 using DarkUI.Controls;
-using DarkUI.Forms;
-using Properties;
-using Grimoire.Botting.Commands.Combat;
 using Grimoire.Networking.Handlers;
 using System.Reflection;
 using System.Linq;
+//using Grimoire.FlashEoLHook;
 
 namespace Grimoire.UI
 {
@@ -94,7 +91,7 @@ namespace Grimoire.UI
 		{
 			if (!System.Diagnostics.Debugger.IsAttached && false)
 				Process.Start(@"updater.exe");
-			Bypass.Hook();
+            //EoLHook.Hook();
 
 			this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
 
@@ -220,7 +217,7 @@ namespace Grimoire.UI
 				}
 			}
 
-			Bypass.Unhook();
+            //EoLHook.Unhook();
 		}
 
 		private void btnBank_Click(object sender, EventArgs e)
