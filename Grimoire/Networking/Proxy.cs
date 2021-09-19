@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 using Grimoire.Game;
 using Grimoire.Networking.Handlers;
@@ -21,6 +22,8 @@ namespace Grimoire.Networking
 		public event Receive ReceivedFromServer;
 
 		public int ListenerPort { get; set; }
+
+		private static readonly CancellationTokenSource AppClosingToken = new CancellationTokenSource();
 
 		private Proxy()
 		{
@@ -67,6 +70,8 @@ namespace Grimoire.Networking
 
 		public void Stop(bool appClosing)
 		{
+			if (appClosing)
+				AppClosingToken.Cancel();
 			this._listener.Stop();
 			GrimoireClient server = this._server;
 			if (server != null)
@@ -83,6 +88,7 @@ namespace Grimoire.Networking
 
 		private void OnClientAccept(IAsyncResult result)
 		{
+			if (AppClosingToken.IsCancellationRequested) return;
 			if (this._client != null)
 			{
 				this._client.Disconnected -= this.OnClientDisconnect;
@@ -134,6 +140,7 @@ namespace Grimoire.Networking
 
 		private void OnClientMessage(string message)
 		{
+			if (AppClosingToken.IsCancellationRequested) return;
 			Message message2 = this.CreateMessage(message);
 			Receive receivedFromClient = this.ReceivedFromClient;
 			if (receivedFromClient != null)
@@ -148,8 +155,9 @@ namespace Grimoire.Networking
 
 		private void OnServerMessage(string message)
 		{
+			if (AppClosingToken.IsCancellationRequested) return;
 			Message message2 = this.CreateMessage(message);
-            Receive receivedFromServer = this.ReceivedFromServer;
+			Receive receivedFromServer = this.ReceivedFromServer;
 			if (receivedFromServer != null)
 			{
 				receivedFromServer(message2);
@@ -243,14 +251,27 @@ namespace Grimoire.Networking
 		private TcpListener _listener;
 
 		private readonly List<IJsonMessageHandler> _handlersJson = new List<IJsonMessageHandler>
-		{
+		{			
+			//new HandlerSkills(),
+			//new HandlerDPS(),
 			new HandlerDropItem(),
 			new HandlerGetQuests(),
 			new HandlerQuestComplete(),
+			new HandlerMapJoin(),
+			//new HandlerLoadBank(),
 			new HandlerLoadShop()
 		};
 
-		private readonly List<IXtMessageHandler> _handlersXt = new List<IXtMessageHandler>();
+		private readonly List<IXtMessageHandler> _handlersXt = new List<IXtMessageHandler>
+		{
+			//new HandlerWarningsXt(),
+			//new HandlerLogin(),
+			//new HandlerAFK(),
+			//new HandlerChat(),
+			//new HandlerXtJoin(),
+			//new HandlerXtCellJoin()
+			new HandlerWarnings()
+		};
 
 		private readonly List<IXmlMessageHandler> _handlersXml = new List<IXmlMessageHandler>
 		{
