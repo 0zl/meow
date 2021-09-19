@@ -22,6 +22,11 @@ namespace Grimoire.Tools
             set;
         }
 
+        public override string ToString()
+        {
+            return this.Text;
+        }
+
         public void Install()
         {
             KeyboardHook.Instance.TargetedKeys.Add(Key);

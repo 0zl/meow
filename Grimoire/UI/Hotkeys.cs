@@ -21,7 +21,7 @@ namespace Grimoire.UI
 {
     public class Hotkeys : DarkForm
     {
-        public static readonly Action[] Actions = new Action[18]
+        public static readonly Action[] Actions = new Action[19]
         {
             delegate
             {
@@ -46,6 +46,10 @@ namespace Grimoire.UI
             delegate
             {
                 Root.Instance.ShowForm(Travel.Instance);
+            },
+            delegate
+            {
+                Root.Instance.splitContainer1.Visible = !Root.Instance.splitContainer1.Visible;
             },
             delegate
             {
@@ -275,6 +279,7 @@ namespace Grimoire.UI
             Hotkey hotkey = InstalledHotkeys.First((Hotkey h) => h.Key == key);
             if (ApplicationContainsFocus() || (string)cbActions.Items[hotkey.ActionIndex] == "Minimize to tray")
             {
+                Console.WriteLine("custom action");
                 Actions[hotkey.ActionIndex]();
             }
         }
@@ -408,6 +413,7 @@ namespace Grimoire.UI
             "Show Packet logger",
             "Show Packet spammer",
             "Show Fast travels",
+            "Show Menu",
             "Minimize to tray",
             "Show bank",
             "Show Cosmetics form",
@@ -418,8 +424,9 @@ namespace Grimoire.UI
             "Yulgar Suite 42",
             "Relog",
             "Start/Stop Bot",
-            "Toggle Options,",
-            "Execute Debug"});
+            "Toggle Options",
+            "Execute Debug"
+            });
             this.cbActions.Location = new Point(118, 3);
             this.cbActions.Name = "cbActions";
             this.cbActions.Size = new Size(109, 21);
