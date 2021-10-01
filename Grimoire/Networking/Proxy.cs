@@ -257,7 +257,7 @@ namespace Grimoire.Networking
 			new HandlerDropItem(),
 			new HandlerGetQuests(),
 			new HandlerQuestComplete(),
-			new HandlerMapJoin(),
+			//new HandlerMapJoin(),
 			//new HandlerLoadBank(),
 			new HandlerLoadShop()
 		};

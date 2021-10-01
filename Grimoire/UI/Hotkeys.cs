@@ -21,7 +21,7 @@ namespace Grimoire.UI
 {
     public class Hotkeys : DarkForm
     {
-        public static readonly Action[] Actions = new Action[19]
+        public static readonly Action[] Actions = new Action[21]
         {
             delegate
             {
@@ -50,6 +50,19 @@ namespace Grimoire.UI
             delegate
             {
                 Root.Instance.splitContainer1.Visible = !Root.Instance.splitContainer1.Visible;
+            },
+            delegate
+            {
+                Root.Instance.chkStartBot.Checked = !Root.Instance.chkStartBot.Checked;
+            },
+            delegate
+            {
+                Player.CancelTarget();
+            },
+            //auto target
+            delegate
+            {
+                PvP.Instance.SetTargetPlayer();
             },
             delegate
             {
@@ -98,10 +111,6 @@ namespace Grimoire.UI
                 {
                     CreateJoinCommand($"{map}-{mapnumber}", cell, pad)
                 });
-            },
-            delegate
-            {
-                BotToggleAsync();
             },
             delegate
             {
@@ -156,18 +165,11 @@ namespace Grimoire.UI
         private IContainer components;
 
         private DarkListBox lstKeys;
-
-        private DarkComboBox cbKeys;
-
-        private DarkComboBox cbActions;
-
-        private DarkButton btnAdd;
-
-        private DarkButton btnRemove;
-
-        private TableLayoutPanel tableLayoutPanel1;
-
-        private DarkButton btnSave;
+		private DarkComboBox cbKeys;
+		private DarkComboBox cbActions;
+		private DarkButton btnAdd;
+		private DarkButton btnRemove;
+		private DarkButton btnSave;
 
         public static Hotkeys Instance
         {
@@ -279,7 +281,7 @@ namespace Grimoire.UI
             Hotkey hotkey = InstalledHotkeys.First((Hotkey h) => h.Key == key);
             if (ApplicationContainsFocus() || (string)cbActions.Items[hotkey.ActionIndex] == "Minimize to tray")
             {
-                Console.WriteLine("custom action");
+                Console.WriteLine("key: " + key.ToString());
                 Actions[hotkey.ActionIndex]();
             }
         }
@@ -315,36 +317,51 @@ namespace Grimoire.UI
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(Hotkeys));
-            this.lstKeys = new DarkListBox();
-            this.cbKeys = new DarkComboBox();
-            this.cbActions = new DarkComboBox();
-            this.btnAdd = new DarkButton();
-            this.btnRemove = new DarkButton();
-            this.btnSave = new DarkButton();
-            this.tableLayoutPanel1 = new TableLayoutPanel();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // lstKeys
-            // 
-            this.lstKeys.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
-            | AnchorStyles.Left
-            | AnchorStyles.Right;
-            this.lstKeys.BorderStyle = BorderStyle.FixedSingle;
-            this.lstKeys.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            this.lstKeys.FormattingEnabled = true;
-            this.lstKeys.HorizontalScrollbar = true;
-            this.lstKeys.Location = new Point(12, 68);
-            this.lstKeys.Name = "lstKeys";
-            this.lstKeys.Size = new Size(230, 80);
-            this.lstKeys.TabIndex = 28;
-            // 
-            // cbKeys
-            // 
-            this.cbKeys.Dock = DockStyle.Fill;
-            this.cbKeys.FormattingEnabled = true;
-            this.cbKeys.Items.AddRange(new object[] {
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Hotkeys));
+			this.lstKeys = new DarkUI.Controls.DarkListBox(this.components);
+			this.btnSave = new DarkUI.Controls.DarkButton();
+			this.cbKeys = new DarkUI.Controls.DarkComboBox();
+			this.cbActions = new DarkUI.Controls.DarkComboBox();
+			this.btnAdd = new DarkUI.Controls.DarkButton();
+			this.btnRemove = new DarkUI.Controls.DarkButton();
+			this.SuspendLayout();
+			// 
+			// lstKeys
+			// 
+			this.lstKeys.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.lstKeys.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+			this.lstKeys.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.lstKeys.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+			this.lstKeys.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lstKeys.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.lstKeys.FormattingEnabled = true;
+			this.lstKeys.HorizontalScrollbar = true;
+			this.lstKeys.ItemHeight = 18;
+			this.lstKeys.Location = new System.Drawing.Point(12, 39);
+			this.lstKeys.Name = "lstKeys";
+			this.lstKeys.Size = new System.Drawing.Size(281, 200);
+			this.lstKeys.TabIndex = 28;
+			// 
+			// btnSave
+			// 
+			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSave.Checked = false;
+			this.btnSave.Location = new System.Drawing.Point(13, 271);
+			this.btnSave.Name = "btnSave";
+			this.btnSave.Size = new System.Drawing.Size(280, 23);
+			this.btnSave.TabIndex = 33;
+			this.btnSave.Text = "Save";
+			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+			// 
+			// cbKeys
+			// 
+			this.cbKeys.FormattingEnabled = true;
+			this.cbKeys.Items.AddRange(new object[] {
+            "Escape",
             "Left",
             "Up",
             "Right",
@@ -396,26 +413,32 @@ namespace Grimoire.UI
             "F9",
             "F10",
             "F11",
-            "F12"});
-            this.cbKeys.Location = new Point(3, 3);
-            this.cbKeys.Name = "cbKeys";
-            this.cbKeys.Size = new Size(109, 21);
-            this.cbKeys.TabIndex = 29;
-            // 
-            // cbActions
-            // 
-            this.cbActions.Dock = DockStyle.Fill;
-            this.cbActions.FormattingEnabled = true;
-            this.cbActions.Items.AddRange(new object[] {
+            "F12",
+            "Alt",
+            "Tab",
+            "Shift"});
+			this.cbKeys.Location = new System.Drawing.Point(12, 12);
+			this.cbKeys.MaxDropDownItems = 20;
+			this.cbKeys.Name = "cbKeys";
+			this.cbKeys.Size = new System.Drawing.Size(106, 21);
+			this.cbKeys.TabIndex = 35;
+			// 
+			// cbActions
+			// 
+			this.cbActions.FormattingEnabled = true;
+			this.cbActions.Items.AddRange(new object[] {
             "Show Bot",
             "Show Hotkeys",
             "Show Loaders",
-            "Show Packet logger",
-            "Show Packet spammer",
-            "Show Fast travels",
-            "Show Menu",
+            "Show Packet Logger",
+            "Show Packet Spammer",
+            "Show Fast Travels",
+            "Show Menubar",
+            "Start/Stop Bot",
+            "Cancel Target",
+            "Auto Target",
             "Minimize to tray",
-            "Show bank",
+            "Show Bank",
             "Show Cosmetics form",
             "Show Logs",
             "Show Notepad",
@@ -423,87 +446,56 @@ namespace Grimoire.UI
             "Load Armor Customizer",
             "Yulgar Suite 42",
             "Relog",
-            "Start/Stop Bot",
             "Toggle Options",
-            "Execute Debug"
-            });
-            this.cbActions.Location = new Point(118, 3);
-            this.cbActions.Name = "cbActions";
-            this.cbActions.Size = new Size(109, 21);
-            this.cbActions.TabIndex = 30;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Dock = DockStyle.Fill;
-            this.btnAdd.Location = new Point(3, 30);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new Size(109, 21);
-            this.btnAdd.TabIndex = 31;
-            this.btnAdd.Text = "Add";
-            //this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new EventHandler(this.btnAdd_Click);
-            // 
-            // btnRemove
-            // 
-            this.btnRemove.Dock = DockStyle.Fill;
-            this.btnRemove.Location = new Point(118, 30);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new Size(109, 21);
-            this.btnRemove.TabIndex = 32;
-            this.btnRemove.Text = "Remove";
-            //this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new EventHandler(this.btnRemove_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Left
-            | AnchorStyles.Right;
-            this.btnSave.Location = new Point(12, 154);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new Size(230, 23);
-            this.btnSave.TabIndex = 33;
-            this.btnSave.Text = "Save";
-            //this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new EventHandler(this.btnSave_Click);
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Left
-            | AnchorStyles.Right;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.cbKeys, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnAdd, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.cbActions, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnRemove, 1, 1);
-            this.tableLayoutPanel1.Location = new Point(12, 8);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new Size(230, 54);
-            this.tableLayoutPanel1.TabIndex = 34;
+            "Execute Debug"});
+			this.cbActions.Location = new System.Drawing.Point(124, 12);
+			this.cbActions.MaxDropDownItems = 20;
+			this.cbActions.Name = "cbActions";
+			this.cbActions.Size = new System.Drawing.Size(169, 21);
+			this.cbActions.TabIndex = 36;
+			// 
+			// btnAdd
+			// 
+			this.btnAdd.Checked = false;
+			this.btnAdd.Location = new System.Drawing.Point(13, 244);
+			this.btnAdd.Name = "btnAdd";
+			this.btnAdd.Size = new System.Drawing.Size(138, 21);
+			this.btnAdd.TabIndex = 39;
+			this.btnAdd.Text = "Add";
+			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+			// 
+			// btnRemove
+			// 
+			this.btnRemove.Checked = false;
+			this.btnRemove.Location = new System.Drawing.Point(158, 244);
+			this.btnRemove.Name = "btnRemove";
+			this.btnRemove.Size = new System.Drawing.Size(135, 21);
+			this.btnRemove.TabIndex = 40;
+			this.btnRemove.Text = "Remove";
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // Hotkeys
             // 
-            this.AutoScaleDimensions = new SizeF(6F, 13F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(255, 186);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.lstKeys);
-            this.Icon = (Icon)resources.GetObject("$this.Icon");
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Hotkeys";
-            this.Text = "Hotkeys";
-            this.TopMost = true;
-            this.FormClosing += new FormClosingEventHandler(this.Hotkeys_FormClosing);
-            this.Load += new EventHandler(this.Hotkeys_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(303, 306);
+			this.Controls.Add(this.btnAdd);
+			this.Controls.Add(this.btnRemove);
+			this.Controls.Add(this.cbKeys);
+			this.Controls.Add(this.cbActions);
+			this.Controls.Add(this.btnSave);
+			this.Controls.Add(this.lstKeys);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "Hotkeys";
+			this.Text = "Hotkeys";
+			this.TopMost = true;
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Hotkeys_FormClosing);
+			this.Load += new System.EventHandler(this.Hotkeys_Load);
+			this.ResumeLayout(false);
 
         }
-    }
+	}
 }

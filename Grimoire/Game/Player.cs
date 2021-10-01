@@ -190,6 +190,37 @@ namespace Grimoire.Game
         public static int SkillAvailable(string index) => Flash.Call<int>("SkillAvailable", new string[1]{index});
 
         /// <summary>
+        /// Get Skill Cooldown.
+        /// <param name="index"></param>
+        public static string GetSkillCooldown(string index) => Flash.Call<string>("GetSkillCooldown", new string[1] { index });
+
+        /// <summary>
+        /// Set Skill Cooldown.
+        /// <param name="index">Skill index</param>
+        /// <param name="value">Skill cooldown value</param>
+        public static void SetSkillCooldown(string index, string value) => Flash.Call<int>("SetSkillCooldown", new string[2] { index, value });
+
+        /// <summary>
+        /// Set Skill Range.
+        /// <param name="index"></param>
+        public static void SetSkillRange(string index, string value) => Flash.Call<int>("SetSkillRange", new string[2] { index, value });
+
+        /// <summary>
+        /// Set Skill Mana.
+        /// <param name="index"></param>
+        public static void SetSkillMana(string index, string value) => Flash.Call<int>("SetSkillMana", new string[2] { index, value });
+
+        /// <summary>
+        /// Auto Target PvP.
+        /// <param name="index"></param>
+        public static void SetTargetPvP(string username) => Flash.Call<int>("SetTargetPvP", new string[1] { username });
+
+        /// <summary>
+        /// Get Avatars in Map.
+        /// <param name="index"></param>
+        public static string GetAvatars() => Flash.Call<string>("GetAvatars", new string[0]);
+
+        /// <summary>
         ///  Toggles mute.
         /// </summary>
         public static void ToggleMute(bool b) => Flash.Call("MuteToggle", b);
@@ -254,6 +285,7 @@ namespace Grimoire.Game
         public static void UseBoost(int id) => Flash.Call("UseBoost", id.ToString());
 
         public static void UseSkill(string index) => Flash.Call("UseSkill", index);
+        public static void ForceUseSkill(string index) => Flash.Call("ForceUseSkill", index);
 
         public static void GetMapItem(string id) => Flash.Call("GetMapItem", id);
 

@@ -76,6 +76,7 @@ namespace Grimoire.UI
 		public ToolStripMenuItem disableAnimationsToolStripMenuItem;
 		public ToolStripMenuItem pluginsStrip;
 		private ToolStripMenuItem aboutToolStripMenuItem;
+		private ToolStripMenuItem pvptoolStripMenuItem1;
 
 		public static Root Instance
 		{
@@ -83,7 +84,7 @@ namespace Grimoire.UI
 			private set;
 		}
 
-        private String defFlashFile = "Loader/grimoire.swf";
+        private string defFlashFile = "Loader/grimoire.swf";
 
         public AxShockwaveFlash Client => flashPlayer;
 
@@ -112,7 +113,7 @@ namespace Grimoire.UI
 
 		private void OnLoadProgress(int progress)
 		{
-            if (progress < prgLoader.Maximum)
+			if (progress < prgLoader.Maximum)
             {
                 if (progress == 1) prgLoader.Visible = true;
                 prgLoader.Value = progress;
@@ -187,7 +188,7 @@ namespace Grimoire.UI
 
 		public void InitFlashMovie(string gameSwf)
         {
-            Flash.SwfLoadProgress += OnLoadProgress;
+            //Flash.SwfLoadProgress += OnLoadProgress;
 
             byte[] aqlitegrimoire;
 
@@ -282,6 +283,7 @@ namespace Grimoire.UI
 			this.btnGetCell = new DarkUI.Controls.DarkButton();
 			this.btnReloadBank = new DarkUI.Controls.DarkButton();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.darkMenuStrip1 = new DarkUI.Controls.DarkMenuStrip();
 			this.botToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fastTravelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -298,6 +300,7 @@ namespace Grimoire.UI
 			this.changeServerList = new System.Windows.Forms.ToolStripComboBox();
 			this.DPSMeterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.commandeditornodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.pvptoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.packetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.snifferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.spammerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -312,7 +315,6 @@ namespace Grimoire.UI
 			this.disableAnimationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pluginsStrip = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.darkMenuStrip1 = new DarkUI.Controls.DarkMenuStrip();
 			((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -329,9 +331,7 @@ namespace Grimoire.UI
 			// 
 			// flashPlayer
 			// 
-			this.flashPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.flashPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flashPlayer.Enabled = true;
 			this.flashPlayer.Location = new System.Drawing.Point(0, 0);
 			this.flashPlayer.Name = "flashPlayer";
@@ -576,6 +576,28 @@ namespace Grimoire.UI
 			this.splitContainer1.SplitterWidth = 1;
 			this.splitContainer1.TabIndex = 38;
 			// 
+			// darkMenuStrip1
+			// 
+			this.darkMenuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.darkMenuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.darkMenuStrip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.darkMenuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
+			this.darkMenuStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.darkMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.botToolStripMenuItem,
+            this.toolsToolStripMenuItem,
+            this.packetsToolStripMenuItem,
+            this.optionsToolStripMenuItem,
+            this.pluginsStrip,
+            this.aboutToolStripMenuItem});
+			this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
+			this.darkMenuStrip1.Name = "darkMenuStrip1";
+			this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(2);
+			this.darkMenuStrip1.Size = new System.Drawing.Size(960, 27);
+			this.darkMenuStrip1.TabIndex = 35;
+			this.darkMenuStrip1.Text = "darkMenuStrip1";
+			this.darkMenuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuMain_MouseDown);
+			// 
 			// botToolStripMenuItem
 			// 
 			this.botToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
@@ -601,7 +623,8 @@ namespace Grimoire.UI
             this.notepadToolStripMenuItem1,
             this.changeServerMenuItem,
             this.DPSMeterToolStripMenuItem,
-            this.commandeditornodeToolStripMenuItem});
+            this.commandeditornodeToolStripMenuItem,
+            this.pvptoolStripMenuItem1});
 			this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
 			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 23);
@@ -665,7 +688,7 @@ namespace Grimoire.UI
 			// 
 			this.setsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
 			this.setsToolStripMenuItem.Enabled = false;
-			this.setsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.setsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
 			this.setsToolStripMenuItem.Name = "setsToolStripMenuItem";
 			this.setsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
 			this.setsToolStripMenuItem.Text = "Sets";
@@ -723,7 +746,7 @@ namespace Grimoire.UI
 			// 
 			this.DPSMeterToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
 			this.DPSMeterToolStripMenuItem.Enabled = false;
-			this.DPSMeterToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.DPSMeterToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
 			this.DPSMeterToolStripMenuItem.Name = "DPSMeterToolStripMenuItem";
 			this.DPSMeterToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
 			this.DPSMeterToolStripMenuItem.Text = "DPS Meter";
@@ -739,6 +762,15 @@ namespace Grimoire.UI
 			this.commandeditornodeToolStripMenuItem.Text = "commandeditornode";
 			this.commandeditornodeToolStripMenuItem.Visible = false;
 			this.commandeditornodeToolStripMenuItem.Click += new System.EventHandler(this.commandeditornodeToolStripMenuItem_Click);
+			// 
+			// pvptoolStripMenuItem1
+			// 
+			this.pvptoolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.pvptoolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.pvptoolStripMenuItem1.Name = "pvptoolStripMenuItem1";
+			this.pvptoolStripMenuItem1.Size = new System.Drawing.Size(187, 22);
+			this.pvptoolStripMenuItem1.Text = "PvP";
+			this.pvptoolStripMenuItem1.Click += new System.EventHandler(this.pvptoolStripMenuItem1_Click);
 			// 
 			// packetsToolStripMenuItem
 			// 
@@ -882,33 +914,11 @@ namespace Grimoire.UI
 			this.aboutToolStripMenuItem.Text = "About";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
-			// darkMenuStrip1
-			// 
-			this.darkMenuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-			this.darkMenuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.darkMenuStrip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.darkMenuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
-			this.darkMenuStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.darkMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.botToolStripMenuItem,
-            this.toolsToolStripMenuItem,
-            this.packetsToolStripMenuItem,
-            this.optionsToolStripMenuItem,
-            this.pluginsStrip,
-            this.aboutToolStripMenuItem});
-			this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
-			this.darkMenuStrip1.Name = "darkMenuStrip1";
-			this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(2);
-			this.darkMenuStrip1.Size = new System.Drawing.Size(960, 27);
-			this.darkMenuStrip1.TabIndex = 35;
-			this.darkMenuStrip1.Text = "darkMenuStrip1";
-			this.darkMenuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuMain_MouseDown);
-			// 
 			// Root
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.Black;
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
 			this.ClientSize = new System.Drawing.Size(960, 597);
 			this.Controls.Add(this.prgLoader);
 			this.Controls.Add(this.splitContainer1);
@@ -1371,6 +1381,11 @@ namespace Grimoire.UI
 		private void btnReloadBank_Click(object sender, EventArgs e)
 		{
 			_ = Proxy.Instance.SendToServer($"%xt%zm%loadBank%{World.RoomId}%All%");
+		}
+
+		private void pvptoolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			ShowForm(PvP.Instance);
 		}
 	}
 }

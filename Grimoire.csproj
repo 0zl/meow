@@ -438,6 +438,12 @@
     <Compile Include="Grimoire\UI\PluginManager.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Grimoire\UI\PvP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\PvP.Designer.cs">
+      <DependentUpon>PvP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Grimoire\UI\RawCommandEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -532,6 +538,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Grimoire\UI\PluginManager.resx">
       <DependentUpon>PluginManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\PvP.resx">
+      <DependentUpon>PvP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Grimoire\UI\RawCommandEditor.resx">
       <DependentUpon>RawCommandEditor.cs</DependentUpon>
