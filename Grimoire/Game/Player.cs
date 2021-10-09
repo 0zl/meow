@@ -3,6 +3,7 @@ using Grimoire.Botting.Commands.Map;
 using Grimoire.Game.Data;
 using Grimoire.Tools;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -102,6 +103,9 @@ namespace Grimoire.Game
         /// </summary>
         public static bool IsLoggedIn => Flash.Call<bool>("IsLoggedIn", new string[0]);
 
+        //public static bool IsLoggedIn => Flash.Call<string>("IsLoggedIn", new string[0]) == "True";
+
+
         /// <summary>
         /// Gets Cell.
         /// </summary>
@@ -175,7 +179,7 @@ namespace Grimoire.Game
         /// <summary>
         /// Finds player position (float).
         /// </summary>
-        public static float[] Position => Flash.Call<float[]>("Position", new string[0]);
+        public static string[] Position => Flash.Call<string[]>("Position", new string[0]);
 
         /// <summary>
         /// Checks if the player is a member (upgrade).
@@ -263,6 +267,8 @@ namespace Grimoire.Game
         /// Sets Respawn Point to Current Cell Pad
         /// </summary>
         public static void SetSpawnPoint() => Flash.Call("SetSpawnPoint", new string[0]);
+        
+        public static int GetTargetHealth() => Flash.Call<int>("GetTargetHealth", new string[0]);
 
         public static void MoveToCell(string cell, string pad = "Spawn") => Flash.Call("Jump", cell, pad);
 

@@ -70,6 +70,7 @@ namespace Grimoire.Networking
 
 		public void Stop(bool appClosing)
 		{
+			if (this._listener == null) return;
 			if (appClosing)
 				AppClosingToken.Cancel();
 			this._listener.Stop();
@@ -88,6 +89,7 @@ namespace Grimoire.Networking
 
 		private void OnClientAccept(IAsyncResult result)
 		{
+			Console.WriteLine("connecting...");
 			if (AppClosingToken.IsCancellationRequested) return;
 			if (this._client != null)
 			{
@@ -104,7 +106,9 @@ namespace Grimoire.Networking
 			try
 			{
 				this._client = new GrimoireClient(this._listener.EndAcceptTcpClient(result));
-				this._server = new GrimoireClient(Flash.Call<string>("RealAddress", new string[0]), Flash.Call<int>("RealPort", new string[0]));
+				string address = Flash.Call<string>("RealAddress", new string[0]);
+				int port = int.Parse(Flash.Call<string>("RealPort", new string[0]));
+				this._server = new GrimoireClient(address, port);
 				this._client.Disconnected += this.OnClientDisconnect;
 				this._server.Disconnected += this.OnServerDisconnect;
 				this._client.MessageReceived += this.OnClientMessage;
@@ -225,8 +229,11 @@ namespace Grimoire.Networking
 
 		public async Task SendToServer(string data)
 		{
-			string text = data.Replace("{ROOM_ID}", World.RoomId.ToString());
-			await this._server.WriteTask(text);
+			/*string text = data.Replace("{ROOM_ID}", World.RoomId.ToString());
+			await this._server.WriteTask(text);*/
+
+			bool json = data.StartsWith("{");
+			Flash.SendPacket(data, json ? "Json" : "String");
 		}
 
 		public async Task SendToServer(byte[] data)
@@ -236,7 +243,10 @@ namespace Grimoire.Networking
 
 		public async Task SendToClient(string data)
 		{
-			await this._client.WriteTask(data);
+			//await this._client.WriteTask(data);
+
+			bool json = data.StartsWith("{");
+			Flash.SendClientPacket(data, json ? "json" : "str");
 		}
 
 		public async Task SendToClient(byte[] data)

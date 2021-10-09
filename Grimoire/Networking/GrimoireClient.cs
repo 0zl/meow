@@ -13,6 +13,18 @@ namespace Grimoire.Networking
 
 		public event Action<string> MessageReceived;
 
+		private const int BufferSize = 1024;
+
+		private readonly TcpClient _client;
+
+		private readonly byte[] _readBuffer;
+
+		private List<byte> _spillBuffer;
+
+		private bool _connected;
+
+		private readonly object _disconnectLock;
+
 		public GrimoireClient(TcpClient client)
 		{
 			this._readBuffer = new byte[1024];
@@ -28,14 +40,38 @@ namespace Grimoire.Networking
 			this._spillBuffer = new List<byte>();
 			this._disconnectLock = new object();
 			this._client = new TcpClient();
-			try
+			/*try
 			{
-				this._client.Connect(IPAddress.Parse(address), port);
+				this._client.Connect(address, port);
 			}
 			catch (Exception)
 			{
+				Console.WriteLine($"ip:{Dns.GetHostAddresses(address)[0]} port:{port}");
 				this._client.Connect(Dns.GetHostAddresses(address)[0], port);
+
+				IPHostEntry hostEntry = Dns.GetHostEntry(address);
+				if (hostEntry.AddressList.Length > 0)
+				{
+					foreach (var ip in hostEntry.AddressList)
+					{
+						Console.WriteLine("ip: " + ip);
+					}
+					*//*Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+					s.Connect(ip, port);*//*
+				}
+			}*/
+
+			IPHostEntry hostEntry = Dns.GetHostEntry(address);
+			if (hostEntry.AddressList.Length > 0)
+			{
+				foreach (var ip in hostEntry.AddressList)
+				{
+					Console.WriteLine("ip: " + ip);
+				}
+				this._client.Connect(hostEntry.AddressList[0], port);
 			}
+
+			Console.WriteLine($"Connected: {this._client.Connected}");
 			this._connected = true;
 		}
 
@@ -179,17 +215,5 @@ namespace Grimoire.Networking
 				this.Disconnect();
 			}
 		}
-
-		private const int BufferSize = 1024;
-
-		private readonly TcpClient _client;
-
-		private readonly byte[] _readBuffer;
-
-		private List<byte> _spillBuffer;
-
-		private bool _connected;
-
-		private readonly object _disconnectLock;
 	}
 }

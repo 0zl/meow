@@ -36,6 +36,11 @@ namespace Grimoire.Game
 
         public static string[] Cells => Flash.Call<string[]>("GetCells", new string[0]);
 
+        /*public static string[] Cells { get {
+                string cells = Flash.Call<string>("GetCells", new string[0]);
+                return cells.Trim(new Char[] { ' ', '\"', '[', ']' }).Split(','); 
+            } }*/
+
         public static int RoomId => Flash.Call<int>("RoomId", new string[0]);
 
         public static int RoomNumber => Flash.Call<int>("RoomNumber", new string[0]);
@@ -57,6 +62,8 @@ namespace Grimoire.Game
                 //LogForm.Instance.AppendDrops($"[Item Drop] {drop.Quantity} {drop.Name} at {DateTime.Now:hh:mm:ss tt} [{text}] \r\n");
                 itemDropped(drop);
             }
+
+            //ItemDropped?.Invoke(drop);
         }
 
         public static void OnShopLoaded(ShopInfo shopInfo)

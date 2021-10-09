@@ -1,6 +1,7 @@
 using DarkUI.Controls;
 using DarkUI.Forms;
 using Grimoire.Networking;
+using Grimoire.Tools;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -64,11 +65,33 @@ namespace Grimoire.UI
         {
             if (chkFromClient.Checked)
             {
-                Proxy.Instance.ReceivedFromClient += ReceivedFromClient;
+                //Proxy.Instance.ReceivedFromClient += ReceivedFromClient;
+                Flash.FlashCall += FlashUtil_FlashCallClient;
             }
             else
             {
-                Proxy.Instance.ReceivedFromClient -= ReceivedFromClient;
+                //Proxy.Instance.ReceivedFromClient -= ReceivedFromClient;
+                Flash.FlashCall += FlashUtil_FlashCallClient;
+            }
+        }
+        private void FlashUtil_FlashCallClient(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
+        {
+            if (function == "packet")
+            {
+                string packet = args[0].ToString();
+                if (packet.Contains(":"))
+                {
+                    packet = packet.Remove(0, packet.IndexOf(':') + 1);
+                }
+                packet = packet.Trim(new char[]{ ' ', '[', ']' });
+
+                if (packet.Contains(tbFilter.Text))
+                {
+                    this.txtSend.Invoke(new Action(delegate ()
+                    {
+                        this.Append("From client: " + packet);
+                    }));
+                }
             }
         }
 

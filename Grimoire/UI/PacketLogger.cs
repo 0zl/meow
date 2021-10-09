@@ -1,5 +1,6 @@
 using DarkUI.Controls;
 using DarkUI.Forms;
+using Grimoire.FlashTools;
 using Grimoire.Networking;
 using Grimoire.Tools;
 using System;
@@ -57,14 +58,34 @@ namespace Grimoire.UI
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            Proxy.Instance.ReceivedFromClient -= PacketCaptured;
+            //Proxy.Instance.ReceivedFromClient -= PacketCaptured;
             btnStart.Enabled = true;
+            Flash.FlashCall -= FlashUtil_FlashCall;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            //Proxy.Instance.ReceivedFromClient += PacketCaptured;
             btnStart.Enabled = false;
-            Proxy.Instance.ReceivedFromClient += PacketCaptured;
+            Flash.FlashCall += FlashUtil_FlashCall;
+        }
+
+        private void FlashUtil_FlashCall(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
+        {
+            if (function == "packet")
+            {
+                string packet = args[0].ToString();
+                if (packet.Contains(":"))
+                {
+                    packet = packet.Remove(0, packet.IndexOf(':') + 1);
+                }
+                packet = packet.Trim(new char[] { ' ', '[', ']' });
+
+                txtPackets.Invoke((Action)delegate
+                {
+                    txtPackets.AppendText(packet + Environment.NewLine);
+                });
+            }
         }
 
         private void PacketCaptured(Networking.Message msg)

@@ -1,4 +1,6 @@
 using AxShockwaveFlashObjects;
+using Grimoire.Botting;
+using Grimoire.Game;
 using Grimoire.Game.Data;
 using Grimoire.Networking;
 using Grimoire.UI;
@@ -34,6 +36,38 @@ namespace Grimoire.Tools
 
 		public static event Action<int> SwfLoadProgress;
 
+		/// <summary>
+		/// Sends the specified packet to the server.
+		/// </summary>
+		/// <param name="packet">The packet to be sent.</param>
+		/// <param name="type">The type of the packet being sent (String, Json). The default is string.</param>
+		/// <remarks>Be careful when using this method. Incorrect use of this method may cause you to be kicked (or banned, although very unlikely).</remarks>
+		public static void SendPacket(string packet, string type = "String")
+		{
+			CallGameFunction2("sfc.send" + type, packet);
+		}
+
+		/// <summary>
+		/// Sends the specified packet to the client (simulates a response as if the server sent the packet).
+		/// </summary>
+		/// <param name="packet">The packet to send.</param>
+		/// <param name="type">The type of the packet. This can be xml, json or str.</param>
+		public static void SendClientPacket(string packet, string type = "str")
+		{
+			Flash.Call("sendClientPacket", packet, type);
+		}
+
+		/// <summary>
+		/// Calls the actionscript object with the given name at the given location.
+		/// </summary>
+		/// <param name="path">The path to the object and its function name.</param>
+		/// <param name="args">The arguments to pass to the function.</param>
+		/// <returns>The value of the object returned by calling the function as a serialzied JSON string.</returns>
+		public static string CallGameFunction2(string path, params object[] args)
+		{
+			return args.Length > 0 ? Flash.Call("callGameFunction", new object[] { path }.Concat(args).ToArray()) : Flash.Call2("callGameFunction0", path);
+		}
+
 		public static void ProcessFlashCall(object sender, _IShockwaveFlashEvents_FlashCallEvent e)
 		{
 			XElement xElement = XElement.Parse(e.request);
@@ -47,7 +81,8 @@ namespace Grimoire.Tools
 			{
 				if (text == "modifyServers")
 				{
-					Root.Instance.Client.SetReturnValue("<string>" + ModifyServerList(text2.Trim()) + "</string>");
+					Console.WriteLine("m:" + ModifyServerList(text2.Trim()));
+					Root.Instance.flashPlayer.SetReturnValue("<string>" + ModifyServerList(text2.Trim()) + "</string>");
 				}
 			}
 			else
@@ -78,7 +113,7 @@ namespace Grimoire.Tools
 			}
 		}
 
-		public string CallGameFunction(string path, params object[] args)
+		public static string CallGameFunction(string path, params object[] args)
 		{
 			return args.Length > 0 ? Call("callGameFunction", new object[] { path }.Concat(args).ToArray()) : Call<string>("callGameFunction0", path);
 		}
@@ -86,6 +121,11 @@ namespace Grimoire.Tools
 		public void SetGameObject(string path, object value)
 		{
 			Call("setGameObject", path, value);
+		}
+
+		public static string Call2(string function, params object[] args)
+		{
+			return Call<string>(function, args);
 		}
 
 		public static string Call(string function, params object[] args)
@@ -97,7 +137,10 @@ namespace Grimoire.Tools
 		{
 			try
 			{
-				return (T)Call(function, typeof(T), args);
+				object o = Call(function, typeof(T), args);
+				if (o != null)
+					return (T)o;
+				return default;
 			}
 			catch
 			{
@@ -159,7 +202,7 @@ namespace Grimoire.Tools
 		{
 			try
 			{
-				return HttpUtility.HtmlDecode(XElement.Parse(Root.Instance.Client.CallFunction(request)).FirstNode?.ToString() ?? string.Empty);
+				return HttpUtility.HtmlDecode(XElement.Parse(Root.Instance.flashPlayer.CallFunction(request)).FirstNode?.ToString() ?? string.Empty);
 			}
 			catch
 			{
@@ -216,12 +259,11 @@ namespace Grimoire.Tools
 
 		private static string ModifyServerList(string response)
 		{
-			Console.WriteLine("res:"+response);
-            if (response.StartsWith("{\"login\"") && response.EndsWith("]}"))
+			if (response.StartsWith("{\"login\"") && response.EndsWith("]}"))
 			{
 				return ServersFromJson(response);
 			}
-            if (response.StartsWith("<login") && response.EndsWith("</login>"))
+			if (response.StartsWith("<login") && response.EndsWith("</login>"))
 			{
 				return ServersFromXml(response);
 			}
@@ -235,7 +277,7 @@ namespace Grimoire.Tools
 			JArray servers = (JArray)packet["servers"];
 			Server[] array = new Server[servers.Count];
 
-			login["iUpg"] = 1;
+			login["iUpg"] = 10;
 			login["iUpgDays"] = 999;
 
 			for (int i = 0; i < servers.Count; i++)
@@ -253,7 +295,7 @@ namespace Grimoire.Tools
 				server["RealAddress"] = server["sIP"];
 				server["RealPort"] = server["iPort"].ToString();
 				server["sIP"] = "127.0.0.1";
-				server["iPort"] = Proxy.Instance.ListenerPort.ToString();
+				server["iPort"] = Proxy.Instance.ListenerPort;
 			}
 			BotManager.Instance.OnServersLoaded(array);
 			return packet.ToString(Newtonsoft.Json.Formatting.None);
@@ -323,8 +365,117 @@ namespace Grimoire.Tools
 		{
 			XElement el = XElement.Parse(e.request);
 			string name = el.Attribute("name").Value;
+
+			if (name == null)
+				return;
+
 			object[] args = el.Elements().Select(x => FromFlashXml(x)).ToArray();
-			FlashCall?.Invoke(flash, name, args);
+
+			//Console.WriteLine($"{name} : {args[0].ToString().Trim()}");
+
+			switch (name)
+			{
+				case "progress":
+					SwfLoadProgress?.Invoke(int.Parse(args[0].ToString()));
+					break;
+
+				case "modifyServers":
+					Root.Instance.flashPlayer.SetReturnValue("<string>" + ModifyServerList(args[0].ToString().Trim()) + "</string>");
+					break;
+
+				case "getServers":
+					JObject packet = (JObject)JObject.Parse(args[0].ToString());
+					JObject login = (JObject)packet["login"];
+					JArray servers = (JArray)packet["servers"];
+					Server[] array = new Server[servers.Count];
+					for (int i = 0; i < servers.Count; i++)
+					{
+						JObject server = (JObject)servers[i];
+						array[i] = new Server
+						{
+							IsChatRestricted = server.GetValue("iChat")?.ToString() == "0",
+							PlayerCount = int.Parse(server.GetValue("iCount")?.ToString()),
+							IsMemberOnly = server.GetValue("bUpg")?.ToString() == "1",
+							IsOnline = server.GetValue("bOnline")?.ToString() == "1",
+							Name = server.GetValue("sName")?.ToString(),
+							Port = int.Parse(server.GetValue("iPort")?.ToString()),
+							Ip = server.GetValue("sIP")?.ToString()
+						};
+						server["sIP"] = server["sIP"];
+						server["iPort"] = server["iPort"].ToString();
+					}
+					BotManager.Instance.OnServersLoaded(array);
+					PacketInterceptor.Instance.OnServersLoaded(array);
+					break;
+
+				case "pext":
+					args[0] = ProcessPext((string)args[0]);
+					FlashCall?.Invoke(flash, name, args);
+					break;
+
+				default:
+					FlashCall?.Invoke(flash, name, args);
+					break;
+			}
+
+		}
+
+		public static string ProcessPext(string text)
+		{
+			dynamic packet = JsonConvert.DeserializeObject<dynamic>(text);
+			string type = packet["params"].type;
+			dynamic data = packet["params"].dataObj;
+			if (type == "json")
+			{
+				string cmd = data.cmd;
+				switch (cmd)
+				{
+					case "dropItem":
+						JObject items = (JObject)data["items"];
+						if (items != null)
+						{
+							InventoryItem item = items.ToObject<Dictionary<int, InventoryItem>>().First().Value;
+							World.OnItemDropped(item);
+							if (BotManager.Instance.ActiveBotEngine.IsRunning)
+							{
+								Configuration configuration = BotManager.Instance.ActiveBotEngine.Configuration;
+								bool send = !configuration.EnableRejection || !configuration.Drops.All((string d) => !d.Equals(item.Name, StringComparison.OrdinalIgnoreCase));
+								return send ? text : "";
+							}
+						}
+						break;
+
+					case "getQuests":
+						JObject quests = (JObject)data["quests"];
+						Dictionary<int, Quest> dictionary = quests?.ToObject<Dictionary<int, Quest>>();
+						if (dictionary != null && dictionary.Count > 0)
+						{
+							Player.Quests.OnQuestsLoaded(dictionary.Select((KeyValuePair<int, Quest> q) => q.Value).ToList());
+						}
+						break;
+
+					case "ccqr":
+						var comp = data.DataObject.ToObject<CompletedQuest>();
+						Player.Quests.OnQuestCompleted(comp);
+						break;
+
+					case "loadShop":
+						JObject shopinfo = (JObject)data["shopinfo"];
+						if (shopinfo != null)
+						{
+							World.OnShopLoaded(shopinfo.ToObject<ShopInfo>());
+						}
+						break;
+
+					default:
+						return text;
+				}
+			}
+			if (type == "str")
+			{
+
+			}
+			return text;
 		}
 	}
 }

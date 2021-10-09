@@ -37,7 +37,7 @@ namespace Grimoire.Botting.Commands.Map
                 Player.WalkToPoint(X, Y);
                 await instance.WaitUntil(delegate
                 {
-                    float[] position = Player.Position;
+                    string[] position = Player.Position;
                     return position[0].ToString() == X && position[1].ToString() == Y;
                 });
             }

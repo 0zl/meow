@@ -17,6 +17,13 @@ using DarkUI.Controls;
 using Grimoire.Networking.Handlers;
 using System.Reflection;
 using System.Linq;
+using System.Net;
+using Grimoire.GameProxy;
+using Grimoire.FlashTools;
+using Newtonsoft.Json;
+using Grimoire.Utils;
+using System.Threading;
+using Grimoire.FlashEoLHook;
 //using Grimoire.FlashEoLHook;
 
 namespace Grimoire.UI
@@ -26,7 +33,6 @@ namespace Grimoire.UI
 		private IContainer components;
 
 		private NotifyIcon nTray;
-		private AxShockwaveFlash flashPlayer;
 		private ToolStripMenuItem startToolStripMenuItem;
 		private ToolStripMenuItem stopToolStripMenuItem;
 		private Button btnMax;
@@ -35,8 +41,8 @@ namespace Grimoire.UI
 		private ToolStripMenuItem managerToolStripMenuItem;
 		private ToolStripMenuItem loadBotToolStripMenuItem;
 		private Panel panel1;
-        private ProgressBar prgLoader;
-        public MenuStrip MenuMain;
+		private ProgressBar prgLoader;
+		public MenuStrip MenuMain;
 		private DarkComboBox cbPads;
 		private DarkComboBox cbCells;
 		private DarkButton btnBank;
@@ -77,6 +83,7 @@ namespace Grimoire.UI
 		public ToolStripMenuItem pluginsStrip;
 		private ToolStripMenuItem aboutToolStripMenuItem;
 		private ToolStripMenuItem pvptoolStripMenuItem1;
+		private Panel gameContainer;
 
 		public static Root Instance
 		{
@@ -84,47 +91,90 @@ namespace Grimoire.UI
 			private set;
 		}
 
-        private string defFlashFile = "Loader/grimoire.swf";
+		public AxShockwaveFlash flashPlayer = new AxShockwaveFlash();
+		private ToolStripMenuItem toolStripMenuItem1;
 
-        public AxShockwaveFlash Client => flashPlayer;
+		//public AxShockwaveFlash Client => flashPlayer;
+
+		private string defFlashFile = "Loader/grimoire.swf";
 
 		public Root()
 		{
-			if (!System.Diagnostics.Debugger.IsAttached && false)
-				Process.Start(@"updater.exe");
-            //EoLHook.Hook();
-
 			this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
-
 			InitializeComponent();
 			this.CenterToScreen();
 			Instance = this;
 		}
 
 		private void Root_Load(object sender, EventArgs e)
-        {
-            Task.Factory.StartNew(Proxy.Instance.Start, TaskCreationOptions.LongRunning);
-            Flash.flash = flashPlayer;
-            flashPlayer.FlashCall += Flash.ProcessFlashCall;
-            InitFlashMovie(defFlashFile);
-            Hotkeys.Instance.LoadHotkeys();
-            Config c = Config.Load(System.Windows.Forms.Application.StartupPath + "\\config.cfg");
-        }
+		{
+			//Task.Factory.StartNew(Proxy.Instance.Start, TaskCreationOptions.LongRunning);
+			InitFlashMovie(defFlashFile);
+
+			Hotkeys.Instance.LoadHotkeys();
+			Config c = Config.Load(Application.StartupPath + "\\config.cfg");
+		}
+
+		private void Root_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Hotkeys.InstalledHotkeys.ForEach(delegate (Hotkey h)
+			{
+				h.Uninstall();
+			});
+			KeyboardHook.Instance.Dispose();
+			Proxy.Instance.Stop(appClosing: true);
+			CommandColorForm.Instance.Dispose();
+			nTray.Visible = false;
+			nTray.Icon.Dispose();
+			nTray.Dispose();
+		}
+
+		public void InitFlashMovie(string gameSwf)
+		{
+			EoLHook.Hook();
+			Flash.flash?.Dispose();
+			Flash.SwfLoadProgress += OnLoadProgress;
+
+			flashPlayer.BeginInit();
+			flashPlayer.Name = "flash";
+			flashPlayer.Dock = DockStyle.Fill;
+			flashPlayer.TabIndex = 0;
+			//flashPlayer.FlashCall += Flash.ProcessFlashCall;
+			flashPlayer.FlashCall += Flash.CallHandler;
+			gameContainer.Controls.Add(flashPlayer);
+			flashPlayer.EndInit();
+
+			byte[] swf = File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), gameSwf));
+
+			using (MemoryStream stream = new MemoryStream())
+			using (BinaryWriter writer = new BinaryWriter(stream))
+			{
+				writer.Write(8 + swf.Length);
+				writer.Write(1432769894);
+				writer.Write(swf.Length);
+				writer.Write(swf);
+				writer.Seek(0, SeekOrigin.Begin);
+				flashPlayer.OcxState = new AxHost.State(stream, 1, false, null);
+			}
+
+			Flash.flash = flashPlayer;
+			EoLHook.Unhook();
+		}
 
 		private void OnLoadProgress(int progress)
 		{
 			if (progress < prgLoader.Maximum)
-            {
-                if (progress == 1) prgLoader.Visible = true;
-                prgLoader.Value = progress;
-                return;
-            }
-            Flash.SwfLoadProgress -= OnLoadProgress;
-            flashPlayer.Visible = true;
-            prgLoader.Visible = false;
-        }
+			{
+				if (progress == 1) prgLoader.Visible = true;
+				prgLoader.Value = progress;
+				return;
+			}
+			FlashUtil.SwfLoadProgress -= OnLoadProgress;
+			flashPlayer.Visible = true;
+			prgLoader.Visible = false;
+		}
 
-        public BotManager botManager = BotManager.Instance;
+		public BotManager botManager = BotManager.Instance;
 
 		private void botToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -186,41 +236,6 @@ namespace Grimoire.UI
 			form.Focus();
 		}
 
-		public void InitFlashMovie(string gameSwf)
-        {
-            //Flash.SwfLoadProgress += OnLoadProgress;
-
-            byte[] aqlitegrimoire;
-
-			/*
-			if (!System.Diagnostics.Debugger.IsAttached)
-			{
-				aqlitegrimoire = Resources.aqlitegrimoire;
-			}
-			else
-			{
-				aqlitegrimoire = Resources.aqlitegrimoiredebug;
-			}
-			*/
-
-			aqlitegrimoire = File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), gameSwf));
-
-			using (MemoryStream memoryStream = new MemoryStream())
-			{
-				using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
-				{
-					binaryWriter.Write(8 + aqlitegrimoire.Length);
-					binaryWriter.Write(1432769894);
-					binaryWriter.Write(aqlitegrimoire.Length);
-					binaryWriter.Write(aqlitegrimoire);
-					memoryStream.Seek(0L, SeekOrigin.Begin);
-					flashPlayer.OcxState = new AxHost.State(memoryStream, 1, manualUpdate: false, null);
-				}
-			}
-
-            //EoLHook.Unhook();
-		}
-
 		private void btnBank_Click(object sender, EventArgs e)
 		{
 			Player.Bank.Show();
@@ -234,20 +249,6 @@ namespace Grimoire.UI
 			object[] cells = World.Cells;
 			object[] items2 = cells;
 			items.AddRange(items2);
-		}
-
-		private void Root_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			Hotkeys.InstalledHotkeys.ForEach(delegate (Hotkey h)
-			{
-				h.Uninstall();
-			});
-			KeyboardHook.Instance.Dispose();
-			Proxy.Instance.Stop(appClosing: true);
-			CommandColorForm.Instance.Dispose();
-			nTray.Visible = false;
-			nTray.Icon.Dispose();
-			nTray.Dispose();
 		}
 
 		protected override void Dispose(bool disposing)
@@ -264,7 +265,6 @@ namespace Grimoire.UI
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Root));
 			this.nTray = new System.Windows.Forms.NotifyIcon(this.components);
-			this.flashPlayer = new AxShockwaveFlashObjects.AxShockwaveFlash();
 			this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.managerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -305,6 +305,7 @@ namespace Grimoire.UI
 			this.snifferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.spammerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tampererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.infRangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.provokeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -315,7 +316,7 @@ namespace Grimoire.UI
 			this.disableAnimationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pluginsStrip = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).BeginInit();
+			this.gameContainer = new System.Windows.Forms.Panel();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
@@ -328,16 +329,6 @@ namespace Grimoire.UI
 			this.nTray.Text = "GrimLite";
 			this.nTray.Visible = true;
 			this.nTray.MouseClick += new System.Windows.Forms.MouseEventHandler(this.nTray_MouseClick);
-			// 
-			// flashPlayer
-			// 
-			this.flashPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.flashPlayer.Enabled = true;
-			this.flashPlayer.Location = new System.Drawing.Point(0, 0);
-			this.flashPlayer.Name = "flashPlayer";
-			this.flashPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("flashPlayer.OcxState")));
-			this.flashPlayer.Size = new System.Drawing.Size(960, 597);
-			this.flashPlayer.TabIndex = 2;
 			// 
 			// startToolStripMenuItem
 			// 
@@ -446,7 +437,7 @@ namespace Grimoire.UI
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.prgLoader.Location = new System.Drawing.Point(24, 256);
 			this.prgLoader.Name = "prgLoader";
-			this.prgLoader.Size = new System.Drawing.Size(910, 24);
+			this.prgLoader.Size = new System.Drawing.Size(910, 8);
 			this.prgLoader.TabIndex = 39;
 			this.prgLoader.Visible = false;
 			// 
@@ -778,7 +769,8 @@ namespace Grimoire.UI
 			this.packetsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.snifferToolStripMenuItem,
             this.spammerToolStripMenuItem,
-            this.tampererToolStripMenuItem});
+            this.tampererToolStripMenuItem,
+            this.toolStripMenuItem1});
 			this.packetsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.packetsToolStripMenuItem.Name = "packetsToolStripMenuItem";
 			this.packetsToolStripMenuItem.Size = new System.Drawing.Size(59, 23);
@@ -789,7 +781,7 @@ namespace Grimoire.UI
 			this.snifferToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
 			this.snifferToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.snifferToolStripMenuItem.Name = "snifferToolStripMenuItem";
-			this.snifferToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+			this.snifferToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.snifferToolStripMenuItem.Text = "Sniffer";
 			this.snifferToolStripMenuItem.Click += new System.EventHandler(this.snifferToolStripMenuItem_Click);
 			// 
@@ -798,7 +790,7 @@ namespace Grimoire.UI
 			this.spammerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
 			this.spammerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.spammerToolStripMenuItem.Name = "spammerToolStripMenuItem";
-			this.spammerToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+			this.spammerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.spammerToolStripMenuItem.Text = "Spammer";
 			this.spammerToolStripMenuItem.Click += new System.EventHandler(this.spammerToolStripMenuItem_Click);
 			// 
@@ -807,9 +799,19 @@ namespace Grimoire.UI
 			this.tampererToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
 			this.tampererToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.tampererToolStripMenuItem.Name = "tampererToolStripMenuItem";
-			this.tampererToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+			this.tampererToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.tampererToolStripMenuItem.Text = "Tamperer";
+			this.tampererToolStripMenuItem.Visible = false;
 			this.tampererToolStripMenuItem.Click += new System.EventHandler(this.tampererToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.toolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+			this.toolStripMenuItem1.Text = "Interceptor";
+			this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
 			// 
 			// optionsToolStripMenuItem
 			// 
@@ -914,15 +916,23 @@ namespace Grimoire.UI
 			this.aboutToolStripMenuItem.Text = "About";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
+			// gameContainer
+			// 
+			this.gameContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.gameContainer.Location = new System.Drawing.Point(0, 27);
+			this.gameContainer.Name = "gameContainer";
+			this.gameContainer.Size = new System.Drawing.Size(960, 554);
+			this.gameContainer.TabIndex = 40;
+			// 
 			// Root
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.ClientSize = new System.Drawing.Size(960, 597);
+			this.ClientSize = new System.Drawing.Size(960, 581);
+			this.Controls.Add(this.gameContainer);
 			this.Controls.Add(this.prgLoader);
 			this.Controls.Add(this.splitContainer1);
-			this.Controls.Add(this.flashPlayer);
 			this.Controls.Add(this.MenuMain);
 			this.ForeColor = System.Drawing.SystemColors.Window;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -932,7 +942,6 @@ namespace Grimoire.UI
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Root_FormClosing);
 			this.Load += new System.EventHandler(this.Root_Load);
 			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Root_KeyPress);
-			((System.ComponentModel.ISupportInitialize)(this.flashPlayer)).EndInit();
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -1020,7 +1029,7 @@ namespace Grimoire.UI
 
 		private async void changeServerList_SelectedIndexChanged(object sender, EventArgs e)
 		{
-            if (!Player.IsLoggedIn) return;
+			if (!Player.IsLoggedIn) return;
 			string server = changeServerList.Items[changeServerList.SelectedIndex].ToString();
 			changeServerList.Visible = false;
 			Player.Logout();
@@ -1073,8 +1082,8 @@ namespace Grimoire.UI
 		{
 			bool check = lagKillerToolStripMenuItem.Checked;
 			OptionsManager.LagKiller = check;
-            OptionsManager.SetLagKiller();
-            botManager.chkLag.Checked = check;
+			OptionsManager.SetLagKiller();
+			botManager.chkLag.Checked = check;
 		}
 
 		private void hidePlayersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1087,8 +1096,8 @@ namespace Grimoire.UI
 		private void skipCutscenesToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			bool check = skipCutscenesToolStripMenuItem.Checked;
-            if (check) OptionsManager.SetSkipCutscenes();
-            OptionsManager.SkipCutscenes = check;
+			if (check) OptionsManager.SetSkipCutscenes();
+			OptionsManager.SkipCutscenes = check;
 			botManager.chkSkipCutscenes.Checked = check;
 		}
 
@@ -1300,18 +1309,18 @@ namespace Grimoire.UI
 
 			List<Skill> listSkill = new List<Skill>();
 			if (BotManager.Instance.lstSkills.Items.Count > 0)
-            {
+			{
 				listSkill = BotManager.Instance.lstSkills.Items.Cast<Skill>().ToList();
 			}
 			bool hasLabel = false;
-            foreach (Skill skill in listSkill)
-            {
+			foreach (Skill skill in listSkill)
+			{
 				if (skill.Type == Skill.SkillType.Label)
-                {
+				{
 					hasLabel = true;
 					break;
-                }
-            }
+				}
+			}
 
 			bool listSkillReady = !hasLabel && listSkill.Count > 0;
 			int i = (hasLabel ? 1 : 0);
@@ -1322,7 +1331,7 @@ namespace Grimoire.UI
 				{
 					listSkill[i].ExecuteSkill();
 				}
-                else
+				else
 				{
 					Player.UseSkill(i.ToString());
 				}
@@ -1359,7 +1368,7 @@ namespace Grimoire.UI
 
 		private void btnGetCell_Click(object sender, EventArgs e)
 		{
-            if (!Player.IsLoggedIn) return;
+			if (!Player.IsLoggedIn) return;
 			cbPads.SelectedIndexChanged -= cbPads_SelectedIndexChanged;
 			cbCells.SelectedIndexChanged -= cbCells_SelectedIndexChanged;
 
@@ -1386,6 +1395,11 @@ namespace Grimoire.UI
 		private void pvptoolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			ShowForm(PvP.Instance);
+		}
+
+		private void toolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			ShowForm(PacketInterceptor.Instance);
 		}
 	}
 }

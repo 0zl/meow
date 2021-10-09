@@ -73,12 +73,6 @@ namespace Grimoire.UI
             }
         }
 
-        private void lnkGrabTarget_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            lbItems.Items.Clear();
-            lbItems.Items.AddRange(CosmeticEquipment.Get(Flash.Instance.GetGameObject<int>("world.myAvatar.target.uid")).ToArray());
-        }
-
         private void CosmeticForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)

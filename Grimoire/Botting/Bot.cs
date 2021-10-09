@@ -382,6 +382,8 @@ namespace Grimoire.Botting
         
         private void OnItemDropped(InventoryItem drop)
         {
+            Console.WriteLine($"OnItemDropped: " + drop.Name);
+
             NotifyDrop(drop);
             bool flag = Configuration.Drops.Any((string d) => d.Equals(drop.Name, StringComparison.OrdinalIgnoreCase));
             if (Configuration.EnablePickupAll)

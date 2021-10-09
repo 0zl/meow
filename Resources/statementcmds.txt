@@ -62,6 +62,20 @@
       "Text": "Not in combat"
     },
     {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdTargetHealthGreaterThan, Grimoire",
+      "Tag": "This player",
+      "Text": "Target health greater than",
+      "Description1": "Health",
+      "Description2": "Default true/false"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdTargetHealthLessThan, Grimoire",
+      "Tag": "This player",
+      "Text": "Target health less than",
+      "Description1": "Health",
+      "Description2": "Default true/false"
+    },
+    {
       "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdInInventory, Grimoire",
       "Tag": "Item",
       "Text": "Is in inventory",
