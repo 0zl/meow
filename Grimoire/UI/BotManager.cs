@@ -34,6 +34,7 @@ using System.Diagnostics;
 using System.IO.Compression;
 using System.Text;
 using Grimoire.Networking.Handlers;
+using Grimoire.Utils;
 
 namespace Grimoire.UI
 {
@@ -468,10 +469,10 @@ namespace Grimoire.UI
 		private DarkCheckBox chkUseSkillTargeted;
 		public DarkCheckBox chkFollowOnly;
 		private DarkTextBox tbFollowPlayer2;
-        private DarkGroupBox darkGroupBox11;
-        private DarkListBox lbLabels;
-        private DarkTextBox txtSavedDesc;
-        public PacketSpammer botPacketSpammer;
+		private DarkGroupBox darkGroupBox11;
+		private DarkListBox lbLabels;
+		private DarkTextBox txtSavedDesc;
+		public PacketSpammer botPacketSpammer;
 
 		private BotManager()
 		{
@@ -1856,13 +1857,26 @@ namespace Grimoire.UI
 
 		private void chkSkipCutscenes_CheckedChanged(object sender, EventArgs e)
 		{
-            OptionsManager.SkipCutscenes = chkSkipCutscenes.Checked;
+			OptionsManager.SkipCutscenes = chkSkipCutscenes.Checked;
 			Root.Instance.skipCutscenesToolStripMenuItem.Checked = chkSkipCutscenes.Checked;
 		}
 
 		private void numWalkSpeed_ValueChanged(object sender, EventArgs e)
 		{
 			OptionsManager.WalkSpeed = (int)numWalkSpeed.Value;
+		}
+
+		private async void chkWalkSpeed_CheckedChanged(object sender, EventArgs e)
+		{
+			numWalkSpeed.Enabled = !chkWalkSpeed.Checked;
+			OptionsManager.WalkSpeed = (int)numWalkSpeed.Value;
+			while (chkWalkSpeed.Checked)
+			{
+				OptionsManager.SetWalkSpeed();
+				await Task.Delay(250);
+			}
+			if (!chkWalkSpeed.Checked)
+				Flash.Call("SetWalkSpeed", new string[] { "8" });
 		}
 
 		private void chkDisableAnims_CheckedChanged(object sender, EventArgs e)
@@ -2087,9 +2101,9 @@ namespace Grimoire.UI
 				return;
 			}
 
-            chkAntiMod.Enabled = !chkEnable.Checked;
+			chkAntiMod.Enabled = !chkEnable.Checked;
 
-            if (chkEnable.Checked)
+			if (chkEnable.Checked)
 			{
 				selectionMode(SelectionMode.One);
 				ActiveBotEngine.IsRunningChanged += OnIsRunningChanged;
@@ -2120,10 +2134,10 @@ namespace Grimoire.UI
 				BotStateChanged(IsRunning: false);
 				Root.Instance.BotStateChanged(IsRunning: false);
 				Root.Instance.chkStartBot.Checked = false;
-            }
+			}
 
-            toggleAntiMod(chkAntiMod.Checked);
-        }
+			toggleAntiMod(chkAntiMod.Checked);
+		}
 
 
 		private void selectionMode(SelectionMode mode)
@@ -4954,7 +4968,7 @@ namespace Grimoire.UI
 			this.darkGroupBox9.Controls.Add(this.txtDescription);
 			this.darkGroupBox9.Location = new System.Drawing.Point(246, 6);
 			this.darkGroupBox9.Name = "darkGroupBox9";
-			this.darkGroupBox9.Size = new System.Drawing.Size(279, 195);
+			this.darkGroupBox9.Size = new System.Drawing.Size(279, 204);
 			this.darkGroupBox9.TabIndex = 116;
 			this.darkGroupBox9.TabStop = false;
 			this.darkGroupBox9.Text = "Save/Load";
@@ -5020,7 +5034,7 @@ namespace Grimoire.UI
 			this.txtDescription.MaxLength = 2147483647;
 			this.txtDescription.Multiline = true;
 			this.txtDescription.Name = "txtDescription";
-			this.txtDescription.Size = new System.Drawing.Size(266, 121);
+			this.txtDescription.Size = new System.Drawing.Size(266, 130);
 			this.txtDescription.TabIndex = 109;
 			this.txtDescription.Text = "Description (Write in RTF)";
 			this.txtDescription.Enter += new System.EventHandler(this.TextboxEnter);
@@ -5165,7 +5179,7 @@ namespace Grimoire.UI
 			this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
 			this.tabOptions.Name = "tabOptions";
 			this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-			this.tabOptions.Size = new System.Drawing.Size(531, 301);
+			this.tabOptions.Size = new System.Drawing.Size(192, 73);
 			this.tabOptions.TabIndex = 5;
 			this.tabOptions.Text = "Options";
 			// 
@@ -5366,7 +5380,7 @@ namespace Grimoire.UI
 			this.numOptionsTimer.Size = new System.Drawing.Size(46, 20);
 			this.numOptionsTimer.TabIndex = 156;
 			this.numOptionsTimer.Value = new decimal(new int[] {
-            1000,
+            500,
             0,
             0,
             0});
@@ -5386,6 +5400,7 @@ namespace Grimoire.UI
 			// chkDisableAnims
 			// 
 			this.chkDisableAnims.AutoSize = true;
+			this.chkDisableAnims.Enabled = false;
 			this.chkDisableAnims.Location = new System.Drawing.Point(150, 127);
 			this.chkDisableAnims.Name = "chkDisableAnims";
 			this.chkDisableAnims.Size = new System.Drawing.Size(122, 17);
@@ -5866,6 +5881,7 @@ namespace Grimoire.UI
 			// 
 			// numPrivateRoom
 			// 
+			this.numPrivateRoom.Enabled = false;
 			this.numPrivateRoom.Location = new System.Drawing.Point(430, 187);
 			this.numPrivateRoom.Name = "numPrivateRoom";
 			this.numPrivateRoom.Size = new System.Drawing.Size(54, 20);
@@ -5875,6 +5891,7 @@ namespace Grimoire.UI
 			// chkPrivateRoom
 			// 
 			this.chkPrivateRoom.AutoSize = true;
+			this.chkPrivateRoom.Enabled = false;
 			this.chkPrivateRoom.Location = new System.Drawing.Point(342, 189);
 			this.chkPrivateRoom.Name = "chkPrivateRoom";
 			this.chkPrivateRoom.Size = new System.Drawing.Size(85, 17);
@@ -7902,26 +7919,6 @@ namespace Grimoire.UI
 			}, (Control.ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
-		private async void chkWalkSpeed_CheckedChanged(object sender, EventArgs e)
-		{
-			if (chkWalkSpeed.Checked)
-			{
-				Flash.Call("SetWalkSpeed", new string[] { numWalkSpeed.Value.ToString() });
-
-				//string cell = Player.Cell;
-				while (chkWalkSpeed.Checked && (int)numWalkSpeed.Value != 8)
-				{
-					//if (Player.Cell != cell)
-					await Task.Delay(200);
-					Flash.Call("SetWalkSpeed", new string[] { numWalkSpeed.Value.ToString() });
-				}
-			}
-			else
-			{
-				Flash.Call("SetWalkSpeed", new string[] { "8" });
-			}
-		}
-
 		private void btnAddCmdHunt_Click(object sender, EventArgs e)
 		{
 			if (tbItemNameF.Text.Length > 0 && tbItemQtyF.Text.Length > 0)
@@ -8107,11 +8104,11 @@ namespace Grimoire.UI
 		{
 			if (Player.IsLoggedIn)
 			{
-                /*Player.MoveToCell("Blank", "Spawn");
+				/*Player.MoveToCell("Blank", "Spawn");
 				await Task.Delay(3000);
 				string username = OptionsManager.LoginUsername != null ? OptionsManager.LoginUsername : Player.Username;
 				await Proxy.Instance.SendToServer($"%xt%zm%house%1%{username}%");*/
-                Player.Logout();
+				Player.Logout();
 				LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Progress saved.\r\n");
 			}
 		}
@@ -8138,14 +8135,13 @@ namespace Grimoire.UI
 		{
 			if (enable)
 			{
-				Proxy.Instance.ReceivedFromServer += CapturePlayerData;
+				Flash.FlashCall += AntiMODHandler;
 				chkHidePlayers.Checked = false;
 			}
 			else
 			{
-				Proxy.Instance.ReceivedFromServer -= CapturePlayerData;
+				Flash.FlashCall -= AntiMODHandler;
 			}
-
 			btnAMTest.Enabled = !chkAntiMod.Checked;
 			chkAMLogout.Enabled = !chkAntiMod.Checked;
 			chkAMStopBot.Enabled = !chkAntiMod.Checked;
@@ -8160,54 +8156,34 @@ namespace Grimoire.UI
 
 		private void btnAMTest_Click(object sender, EventArgs e)
 		{
-			showLog("Username", "60");
+			showLog("MOD Username", "60");
 			modAction();
 		}
 
-		private string username = "";
-		private string accessLevel = "";
-
-		private void CapturePlayerData(Grimoire.Networking.Message message)
+		private void AntiMODHandler(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
 		{
-			string msg = message.ToString();
-
-			try
+			string msg = args[0].ToString();
+			if (!msg.StartsWith("{")) return;
+			dynamic packet = JsonConvert.DeserializeObject<dynamic>(msg);
+			dynamic data = packet["params"].dataObj;
+			if (packet["params"].type == "json")
 			{
-				//"cmd": "initUserDatas"
-				if (msg.Contains("\"cmd\":\"initUserDatas\""))
+				if (data.cmd == "initUserDatas")
 				{
-					JObject packet = (JObject)JObject.Parse(msg)["b"]["o"];
-					JArray datas = (JArray)packet["a"];
-
-					foreach (JObject data in datas)
-					{
-						JObject _data = (JObject)data["data"];
-						string accessLevel = _data.GetValue("intAccessLevel")?.ToString();
-						string username = _data.GetValue("strUsername")?.ToString();
-
-						this.accessLevel = accessLevel;
-						this.username = username;
-						showLog(this.username, this.accessLevel);
-                    }
+					JArray a = (JArray)data.a;
+					if (a != null)
+						foreach (JObject player in a)
+						{
+							JObject playerData = (JObject)player["data"];
+							showLog(playerData["strUsername"]?.ToString(), playerData["intAccessLevel"]?.ToString());
+						}
 				}
 
-				//"cmd": "initUserData"
-				else if (msg.Contains("\"cmd\":\"initUserData\""))
+				if (data.cmd == "initUserData")
 				{
-					JObject packet = (JObject)JObject.Parse(msg)["b"]["o"];
-					JObject data = (JObject)packet["data"];
-					JValue accessLevel = (JValue)data["intAccessLevel"];
-					JValue username = (JValue)data["strUsername"];
-
-					this.accessLevel = accessLevel?.ToString();
-					this.username = username?.ToString();
-					showLog(this.username, this.accessLevel);
+					JObject playerData = (JObject)data.data;
+					showLog(playerData["strUsername"]?.ToString(), playerData["intAccessLevel"]?.ToString());
 				}
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine("MyMsg: " + msg);
-				Console.WriteLine("MyError: " + e.Message);
 			}
 		}
 
@@ -8215,7 +8191,6 @@ namespace Grimoire.UI
 		{
 			int _accessLevel = int.Parse(accessLevel);
 			string color, log = "";
-
 			switch (_accessLevel)
 			{
 				case 100:
@@ -8244,19 +8219,14 @@ namespace Grimoire.UI
 					strip += "-";
 				log += $"{strip} {Environment.NewLine} {text} {Environment.NewLine} {strip} {Environment.NewLine}";
 				modAction();
-                LogForm.Instance.AppendDebug(log);
-            }
+				LogForm.Instance.AppendDebug(log);
+			}
+		}
 
-            Console.WriteLine($"AntiMod: {this.username} | {this.accessLevel}");
-        }
-
-		private async void modAction()
+		private void modAction()
 		{
 			if (chkAMStopBot.Checked)
 				chkEnable.Checked = false;
-
-			await Task.Delay(500);
-
 			if (chkAMLogout.Checked)
 				Player.Logout();
 		}
@@ -8273,46 +8243,51 @@ namespace Grimoire.UI
 				chkDisableAnims.Checked = false;
 			if (chkAntiCounter.Checked)
 			{
-				Proxy.Instance.ReceivedFromServer += AntiCounterHandler;
+				//Proxy.Instance.ReceivedFromServer += AntiCounterHandler;
+				Flash.FlashCall += AntiCounterHandler;
 			} 
 			else
 			{
-				Proxy.Instance.ReceivedFromServer -= AntiCounterHandler;
+				//Proxy.Instance.ReceivedFromServer -= AntiCounterHandler;
+				Flash.FlashCall -= AntiCounterHandler;
 			}
 		}
 
-		private void AntiCounterHandler(Grimoire.Networking.Message message)
+		private void AntiCounterHandler(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
 		{
-			string msg = message.ToString();
-
-			try
+			string msg = args[0].ToString();
+			if (!msg.StartsWith("{")) return;
+			if (function == "pext")
 			{
-				//"cmd":"aura++","auras":[{"nam":"Counter Attack"
-				//prepares a counter attack!!
-				string c1 = "\"cmd\":\"aura++\",\"auras\":[{\"nam\":\"Counter Attack\"";
-				string c2 = "prepares a counter attack";
-				if (msg.Contains(c2))
-				{
-					Console.WriteLine("Counter Attack: active");
-					Player.CancelTarget();
-					Player.CancelAutoAttack();
-					if (chkEnable.Checked)
+				dynamic packet = JsonConvert.DeserializeObject<dynamic>(msg);
+				string type = packet["params"].type;
+				dynamic data = packet["params"].dataObj;
+				if (type == "json")
+					if (data.cmd == "ct")
 					{
-						ActiveBotEngine.Configuration.SkipAttack = true;
+						JArray anims = (JArray)data.anims;
+						if (anims != null)
+						if (anims[0]["msg"].ToString().ToLower().Contains("prepares a counter attack"))
+						{
+							Player.CancelAutoAttack();
+							Player.CancelTarget();
+							if (chkEnable.Checked)
+							{
+								ActiveBotEngine.Configuration.SkipAttack = true;
+							}
+						}
+						JArray a = (JArray)data.a;
+						if (a != null)
+							foreach(JObject aura in a)
+							{
+								JObject aura2 = (JObject)aura["aura"];
+								if (aura2.GetValue("nam")?.ToString() == "Counter Attack" && aura.GetValue("cmd")?.ToString() == "aura--")
+								{
+									ActiveBotEngine.Configuration.SkipAttack = false;
+									break;
+								}
+							}
 					}
-				}
-
-				//"cmd":"aura--","aura":{"nam":"Counter Attack"
-				if (msg.Contains("\"cmd\":\"aura--\",\"aura\":{\"nam\":\"Counter Attack\""))
-				{
-					Console.WriteLine("Counter Attack: fades");
-					ActiveBotEngine.Configuration.SkipAttack = false;
-				}
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine("MyMsg: " + msg);
-				Console.WriteLine("MyError: " + e.Message);
 			}
 		}
 
@@ -8332,24 +8307,42 @@ namespace Grimoire.UI
 			tbLoginPassword.Enabled = !chkLoginLock.Checked;
 		}
 
-		private void FollowHandler(Grimoire.Networking.Message message)
+		private void FollowHandler(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
 		{
-			if (!Player.IsLoggedIn) return;
-			string msg = message.ToString();
-
-			//%xt%uotls%-1%surga%strPad:Right,tx:0,strFrame:r2,ty:0%
-			if (msg.Contains("%xt%uotls%-1%" + PlayerName + "%strPad"))
+			string msg = args[0].ToString();
+			if (!msg.StartsWith("{")) return;
+			if (function == "pext")
 			{
-				string cell = CmdFollow.getBetweenString(msg, "strFrame:", ",");
-				string pad = CmdFollow.getBetweenString(msg, "strPad:", ",");
-				Player.MoveToCell(cell, pad);
-				Player.SetSpawnPoint();
-			}
+				dynamic packet = JsonConvert.DeserializeObject<dynamic>(msg);
+				string type = packet["params"].type;
+				dynamic data = packet["params"].dataObj;
 
-			//%xt%exitArea%-1%21959%surga%
-			if (msg.Contains("%xt%exitArea%") && msg.Contains(PlayerName))
-			{
-				Player.CancelTarget();
+				if (type == "str")
+					if (data[0] == "uotls")
+						if (data[2] == PlayerName)
+						{
+							string movement = data[3];
+							string cell = null;
+							string pad = null;
+							foreach (string m in movement.Split(','))
+							{
+								if (m.Split(':')[0] == "strFrame")
+									cell = m.Split(':')[1];
+								if (m.Split(':')[0] == "strPad")
+									pad = m.Split(':')[1];
+							}
+							if (cell != null && pad != null)
+							{
+								Player.MoveToCell(cell, pad);
+								Player.SetSpawnPoint();
+							}
+						}
+
+				if (msg.Contains("exitArea") && msg.Contains(PlayerName))
+				{
+					Player.CancelAutoAttack();
+					Player.CancelTarget();
+				}
 			}
 		}
 
@@ -8360,18 +8353,18 @@ namespace Grimoire.UI
 		}
 
 		private string PlayerName;
-        private bool isFollowing = false;
+		private bool isFollowing = false;
 		private async void chkEnableSettings_CheckedChanged(object sender, EventArgs e)
-        {
-            tbFollowPlayer2.Enabled = !chkEnableSettings.Checked;
-            chkFollowOnly.Enabled = !chkEnableSettings.Checked;
-            if (chkFollowOnly.Checked && chkEnableSettings.Checked)
+		{
+			tbFollowPlayer2.Enabled = !chkEnableSettings.Checked;
+			chkFollowOnly.Enabled = !chkEnableSettings.Checked;
+			if (chkFollowOnly.Checked && chkEnableSettings.Checked)
 			{
-                Console.WriteLine("Following.");
-                isFollowing = true;
-                PlayerName = tbFollowPlayer2.Text;
+				isFollowing = true;
+				PlayerName = tbFollowPlayer2.Text;
 
-				Proxy.Instance.ReceivedFromServer += FollowHandler;
+				//Proxy.Instance.ReceivedFromServer += FollowHandler;
+				Flash.FlashCall += FollowHandler;
 
 				while (chkFollowOnly.Checked && chkEnableSettings.Checked)
 				{
@@ -8392,13 +8385,13 @@ namespace Grimoire.UI
 				}
 			}
 			else
-            {
-                if (isFollowing)
-                {
-                    isFollowing = false;
-                    Console.WriteLine("Stop Following.");
-                    Proxy.Instance.ReceivedFromServer -= FollowHandler;
-                }
+			{
+				if (isFollowing)
+				{
+					isFollowing = false;
+					//Proxy.Instance.ReceivedFromServer -= FollowHandler;
+					Flash.FlashCall -= FollowHandler;
+				}
 			}
 		}
 	}

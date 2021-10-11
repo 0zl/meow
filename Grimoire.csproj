@@ -492,6 +492,7 @@
     <Compile Include="Grimoire\Utils\EnumerableUtils.cs" />
     <Compile Include="Grimoire\Utils\NetworkUtils.cs" />
     <Compile Include="Grimoire\Utils\ReflectUtils.cs" />
+    <Compile Include="Grimoire\Utils\StringUtils.cs" />
     <Compile Include="Grimoire\Utils\TimeLimiter.cs" />
     <Compile Include="Grimoire\Utils\TypedValueProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

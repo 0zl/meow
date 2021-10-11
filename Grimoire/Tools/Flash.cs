@@ -413,11 +413,39 @@ namespace Grimoire.Tools
 					FlashCall?.Invoke(flash, name, args);
 					break;
 
+				case "packet":
+					args[0] = ProcessPacket((string)args[0]);
+					FlashCall?.Invoke(flash, name, args);
+					break;
+
 				default:
 					FlashCall?.Invoke(flash, name, args);
 					break;
 			}
+		}
 
+		public static string ProcessPacket(string packet)
+		{
+			if (packet.Contains(":"))
+				packet = packet.Remove(0, packet.IndexOf(':') + 1);
+			packet = packet.Trim(new char[] { ' ', '[', ']' });
+
+			switch (packet.Split('%')[3])
+			{
+				case "moveToCell":
+					if (OptionsManager.WalkSpeed != 8)
+						OptionsManager.SetWalkSpeed();
+					break;
+
+				case "afk":
+					if (OptionsManager.AFK && packet.Split('%')[5] == "true" && Root.Instance.chkStartBot.Checked)
+					{
+						LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Logout on AFK.");
+						Player.Logout();
+					}
+					break;
+			}
+			return packet;
 		}
 
 		public static string ProcessPext(string text)
@@ -427,8 +455,7 @@ namespace Grimoire.Tools
 			dynamic data = packet["params"].dataObj;
 			if (type == "json")
 			{
-				string cmd = data.cmd;
-				switch (cmd)
+				switch ((string)data.cmd)
 				{
 					case "dropItem":
 						JObject items = (JObject)data["items"];
@@ -439,8 +466,8 @@ namespace Grimoire.Tools
 							if (BotManager.Instance.ActiveBotEngine.IsRunning)
 							{
 								Configuration configuration = BotManager.Instance.ActiveBotEngine.Configuration;
-								bool send = !configuration.EnableRejection || !configuration.Drops.All((string d) => !d.Equals(item.Name, StringComparison.OrdinalIgnoreCase));
-								return send ? text : "";
+								if (!configuration.EnableRejection || !configuration.Drops.All((string d) => !d.Equals(item.Name, StringComparison.OrdinalIgnoreCase)))
+									Call("RejectDrop2", new string[]{ item.Id.ToString() });
 							}
 						}
 						break;
@@ -465,6 +492,17 @@ namespace Grimoire.Tools
 						{
 							World.OnShopLoaded(shopinfo.ToObject<ShopInfo>());
 						}
+						break;
+
+					case "sAct":
+						if (OptionsManager.InfiniteRange)
+							OptionsManager.SetInfiniteRange();
+						break;
+
+					case "retrieveUserData":
+					case "retrieveUserDatas":
+						if (OptionsManager.HidePlayers)
+							OptionsManager.DestroyPlayers();
 						break;
 
 					default:

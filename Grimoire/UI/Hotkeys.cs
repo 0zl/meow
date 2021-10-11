@@ -281,7 +281,6 @@ namespace Grimoire.UI
             Hotkey hotkey = InstalledHotkeys.First((Hotkey h) => h.Key == key);
             if (ApplicationContainsFocus() || (string)cbActions.Items[hotkey.ActionIndex] == "Minimize to tray")
             {
-                Console.WriteLine("key: " + key.ToString());
                 Actions[hotkey.ActionIndex]();
             }
         }

@@ -75,12 +75,6 @@ namespace Grimoire.UI
             if (function == "packet")
             {
                 string packet = args[0].ToString();
-                if (packet.Contains(":"))
-                {
-                    packet = packet.Remove(0, packet.IndexOf(':') + 1);
-                }
-                packet = packet.Trim(new char[] { ' ', '[', ']' });
-
                 txtPackets.Invoke((Action)delegate
                 {
                     txtPackets.AppendText(packet + Environment.NewLine);

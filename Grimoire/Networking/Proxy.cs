@@ -89,7 +89,6 @@ namespace Grimoire.Networking
 
 		private void OnClientAccept(IAsyncResult result)
 		{
-			Console.WriteLine("connecting...");
 			if (AppClosingToken.IsCancellationRequested) return;
 			if (this._client != null)
 			{

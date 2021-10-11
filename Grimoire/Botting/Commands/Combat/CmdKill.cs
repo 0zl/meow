@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using Grimoire.Game;
 using Grimoire.Game.Data;
 using Grimoire.Networking;
+using Grimoire.Tools;
 using Grimoire.UI;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Grimoire.Botting.Commands.Combat
 {
@@ -41,7 +44,8 @@ namespace Grimoire.Botting.Commands.Combat
 			if (AntiCounter)
 			{
 				OptionsManager.DisableAnimations = false;
-				Proxy.Instance.ReceivedFromServer += CapturePlayerData;
+				//Proxy.Instance.ReceivedFromServer += CapturePlayerData;
+				Flash.FlashCall += AntiCounterHandler;
 			}
 
 			Player.AttackMonster(Monster);
@@ -55,7 +59,8 @@ namespace Grimoire.Botting.Commands.Combat
 			if (AntiCounter)
 			{
 				OptionsManager.DisableAnimations = disableAnims;
-				Proxy.Instance.ReceivedFromServer -= CapturePlayerData;
+				//Proxy.Instance.ReceivedFromServer -= CapturePlayerData;
+				Flash.FlashCall -= AntiCounterHandler;
 			}
 
 			_cts?.Cancel(false);
@@ -178,6 +183,41 @@ namespace Grimoire.Botting.Commands.Combat
 			{
 				Player.CancelTarget();
 				await Task.Delay(500);
+			}
+		}
+
+		private void AntiCounterHandler(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
+		{
+			string msg = args[0].ToString();
+			if (!msg.StartsWith("{")) return;
+			if (function == "pext")
+			{
+				dynamic packet = JsonConvert.DeserializeObject<dynamic>(msg);
+				string type = packet["params"].type;
+				dynamic data = packet["params"].dataObj;
+				if (type == "json")
+					if (data.cmd == "ct")
+					{
+						JArray anims = (JArray)data.anims;
+						if (anims != null)
+							if (anims[0]["msg"].ToString().ToLower().Contains("prepares a counter attack"))
+							{
+								Player.CancelAutoAttack();
+								Player.CancelTarget();
+								onPause = true;
+							}
+						JArray a = (JArray)data.a;
+						if (a != null)
+							foreach(JObject aura in a)
+							{
+								JObject aura2 = (JObject)aura["aura"];
+								if (aura2.GetValue("nam")?.ToString() == "Counter Attack" && aura.GetValue("cmd")?.ToString() == "aura--")
+								{
+									onPause = false;
+									break;
+								}
+							}
+					}
 			}
 		}
 

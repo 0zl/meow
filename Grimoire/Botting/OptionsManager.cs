@@ -93,10 +93,6 @@ namespace Grimoire.Botting
             set
             {
                 _afk = value;
-                if (value)
-                    Proxy.Instance.RegisterHandler(HandlerAFK1);
-                else
-                    Proxy.Instance.UnregisterHandler(HandlerAFK1);
             }
         }
 
@@ -119,45 +115,19 @@ namespace Grimoire.Botting
             set
             {
                 _hidePlayers = value;
-                if (value)
-                {
-                    Proxy.Instance.RegisterHandler(HandlerHidePlayers);
+                if (_hidePlayers)
                     DestroyPlayers();
-                }
-                else
-                {
-                    Proxy.Instance.UnregisterHandler(HandlerHidePlayers);
-                }
             }
         }
-        
+
         public static bool InfiniteRange
         {
-            /*get => _infRange;
-            set
+            get => _infRange;
+            set 
             {
                 _infRange = value;
-                if (value)
-                {
+                if (_infRange)
                     SetInfiniteRange();
-                }
-            }*/
-
-            get
-            {
-                return _infRange;
-            }
-            set
-            {
-                _infRange = value;
-
-                if (value)
-                {
-                    Proxy.Instance.RegisterHandler(HandlerRange);
-                    SetInfiniteRange();
-                    return;
-                }
-                Proxy.Instance.UnregisterHandler(HandlerRange);
             }
         }
 
@@ -181,11 +151,9 @@ namespace Grimoire.Botting
 
         private static readonly string[] empty = new string[0];
 
-        private static List<BSpammer> listSpammer = new List<BSpammer>();
-
         public static event Action<bool> StateChanged;
 
-        private static void SetInfiniteRange() => Flash.Call("SetInfiniteRange", empty);
+        public static void SetInfiniteRange() => Flash.Call("SetInfiniteRange", empty);
 
         private static void SetProvokeMonsters() => Flash.Call("SetProvokeMonsters", empty);
 
@@ -236,7 +204,8 @@ namespace Grimoire.Botting
                     SetEnemyMagnet();
                 if (SkipCutscenes)
                     SetSkipCutscenes();
-                //SetWalkSpeed();
+                if (HidePlayers)
+                    DestroyPlayers();
                 SetLagKiller();
                 await Task.Delay(millisecondsDelay: Timer);
             }
@@ -271,40 +240,5 @@ namespace Grimoire.Botting
             WalkSpeed = 8;
         }
 
-    }
-
-    class BSpammer
-    {
-        private string label;
-        private string packet;
-        private int delay;
-        private bool isStart = false;
-
-        public BSpammer()
-        {
-
-        }
-
-        public BSpammer(string label, string packet, int delay)
-        {
-            this.label = label;
-            this.packet = packet;
-            this.delay = delay;
-        }
-
-        public async void Start()
-        {
-            isStart = true;
-            while (isStart)
-            {
-                _ = Proxy.Instance.SendToServer(packet);
-                await Task.Delay(delay);
-            }
-        }
-
-        public void Stop()
-        {
-            isStart = false;
-        }
     }
 }
