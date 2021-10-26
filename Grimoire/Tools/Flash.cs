@@ -81,7 +81,6 @@ namespace Grimoire.Tools
 			{
 				if (text == "modifyServers")
 				{
-					Console.WriteLine("m:" + ModifyServerList(text2.Trim()));
 					Root.Instance.flashPlayer.SetReturnValue("<string>" + ModifyServerList(text2.Trim()) + "</string>");
 				}
 			}
@@ -371,10 +370,12 @@ namespace Grimoire.Tools
 
 			object[] args = el.Elements().Select(x => FromFlashXml(x)).ToArray();
 
-			//Console.WriteLine($"{name} : {args[0].ToString().Trim()}");
-
 			switch (name)
 			{
+				case "debug":
+					Console.WriteLine("SWFDebug: " + args[0]);
+					break;
+
 				case "progress":
 					SwfLoadProgress?.Invoke(int.Parse(args[0].ToString()));
 					break;
@@ -408,23 +409,26 @@ namespace Grimoire.Tools
 					PacketInterceptor.Instance.OnServersLoaded(array);
 					break;
 
+				case "packetFromClient":
+					args[0] = ProcessPacketFromClient((string)args[0]);
+					FlashCall?.Invoke(flash, name, args[0]);
+					break;
+
+				case "packetFromServer":
+					args[0] = ProcessPacketFromServer((string)args[0]);
+					FlashCall?.Invoke(flash, name, args[0]);
+					break;
+
 				case "pext":
 					args[0] = ProcessPext((string)args[0]);
-					FlashCall?.Invoke(flash, name, args);
-					break;
-
-				case "packet":
-					args[0] = ProcessPacket((string)args[0]);
-					FlashCall?.Invoke(flash, name, args);
-					break;
-
-				default:
-					FlashCall?.Invoke(flash, name, args);
+					FlashCall?.Invoke(flash, name, args[0]);
 					break;
 			}
+
+			//FlashCall?.Invoke(flash, name, args[0]);
 		}
 
-		public static string ProcessPacket(string packet)
+		private static string ProcessPacketFromClient(string packet)
 		{
 			if (packet.Contains(":"))
 				packet = packet.Remove(0, packet.IndexOf(':') + 1);
@@ -448,6 +452,11 @@ namespace Grimoire.Tools
 			return packet;
 		}
 
+		private static string ProcessPacketFromServer(string packet)
+		{
+			return packet;
+		}
+
 		public static string ProcessPext(string text)
 		{
 			dynamic packet = JsonConvert.DeserializeObject<dynamic>(text);
@@ -466,8 +475,10 @@ namespace Grimoire.Tools
 							if (BotManager.Instance.ActiveBotEngine.IsRunning)
 							{
 								Configuration configuration = BotManager.Instance.ActiveBotEngine.Configuration;
-								if (!configuration.EnableRejection || !configuration.Drops.All((string d) => !d.Equals(item.Name, StringComparison.OrdinalIgnoreCase)))
-									Call("RejectDrop2", new string[]{ item.Id.ToString() });
+								if (configuration.EnableRejection && !configuration.Drops.All((string d) => d.Equals(item.Name, StringComparison.OrdinalIgnoreCase)))
+								{
+									Call("RejectDrop", new string[] { item.Name.ToLower() });
+								}
 							}
 						}
 						break;
@@ -482,7 +493,7 @@ namespace Grimoire.Tools
 						break;
 
 					case "ccqr":
-						var comp = data.DataObject.ToObject<CompletedQuest>();
+						var comp = data.ToObject<CompletedQuest>();
 						Player.Quests.OnQuestCompleted(comp);
 						break;
 

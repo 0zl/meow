@@ -32,5 +32,7 @@
   "tbFollowPlayer2":"Player",
   "txtDescription":"Description (Write in RTF)",
   "tbLoginUsername":"Username",
-  "tbLoginPassword":"Password"
+  "tbLoginPassword":"Password",
+  "tbBSLabel":"Packet Name",
+  "tbBSPacket":"%xt%zm%........."
 }

@@ -40,38 +40,14 @@ namespace Grimoire.Networking
 			this._spillBuffer = new List<byte>();
 			this._disconnectLock = new object();
 			this._client = new TcpClient();
-			/*try
+			try
 			{
-				this._client.Connect(address, port);
+				this._client.Connect(IPAddress.Parse(address), port);
 			}
 			catch (Exception)
 			{
-				Console.WriteLine($"ip:{Dns.GetHostAddresses(address)[0]} port:{port}");
 				this._client.Connect(Dns.GetHostAddresses(address)[0], port);
-
-				IPHostEntry hostEntry = Dns.GetHostEntry(address);
-				if (hostEntry.AddressList.Length > 0)
-				{
-					foreach (var ip in hostEntry.AddressList)
-					{
-						Console.WriteLine("ip: " + ip);
-					}
-					*//*Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-					s.Connect(ip, port);*//*
-				}
-			}*/
-
-			IPHostEntry hostEntry = Dns.GetHostEntry(address);
-			if (hostEntry.AddressList.Length > 0)
-			{
-				foreach (var ip in hostEntry.AddressList)
-				{
-					Console.WriteLine("ip: " + ip);
-				}
-				this._client.Connect(hostEntry.AddressList[0], port);
 			}
-
-			Console.WriteLine($"Connected: {this._client.Connected}");
 			this._connected = true;
 		}
 

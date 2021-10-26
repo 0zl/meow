@@ -217,6 +217,8 @@ namespace Grimoire.UI
 			// 
 			// tbPacketToSend
 			// 
+			this.tbPacketToSend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tbPacketToSend.Location = new System.Drawing.Point(12, 474);
 			this.tbPacketToSend.Multiline = true;
 			this.tbPacketToSend.Name = "tbPacketToSend";
@@ -225,7 +227,7 @@ namespace Grimoire.UI
 			// 
 			// btnSendToClient
 			// 
-			this.btnSendToClient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSendToClient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnSendToClient.Location = new System.Drawing.Point(650, 474);
 			this.btnSendToClient.Name = "btnSendToClient";
 			this.btnSendToClient.Size = new System.Drawing.Size(138, 23);
@@ -235,7 +237,7 @@ namespace Grimoire.UI
 			// 
 			// btnSendToServer
 			// 
-			this.btnSendToServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSendToServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnSendToServer.Location = new System.Drawing.Point(650, 503);
 			this.btnSendToServer.Name = "btnSendToServer";
 			this.btnSendToServer.Size = new System.Drawing.Size(138, 23);

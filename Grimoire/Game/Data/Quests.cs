@@ -21,7 +21,9 @@ namespace Grimoire.Game.Data
 
         public void OnQuestsLoaded(List<Quest> quests) => this.QuestsLoaded?.Invoke(quests);
 
-        public void OnQuestCompleted(CompletedQuest quest) => this.QuestCompleted?.Invoke(quest);
+        public void OnQuestCompleted(CompletedQuest quest) {
+            this.QuestCompleted?.Invoke(quest);
+        }
 
         public void Accept(int questId) => Flash.Call("Accept", questId.ToString());
 

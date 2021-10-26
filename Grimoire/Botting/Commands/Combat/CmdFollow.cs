@@ -22,6 +22,8 @@ namespace Grimoire.Botting.Commands.Combat
 
 		public async Task Execute(IBotEngine instance)
 		{
+
+			string PlayerName = instance.IsVar(this.PlayerName) ? Configuration.Tempvariable[instance.GetVar(this.PlayerName)] : this.PlayerName;
 			string playerName = PlayerName.ToLower();
 			int gotoDelay = 2000;
 			int gotoTry = 0;
