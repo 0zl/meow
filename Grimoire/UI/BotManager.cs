@@ -164,7 +164,7 @@ namespace Grimoire.UI
 		private DarkButton btnSoundTest;
 		private ListBox lstSoundItems;
 		private DarkLabel label9;
-		private DarkNumericUpDown numWalkSpeed;
+		public DarkNumericUpDown numWalkSpeed;
 		public DarkCheckBox chkSkipCutscenes;
 		public DarkCheckBox chkHidePlayers;
 		public DarkCheckBox chkLag;
@@ -1866,10 +1866,11 @@ namespace Grimoire.UI
 			OptionsManager.WalkSpeed = (int)numWalkSpeed.Value;
 		}
 
-		private async void chkWalkSpeed_CheckedChanged(object sender, EventArgs e)
+		public async void chkWalkSpeed_CheckedChanged(object sender, EventArgs e)
 		{
 			numWalkSpeed.Enabled = !chkWalkSpeed.Checked;
 			OptionsManager.WalkSpeed = (int)numWalkSpeed.Value;
+			Root.Instance.walkspeedToolStripMenuItem.Checked = chkWalkSpeed.Checked;
 			while (chkWalkSpeed.Checked)
 			{
 				OptionsManager.SetWalkSpeed();
@@ -3347,7 +3348,7 @@ namespace Grimoire.UI
 			this.tabMap.Margin = new System.Windows.Forms.Padding(0);
 			this.tabMap.Name = "tabMap";
 			this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMap.Size = new System.Drawing.Size(192, 73);
+			this.tabMap.Size = new System.Drawing.Size(531, 301);
 			this.tabMap.TabIndex = 2;
 			this.tabMap.Text = "Map";
 			// 
@@ -3589,7 +3590,7 @@ namespace Grimoire.UI
 			this.tabItem.Margin = new System.Windows.Forms.Padding(0);
 			this.tabItem.Name = "tabItem";
 			this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-			this.tabItem.Size = new System.Drawing.Size(192, 73);
+			this.tabItem.Size = new System.Drawing.Size(531, 301);
 			this.tabItem.TabIndex = 1;
 			this.tabItem.Text = "Item";
 			// 
@@ -5069,14 +5070,14 @@ namespace Grimoire.UI
 			this.darkGroupBox1.Size = new System.Drawing.Size(234, 125);
 			this.darkGroupBox1.TabIndex = 59;
 			this.darkGroupBox1.TabStop = false;
-			this.darkGroupBox1.Text = "Background Spammer";
+			this.darkGroupBox1.Text = "Packet Spammer";
 			// 
 			// btnBSStop
 			// 
 			this.btnBSStop.Checked = false;
 			this.btnBSStop.Location = new System.Drawing.Point(106, 95);
 			this.btnBSStop.Name = "btnBSStop";
-			this.btnBSStop.Size = new System.Drawing.Size(81, 23);
+			this.btnBSStop.Size = new System.Drawing.Size(88, 23);
 			this.btnBSStop.TabIndex = 166;
 			this.btnBSStop.Text = "Stop";
 			this.btnBSStop.Click += new System.EventHandler(this.btnBSStop_Click);
