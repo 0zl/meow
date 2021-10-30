@@ -121,16 +121,19 @@
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAg9JREFUOE+Fk81r1EAYxucmiv+EtdgmM/POfiSStMW1CHZBEWnXtko9WMFV8CJ4
-        LChsobfKaj9ELAp+oQdPxZMnEUEQFA/r6kXE1n+hvXTH581OIM1WfOEhyWR+zzyTeSPyNVQsBpPGPGxI
-        /fOup3eanu7MK/p1nugx3sVuWm+dLpcP1IxZezmoOht9nv1zaLc2MfZ6QNlpoqeVSuWgw7oVRdH+y0Tv
-        ANt5T9kPR2SPQarvh317VemPu0xqBXqwBDBS0n7u9/cEs2KTKaInCRwHQfEFYp9VysZa2h99/zfgxe77
-        2g6XSpEYN2Z1A9BFKW0ZCSZwXfCkveFLbEfar1gtb/BsQNprMvkej8QtSW0efI/oozBgk6yGoVNIdxOG
-        nzDnCwwvYJFzGGvgdMSipG024H1dwSBDccYgq8CJ71cHpW16qiPuSNpigzYMZtw2pnGdQcQUPA6NuHtO
-        1AS8CYb7RNQ0tWYB5Fc9qbsGoxwfZunKDV8lMC/KzSZContZ8F/iRJySQRY321TBrPExKkzYyQP12Uv2
-        zfq6vV6vJ8/LiJ3CrFc4+jgohEkv7JVi5Ghob8/N2TPVseSZTyCFvyEJt30Cc1Wr1X0Bqbd5k1Qn8B1S
-        uAWY257/HYd3i02QZAlAz3Ym8ZF/o9meI/Y42p7/HYf1VlQqad5SQLoFbYWkt4+Rak8YszIUmoKb5kqI
-        v9+mgafZFhyXAAAAAElFTkSuQmCC
+        wwAADsMBx2+oZAAAAupJREFUOE91UllPGmEU5S/44rP/hV/QJxtFcRRbaK2AwDgqijsqVqviHtN0scuT
+        CWmbNDY1zICIAwxMcanRtkGNa9WpdQsPp3eAJprak5zMl++bc5dzr+Y2jDxfz+8eW9J2DstM85DMtDxJ
+        aF0j8fzc8/8xMi3neaaWre7xpNg2LCvNg4l0Q388zfVKSq0nJrI9EQvnlvNyv99E/9OVgt6pJV/XeBId
+        I1/QOiSjaSCBhr44OI8Ee1cUNZ0RWDtEn9ktFeRkWaiZVXH3RBKdoyT2yqDscPaTuFcC2xMjcRSWjgge
+        tYp42Br2ma5X4plMWtXMqlgNMvl2DROvV+F9sYLBZysYnV6l7zLY7hiqWhZhcoVhdC1YsmIyp3M0KbZT
+        2e6xJALiDja3j7G7r+Dn8WmGu3snmbtZIQVz2yKMTWFUOkOi0RXM13R4E9o2b4IMkzHxZg3HJ79xeXme
+        4fn5WYbq+eLiHAeHCtqHYjDUh2CoCynldUGtRh0TmZVupH4/zKUyP+7tn2Be3MQhCdRzIJzC3sFJJtir
+        mVWU2XgwtfNphgsymobHElPfF0+rhonyLq6uLhCObsHm4iEv7UCUtlHt5BGJb+OKKvGHUmDsPPQ2IV3K
+        UgBHd1Rb2xNT1AAr64c4OzvD5tYRCbeoHfLg6BfCsS2k6O709BRScgcGLoASG68U1/BajY2MsLkjouqw
+        b/Z7puSYvIP3nzbAUzaV72Y3ICyk8O3HIV7OfIXeEYDOJog6G5mowty+aLHSjNVF8YzFMTApwcT5Ucn6
+        YWB53OMEdA1LaOqLUu9BlNiDKLYK2TGqMHFCXlXzgk9dkgc040oq0eDIiitYAeVEvT2AUhKWOkhcw/uK
+        TMLNlb5fGyowOhd8JpqxsTFMfQZR7hDAsAGUsUHoidnMvK/QPHdzlf+iiCoxcPMWoljBBZUyRyBNmdOl
+        joBSTD3fNfst/2S+DTrjx3w9Oayz8ozOOscUVn/W3qG73PM1aDR/AMpWRpRcgadqAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="rtbCredits.Text" xml:space="preserve">

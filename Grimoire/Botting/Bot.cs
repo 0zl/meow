@@ -244,7 +244,6 @@ namespace Grimoire.Botting
 							{
 								this.IndexChanged?.Invoke(Index);
 
-								//here exe
 								IBotCommand cmd = Configuration.Commands[Index];
 								if (cmd is CmdBackgroundPacket)
 								{

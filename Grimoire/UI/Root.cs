@@ -239,11 +239,6 @@ namespace Grimoire.UI
 			form.Focus();
 		}
 
-		private void btnBank_Click(object sender, EventArgs e)
-		{
-			Player.Bank.Show();
-		}
-
 		private void cbCells_Click(object sender, EventArgs e)
 		{
 			if (!Player.IsLoggedIn) return;
@@ -438,9 +433,9 @@ namespace Grimoire.UI
 			// 
 			// prgLoader
 			// 
-			this.prgLoader.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.prgLoader.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.prgLoader.Location = new System.Drawing.Point(24, 256);
 			this.prgLoader.Name = "prgLoader";
 			this.prgLoader.Size = new System.Drawing.Size(910, 4);
@@ -452,14 +447,14 @@ namespace Grimoire.UI
 			this.cbPads.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.cbPads.FormattingEnabled = true;
 			this.cbPads.Items.AddRange(new object[] {
-            "Center",
-            "Spawn",
-            "Left",
-            "Right",
-            "Top",
-            "Bottom",
-            "Up",
-            "Down"});
+			"Center",
+			"Spawn",
+			"Left",
+			"Right",
+			"Top",
+			"Bottom",
+			"Up",
+			"Down"});
 			this.cbPads.Location = new System.Drawing.Point(695, 3);
 			this.cbPads.MaxDropDownItems = 50;
 			this.cbPads.Name = "cbPads";
@@ -581,12 +576,12 @@ namespace Grimoire.UI
 			this.darkMenuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
 			this.darkMenuStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.darkMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.botToolStripMenuItem,
-            this.toolsToolStripMenuItem,
-            this.packetsToolStripMenuItem,
-            this.optionsToolStripMenuItem,
-            this.pluginsStrip,
-            this.aboutToolStripMenuItem});
+			this.botToolStripMenuItem,
+			this.toolsToolStripMenuItem,
+			this.packetsToolStripMenuItem,
+			this.optionsToolStripMenuItem,
+			this.pluginsStrip,
+			this.aboutToolStripMenuItem});
 			this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.darkMenuStrip1.Name = "darkMenuStrip1";
 			this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(2);
@@ -608,21 +603,21 @@ namespace Grimoire.UI
 			// 
 			this.toolsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
 			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fastTravelsToolStripMenuItem,
-            this.loadersgrabbersToolStripMenuItem,
-            this.hotkeysToolStripMenuItem,
-            this.pluginManagerToolStripMenuItem,
-            this.cosmeticsToolStripMenuItem,
-            this.bankToolStripMenuItem,
-            this.setsToolStripMenuItem,
-            this.eyeDropperToolStripMenuItem,
-            this.logsToolStripMenuItem1,
-            this.notepadToolStripMenuItem1,
-            this.changeServerMenuItem,
-            this.DPSMeterToolStripMenuItem,
-            this.commandeditornodeToolStripMenuItem,
-            this.pvptoolStripMenuItem1,
-            this.devTestToolStripMenuItem});
+			this.fastTravelsToolStripMenuItem,
+			this.loadersgrabbersToolStripMenuItem,
+			this.hotkeysToolStripMenuItem,
+			this.pluginManagerToolStripMenuItem,
+			this.cosmeticsToolStripMenuItem,
+			this.bankToolStripMenuItem,
+			this.setsToolStripMenuItem,
+			this.eyeDropperToolStripMenuItem,
+			this.logsToolStripMenuItem1,
+			this.notepadToolStripMenuItem1,
+			this.changeServerMenuItem,
+			this.DPSMeterToolStripMenuItem,
+			this.commandeditornodeToolStripMenuItem,
+			this.pvptoolStripMenuItem1,
+			this.devTestToolStripMenuItem});
 			this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
 			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 23);
@@ -724,7 +719,7 @@ namespace Grimoire.UI
 			// 
 			this.changeServerMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
 			this.changeServerMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.changeServerList});
+			this.changeServerList});
 			this.changeServerMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.changeServerMenuItem.Name = "changeServerMenuItem";
 			this.changeServerMenuItem.Size = new System.Drawing.Size(187, 22);
@@ -783,10 +778,10 @@ namespace Grimoire.UI
 			// 
 			this.packetsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
 			this.packetsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.snifferToolStripMenuItem,
-            this.spammerToolStripMenuItem,
-            this.tampererToolStripMenuItem,
-            this.toolStripMenuItem1});
+			this.snifferToolStripMenuItem,
+			this.spammerToolStripMenuItem,
+			this.tampererToolStripMenuItem,
+			this.toolStripMenuItem1});
 			this.packetsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.packetsToolStripMenuItem.Name = "packetsToolStripMenuItem";
 			this.packetsToolStripMenuItem.Size = new System.Drawing.Size(59, 23);
@@ -832,14 +827,14 @@ namespace Grimoire.UI
 			// 
 			this.optionsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
 			this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.infRangeToolStripMenuItem,
-            this.provokeToolStripMenuItem1,
-            this.enemyMagnetToolStripMenuItem,
-            this.lagKillerToolStripMenuItem,
-            this.hidePlayersToolStripMenuItem,
-            this.skipCutscenesToolStripMenuItem,
-            this.disableAnimationsToolStripMenuItem,
-            this.walkspeedToolStripMenuItem});
+			this.infRangeToolStripMenuItem,
+			this.provokeToolStripMenuItem1,
+			this.enemyMagnetToolStripMenuItem,
+			this.lagKillerToolStripMenuItem,
+			this.hidePlayersToolStripMenuItem,
+			this.skipCutscenesToolStripMenuItem,
+			this.disableAnimationsToolStripMenuItem,
+			this.walkspeedToolStripMenuItem});
 			this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
 			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 23);
@@ -921,7 +916,7 @@ namespace Grimoire.UI
 			this.walkspeedToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
 			this.walkspeedToolStripMenuItem.CheckOnClick = true;
 			this.walkspeedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripTextBox1});
+			this.toolStripTextBox1});
 			this.walkspeedToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.walkspeedToolStripMenuItem.Name = "walkspeedToolStripMenuItem";
 			this.walkspeedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
@@ -1025,7 +1020,7 @@ namespace Grimoire.UI
 
 		private void grimoireSuggestionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			
+
 		}
 
 		private async void btnStop_ClickAsync(object sender, EventArgs e)
@@ -1152,7 +1147,7 @@ namespace Grimoire.UI
 			{
 				BotManager.Instance.numWalkSpeed.Value = int.Parse(walkspeedToolStripMenuItem.DropDownItems[0].Text);
 				BotManager.Instance.chkWalkSpeed.Checked = true;
-			} 
+			}
 			else
 			{
 				BotManager.Instance.chkWalkSpeed.Checked = false;
@@ -1306,7 +1301,7 @@ namespace Grimoire.UI
 
 		private void Root_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			
+
 		}
 
 		private void dPSMeterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1456,6 +1451,25 @@ namespace Grimoire.UI
 		private void devTestToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			ShowForm(DevTest.Instance);
+		}
+
+		public void ToggleLauncherSkin()
+		{
+			string grimLi = "Grimlite Li";
+			if (this.Text == grimLi)
+			{
+				this.Text = "";
+				this.Icon = global::Properties.Resources.Artix;
+				this.nTray.Icon = global::Properties.Resources.Artix;
+				this.splitContainer1.Visible = false;
+			}
+			else
+			{
+				this.Text = grimLi;
+				this.Icon = global::Properties.Resources.GrimoireIcon;
+				this.nTray.Icon = global::Properties.Resources.GrimoireIcon;
+				this.splitContainer1.Visible = true;
+			}
 		}
 	}
 }

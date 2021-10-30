@@ -38,7 +38,7 @@ namespace Grimoire.UI
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.darkLabel6 = new DarkUI.Controls.DarkLabel();
 			this.darkLabel3 = new DarkUI.Controls.DarkLabel();
-			this.darkLabel2 = new DarkUI.Controls.DarkLabel();
+			this.lblVersion = new DarkUI.Controls.DarkLabel();
 			this.rtbCredits = new System.Windows.Forms.RichTextBox();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.pbGrimoireBig = new System.Windows.Forms.PictureBox();
@@ -72,7 +72,7 @@ namespace Grimoire.UI
 			this.panel1.Controls.Add(this.pictureBox1);
 			this.panel1.Controls.Add(this.darkLabel6);
 			this.panel1.Controls.Add(this.darkLabel3);
-			this.panel1.Controls.Add(this.darkLabel2);
+			this.panel1.Controls.Add(this.lblVersion);
 			this.panel1.Controls.Add(this.rtbCredits);
 			this.panel1.Controls.Add(this.panel2);
 			this.panel1.Controls.Add(this.darkLabel5);
@@ -155,15 +155,15 @@ namespace Grimoire.UI
 			this.darkLabel3.TabIndex = 15;
 			this.darkLabel3.Text = "The Grimlite Li Team";
 			// 
-			// darkLabel2
+			// lblVersion
 			// 
-			this.darkLabel2.AutoSize = true;
-			this.darkLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.darkLabel2.Location = new System.Drawing.Point(16, 36);
-			this.darkLabel2.Name = "darkLabel2";
-			this.darkLabel2.Size = new System.Drawing.Size(117, 13);
-			this.darkLabel2.TabIndex = 14;
-			this.darkLabel2.Text = "Version 2.2 (26102021)";
+			this.lblVersion.AutoSize = true;
+			this.lblVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.lblVersion.Location = new System.Drawing.Point(16, 36);
+			this.lblVersion.Name = "lblVersion";
+			this.lblVersion.Size = new System.Drawing.Size(126, 13);
+			this.lblVersion.TabIndex = 14;
+			this.lblVersion.Text = "Version 2.2.1 (30102021)";
 			// 
 			// rtbCredits
 			// 
@@ -330,6 +330,8 @@ namespace Grimoire.UI
 			this.ClientSize = new System.Drawing.Size(551, 440);
 			this.Controls.Add(this.panel1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(449, 342);
 			this.Name = "AboutForm";
 			this.Text = "About";
@@ -366,7 +368,7 @@ namespace Grimoire.UI
         private System.Windows.Forms.PictureBox pbEmperorMPGH;
         private System.Windows.Forms.PictureBox pbBineyMPGH;
         private DarkUI.Controls.DarkLabel darkLabel3;
-        private DarkUI.Controls.DarkLabel darkLabel2;
+        private DarkUI.Controls.DarkLabel lblVersion;
         private DarkUI.Controls.DarkLabel darkLabel6;
         private System.Windows.Forms.PictureBox pictureBox1;
         private DarkUI.Controls.DarkTextBox tbGameSWF;

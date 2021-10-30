@@ -191,10 +191,8 @@ namespace Grimoire.UI
 			// 
 			// txtReceive
 			// 
-			this.txtReceive.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtReceive.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.txtReceive.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.txtReceive.ForeColor = System.Drawing.Color.Gainsboro;
 			this.txtReceive.Location = new System.Drawing.Point(0, 0);
 			this.txtReceive.Name = "txtReceive";
@@ -205,7 +203,8 @@ namespace Grimoire.UI
 			// 
 			// splitContainer1
 			// 
-			this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.splitContainer1.Location = new System.Drawing.Point(12, 41);
 			this.splitContainer1.Name = "splitContainer1";

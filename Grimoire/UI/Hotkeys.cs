@@ -49,7 +49,7 @@ namespace Grimoire.UI
             },
             delegate
             {
-                Root.Instance.splitContainer1.Visible = !Root.Instance.splitContainer1.Visible;
+                Root.Instance.ToggleLauncherSkin();
             },
             delegate
             {
@@ -432,7 +432,7 @@ namespace Grimoire.UI
             "Show Packet Logger",
             "Show Packet Spammer",
             "Show Fast Travels",
-            "Show Menubar",
+            "Change Launcher Skin",
             "Start/Stop Bot",
             "Cancel Target",
             "Auto Target",

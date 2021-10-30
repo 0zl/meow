@@ -6,6 +6,8 @@ using Grimoire.Botting.Commands.Misc.Statements;
 using Grimoire.Botting.Commands.Quest;
 using Grimoire.Game;
 using Grimoire.Game.Data;
+using Grimoire.Tools;
+using Grimoire.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,10 +62,10 @@ namespace Grimoire.Botting
             }
         }
 
-        public static void LoadBankItems(this IBotEngine instance)
+		public static void LoadBankItems(this IBotEngine instance)
         {
             if (instance.Configuration.Commands.Any((IBotCommand c) => 
-            c is CmdBankSwap || c is CmdBankTransfer || c is CmdInBank || c is CmdNotInBank || c is CmdInBankOrInvent || c is CmdNotInBankAndInvent || c is CmdBankList))
+                c is CmdBankSwap || c is CmdBankTransfer || c is CmdInBank || c is CmdNotInBank || c is CmdInBankOrInvent || c is CmdNotInBankAndInvent || c is CmdBankList))
             {
                 Player.Bank.LoadItems();
             }
@@ -72,45 +74,6 @@ namespace Grimoire.Botting
         static BotUtilities()
         {
             BankLoadEvent = new ManualResetEvent(initialState: false);
-        }
-        
-        /**
-        public string CallGameFunction(string path, params object[] args)
-        {
-            return args.Length > 0 ? Flash.FlashUtil.Call("callGameFunction", new object[] { path }.Concat(args).ToArray()) : Flash.FlashUtil.Call("callGameFunction0", path);
-        }
-
-        public void SetGameObject(string path, object value)
-        {
-            Flash.FlashUtil.Call("setGameObject", path, value);
-        }
-
-        public string GetGameObject(string path)
-        {
-            return Flash.FlashUtil.Call("getGameObject", path);
-        }
-        **/
-
-        public static string Call(string function, bool base64 = false)
-        {
-            try
-            {
-                string request = $"<invoke name=\"{function}\"returntype=\"xml\"></invoke>";
-                string text = XElement.Parse(flash.CallFunction(request)).FirstNode?.ToString();
-                if (text == null)
-                {
-                    return string.Empty;
-                }
-                if (!base64)
-                {
-                    return text.Correct().SanitizeXml();
-                }
-                return text.FromBase64().Correct().SanitizeXml();
-            }
-            catch (Exception)
-            {
-                return "";
-            }
         }
     }
 }

@@ -61,6 +61,16 @@ namespace Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon Artix {
+            get {
+                object obj = ResourceManager.GetObject("Artix", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {
         ///  &quot;txtMonster&quot;: &quot;Monster (* = random)&quot;,
         ///  &quot;txtKillFMon&quot;: &quot;Monster (* = random)&quot;,
@@ -82,6 +92,16 @@ namespace Properties {
         public static string defaulttext {
             get {
                 return ResourceManager.GetString("defaulttext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Discord {
+            get {
+                object obj = ResourceManager.GetObject("Discord", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

@@ -82,6 +82,10 @@ namespace Grimoire.UI
             lblSwfInfo.Text = "";
         }
 
+        public string getVersion()
+		{
+            return this.lblVersion.Text;
+		}
     
     }
 }
