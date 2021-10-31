@@ -37,9 +37,11 @@ namespace Grimoire.UI
 			this.darkLabel1 = new DarkUI.Controls.DarkLabel();
 			this.chkArgs = new DarkUI.Controls.DarkCheckBox();
 			this.tbLogs = new DarkUI.Controls.DarkTextBox();
-			this.darkLabel2 = new DarkUI.Controls.DarkLabel();
 			this.radGrimoire = new System.Windows.Forms.RadioButton();
 			this.radGame = new System.Windows.Forms.RadioButton();
+			this.radGetGame = new System.Windows.Forms.RadioButton();
+			this.btnCopy = new DarkUI.Controls.DarkButton();
+			this.btnFormat = new DarkUI.Controls.DarkButton();
 			this.SuspendLayout();
 			// 
 			// btnCall
@@ -58,9 +60,9 @@ namespace Grimoire.UI
 			this.darkLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.darkLabel6.Location = new System.Drawing.Point(4, 29);
 			this.darkLabel6.Name = "darkLabel6";
-			this.darkLabel6.Size = new System.Drawing.Size(79, 13);
+			this.darkLabel6.Size = new System.Drawing.Size(48, 13);
 			this.darkLabel6.TabIndex = 170;
-			this.darkLabel6.Text = "Game Function";
+			this.darkLabel6.Text = "Function";
 			// 
 			// tbGameFunction
 			// 
@@ -70,7 +72,7 @@ namespace Grimoire.UI
 			this.tbGameFunction.Name = "tbGameFunction";
 			this.tbGameFunction.Size = new System.Drawing.Size(235, 20);
 			this.tbGameFunction.TabIndex = 171;
-			this.tbGameFunction.Text = "game";
+			this.tbGameFunction.Text = "world";
 			// 
 			// tbArgs
 			// 
@@ -94,6 +96,7 @@ namespace Grimoire.UI
 			// 
 			// chkArgs
 			// 
+			this.chkArgs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkArgs.AutoSize = true;
 			this.chkArgs.Checked = true;
 			this.chkArgs.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -105,24 +108,15 @@ namespace Grimoire.UI
 			// 
 			// tbLogs
 			// 
-			this.tbLogs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.tbLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbLogs.Location = new System.Drawing.Point(7, 199);
+			this.tbLogs.Location = new System.Drawing.Point(7, 145);
 			this.tbLogs.Multiline = true;
 			this.tbLogs.Name = "tbLogs";
-			this.tbLogs.ReadOnly = true;
-			this.tbLogs.Size = new System.Drawing.Size(235, 75);
+			this.tbLogs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.tbLogs.Size = new System.Drawing.Size(235, 178);
 			this.tbLogs.TabIndex = 175;
-			// 
-			// darkLabel2
-			// 
-			this.darkLabel2.AutoSize = true;
-			this.darkLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.darkLabel2.Location = new System.Drawing.Point(4, 183);
-			this.darkLabel2.Name = "darkLabel2";
-			this.darkLabel2.Size = new System.Drawing.Size(30, 13);
-			this.darkLabel2.TabIndex = 176;
-			this.darkLabel2.Text = "Logs";
 			// 
 			// radGrimoire
 			// 
@@ -143,19 +137,55 @@ namespace Grimoire.UI
 			this.radGame.ForeColor = System.Drawing.Color.Gainsboro;
 			this.radGame.Location = new System.Drawing.Point(75, 6);
 			this.radGame.Name = "radGame";
-			this.radGame.Size = new System.Drawing.Size(53, 17);
+			this.radGame.Size = new System.Drawing.Size(70, 17);
 			this.radGame.TabIndex = 178;
-			this.radGame.Text = "Game";
+			this.radGame.Text = "CallGame";
 			this.radGame.UseVisualStyleBackColor = true;
+			// 
+			// radGetGame
+			// 
+			this.radGetGame.AutoSize = true;
+			this.radGetGame.ForeColor = System.Drawing.Color.Gainsboro;
+			this.radGetGame.Location = new System.Drawing.Point(148, 6);
+			this.radGetGame.Name = "radGetGame";
+			this.radGetGame.Size = new System.Drawing.Size(70, 17);
+			this.radGetGame.TabIndex = 179;
+			this.radGetGame.Text = "GetGame";
+			this.radGetGame.UseVisualStyleBackColor = true;
+			this.radGetGame.CheckedChanged += new System.EventHandler(this.radGetGame_CheckedChanged);
+			// 
+			// btnCopy
+			// 
+			this.btnCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnCopy.Checked = false;
+			this.btnCopy.Location = new System.Drawing.Point(126, 331);
+			this.btnCopy.Name = "btnCopy";
+			this.btnCopy.Size = new System.Drawing.Size(116, 23);
+			this.btnCopy.TabIndex = 180;
+			this.btnCopy.Text = "Copy";
+			this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+			// 
+			// btnFormat
+			// 
+			this.btnFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnFormat.Checked = false;
+			this.btnFormat.Location = new System.Drawing.Point(7, 331);
+			this.btnFormat.Name = "btnFormat";
+			this.btnFormat.Size = new System.Drawing.Size(116, 23);
+			this.btnFormat.TabIndex = 181;
+			this.btnFormat.Text = "Format JSON";
+			this.btnFormat.Click += new System.EventHandler(this.btnFormat_Click);
 			// 
 			// DevTest
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(254, 286);
+			this.ClientSize = new System.Drawing.Size(254, 364);
+			this.Controls.Add(this.btnFormat);
+			this.Controls.Add(this.btnCopy);
+			this.Controls.Add(this.radGetGame);
 			this.Controls.Add(this.radGame);
 			this.Controls.Add(this.radGrimoire);
-			this.Controls.Add(this.darkLabel2);
 			this.Controls.Add(this.tbLogs);
 			this.Controls.Add(this.chkArgs);
 			this.Controls.Add(this.tbArgs);
@@ -163,10 +193,9 @@ namespace Grimoire.UI
 			this.Controls.Add(this.tbGameFunction);
 			this.Controls.Add(this.darkLabel6);
 			this.Controls.Add(this.btnCall);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "DevTest";
-			this.Text = "DevTest";
+			this.Text = "Dev Test";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DevTest_FormClosing);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -182,8 +211,10 @@ namespace Grimoire.UI
 		private DarkUI.Controls.DarkLabel darkLabel1;
 		public DarkUI.Controls.DarkCheckBox chkArgs;
 		private DarkUI.Controls.DarkTextBox tbLogs;
-		private DarkUI.Controls.DarkLabel darkLabel2;
 		private System.Windows.Forms.RadioButton radGrimoire;
 		private System.Windows.Forms.RadioButton radGame;
+		private System.Windows.Forms.RadioButton radGetGame;
+		private DarkUI.Controls.DarkButton btnCopy;
+		private DarkUI.Controls.DarkButton btnFormat;
 	}
 }

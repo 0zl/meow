@@ -90,14 +90,14 @@ namespace Grimoire.Tools
 			}
 		}
 
-		public string GetGameObject(string path)
+		public static string GetGameObject(string path)
 		{
-			return Call<string>("getGameObject", path);
+			return Call2("getGameObject", path);
 		}
 
-		public string GetGameObjectStatic(string path)
+		public static string GetGameObjectStatic(string path)
 		{
-			return Call<string>("getGameObjectS", path);
+			return Call2("getGameObjectS", path);
 		}
 
 		public T GetGameObject<T>(string path, T def = default)
