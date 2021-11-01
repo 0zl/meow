@@ -33,23 +33,23 @@ namespace Grimoire.UI
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PvP));
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.button1 = new System.Windows.Forms.Button();
 			this.btnGetRange = new DarkUI.Controls.DarkButton();
-			this.btnSetRange = new DarkUI.Controls.DarkButton();
+			this.btnSetCD = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
 			this.numRangeValue = new DarkUI.Controls.DarkNumericUpDown();
 			this.label5 = new System.Windows.Forms.Label();
 			this.numRangeIndex = new DarkUI.Controls.DarkNumericUpDown();
 			this.btnGetCD = new DarkUI.Controls.DarkButton();
-			this.btnSetCD = new DarkUI.Controls.DarkButton();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.numCDValue = new DarkUI.Controls.DarkNumericUpDown();
 			this.llb1 = new System.Windows.Forms.Label();
 			this.numCDIndex = new DarkUI.Controls.DarkNumericUpDown();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.chkEnableAutoTarget = new System.Windows.Forms.CheckBox();
 			this.dropPlayers = new DarkUI.Controls.DarkComboBox();
 			this.label6 = new System.Windows.Forms.Label();
-			this.chkEnableAutoTarget = new DarkUI.Controls.DarkCheckBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numRangeValue)).BeginInit();
@@ -61,26 +61,39 @@ namespace Grimoire.UI
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.button1);
 			this.groupBox1.Controls.Add(this.btnGetRange);
-			this.groupBox1.Controls.Add(this.btnSetRange);
+			this.groupBox1.Controls.Add(this.btnSetCD);
 			this.groupBox1.Controls.Add(this.label4);
 			this.groupBox1.Controls.Add(this.numRangeValue);
 			this.groupBox1.Controls.Add(this.label5);
 			this.groupBox1.Controls.Add(this.numRangeIndex);
 			this.groupBox1.Controls.Add(this.btnGetCD);
-			this.groupBox1.Controls.Add(this.btnSetCD);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.numCDValue);
 			this.groupBox1.Controls.Add(this.llb1);
 			this.groupBox1.Controls.Add(this.numCDIndex);
-			this.groupBox1.ForeColor = System.Drawing.Color.WhiteSmoke;
+			this.groupBox1.ForeColor = System.Drawing.SystemColors.Window;
 			this.groupBox1.Location = new System.Drawing.Point(12, 12);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(277, 117);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Skill Hack";
+			// 
+			// button1
+			// 
+			this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button1.ForeColor = System.Drawing.SystemColors.Window;
+			this.button1.Location = new System.Drawing.Point(213, 76);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(51, 23);
+			this.button1.TabIndex = 19;
+			this.button1.Text = "Set";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.btnSetRange_Click);
 			// 
 			// btnGetRange
 			// 
@@ -92,15 +105,18 @@ namespace Grimoire.UI
 			this.btnGetRange.Visible = false;
 			this.btnGetRange.Click += new System.EventHandler(this.btnGetRange_Click);
 			// 
-			// btnSetRange
+			// btnSetCD
 			// 
-			this.btnSetRange.Checked = false;
-			this.btnSetRange.Location = new System.Drawing.Point(213, 76);
-			this.btnSetRange.Name = "btnSetRange";
-			this.btnSetRange.Size = new System.Drawing.Size(51, 23);
-			this.btnSetRange.TabIndex = 12;
-			this.btnSetRange.Text = "Set";
-			this.btnSetRange.Click += new System.EventHandler(this.btnSetRange_Click);
+			this.btnSetCD.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+			this.btnSetCD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnSetCD.ForeColor = System.Drawing.SystemColors.Window;
+			this.btnSetCD.Location = new System.Drawing.Point(213, 31);
+			this.btnSetCD.Name = "btnSetCD";
+			this.btnSetCD.Size = new System.Drawing.Size(51, 23);
+			this.btnSetCD.TabIndex = 18;
+			this.btnSetCD.Text = "Set";
+			this.btnSetCD.UseVisualStyleBackColor = true;
+			this.btnSetCD.Click += new System.EventHandler(this.btnSetCD_Click);
 			// 
 			// label4
 			// 
@@ -175,16 +191,6 @@ namespace Grimoire.UI
 			this.btnGetCD.TabIndex = 6;
 			this.btnGetCD.Visible = false;
 			this.btnGetCD.Click += new System.EventHandler(this.btnGetCD_Click);
-			// 
-			// btnSetCD
-			// 
-			this.btnSetCD.Checked = false;
-			this.btnSetCD.Location = new System.Drawing.Point(213, 31);
-			this.btnSetCD.Name = "btnSetCD";
-			this.btnSetCD.Size = new System.Drawing.Size(51, 23);
-			this.btnSetCD.TabIndex = 5;
-			this.btnSetCD.Text = "Set";
-			this.btnSetCD.Click += new System.EventHandler(this.btnSetCD_Click);
 			// 
 			// label2
 			// 
@@ -261,17 +267,29 @@ namespace Grimoire.UI
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.chkEnableAutoTarget);
 			this.groupBox2.Controls.Add(this.dropPlayers);
 			this.groupBox2.Controls.Add(this.label6);
-			this.groupBox2.Controls.Add(this.chkEnableAutoTarget);
 			this.groupBox2.Controls.Add(this.label3);
-			this.groupBox2.ForeColor = System.Drawing.Color.WhiteSmoke;
+			this.groupBox2.ForeColor = System.Drawing.SystemColors.Window;
 			this.groupBox2.Location = new System.Drawing.Point(12, 135);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(277, 87);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Auto Target";
+			// 
+			// chkEnableAutoTarget
+			// 
+			this.chkEnableAutoTarget.AutoSize = true;
+			this.chkEnableAutoTarget.ForeColor = System.Drawing.SystemColors.Window;
+			this.chkEnableAutoTarget.Location = new System.Drawing.Point(159, 41);
+			this.chkEnableAutoTarget.Name = "chkEnableAutoTarget";
+			this.chkEnableAutoTarget.Size = new System.Drawing.Size(50, 17);
+			this.chkEnableAutoTarget.TabIndex = 19;
+			this.chkEnableAutoTarget.Text = "Lock";
+			this.chkEnableAutoTarget.UseVisualStyleBackColor = true;
+			this.chkEnableAutoTarget.Click += new System.EventHandler(this.chkEnableAutoTarget_CheckedChanged);
 			// 
 			// dropPlayers
 			// 
@@ -294,16 +312,6 @@ namespace Grimoire.UI
 			this.label6.TabIndex = 16;
 			this.label6.Text = "*sync with \'Auto Target\' in Hotkeys tools";
 			// 
-			// chkEnableAutoTarget
-			// 
-			this.chkEnableAutoTarget.AutoSize = true;
-			this.chkEnableAutoTarget.Location = new System.Drawing.Point(155, 41);
-			this.chkEnableAutoTarget.Name = "chkEnableAutoTarget";
-			this.chkEnableAutoTarget.Size = new System.Drawing.Size(50, 17);
-			this.chkEnableAutoTarget.TabIndex = 15;
-			this.chkEnableAutoTarget.Text = "Lock";
-			this.chkEnableAutoTarget.CheckedChanged += new System.EventHandler(this.chkEnableAutoTarget_CheckedChanged);
-			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
@@ -317,6 +325,7 @@ namespace Grimoire.UI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
 			this.ClientSize = new System.Drawing.Size(301, 232);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
@@ -354,11 +363,11 @@ namespace Grimoire.UI
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Label label3;
 		private DarkButton btnGetRange;
-		private DarkButton btnSetRange;
 		private DarkButton btnGetCD;
-		private DarkButton btnSetCD;
-		public DarkCheckBox chkEnableAutoTarget;
 		private System.Windows.Forms.Label label6;
 		private DarkComboBox dropPlayers;
+		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button btnSetCD;
+		private System.Windows.Forms.CheckBox chkEnableAutoTarget;
 	}
 }

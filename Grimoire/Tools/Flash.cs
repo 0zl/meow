@@ -87,6 +87,7 @@ namespace Grimoire.Tools
 			else
 			{
 				SwfLoadProgress?.Invoke(int.Parse(text2));
+				if (text2 == "100") Flash.Call("SetTitle", $"Grimlite Li {AboutForm.Instance.getVersion()}");
 			}
 		}
 
@@ -477,7 +478,7 @@ namespace Grimoire.Tools
 								Configuration configuration = BotManager.Instance.ActiveBotEngine.Configuration;
 								if (configuration.EnableRejection && !configuration.Drops.All((string d) => d.Equals(item.Name, StringComparison.OrdinalIgnoreCase)))
 								{
-									Call("RejectDrop", new string[] { item.Name.ToLower() });
+									Call("RejectDrop", new string[2] { item.Name.ToLower(), item.Id.ToString() });
 								}
 							}
 						}
