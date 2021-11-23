@@ -476,7 +476,10 @@ namespace Grimoire.Tools
 							if (BotManager.Instance.ActiveBotEngine.IsRunning)
 							{
 								Configuration configuration = BotManager.Instance.ActiveBotEngine.Configuration;
-								if (configuration.EnableRejection && !configuration.Drops.All((string d) => d.Equals(item.Name, StringComparison.OrdinalIgnoreCase)))
+								List<string> whiteList = new List<string>();
+								if (configuration.Drops != null)
+									whiteList = configuration.Drops;
+								if (configuration.EnableRejection && !whiteList.ConvertAll<string>(a => a.ToLower()).Contains(item.Name.ToLower()))
 								{
 									Call("RejectDrop", new string[2] { item.Name.ToLower(), item.Id.ToString() });
 								}

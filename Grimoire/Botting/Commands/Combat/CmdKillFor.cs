@@ -34,7 +34,7 @@ namespace Grimoire.Botting.Commands.Combat
 		}
 
 		public string KillPriority { get; set; } = "";
-
+		public bool AntiCounter { get; set; } = false;
 		public bool IsGetDrops { get; set; } = false;
 		public int AfterKills { get; set; } = 1;
 		public string QuestId { get; set; }
@@ -44,12 +44,13 @@ namespace Grimoire.Botting.Commands.Combat
 		public async Task Execute(IBotEngine instance)
 		{
 			string Monster = (instance.IsVar(this.Monster) ? Configuration.Tempvariable[instance.GetVar(this.Monster)] : this.Monster);
-			string ItemName = (instance.IsVar(this.ItemName) ? Configuration.Tempvariable[instance.GetVar(this.ItemName)] : this.ItemName);
+			string ItemName = ((instance.IsVar(this.ItemName) ? Configuration.Tempvariable[instance.GetVar(this.ItemName)] : this.ItemName)).Trim();
 
 			BotData.BotState = BotData.State.Combat;
 			CmdKill kill = new CmdKill {
 				Monster = Monster,
-				KillPriority = KillPriority
+				KillPriority = KillPriority,
+				AntiCounter = AntiCounter
 			};
 
 			int id;

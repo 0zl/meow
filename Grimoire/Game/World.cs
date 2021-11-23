@@ -76,6 +76,8 @@ namespace Grimoire.Game
 
         public static void SetSpawnPoint() => Flash.Call("SetSpawnPoint", new string[0]);
 
+        public static int GetMonsterHealth(string monster) => Flash.Call<int>("GetMonsterHealth", new string[] { monster });
+
         public static bool IsMonsterAvailable(string name) => Flash.Call<bool>("IsMonsterAvailable", new string[1]{name});
 
         static World()

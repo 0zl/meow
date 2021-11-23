@@ -852,14 +852,14 @@ namespace Grimoire.UI
 				};
 
 				string monster = string.IsNullOrEmpty(txtKillFMon.Text) || txtKillFMon.Text == "Monster (* = random)" ? "*" : txtKillFMon.Text;
-				string text = txtKillFItem.Text;
-				string text2 = string.IsNullOrEmpty(txtKillFQ.Text) || txtKillFQ.Text == "Quantity (* = any)" ? "*" : txtKillFQ.Text;
+				string itemName = txtKillFItem.Text;
+				string itemQty = string.IsNullOrEmpty(txtKillFQ.Text) || txtKillFQ.Text == "Quantity (* = any)" ? "*" : txtKillFQ.Text;
 				AddCommand(new CmdKillFor
 				{
 					ItemType = (!rbItems.Checked) ? ItemType.TempItems : ItemType.Items,
 					Monster = monster,
-					ItemName = text,
-					Quantity = text2
+					ItemName = itemName.Trim(),
+					Quantity = itemQty.Trim()
 				}, (ModifierKeys & Keys.Control) == Keys.Control);
 			}
 		}
@@ -2029,11 +2029,6 @@ namespace Grimoire.UI
 			}
 		}
 
-		private void chkPacket_CheckChanged(object sender, EventArgs e)
-		{
-			OptionsManager.Packet = chkPacket.Checked;
-		}
-
 		private void lstLogText_KeyDown(object sender, KeyEventArgs e)
 		{
 			bool flag = e.Control && e.KeyCode == Keys.C;
@@ -2172,7 +2167,9 @@ namespace Grimoire.UI
 
 		private void btnAddSkillCmd_Click(object sender, EventArgs e)
 		{
-			string index = numSkill.Text;
+			string index = numSkillCmd.Text;
+			string target = txtMonsterSkillCmd.Text;
+			if (target == "Monster (* = random)") target = "*";
 			Skill skill = new Skill
 			{
 				Text = Skill.GetSkillName(index),
@@ -2183,8 +2180,9 @@ namespace Grimoire.UI
 			AddCommand(new CmdUseSkill
 			{
 				Skill = skill,
-				Wait = this.chkSkillCD.Checked,
-				Targeted = chkUseSkillTargeted.Checked
+				Wait = cbSkillCmdWait.Checked,
+				Targeted = !chkUseSkillTargeted.Checked,
+				Target = target
 			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
@@ -2858,8 +2856,8 @@ namespace Grimoire.UI
 				}
 				bool flag = this.tbMonNameF.Text == "Monster (* = random)" || string.IsNullOrEmpty(tbMonNameF.Text);
 				if (flag) monster = "*";
-				string text = this.tbItemNameF.Text;
-				string text2 = this.tbItemQtyF.Text;
+				string itemName = this.tbItemNameF.Text;
+				string itemQty = this.tbItemQtyF.Text;
 
 				if (chkAddToWhitelistF.Checked)
 				{
@@ -2883,9 +2881,9 @@ namespace Grimoire.UI
 					Cell = tbCellF.Text,
 					Pad = tbPadF.Text,
 					ItemType = (chkIsTempF.Checked ? ItemType.TempItems : ItemType.Items),
-					Monster = monster,
-					ItemName = text,
-					Quantity = text2,
+					Monster = monster.Trim(),
+					ItemName = itemName.Trim(),
+					Quantity = itemQty.Trim(),
 					IsGetDrops = chkGetAfterF.Checked,
 					AfterKills = int.TryParse(this.tbGetAfterF.Text, out times) ? times : 1,
 					BlankFirst = cbBlankFirstF.Checked
@@ -3295,6 +3293,7 @@ namespace Grimoire.UI
 		private bool isFollowing = false;
 		private async void chkEnableSettings_CheckedChanged(object sender, EventArgs e)
 		{
+			Root.Instance.enableOptionsToolStripMenuItem.Checked = chkEnableSettings.Checked;
 			tbFollowPlayer2.Enabled = !chkEnableSettings.Checked;
 			chkFollowOnly.Enabled = !chkEnableSettings.Checked;
 			if (chkFollowOnly.Checked && chkEnableSettings.Checked)

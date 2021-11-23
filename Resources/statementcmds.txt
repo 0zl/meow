@@ -76,6 +76,13 @@
       "Description2": "Default true/false"
     },
     {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdTargetHealthBetween, Grimoire",
+      "Tag": "This player",
+      "Text": "Target health between",
+      "Description1": "StartHP,EndHP",
+      "Description2": "Default true/false"
+    },
+    {
       "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdInInventory, Grimoire",
       "Tag": "Item",
       "Text": "Is in inventory",
@@ -184,6 +191,20 @@
       "Tag": "Monster",
       "Text": "Is not in room",
       "Description1": "Monster name"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdMonsterHealthGreaterThan, Grimoire",
+      "Tag": "Monster",
+      "Text": "Monster HP greater than",
+      "Description1": "Monster name",
+      "Description2": "Health"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdMonsterHealthLessThan, Grimoire",
+      "Tag": "Monster",
+      "Text": "Monster HP less than",
+      "Description1": "Monster name",
+      "Description2": "Health"
     },
     {
       "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdMonstersGreaterThan, Grimoire",

@@ -254,6 +254,8 @@
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdManaLessThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMapIs.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMapIsNot.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonsterHealthGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonsterHealthLessThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonsterInRoom.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonsterNotInRoom.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonstersGreaterThan.cs" />
@@ -283,6 +285,7 @@
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdQuestNotCompleted.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdQuestNotInProgress.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdSetVar.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetHealthBetween.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetHealthGreaterThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetHealthLessThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdUpdateVar.cs" />

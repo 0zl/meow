@@ -20,6 +20,8 @@ namespace Grimoire.Botting.Commands.Combat
         public string Quantity { get; set; }
         public bool IsGetDrops { get; set; } = false;
         public int AfterKills { get; set; } = 1;
+        public string KillPriority { get; set; } = "";
+        public bool AntiCounter { get; set; } = false;
         public string QuestId { get; set; }
         public int DelayAfterKill { get; set; } = 500;
         public bool BlankFirst { get; set; }
@@ -70,6 +72,8 @@ namespace Grimoire.Botting.Commands.Combat
                 AfterKills = this.AfterKills,
                 QuestId = this.QuestId,
                 DelayAfterKill = this.DelayAfterKill,
+                KillPriority = this.KillPriority,
+                AntiCounter = this.AntiCounter
             };
 
             await killFor.Execute(instance);
@@ -77,7 +81,8 @@ namespace Grimoire.Botting.Commands.Combat
 
         public override string ToString()
         {
-            return $"Hunt {Quantity}x {ItemName}";
+            string itemType = ItemType == ItemType.Items ? "Items" : "Temps";
+            return $"Hunt {itemType} {Quantity}x {ItemName}";
         }
 
     }

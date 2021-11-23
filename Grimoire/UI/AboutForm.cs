@@ -25,6 +25,11 @@ namespace Grimoire.UI
             }
         }
 
+        private void pbFrozttGithub_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/dwiki08/meow");
+        }
+
         private void pbCatGithub_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/0zl");
@@ -86,6 +91,6 @@ namespace Grimoire.UI
 		{
             return this.lblVersion.Text;
 		}
-    
-    }
+
+	}
 }

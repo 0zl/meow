@@ -34,5 +34,6 @@
   "tbLoginUsername":"Username",
   "tbLoginPassword":"Password",
   "tbBSLabel":"Packet Name",
-  "tbBSPacket":"%xt%zm%........."
+  "tbBSPacket":"%xt%zm%.........",
+  "txtMonsterSkillCmd": "Monster (* = random)"
 }

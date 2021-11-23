@@ -35,7 +35,7 @@ namespace Grimoire.UI
 			this.lblSwfInfo = new DarkUI.Controls.DarkLabel();
 			this.btnLoadSWF = new DarkUI.Controls.DarkButton();
 			this.tbGameSWF = new DarkUI.Controls.DarkTextBox();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.pbFrozttGithub = new System.Windows.Forms.PictureBox();
 			this.darkLabel6 = new DarkUI.Controls.DarkLabel();
 			this.darkLabel3 = new DarkUI.Controls.DarkLabel();
 			this.lblVersion = new DarkUI.Controls.DarkLabel();
@@ -55,7 +55,7 @@ namespace Grimoire.UI
 			this.darkLabel1 = new DarkUI.Controls.DarkLabel();
 			this.label1 = new System.Windows.Forms.Label();
 			this.panel1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pbFrozttGithub)).BeginInit();
 			this.panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbGrimoireBig)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pbCatGithub)).BeginInit();
@@ -69,7 +69,7 @@ namespace Grimoire.UI
 			this.panel1.Controls.Add(this.lblSwfInfo);
 			this.panel1.Controls.Add(this.btnLoadSWF);
 			this.panel1.Controls.Add(this.tbGameSWF);
-			this.panel1.Controls.Add(this.pictureBox1);
+			this.panel1.Controls.Add(this.pbFrozttGithub);
 			this.panel1.Controls.Add(this.darkLabel6);
 			this.panel1.Controls.Add(this.darkLabel3);
 			this.panel1.Controls.Add(this.lblVersion);
@@ -124,16 +124,17 @@ namespace Grimoire.UI
 			this.tbGameSWF.TabIndex = 18;
 			this.tbGameSWF.Text = "Loader/grimoire.swf";
 			// 
-			// pictureBox1
+			// pbFrozttGithub
 			// 
-			this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-			this.pictureBox1.InitialImage = null;
-			this.pictureBox1.Location = new System.Drawing.Point(21, 115);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-			this.pictureBox1.TabIndex = 17;
-			this.pictureBox1.TabStop = false;
+			this.pbFrozttGithub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.pbFrozttGithub.Image = ((System.Drawing.Image)(resources.GetObject("pbFrozttGithub.Image")));
+			this.pbFrozttGithub.InitialImage = null;
+			this.pbFrozttGithub.Location = new System.Drawing.Point(21, 115);
+			this.pbFrozttGithub.Name = "pbFrozttGithub";
+			this.pbFrozttGithub.Size = new System.Drawing.Size(16, 16);
+			this.pbFrozttGithub.TabIndex = 17;
+			this.pbFrozttGithub.TabStop = false;
+			this.pbFrozttGithub.Click += new System.EventHandler(this.pbFrozttGithub_Click);
 			// 
 			// darkLabel6
 			// 
@@ -161,9 +162,9 @@ namespace Grimoire.UI
 			this.lblVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.lblVersion.Location = new System.Drawing.Point(16, 36);
 			this.lblVersion.Name = "lblVersion";
-			this.lblVersion.Size = new System.Drawing.Size(126, 13);
+			this.lblVersion.Size = new System.Drawing.Size(117, 13);
 			this.lblVersion.TabIndex = 14;
-			this.lblVersion.Text = "Version 2.2.2 (01112021)";
+			this.lblVersion.Text = "Version 2.3 (23112021)";
 			// 
 			// rtbCredits
 			// 
@@ -339,7 +340,7 @@ namespace Grimoire.UI
 			this.Load += new System.EventHandler(this.AboutForm_Load);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pbFrozttGithub)).EndInit();
 			this.panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.pbGrimoireBig)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pbCatGithub)).EndInit();
@@ -370,7 +371,7 @@ namespace Grimoire.UI
         private DarkUI.Controls.DarkLabel darkLabel3;
         private DarkUI.Controls.DarkLabel lblVersion;
         private DarkUI.Controls.DarkLabel darkLabel6;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbFrozttGithub;
         private DarkUI.Controls.DarkTextBox tbGameSWF;
         private DarkUI.Controls.DarkButton btnLoadSWF;
         private DarkUI.Controls.DarkLabel lblSwfInfo;

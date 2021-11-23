@@ -96,6 +96,7 @@ namespace Grimoire.UI
 		private ToolStripMenuItem devTestToolStripMenuItem;
 		public ToolStripMenuItem walkspeedToolStripMenuItem;
 		private ToolStripTextBox toolStripTextBox1;
+		public ToolStripMenuItem enableOptionsToolStripMenuItem;
 
 		//public AxShockwaveFlash Client => flashPlayer;
 
@@ -315,6 +316,7 @@ namespace Grimoire.UI
 			this.disableAnimationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.walkspeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+			this.enableOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pluginsStrip = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.gameContainer = new System.Windows.Forms.Panel();
@@ -455,7 +457,7 @@ namespace Grimoire.UI
             "Bottom",
             "Up",
             "Down"});
-			this.cbPads.Location = new System.Drawing.Point(695, 3);
+			this.cbPads.Location = new System.Drawing.Point(700, 3);
 			this.cbPads.MaxDropDownItems = 50;
 			this.cbPads.Name = "cbPads";
 			this.cbPads.Size = new System.Drawing.Size(91, 21);
@@ -466,7 +468,7 @@ namespace Grimoire.UI
 			// 
 			this.cbCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.cbCells.FormattingEnabled = true;
-			this.cbCells.Location = new System.Drawing.Point(788, 3);
+			this.cbCells.Location = new System.Drawing.Point(791, 3);
 			this.cbCells.MaxDropDownItems = 50;
 			this.cbCells.Name = "cbCells";
 			this.cbCells.Size = new System.Drawing.Size(91, 21);
@@ -492,7 +494,7 @@ namespace Grimoire.UI
 			this.chkAutoAttack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkAutoAttack.AutoSize = true;
 			this.chkAutoAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.chkAutoAttack.Location = new System.Drawing.Point(612, 5);
+			this.chkAutoAttack.Location = new System.Drawing.Point(616, 5);
 			this.chkAutoAttack.Name = "chkAutoAttack";
 			this.chkAutoAttack.Size = new System.Drawing.Size(82, 17);
 			this.chkAutoAttack.TabIndex = 37;
@@ -505,7 +507,7 @@ namespace Grimoire.UI
 			this.chkStartBot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkStartBot.AutoSize = true;
 			this.chkStartBot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.chkStartBot.Location = new System.Drawing.Point(541, 5);
+			this.chkStartBot.Location = new System.Drawing.Point(545, 5);
 			this.chkStartBot.Name = "chkStartBot";
 			this.chkStartBot.Size = new System.Drawing.Size(67, 17);
 			this.chkStartBot.TabIndex = 38;
@@ -519,7 +521,7 @@ namespace Grimoire.UI
 			this.btnGetCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
 			this.btnGetCell.Checked = false;
 			this.btnGetCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-			this.btnGetCell.Location = new System.Drawing.Point(881, 2);
+			this.btnGetCell.Location = new System.Drawing.Point(882, 2);
 			this.btnGetCell.Name = "btnGetCell";
 			this.btnGetCell.Size = new System.Drawing.Size(18, 23);
 			this.btnGetCell.TabIndex = 39;
@@ -835,7 +837,8 @@ namespace Grimoire.UI
             this.hidePlayersToolStripMenuItem,
             this.skipCutscenesToolStripMenuItem,
             this.disableAnimationsToolStripMenuItem,
-            this.walkspeedToolStripMenuItem});
+            this.walkspeedToolStripMenuItem,
+            this.enableOptionsToolStripMenuItem});
 			this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
 			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 23);
@@ -933,6 +936,17 @@ namespace Grimoire.UI
 			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
 			this.toolStripTextBox1.Text = "8";
 			// 
+			// enableOptionsToolStripMenuItem
+			// 
+			this.enableOptionsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.enableOptionsToolStripMenuItem.CheckOnClick = true;
+			this.enableOptionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.enableOptionsToolStripMenuItem.Name = "enableOptionsToolStripMenuItem";
+			this.enableOptionsToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+			this.enableOptionsToolStripMenuItem.Text = "Enable Options";
+			this.enableOptionsToolStripMenuItem.Visible = false;
+			this.enableOptionsToolStripMenuItem.Click += new System.EventHandler(this.enableOptionsToolStripMenuItem_Click);
+			// 
 			// pluginsStrip
 			// 
 			this.pluginsStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
@@ -972,7 +986,7 @@ namespace Grimoire.UI
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Root";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Grimlite Li";
+			this.Text = "Grimlite Li 2.3";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Root_FormClosing);
 			this.Load += new System.EventHandler(this.Root_Load);
 			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Root_KeyPress);
@@ -1140,6 +1154,11 @@ namespace Grimoire.UI
 			bool check = disableAnimationsToolStripMenuItem.Checked;
 			OptionsManager.DisableAnimations = check;
 			botManager.chkDisableAnims.Checked = check;
+		}
+
+		private void enableOptionsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			botManager.chkEnableSettings.Checked = enableOptionsToolStripMenuItem.Checked;
 		}
 
 		private void walkspeedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1345,7 +1364,6 @@ namespace Grimoire.UI
 			}
 		}
 
-		private static IJsonMessageHandler HandlerRMP { get; } = new HandlerSkills();
 		private async void chkAutoAttack_CheckedChanged(object sender, EventArgs e)
 		{
 			if (!Player.IsLoggedIn || chkStartBot.Checked)
@@ -1359,32 +1377,29 @@ namespace Grimoire.UI
 			{
 				listSkill = BotManager.Instance.lstSkills.Items.Cast<Skill>().ToList();
 			}
-			bool hasLabel = false;
-			foreach (Skill skill in listSkill)
+			else
 			{
-				if (skill.Type == Skill.SkillType.Label)
+				listSkill = new List<Skill>
 				{
-					hasLabel = true;
-					break;
-				}
+					new Skill {Type = Skill.SkillType.Normal, Index = "1"},
+					new Skill {Type = Skill.SkillType.Normal, Index = "2"},
+					new Skill {Type = Skill.SkillType.Normal, Index = "3"},
+					new Skill {Type = Skill.SkillType.Normal, Index = "4"}
+				};
 			}
 
-			bool listSkillReady = !hasLabel && listSkill.Count > 0;
-			int i = (hasLabel ? 1 : 0);
+			int i = 0;
 			while (chkAutoAttack.Checked)
 			{
 				if (!Player.HasTarget) Player.AttackMonster("*");
-				if (listSkillReady)
+				if (listSkill.Count > 0)
 				{
-					listSkill[i].ExecuteSkill();
-				}
-				else
-				{
-					Player.UseSkill(i.ToString());
+					if (listSkill[i].Type != Skill.SkillType.Label)
+						listSkill[i].ExecuteSkill();
 				}
 				await Task.Delay(100);
 				i++;
-				if (i > (listSkillReady ? listSkill.Count - 1 : 4)) i = 1;
+				if (i >= listSkill.Count) i = 0;
 			}
 		}
 
