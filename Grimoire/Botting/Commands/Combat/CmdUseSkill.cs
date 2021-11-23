@@ -17,15 +17,13 @@ namespace Grimoire.Botting.Commands.Combat
 
 		public async Task Execute(IBotEngine instance)
 		{
+			string target = instance.IsVar(Target) ? Configuration.Tempvariable[instance.GetVar(Target)] : Target;
 			if (instance.Configuration.SkipAttack)
 			{
 				if (Player.HasTarget) Player.CancelTarget(); 
 				return;
 			}
-			if (Target != null)
-			{
-				Player.AttackMonster(Target);
-			}
+			Player.AttackMonster(target);
 			if (Targeted)
             {
 				if (!Player.HasTarget) return;
