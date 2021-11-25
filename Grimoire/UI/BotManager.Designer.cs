@@ -335,6 +335,7 @@ namespace Grimoire.UI
 			this.mainTabControl = new FlatTabControl.FlatTabControl();
 			this.tabCombat = new System.Windows.Forms.TabPage();
 			this.darkGroupBox18 = new DarkUI.Controls.DarkGroupBox();
+			this.numSkillCmd = new DarkUI.Controls.DarkNumericUpDown();
 			this.cbSkillCmdWait = new DarkUI.Controls.DarkCheckBox();
 			this.txtMonsterSkillCmd = new DarkUI.Controls.DarkTextBox();
 			this.btnSkillCmd = new DarkUI.Controls.DarkButton();
@@ -656,10 +657,10 @@ namespace Grimoire.UI
 			this.toggleTabpagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.commandColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-			this.numSkillCmd = new DarkUI.Controls.DarkNumericUpDown();
 			this.mainTabControl.SuspendLayout();
 			this.tabCombat.SuspendLayout();
 			this.darkGroupBox18.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numSkillCmd)).BeginInit();
 			this.boxSkillSet.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numSkill)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numSafe)).BeginInit();
@@ -741,7 +742,6 @@ namespace Grimoire.UI
 			this.splitContainer2.Panel2.SuspendLayout();
 			this.splitContainer2.SuspendLayout();
 			this.BotManagerMenuStrip.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numSkillCmd)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lstCommands
@@ -932,6 +932,29 @@ namespace Grimoire.UI
 			this.darkGroupBox18.TabIndex = 76;
 			this.darkGroupBox18.TabStop = false;
 			this.darkGroupBox18.Text = "Skill Command";
+			// 
+			// numSkillCmd
+			// 
+			this.numSkillCmd.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+			this.numSkillCmd.Location = new System.Drawing.Point(11, 42);
+			this.numSkillCmd.LoopValues = false;
+			this.numSkillCmd.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.numSkillCmd.Name = "numSkillCmd";
+			this.numSkillCmd.Size = new System.Drawing.Size(44, 20);
+			this.numSkillCmd.TabIndex = 73;
+			this.numSkillCmd.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// cbSkillCmdWait
 			// 
@@ -1477,7 +1500,7 @@ namespace Grimoire.UI
 			this.tabMap.Margin = new System.Windows.Forms.Padding(0);
 			this.tabMap.Name = "tabMap";
 			this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMap.Size = new System.Drawing.Size(192, 73);
+			this.tabMap.Size = new System.Drawing.Size(531, 301);
 			this.tabMap.TabIndex = 2;
 			this.tabMap.Text = "Map";
 			// 
@@ -1719,7 +1742,7 @@ namespace Grimoire.UI
 			this.tabItem.Margin = new System.Windows.Forms.Padding(0);
 			this.tabItem.Name = "tabItem";
 			this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-			this.tabItem.Size = new System.Drawing.Size(192, 73);
+			this.tabItem.Size = new System.Drawing.Size(531, 301);
 			this.tabItem.TabIndex = 1;
 			this.tabItem.Text = "Item";
 			// 
@@ -2159,7 +2182,7 @@ namespace Grimoire.UI
 			this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
 			this.tabQuest.Name = "tabQuest";
 			this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-			this.tabQuest.Size = new System.Drawing.Size(192, 73);
+			this.tabQuest.Size = new System.Drawing.Size(531, 301);
 			this.tabQuest.TabIndex = 3;
 			this.tabQuest.Text = "Quest";
 			// 
@@ -2234,9 +2257,10 @@ namespace Grimoire.UI
 			this.chkReloginCompleteQuest.AutoSize = true;
 			this.chkReloginCompleteQuest.Location = new System.Drawing.Point(232, 50);
 			this.chkReloginCompleteQuest.Name = "chkReloginCompleteQuest";
-			this.chkReloginCompleteQuest.Size = new System.Drawing.Size(93, 17);
+			this.chkReloginCompleteQuest.Size = new System.Drawing.Size(80, 17);
 			this.chkReloginCompleteQuest.TabIndex = 18;
-			this.chkReloginCompleteQuest.Text = "relogin if failed";
+			this.chkReloginCompleteQuest.Text = "safe relogin";
+			this.chkReloginCompleteQuest.MouseHover += new System.EventHandler(this.chkReloginCompleteQuest_MouseHover);
 			// 
 			// chkInBlankCell
 			// 
@@ -2246,6 +2270,7 @@ namespace Grimoire.UI
 			this.chkInBlankCell.Size = new System.Drawing.Size(83, 17);
 			this.chkInBlankCell.TabIndex = 17;
 			this.chkInBlankCell.Text = "in Blank cell";
+			this.chkInBlankCell.MouseHover += new System.EventHandler(this.chkInBlankCell_MouseHover);
 			// 
 			// label14
 			// 
@@ -3099,7 +3124,7 @@ namespace Grimoire.UI
 			this.darkGroupBox9.Controls.Add(this.txtDescription);
 			this.darkGroupBox9.Location = new System.Drawing.Point(246, 6);
 			this.darkGroupBox9.Name = "darkGroupBox9";
-			this.darkGroupBox9.Size = new System.Drawing.Size(279, 196);
+			this.darkGroupBox9.Size = new System.Drawing.Size(279, 195);
 			this.darkGroupBox9.TabIndex = 116;
 			this.darkGroupBox9.TabStop = false;
 			this.darkGroupBox9.Text = "Save/Load";
@@ -3165,7 +3190,7 @@ namespace Grimoire.UI
 			this.txtDescription.MaxLength = 2147483647;
 			this.txtDescription.Multiline = true;
 			this.txtDescription.Name = "txtDescription";
-			this.txtDescription.Size = new System.Drawing.Size(266, 122);
+			this.txtDescription.Size = new System.Drawing.Size(266, 121);
 			this.txtDescription.TabIndex = 109;
 			this.txtDescription.Text = "Description (Write in RTF)";
 			this.txtDescription.Enter += new System.EventHandler(this.TextboxEnter);
@@ -3824,7 +3849,7 @@ namespace Grimoire.UI
 			this.tabOptions2.Margin = new System.Windows.Forms.Padding(0);
 			this.tabOptions2.Name = "tabOptions2";
 			this.tabOptions2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabOptions2.Size = new System.Drawing.Size(192, 73);
+			this.tabOptions2.Size = new System.Drawing.Size(531, 301);
 			this.tabOptions2.TabIndex = 7;
 			this.tabOptions2.Text = "Client";
 			// 
@@ -4076,7 +4101,7 @@ namespace Grimoire.UI
 			// 
 			this.lblUP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblUP.AutoSize = true;
-			this.lblUP.Location = new System.Drawing.Point(81, 52);
+			this.lblUP.Location = new System.Drawing.Point(420, 280);
 			this.lblUP.Name = "lblUP";
 			this.lblUP.Size = new System.Drawing.Size(106, 13);
 			this.lblUP.TabIndex = 152;
@@ -4965,29 +4990,6 @@ namespace Grimoire.UI
 			this.commandColorsToolStripMenuItem.Text = "Command Customizer";
 			this.commandColorsToolStripMenuItem.Click += new System.EventHandler(this.commandColorsToolStripMenuItem_Click);
 			// 
-			// numSkillCmd
-			// 
-			this.numSkillCmd.IncrementAlternate = new decimal(new int[] {
-            10,
-            0,
-            0,
-            65536});
-			this.numSkillCmd.Location = new System.Drawing.Point(11, 42);
-			this.numSkillCmd.LoopValues = false;
-			this.numSkillCmd.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.numSkillCmd.Name = "numSkillCmd";
-			this.numSkillCmd.Size = new System.Drawing.Size(44, 20);
-			this.numSkillCmd.TabIndex = 73;
-			this.numSkillCmd.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			// 
 			// BotManager
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -5011,6 +5013,7 @@ namespace Grimoire.UI
 			this.tabCombat.PerformLayout();
 			this.darkGroupBox18.ResumeLayout(false);
 			this.darkGroupBox18.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numSkillCmd)).EndInit();
 			this.boxSkillSet.ResumeLayout(false);
 			this.boxSkillSet.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numSkill)).EndInit();
@@ -5118,7 +5121,6 @@ namespace Grimoire.UI
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
 			this.splitContainer2.ResumeLayout(false);
 			this.BotManagerMenuStrip.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.numSkillCmd)).EndInit();
 			this.ResumeLayout(false);
 
 		}

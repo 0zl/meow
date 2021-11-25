@@ -403,7 +403,7 @@ namespace Grimoire.Botting
 				quest.Complete();
 				await Task.Delay(1000);
 				tryComplete++;
-				if (tryComplete > 5) Player.Logout();
+				if (tryComplete > 5 && quest.SafeRelogin) Player.Logout();
 			}
 			if (quest.CompleteInBlank)
 			{

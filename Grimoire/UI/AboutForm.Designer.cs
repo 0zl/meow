@@ -162,9 +162,9 @@ namespace Grimoire.UI
 			this.lblVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.lblVersion.Location = new System.Drawing.Point(16, 36);
 			this.lblVersion.Name = "lblVersion";
-			this.lblVersion.Size = new System.Drawing.Size(117, 13);
+			this.lblVersion.Size = new System.Drawing.Size(126, 13);
 			this.lblVersion.TabIndex = 14;
-			this.lblVersion.Text = "Version 2.3 (23112021)";
+			this.lblVersion.Text = "Version 2.3.1 (24112021)";
 			// 
 			// rtbCredits
 			// 

@@ -1152,7 +1152,12 @@ namespace Grimoire.UI
 
 		private void btnQuestAdd_Click(object sender, EventArgs e)
 		{
-			AddQuest((int)numQuestID.Value, chkQuestItem.Checked ? numQuestItem.Value.ToString() : null, chkInBlankCell.Checked);
+			AddQuest(
+				(int)numQuestID.Value, 
+				chkQuestItem.Checked ? numQuestItem.Value.ToString() : null, 
+				chkInBlankCell.Checked,
+				chkReloginCompleteQuest.Checked
+				);
 		}
 
 		private void btnQuestComplete_Click(object sender, EventArgs e)
@@ -1837,7 +1842,7 @@ namespace Grimoire.UI
 				chkHidePlayers.Enabled = true;
 			}
 
-			toggleAntiMod(chkAntiMod.Checked);
+			toggleAntiMod(chkAntiMod.Checked && chkEnable.Checked);
 		}
 
 
@@ -1869,13 +1874,14 @@ namespace Grimoire.UI
 			btnRemove.Enabled = !IsRunning;
 		}
 
-		public void AddQuest(int QuestID, string ItemID = null, bool completeInBlank = false)
+		public void AddQuest(int QuestID, string ItemID = null, bool completeInBlank = false, bool safeRelogin = false)
 		{
 			Quest quest = new Quest
 			{
 				Id = QuestID,
 				ItemId = ItemID,
-				CompleteInBlank = completeInBlank
+				CompleteInBlank = completeInBlank,
+				SafeRelogin = safeRelogin
 			};
 			quest.Text = (quest.ItemId != null) ? $"{quest.Id}:{quest.ItemId}" : quest.Id.ToString();
 			if (!lstQuests.Items.Contains(quest))
@@ -3074,10 +3080,12 @@ namespace Grimoire.UI
 			{
 				Flash.FlashCall += AntiMODHandler;
 				chkHidePlayers.Checked = false;
+				Console.WriteLine("AntiMod enable");
 			}
 			else
 			{
 				Flash.FlashCall -= AntiMODHandler;
+				Console.WriteLine("AntiMod disable");
 			}
 			btnAMTest.Enabled = !chkAntiMod.Checked;
 			chkAMLogout.Enabled = !chkAntiMod.Checked;
@@ -3354,6 +3362,18 @@ namespace Grimoire.UI
 					Name = txtSkillSet.Text.ToUpper()
 				}, (ModifierKeys & Keys.Control) == Keys.Control);
 			}
+		}
+
+		private void chkReloginCompleteQuest_MouseHover(object sender, EventArgs e)
+		{
+			ToolTip tooltip = new ToolTip();
+			tooltip.SetToolTip(this.chkReloginCompleteQuest, "Automatic logout when a quest take 5 times to complete.");
+		}
+
+		private void chkInBlankCell_MouseHover(object sender, EventArgs e)
+		{
+			ToolTip tooltip = new ToolTip();
+			tooltip.SetToolTip(this.chkInBlankCell, "Completing quest in blank cell.");
 		}
 	}
 }
