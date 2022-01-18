@@ -441,6 +441,12 @@
     <Compile Include="Grimoire\UI\Hotkeys.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Grimoire\UI\IceCreamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\IceCreamForm.Designer.cs">
+      <DependentUpon>IceCreamForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Grimoire\UI\PacketInterceptor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -555,6 +561,9 @@
     <EmbeddedResource Include="Grimoire\UI\Hotkeys.resx">
       <DependentUpon>Hotkeys.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\IceCreamForm.resx">
+      <DependentUpon>IceCreamForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Grimoire\UI\PacketInterceptor.resx">
       <DependentUpon>PacketInterceptor.cs</DependentUpon>
     </EmbeddedResource>
@@ -644,6 +653,7 @@
     <Content Include="EasyLoad64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\astolfo.jpg" />
     <None Include="Resources\Discord.ico" />
     <None Include="Resources\Artix.ico" />
     <None Include="Resources\pdipic.png" />

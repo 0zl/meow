@@ -128,37 +128,6 @@ namespace Grimoire.Botting
 					BotData.SkillSet.Add(Configuration.Skills[i].Text.ToUpper(), i);
 				}
 			}
-			if (config.Items.Count > 0)
-			{
-				Player.Bank.LoadItems();
-				foreach (string item in config.Items)
-				{
-					if (!Player.Inventory.ContainsItem(item, "*") && Player.Bank.ContainsItem(item))
-					{
-						Player.Bank.TransferFromBank(item);
-						Task.Delay(70);
-						LogForm.Instance.AppendDebug("Transferred from Bank: " + item + "\r\n");
-					}
-					else if (Player.Inventory.ContainsItem(item, "*"))
-					{
-						LogForm.Instance.AppendDebug("Item Already exists in Inventory: " + item + "\r\n");
-					}
-				}
-			}
-			List<InventoryItem> inventory = Player.Inventory.Items;
-			int num = (from i in Enumerable.Range(0, config.Items.Count)
-					   where inventory.Find((InventoryItem x) => x.Name.ToLower() == config.Items[i].ToLower()) == null
-					   select i).Count();
-			if (config.Items != null && num > Player.Inventory.AvailableSlots)
-			{
-				int num2 = config.Items.Count - num - Player.Inventory.AvailableSlots;
-				MessageBox.Show(string.Concat
-					(
-						"You don't have enough available inventory slots to use this bot, please bank some items, you need ",
-						config.Items.Count, " Free Inventory spots in total (you need ", num2, " more),"
-					), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-				return;
-			}
 		}
 
 		public void Stop()

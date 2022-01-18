@@ -11,9 +11,13 @@ namespace Grimoire.UI
 {
     public partial class AboutForm : DarkForm
     {
+        private readonly string version = "2.3.3";
+        private readonly string releaseDate = "18-01-2022";
+
         public AboutForm()
         {
             InitializeComponent();
+            this.lblVersion.Text = $"Version {version} ({releaseDate})";
         }
 
         private void AboutForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -89,8 +93,12 @@ namespace Grimoire.UI
 
         public string getVersion()
 		{
-            return this.lblVersion.Text;
-		}
+			return version;
+        }
+        public string getReleaseDate()
+        {
+            return releaseDate;
+        }
 
-	}
+    }
 }

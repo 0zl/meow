@@ -18,6 +18,12 @@ namespace Grimoire.Botting.Commands.Map
             set;
         }
 
+        public int Wait
+        {
+            get;
+            set;
+        } = 5000;
+
         public string Type
         {
             get;
@@ -39,7 +45,7 @@ namespace Grimoire.Botting.Commands.Map
                 {
                     string[] position = Player.Position;
                     return position[0].ToString() == X && position[1].ToString() == Y;
-                });
+                }, null, timeout: Wait);
             }
         }
 

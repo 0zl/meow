@@ -153,10 +153,6 @@ namespace Grimoire.UI
 		private DarkButton btnAddLabel;
 		private DarkButton btnGotoLabel;
 		private DarkTextBox txtLabel;
-		private DarkGroupBox darkGroupBox17;
-		private DarkCheckBox chkLoginLock;
-		private DarkTextBox tbLoginUsername;
-		private DarkTextBox tbLoginPassword;
 		private DarkTextBox txtAuthor;
 		private DarkCheckBox chkUseSkillTargeted;
 		public DarkCheckBox chkFollowOnly;
@@ -1716,14 +1712,20 @@ namespace Grimoire.UI
 				{
 					ListBox.ObjectCollection items = lstDrops.Items;
 					object[] array = config.Drops.ToArray();
-					items.AddRange(array);
+					foreach (String drop in array) 
+					{
+						if (!items.Contains(drop)) items.AddRange(array);
+					}
 				}
 				List<string> item = config.Items;
 				if (item != null && item.Count > 0)
 				{
 					ListBox.ObjectCollection items = lstItems.Items;
 					object[] array = config.Items.ToArray();
-					items.AddRange(array);
+					foreach (String drop in array) 
+					{
+						if (!items.Contains(drop)) items.AddRange(array);
+					}
 				}
 				e.Handled = true;
 			}
@@ -1793,6 +1795,38 @@ namespace Grimoire.UI
 			}
 		}
 
+		private async void SendInfoMessages(string message)
+		{
+			await Proxy.Instance.SendToClient($"%xt%server%-1%BOT : {message}%");
+		}
+
+		private async Task UnBankItems()
+		{
+			SendInfoMessages("Unbanking items to invent...");
+			foreach (string item in lstItems.Items)
+			{
+				Player.Bank.TransferFromBank(item);
+				await Task.Delay(100);
+				//LogForm.Instance.AppendDebug("Transferred from Bank: " + item + "\r\n");
+			}
+			SendInfoMessages("Unbanking done.");
+		}
+
+		private async Task BankingItems()
+		{
+			SendInfoMessages("Banking items from invent...");
+			foreach (InventoryItem item in Player.Inventory.Items)
+			{
+				if (!item.IsEquipped && item.IsAcItem && item.Category != "Class" && item.Name.ToLower() != "treasure potion" && lstItems.Items.Contains(item.Name))
+				{
+					Player.Bank.TransferToBank(item.Name);
+					await Task.Delay(100);
+					//LogForm.Instance.AppendDebug("Transferred to Bank: " + item.Name + "\r\n");
+				}
+			}
+			SendInfoMessages("Banking done.");
+		}
+
 		private async void chkEnableBot_CheckedChanged(object sender, EventArgs e)
 		{
 			if (chkEnable.Checked && (lstCommands.Items.Count <= 0 || !Player.IsLoggedIn))
@@ -1803,8 +1837,13 @@ namespace Grimoire.UI
 
 			chkAntiMod.Enabled = !chkEnable.Checked;
 
+			chkEnable.Enabled = false;
+			Root.Instance.chkStartBot.Enabled = false;
+
 			if (chkEnable.Checked)
-			{
+			{					
+				if (lstItems.Items.Count > 0)
+					await UnBankItems();
 				selectionMode(SelectionMode.One);
 				ActiveBotEngine.IsRunningChanged += OnIsRunningChanged;
 				ActiveBotEngine.IndexChanged += OnIndexChanged;
@@ -1821,28 +1860,29 @@ namespace Grimoire.UI
 			}
 			else
 			{
-				if (lstItems != null && this.chkBankOnStop.Checked)
-				{
-					foreach (InventoryItem item in Player.Inventory.Items)
-					{
-						if (!item.IsEquipped && item.IsAcItem && item.Category != "Class" && item.Name.ToLower() != "treasure potion" && lstItems.Items.Contains(item.Name))
-						{
-							Player.Bank.TransferToBank(item.Name);
-							await Task.Delay(70);
-							LogForm.Instance.AppendDebug("Transferred to Bank: " + item.Name + "\r\n");
-						}
-					}
-					LogForm.Instance.AppendDebug("Banked all AC Items in Items list \r\n");
-				}
 				ActiveBotEngine.Stop();
 				selectionMode(SelectionMode.MultiExtended);
 				BotStateChanged(IsRunning: false);
 				Root.Instance.BotStateChanged(IsRunning: false);
 				Root.Instance.chkStartBot.Checked = false;
 				chkHidePlayers.Enabled = true;
-			}
 
+				if (Player.CurrentState == Player.State.InCombat)
+				{
+					Player.CancelTarget();
+					Player.CancelAutoAttack();
+				}
+				if (lstItems.Items.Count > 0 && this.chkBankOnStop.Checked)
+				{
+					Player.MoveToCell(Player.Cell, Player.Pad);
+					await Task.Delay(2000);
+					await BankingItems();
+				}
+			}
 			toggleAntiMod(chkAntiMod.Checked && chkEnable.Checked);
+
+			chkEnable.Enabled = true;
+			Root.Instance.chkStartBot.Enabled = true;
 		}
 
 
@@ -3235,23 +3275,6 @@ namespace Grimoire.UI
 			}
 		}
 
-		private void chkLoginLock_CheckedChanged(object sender, EventArgs e)
-		{
-			if (chkLoginLock.Checked)
-			{
-				OptionsManager.LoginUsername = tbLoginUsername.Text;
-				OptionsManager.LoginPassword = tbLoginPassword.Text;
-			}
-			else
-			{
-				OptionsManager.LoginUsername = null;
-				OptionsManager.LoginPassword = null;
-			}
-
-			tbLoginUsername.Enabled = !chkLoginLock.Checked;
-			tbLoginPassword.Enabled = !chkLoginLock.Checked;
-		}
-
 		private void FollowHandler(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
 		{
 			string msg = args[0].ToString();
@@ -3374,6 +3397,11 @@ namespace Grimoire.UI
 		{
 			ToolTip tooltip = new ToolTip();
 			tooltip.SetToolTip(this.chkInBlankCell, "Completing quest in blank cell.");
+		}
+
+		private void btnReloadMap_Click(object sender, EventArgs e)
+		{
+			World.ReloadMap();
 		}
 	}
 }

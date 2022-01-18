@@ -21,6 +21,8 @@ namespace Grimoire.Botting.Commands.Misc
 
         public async Task Execute(IBotEngine instance)
         {
+            string Messages = (instance.IsVar(this.Messages) ? Configuration.Tempvariable[instance.GetVar(this.Messages)] : this.Messages);
+
             if (!IsWarning)
             {
                 await Proxy.Instance.SendToClient($"%xt%server%-1%{Messages}%");
@@ -33,7 +35,7 @@ namespace Grimoire.Botting.Commands.Misc
 
         public override string ToString()
         {
-            return "Send " + (IsWarning ? "warning" : "info") + " message";
+            return "Send " + (IsWarning ? "warning" : "info") + " : " + Messages;
         }
     }
 }

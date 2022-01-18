@@ -28,6 +28,11 @@ namespace Grimoire.Game
 
         public static List<Monster> AvailableMonsters => Flash.Call<List<Monster>>("GetMonstersInCell", new string[0]);
 
+        public static void ReloadMap()
+        {
+            Flash.Call("ReloadMap", new string[0]);
+        }
+
         public static bool IsMapLoading => !Flash.Call<bool>("MapLoadComplete", new string[0]);
 
         public static List<string> PlayersInMap => Flash.Call<List<string>>("PlayersInMap", new string[0]);

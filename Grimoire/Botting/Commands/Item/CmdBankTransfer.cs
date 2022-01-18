@@ -23,16 +23,18 @@ namespace Grimoire.Botting.Commands.Item
             string ItemName = (instance.IsVar(this.ItemName) ? Configuration.Tempvariable[instance.GetVar(this.ItemName)] : this.ItemName);
             if (TransferFromBank)
             {
-                if (Player.Bank.ContainsItem(ItemName))
+                if (Player.Bank.GetItemByName(ItemName) != null)
                 {
                     Player.Bank.TransferFromBank(ItemName);
-                    await instance.WaitUntil(() => Player.Inventory.ContainsItem(ItemName, "*"));
+                    //await instance.WaitUntil(() => Player.Inventory.ContainsItem(ItemName, "*"));
+                    await Task.Delay(500);
                 }
             }
-            else if (Player.Inventory.ContainsItem(ItemName, "*"))
+            else if (Player.Inventory.GetItemByName(ItemName) != null)
             {
                 Player.Bank.TransferToBank(ItemName);
-                await instance.WaitUntil(() => !Player.Inventory.ContainsItem(ItemName, "*"));
+                //await instance.WaitUntil(() => !Player.Inventory.ContainsItem(ItemName, "*"));
+                await Task.Delay(500);
             }
         }
 

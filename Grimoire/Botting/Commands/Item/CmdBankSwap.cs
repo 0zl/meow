@@ -30,9 +30,9 @@ namespace Grimoire.Botting.Commands.Item
             }
             bool CanExecute()
             {
-                if (Player.Bank.ContainsItem(BankItemName))
+                if (Player.Bank.GetItemByName(BankItemName) != null)
                 {
-                    return Player.Inventory.ContainsItem(InventoryItemName, "*");
+                    return Player.Inventory.GetItemByName(InventoryItemName) != null;
                 }
                 return false;
             }

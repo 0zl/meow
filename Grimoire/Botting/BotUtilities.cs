@@ -64,11 +64,11 @@ namespace Grimoire.Botting
 
 		public static void LoadBankItems(this IBotEngine instance)
         {
-            if (instance.Configuration.Commands.Any((IBotCommand c) => 
+            /*if (instance.Configuration.Commands.Any((IBotCommand c) => 
                 c is CmdBankSwap || c is CmdBankTransfer || c is CmdInBank || c is CmdNotInBank || c is CmdInBankOrInvent || c is CmdNotInBankAndInvent || c is CmdBankList))
             {
                 Player.Bank.LoadItems();
-            }
+            }*/
         }
 
         static BotUtilities()

@@ -386,7 +386,6 @@ namespace Grimoire.Tools
 					break;
 
 				case "getServers":
-					Console.WriteLine("servers: " + args[0].ToString());
 					JObject packet = (JObject)JObject.Parse(args[0].ToString());
 					JObject login = (JObject)packet["login"];
 					JArray servers = (JArray)packet["servers"];
@@ -474,12 +473,16 @@ namespace Grimoire.Tools
 						Player.Logout();
 					}
 					break;
+				case "firstJoin":
+					break;
 			}
+			//Console.WriteLine($"client: {packet}");
 			return packet;
 		}
 
 		private static string ProcessPacketFromServer(string packet)
 		{
+			//Console.WriteLine($"server: {packet}");
 			return packet;
 		}
 
@@ -490,8 +493,12 @@ namespace Grimoire.Tools
 			dynamic data = packet["params"].dataObj;
 			if (type == "json")
 			{
+				//Console.WriteLine($"cmd: {data.cmd}");
 				switch ((string)data.cmd)
 				{
+					case "loadInventoryBig":
+						Player.Bank.GetBank();
+						break;
 					case "dropItem":
 						JObject items = (JObject)data["items"];
 						if (items != null)

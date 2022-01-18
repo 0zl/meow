@@ -1,5 +1,6 @@
 using Grimoire.Game;
 using Grimoire.UI;
+using System;
 using System.Threading.Tasks;
 
 namespace Grimoire.Botting.Commands.Item
@@ -54,11 +55,12 @@ namespace Grimoire.Botting.Commands.Item
                     instance.Configuration.Drops.Remove(ItemName);
                     break;
             }
+            Console.WriteLine($"Drops: {instance.Configuration.Drops.Count}");
         }
 
         public override string ToString()
         {
-            return $"Whitelist {(ItemNameOrNot() ? $"{state.ToString()}: {ItemName}" : state.ToString())}";
+            return $"Whitelist {(ItemNameOrNot() ? $"{state}: {ItemName}" : state.ToString())}";
         }
     }
 }

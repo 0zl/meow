@@ -71,6 +71,16 @@ namespace Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap astolfo {
+            get {
+                object obj = ResourceManager.GetObject("astolfo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {
         ///  &quot;txtMonster&quot;: &quot;Monster (* = random)&quot;,
         ///  &quot;txtKillFMon&quot;: &quot;Monster (* = random)&quot;,

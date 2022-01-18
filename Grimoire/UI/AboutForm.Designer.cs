@@ -164,7 +164,7 @@ namespace Grimoire.UI
 			this.lblVersion.Name = "lblVersion";
 			this.lblVersion.Size = new System.Drawing.Size(126, 13);
 			this.lblVersion.TabIndex = 14;
-			this.lblVersion.Text = "Version 2.3.1 (24112021)";
+			this.lblVersion.Text = "version";
 			// 
 			// rtbCredits
 			// 

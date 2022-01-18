@@ -101,6 +101,7 @@ namespace Grimoire.UI
 		//public AxShockwaveFlash Client => flashPlayer;
 
 		private string defFlashFile = "Loader/grimoire.swf";
+		private string title = $"Grimlite Li {AboutForm.Instance.getVersion()}";
 
 		public Root()
 		{
@@ -108,6 +109,7 @@ namespace Grimoire.UI
 			InitializeComponent();
 			this.CenterToScreen();
 			Instance = this;
+			this.Text = title;
 		}
 
 		private void Root_Load(object sender, EventArgs e)
@@ -137,6 +139,7 @@ namespace Grimoire.UI
 		{
 			EoLHook.Hook();
 			Flash.flash?.Dispose();
+			Flash.SwfLoadProgress -= OnLoadProgress;
 			Flash.SwfLoadProgress += OnLoadProgress;
 
 			flashPlayer.BeginInit();
@@ -144,6 +147,7 @@ namespace Grimoire.UI
 			flashPlayer.Dock = DockStyle.Fill;
 			flashPlayer.TabIndex = 0;
 			//flashPlayer.FlashCall += Flash.ProcessFlashCall;
+			flashPlayer.FlashCall -= Flash.CallHandler;
 			flashPlayer.FlashCall += Flash.CallHandler;
 			gameContainer.Controls.Add(flashPlayer);
 			flashPlayer.EndInit();
@@ -220,8 +224,10 @@ namespace Grimoire.UI
 			ShowForm(PacketTamperer.Instance);
 		}
 
-		public void ShowForm(Form form)
+		public void ShowForm(Form form1)
 		{
+			//Form form = new IceCreamForm();
+			Form form = form1;
 			if (form.WindowState == FormWindowState.Minimized)
 			{
 				form.WindowState = FormWindowState.Normal;
@@ -986,7 +992,7 @@ namespace Grimoire.UI
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Root";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Grimlite Li 2.3";
+			this.Text = "Grimlite Li";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Root_FormClosing);
 			this.Load += new System.EventHandler(this.Root_Load);
 			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Root_KeyPress);
@@ -1240,7 +1246,7 @@ namespace Grimoire.UI
 				base.WndProc(ref m);
 		}
 
-		private void startToolStripMenuItem_Click(object sender, EventArgs e)
+		private async void startToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (Player.IsAlive && Player.IsLoggedIn && BotManager.Instance.lstCommands.Items.Count > 0)
 			{
@@ -1471,8 +1477,7 @@ namespace Grimoire.UI
 
 		public void ToggleLauncherSkin()
 		{
-			string grimLi = "Grimlite Li";
-			if (this.Text == grimLi)
+			if (this.Text == title)
 			{
 				this.Text = "";
 				this.Icon = global::Properties.Resources.Artix;
@@ -1481,7 +1486,7 @@ namespace Grimoire.UI
 			}
 			else
 			{
-				this.Text = grimLi;
+				this.Text = title;
 				this.Icon = global::Properties.Resources.GrimoireIcon;
 				this.nTray.Icon = global::Properties.Resources.GrimoireIcon;
 				this.splitContainer1.Visible = true;

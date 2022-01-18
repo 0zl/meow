@@ -17,12 +17,8 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 			string Value1 = instance.IsVar(this.Value1) ? Configuration.Tempvariable[instance.GetVar(this.Value1)] : this.Value1;
 			string Value2 = instance.IsVar(this.Value2) ? Configuration.Tempvariable[instance.GetVar(this.Value2)] : this.Value2;
 
-			Console.WriteLine($"Value1: {Value1} | Value2: {Value2}");
-
 			bool inBank = Player.Bank.ContainsItem(Value1, Value2);
 			bool inInventory = Player.Inventory.ContainsItem(Value1, Value2);
-
-			Console.WriteLine($"inBank: {inBank} | inInventory: {inInventory}");
 
 			if (inBank || inInventory)
 			{
