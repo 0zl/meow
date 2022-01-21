@@ -14,8 +14,6 @@ namespace Grimoire.Game.Data
             return Flash.Call<InventoryItem>("GetInventoryItemByName", name);
         }
 
-        public InventoryItem GetItem(string name)=> Flash.Call<InventoryItem>("GetInventoryItemByName", name);
-
         public int MaxSlots => Flash.Call<int>("InventorySlots", new string[0]);
 
         public int UsedSlots => Flash.Call<int>("UsedInventorySlots", new string[0]);

@@ -1044,29 +1044,6 @@ namespace Grimoire.UI
 
 		}
 
-		private async void btnStop_ClickAsync(object sender, EventArgs e)
-		{
-			if (Configuration.Instance.Items != null && Configuration.Instance.BankOnStop)
-			{
-				foreach (InventoryItem item in Player.Inventory.Items)
-				{
-					if (!item.IsEquipped && item.IsAcItem && item.Category != "Class" && item.Name.ToLower() != "treasure potion" && Configuration.Instance.Items.Contains(item.Name))
-					{
-						Player.Bank.TransferToBank(item.Name);
-						await Task.Delay(70);
-						LogForm.Instance.AppendDebug("Transferred to Bank: " + item.Name + "\r\n");
-					}
-				}
-				LogForm.Instance.AppendDebug("Banked all AC Items in Items list \r\n");
-			}
-			startToolStripMenuItem.Enabled = false;
-			BotManager.Instance.ActiveBotEngine.Stop();
-			BotManager.Instance.MultiMode();
-			await Task.Delay(2000);
-			BotManager.Instance.BotStateChanged(IsRunning: false);
-			this.BotStateChanged(IsRunning: false);
-		}
-
 		public void BotStateChanged(bool IsRunning)
 		{
 			if (IsRunning)

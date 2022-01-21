@@ -179,10 +179,9 @@ namespace Grimoire.Botting.Commands.Combat
 				hasTarget = Player.HasTarget;
 			}
 
-			while (Player.HasTarget)
+			if (Player.HasTarget)
 			{
 				Player.CancelTarget();
-				await Task.Delay(500);
 			}
 		}
 
