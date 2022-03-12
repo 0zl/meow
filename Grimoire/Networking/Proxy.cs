@@ -141,34 +141,38 @@ namespace Grimoire.Networking
 			client.Disconnect();
 		}
 
-		private void OnClientMessage(string message)
+		public void OnClientMessage(string message)
 		{
 			if (AppClosingToken.IsCancellationRequested) return;
 			Message message2 = this.CreateMessage(message);
-			Receive receivedFromClient = this.ReceivedFromClient;
+			ReceivedFromClient?.Invoke(message2);
+
+			/*Receive receivedFromClient = this.ReceivedFromClient;
 			if (receivedFromClient != null)
 			{
 				receivedFromClient(message2);
 			}
 			if (message2.Send)
 			{
-				this.SendToServer(message2.ToString());
-			}
+				SendToServer(message2.ToString());
+			}*/
 		}
 
-		private void OnServerMessage(string message)
+		public void OnServerMessage(string message)
 		{
 			if (AppClosingToken.IsCancellationRequested) return;
 			Message message2 = this.CreateMessage(message);
-			Receive receivedFromServer = this.ReceivedFromServer;
+			ReceivedFromServer?.Invoke(message2);
+
+			/*Receive receivedFromServer = this.ReceivedFromServer;
 			if (receivedFromServer != null)
 			{
 				receivedFromServer(message2);
 			}
 			if (message2.Send)
 			{
-				this.SendToClient(message2.ToString());
-			}
+				SendToClient(message2.ToString());
+			}*/
 		}
 
 		private void ProcessMessage(Message message)

@@ -11,8 +11,8 @@ namespace Grimoire.UI
 {
     public partial class AboutForm : DarkForm
     {
-        private readonly string version = "2.3.3";
-        private readonly string releaseDate = "18-01-2022";
+        private readonly string version = "2.3.4";
+        private readonly string releaseDate = "12-03-2022";
 
         public AboutForm()
         {

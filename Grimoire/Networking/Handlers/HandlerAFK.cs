@@ -1,6 +1,7 @@
 ﻿using Grimoire.Botting;
 using Grimoire.Game;
 using Grimoire.UI;
+using System;
 
 namespace Grimoire.Networking.Handlers
 {
@@ -16,9 +17,9 @@ namespace Grimoire.Networking.Handlers
 
         public void Handle(XtMessage message)
         {
-            if (message.Arguments[5] == "true" && Root.Instance.chkStartBot.Checked)
+            if (OptionsManager.AFK && message.Arguments[5] == "true" && Root.Instance.chkStartBot.Checked)
             {
-                System.Console.WriteLine("logout on AFK");
+                LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Logout on AFK.");
                 Player.Logout();
             }
         }

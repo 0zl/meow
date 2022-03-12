@@ -9,20 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Grimoire.Botting;
 using Grimoire.Game.Data;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Drawing;
 using DarkUI.Controls;
-using Grimoire.Networking.Handlers;
 using System.Reflection;
 using System.Linq;
-using System.Net;
-using Grimoire.GameProxy;
 using Grimoire.FlashTools;
-using Newtonsoft.Json;
-using Grimoire.Utils;
-using System.Threading;
 using Grimoire.FlashEoLHook;
 //using Grimoire.FlashEoLHook;
 
@@ -430,8 +423,10 @@ namespace Grimoire.UI
 			// MenuMain
 			// 
 			this.MenuMain.Dock = System.Windows.Forms.DockStyle.None;
+			this.MenuMain.ImageScalingSize = new System.Drawing.Size(24, 24);
 			this.MenuMain.Location = new System.Drawing.Point(0, 0);
 			this.MenuMain.Name = "MenuMain";
+			this.MenuMain.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
 			this.MenuMain.Size = new System.Drawing.Size(202, 24);
 			this.MenuMain.TabIndex = 37;
 			this.MenuMain.Text = "pluginHolder";
@@ -446,7 +441,7 @@ namespace Grimoire.UI
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.prgLoader.Location = new System.Drawing.Point(24, 256);
 			this.prgLoader.Name = "prgLoader";
-			this.prgLoader.Size = new System.Drawing.Size(910, 4);
+			this.prgLoader.Size = new System.Drawing.Size(1016, 127);
 			this.prgLoader.TabIndex = 39;
 			this.prgLoader.Visible = false;
 			// 
@@ -463,7 +458,7 @@ namespace Grimoire.UI
             "Bottom",
             "Up",
             "Down"});
-			this.cbPads.Location = new System.Drawing.Point(700, 3);
+			this.cbPads.Location = new System.Drawing.Point(702, 3);
 			this.cbPads.MaxDropDownItems = 50;
 			this.cbPads.Name = "cbPads";
 			this.cbPads.Size = new System.Drawing.Size(91, 21);
@@ -474,7 +469,7 @@ namespace Grimoire.UI
 			// 
 			this.cbCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.cbCells.FormattingEnabled = true;
-			this.cbCells.Location = new System.Drawing.Point(791, 3);
+			this.cbCells.Location = new System.Drawing.Point(793, 3);
 			this.cbCells.MaxDropDownItems = 50;
 			this.cbCells.Name = "cbCells";
 			this.cbCells.Size = new System.Drawing.Size(91, 21);
@@ -488,7 +483,7 @@ namespace Grimoire.UI
 			this.btnBank.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
 			this.btnBank.Checked = false;
 			this.btnBank.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-			this.btnBank.Location = new System.Drawing.Point(902, 2);
+			this.btnBank.Location = new System.Drawing.Point(904, 2);
 			this.btnBank.Name = "btnBank";
 			this.btnBank.Size = new System.Drawing.Size(53, 23);
 			this.btnBank.TabIndex = 36;
@@ -500,7 +495,7 @@ namespace Grimoire.UI
 			this.chkAutoAttack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkAutoAttack.AutoSize = true;
 			this.chkAutoAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.chkAutoAttack.Location = new System.Drawing.Point(616, 5);
+			this.chkAutoAttack.Location = new System.Drawing.Point(618, 5);
 			this.chkAutoAttack.Name = "chkAutoAttack";
 			this.chkAutoAttack.Size = new System.Drawing.Size(82, 17);
 			this.chkAutoAttack.TabIndex = 37;
@@ -513,7 +508,7 @@ namespace Grimoire.UI
 			this.chkStartBot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkStartBot.AutoSize = true;
 			this.chkStartBot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.chkStartBot.Location = new System.Drawing.Point(545, 5);
+			this.chkStartBot.Location = new System.Drawing.Point(547, 5);
 			this.chkStartBot.Name = "chkStartBot";
 			this.chkStartBot.Size = new System.Drawing.Size(67, 17);
 			this.chkStartBot.TabIndex = 38;
@@ -527,7 +522,7 @@ namespace Grimoire.UI
 			this.btnGetCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
 			this.btnGetCell.Checked = false;
 			this.btnGetCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-			this.btnGetCell.Location = new System.Drawing.Point(882, 2);
+			this.btnGetCell.Location = new System.Drawing.Point(884, 2);
 			this.btnGetCell.Name = "btnGetCell";
 			this.btnGetCell.Size = new System.Drawing.Size(18, 23);
 			this.btnGetCell.TabIndex = 39;
@@ -540,7 +535,7 @@ namespace Grimoire.UI
 			this.btnReloadBank.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
 			this.btnReloadBank.Checked = false;
 			this.btnReloadBank.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-			this.btnReloadBank.Location = new System.Drawing.Point(955, 2);
+			this.btnReloadBank.Location = new System.Drawing.Point(957, 2);
 			this.btnReloadBank.Name = "btnReloadBank";
 			this.btnReloadBank.Size = new System.Drawing.Size(53, 23);
 			this.btnReloadBank.TabIndex = 40;
@@ -571,7 +566,7 @@ namespace Grimoire.UI
 			// 
 			this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
 			this.splitContainer1.Panel2Collapsed = true;
-			this.splitContainer1.Size = new System.Drawing.Size(960, 27);
+			this.splitContainer1.Size = new System.Drawing.Size(962, 27);
 			this.splitContainer1.SplitterDistance = 824;
 			this.splitContainer1.SplitterWidth = 1;
 			this.splitContainer1.TabIndex = 38;
@@ -582,6 +577,7 @@ namespace Grimoire.UI
 			this.darkMenuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.darkMenuStrip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.darkMenuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
+			this.darkMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
 			this.darkMenuStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.darkMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.botToolStripMenuItem,
@@ -593,7 +589,8 @@ namespace Grimoire.UI
 			this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.darkMenuStrip1.Name = "darkMenuStrip1";
 			this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(2);
-			this.darkMenuStrip1.Size = new System.Drawing.Size(960, 27);
+			this.darkMenuStrip1.Size = new System.Drawing.Size(962, 27);
+			this.darkMenuStrip1.Stretch = false;
 			this.darkMenuStrip1.TabIndex = 35;
 			this.darkMenuStrip1.Text = "darkMenuStrip1";
 			this.darkMenuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuMain_MouseDown);
@@ -936,7 +933,6 @@ namespace Grimoire.UI
 			// toolStripTextBox1
 			// 
 			this.toolStripTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-			this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.toolStripTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.toolStripTextBox1.Name = "toolStripTextBox1";
 			this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
@@ -975,7 +971,7 @@ namespace Grimoire.UI
 			this.gameContainer.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.gameContainer.Location = new System.Drawing.Point(0, 27);
 			this.gameContainer.Name = "gameContainer";
-			this.gameContainer.Size = new System.Drawing.Size(960, 550);
+			this.gameContainer.Size = new System.Drawing.Size(962, 552);
 			this.gameContainer.TabIndex = 40;
 			// 
 			// Root
@@ -983,13 +979,14 @@ namespace Grimoire.UI
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.ClientSize = new System.Drawing.Size(960, 577);
+			this.ClientSize = new System.Drawing.Size(962, 579);
 			this.Controls.Add(this.gameContainer);
 			this.Controls.Add(this.prgLoader);
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.MenuMain);
 			this.ForeColor = System.Drawing.SystemColors.Window;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.KeyPreview = true;
 			this.Name = "Root";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Grimlite Li";

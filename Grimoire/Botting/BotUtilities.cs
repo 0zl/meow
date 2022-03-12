@@ -69,6 +69,7 @@ namespace Grimoire.Botting
             {
                 Player.Bank.LoadItems();
             }*/
+            Player.Bank.GetBank();
         }
 
         static BotUtilities()

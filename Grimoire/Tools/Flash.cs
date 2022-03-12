@@ -435,11 +435,13 @@ namespace Grimoire.Tools
 					break;
 
 				case "packetFromClient":
+					Proxy.Instance.OnClientMessage(args[0].ToString());
 					args[0] = ProcessPacketFromClient((string)args[0]);
 					FlashCall?.Invoke(flash, name, args[0]);
 					break;
 
 				case "packetFromServer":
+					Proxy.Instance.OnServerMessage(args[0].ToString());
 					args[0] = ProcessPacketFromServer((string)args[0]);
 					FlashCall?.Invoke(flash, name, args[0]);
 					break;
@@ -466,13 +468,14 @@ namespace Grimoire.Tools
 						OptionsManager.SetWalkSpeed();
 					break;
 
-				case "afk":
+				/*case "afk":
 					if (OptionsManager.AFK && packet.Split('%')[5] == "true" && Root.Instance.chkStartBot.Checked)
 					{
 						LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Logout on AFK.");
 						Player.Logout();
 					}
-					break;
+					break;*/
+
 				case "firstJoin":
 					break;
 			}
@@ -496,10 +499,11 @@ namespace Grimoire.Tools
 				//Console.WriteLine($"cmd: {data.cmd}");
 				switch ((string)data.cmd)
 				{
-					case "loadInventoryBig":
+					/*case "loadInventoryBig":
 						Player.Bank.GetBank();
-						break;
-					case "dropItem":
+						break;*/
+
+					/*case "dropItem":
 						JObject items = (JObject)data["items"];
 						if (items != null)
 						{
@@ -517,40 +521,40 @@ namespace Grimoire.Tools
 								}
 							}
 						}
-						break;
+						break;*/
 
-					case "getQuests":
+					/*case "getQuests":
 						JObject quests = (JObject)data["quests"];
 						Dictionary<int, Quest> dictionary = quests?.ToObject<Dictionary<int, Quest>>();
 						if (dictionary != null && dictionary.Count > 0)
 						{
 							Player.Quests.OnQuestsLoaded(dictionary.Select((KeyValuePair<int, Quest> q) => q.Value).ToList());
 						}
-						break;
+						break;*/
 
-					case "ccqr":
+					/*case "ccqr":
 						var comp = data.ToObject<CompletedQuest>();
 						Player.Quests.OnQuestCompleted(comp);
-						break;
+						break;*/
 
-					case "loadShop":
+					/*case "loadShop":
 						JObject shopinfo = (JObject)data["shopinfo"];
 						if (shopinfo != null)
 						{
 							World.OnShopLoaded(shopinfo.ToObject<ShopInfo>());
 						}
-						break;
+						break;*/
 
 					case "sAct":
 						if (OptionsManager.InfiniteRange)
 							OptionsManager.SetInfiniteRange();
 						break;
 
-					case "retrieveUserData":
+					/*case "retrieveUserData":
 					case "retrieveUserDatas":
 						if (OptionsManager.HidePlayers)
 							OptionsManager.DestroyPlayers();
-						break;
+						break;*/
 
 					default:
 						return text;
