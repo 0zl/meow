@@ -46,6 +46,10 @@ namespace Grimoire.UI
 
 		private Dictionary<string, string> _defaultControlText;
 
+		public IJsonMessageHandler SpecialJsonHandler;
+
+		public IXtMessageHandler SpecialXtHandler;
+
 		private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
 		{
 			DefaultValueHandling = DefaultValueHandling.Ignore,
@@ -1857,6 +1861,11 @@ namespace Grimoire.UI
 					chkHidePlayers.Enabled = false;
 					chkHidePlayers.Checked = false;
 				}
+
+				if (SpecialJsonHandler != null)
+					Proxy.Instance.RegisterHandler(SpecialJsonHandler);
+				if (SpecialXtHandler != null)
+					Proxy.Instance.RegisterHandler(SpecialXtHandler);
 			}
 			else
 			{
@@ -1878,6 +1887,11 @@ namespace Grimoire.UI
 					await Task.Delay(2000);
 					await BankingItems();
 				}
+
+				if (SpecialJsonHandler != null)
+					Proxy.Instance.UnregisterHandler(SpecialJsonHandler);
+				if (SpecialXtHandler != null)
+					Proxy.Instance.UnregisterHandler(SpecialXtHandler);
 			}
 			toggleAntiMod(chkAntiMod.Checked && chkEnable.Checked);
 
@@ -3402,6 +3416,26 @@ namespace Grimoire.UI
 		private void btnReloadMap_Click(object sender, EventArgs e)
 		{
 			World.ReloadMap();
+		}
+
+		private void chkSpecial_CheckedChanged(object sender, EventArgs e)
+		{
+			cmbSpecials.Enabled = !chkSpecial.Checked;
+
+			if (chkSpecial.Checked)
+			{
+				switch (cmbSpecials.SelectedItem.ToString())
+				{
+					case "Auto Zone - Ultradage":
+						SpecialJsonHandler = new HandlerAutoZoneUltraDage();
+						break;
+				}
+			} 
+			else
+			{
+				SpecialJsonHandler = null;
+				SpecialXtHandler = null;
+			}
 		}
 	}
 }

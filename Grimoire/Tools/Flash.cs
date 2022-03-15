@@ -503,7 +503,7 @@ namespace Grimoire.Tools
 						Player.Bank.GetBank();
 						break;*/
 
-					/*case "dropItem":
+					case "dropItem":
 						JObject items = (JObject)data["items"];
 						if (items != null)
 						{
@@ -521,7 +521,7 @@ namespace Grimoire.Tools
 								}
 							}
 						}
-						break;*/
+						break;
 
 					/*case "getQuests":
 						JObject quests = (JObject)data["quests"];

@@ -337,6 +337,7 @@
     <Compile Include="Grimoire\Game\Player.cs" />
     <Compile Include="Grimoire\Game\PlayerInfo.cs" />
     <Compile Include="Grimoire\Game\World.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerAutoZoneUltraDage.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerAFK.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerAnimations.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerChat.cs" />

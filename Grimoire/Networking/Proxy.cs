@@ -267,7 +267,7 @@ namespace Grimoire.Networking
 		{			
 			//new HandlerSkills(),
 			//new HandlerDPS(),
-			new HandlerDropItem(),
+			//new HandlerDropItem(),
 			new HandlerGetQuests(),
 			new HandlerQuestComplete(),
 			//new HandlerMapJoin(),
