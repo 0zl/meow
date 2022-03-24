@@ -286,9 +286,10 @@ namespace Grimoire.UI
 			// 
 			// txtLoaders
 			// 
-			this.txtLoaders.Location = new System.Drawing.Point(12, 12);
+			this.txtLoaders.Location = new System.Drawing.Point(18, 18);
+			this.txtLoaders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtLoaders.Name = "txtLoaders";
-			this.txtLoaders.Size = new System.Drawing.Size(156, 20);
+			this.txtLoaders.Size = new System.Drawing.Size(233, 26);
 			this.txtLoaders.TabIndex = 29;
 			// 
 			// cbLoad
@@ -299,18 +300,20 @@ namespace Grimoire.UI
             "Shop",
             "Quest",
             "Armor customizer"});
-			this.cbLoad.Location = new System.Drawing.Point(12, 38);
+			this.cbLoad.Location = new System.Drawing.Point(18, 58);
+			this.cbLoad.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.cbLoad.Name = "cbLoad";
-			this.cbLoad.Size = new System.Drawing.Size(156, 21);
+			this.cbLoad.Size = new System.Drawing.Size(232, 27);
 			this.cbLoad.TabIndex = 30;
 			this.cbLoad.SelectedIndexChanged += new System.EventHandler(this.cbLoad_SelectedIndexChanged);
 			// 
 			// btnLoad
 			// 
 			this.btnLoad.Checked = false;
-			this.btnLoad.Location = new System.Drawing.Point(12, 65);
+			this.btnLoad.Location = new System.Drawing.Point(18, 100);
+			this.btnLoad.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.btnLoad.Name = "btnLoad";
-			this.btnLoad.Size = new System.Drawing.Size(156, 23);
+			this.btnLoad.Size = new System.Drawing.Size(234, 35);
 			this.btnLoad.TabIndex = 31;
 			this.btnLoad.Text = "Load";
 			this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
@@ -326,18 +329,20 @@ namespace Grimoire.UI
             "Temp inventory items",
             "Bank items",
             "Monsters"});
-			this.cbGrab.Location = new System.Drawing.Point(12, 332);
+			this.cbGrab.Location = new System.Drawing.Point(18, 511);
+			this.cbGrab.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.cbGrab.Name = "cbGrab";
-			this.cbGrab.Size = new System.Drawing.Size(174, 21);
+			this.cbGrab.Size = new System.Drawing.Size(259, 27);
 			this.cbGrab.TabIndex = 33;
 			this.cbGrab.SelectedIndexChanged += new System.EventHandler(this.cbGrab_SelectedIndexChanged);
 			// 
 			// btnGrab
 			// 
 			this.btnGrab.Checked = false;
-			this.btnGrab.Location = new System.Drawing.Point(134, 359);
+			this.btnGrab.Location = new System.Drawing.Point(201, 552);
+			this.btnGrab.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.btnGrab.Name = "btnGrab";
-			this.btnGrab.Size = new System.Drawing.Size(125, 26);
+			this.btnGrab.Size = new System.Drawing.Size(188, 40);
 			this.btnGrab.TabIndex = 34;
 			this.btnGrab.Text = "Grab";
 			this.btnGrab.Click += new System.EventHandler(this.btnGrab_Click);
@@ -345,9 +350,10 @@ namespace Grimoire.UI
 			// btnSave
 			// 
 			this.btnSave.Checked = false;
-			this.btnSave.Location = new System.Drawing.Point(12, 359);
+			this.btnSave.Location = new System.Drawing.Point(18, 552);
+			this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(121, 26);
+			this.btnSave.Size = new System.Drawing.Size(182, 40);
 			this.btnSave.TabIndex = 35;
 			this.btnSave.Text = "Save";
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -360,18 +366,20 @@ namespace Grimoire.UI
 			this.treeGrabbed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.treeGrabbed.ForeColor = System.Drawing.Color.Gainsboro;
 			this.treeGrabbed.LabelEdit = true;
-			this.treeGrabbed.Location = new System.Drawing.Point(12, 94);
+			this.treeGrabbed.Location = new System.Drawing.Point(18, 145);
+			this.treeGrabbed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.treeGrabbed.Name = "treeGrabbed";
-			this.treeGrabbed.Size = new System.Drawing.Size(247, 232);
+			this.treeGrabbed.Size = new System.Drawing.Size(370, 356);
 			this.treeGrabbed.TabIndex = 38;
 			// 
 			// btnForceAccept
 			// 
 			this.btnForceAccept.Checked = false;
 			this.btnForceAccept.Enabled = false;
-			this.btnForceAccept.Location = new System.Drawing.Point(192, 38);
+			this.btnForceAccept.Location = new System.Drawing.Point(288, 58);
+			this.btnForceAccept.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.btnForceAccept.Name = "btnForceAccept";
-			this.btnForceAccept.Size = new System.Drawing.Size(67, 23);
+			this.btnForceAccept.Size = new System.Drawing.Size(100, 35);
 			this.btnForceAccept.TabIndex = 44;
 			this.btnForceAccept.Text = "F Accept";
 			this.btnForceAccept.Click += new System.EventHandler(this.btnForceAccept_Click_1);
@@ -384,8 +392,9 @@ namespace Grimoire.UI
             0,
             0,
             65536});
-			this.numTQuests.Location = new System.Drawing.Point(192, 12);
+			this.numTQuests.Location = new System.Drawing.Point(288, 18);
 			this.numTQuests.LoopValues = false;
+			this.numTQuests.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.numTQuests.Maximum = new decimal(new int[] {
             20,
             0,
@@ -397,7 +406,7 @@ namespace Grimoire.UI
             0,
             0});
 			this.numTQuests.Name = "numTQuests";
-			this.numTQuests.Size = new System.Drawing.Size(67, 20);
+			this.numTQuests.Size = new System.Drawing.Size(100, 26);
 			this.numTQuests.TabIndex = 168;
 			this.numTQuests.Value = new decimal(new int[] {
             1,
@@ -412,16 +421,17 @@ namespace Grimoire.UI
 			this.cbOrderBy.Items.AddRange(new object[] {
             "Name",
             "Id"});
-			this.cbOrderBy.Location = new System.Drawing.Point(192, 332);
+			this.cbOrderBy.Location = new System.Drawing.Point(288, 511);
+			this.cbOrderBy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.cbOrderBy.Name = "cbOrderBy";
-			this.cbOrderBy.Size = new System.Drawing.Size(67, 21);
+			this.cbOrderBy.Size = new System.Drawing.Size(98, 27);
 			this.cbOrderBy.TabIndex = 169;
 			// 
 			// Loaders
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(271, 393);
+			this.ClientSize = new System.Drawing.Size(406, 605);
 			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.btnGrab);
 			this.Controls.Add(this.cbOrderBy);
@@ -433,6 +443,7 @@ namespace Grimoire.UI
 			this.Controls.Add(this.cbLoad);
 			this.Controls.Add(this.txtLoaders);
 			this.Icon = global::Properties.Resources.GrimoireIcon;
+			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "Loaders";

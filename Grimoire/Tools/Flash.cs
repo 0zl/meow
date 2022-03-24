@@ -87,7 +87,7 @@ namespace Grimoire.Tools
 			else
 			{
 				SwfLoadProgress?.Invoke(int.Parse(text2));
-				if (text2 == "100") Flash.Call("SetTitle", $"Grimlite Li {AboutForm.Instance.getVersion()}");
+				if (text2 == "100") Flash.Call("SetTitle", $"Grimlite Li {AboutForm.Instance.getVersionCode()}");
 			}
 		}
 

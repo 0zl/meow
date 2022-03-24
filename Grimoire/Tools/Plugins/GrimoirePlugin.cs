@@ -77,6 +77,9 @@ namespace Grimoire.Tools.Plugins
             catch (Exception ex)
             {
                 LastError = "Failure! This is either not a Grimoire plugin, or its code does not conform to the Grimoire standard.\n" + ex.Message + "\n" + ex.StackTrace;
+                Console.WriteLine("msg: " + ex.Message);
+                Console.WriteLine("stack: " + ex.StackTrace);
+                Console.WriteLine("strng: " + ex.ToString());
                 return false;
             }
         }

@@ -13,6 +13,8 @@ namespace Grimoire.Botting.Commands.Combat
 	{
 		public string PlayerName { get; set; }
 
+		private string _playerName;
+
 		public string KillPriority { get; set; } = "";
 
 		public int MaxGotoTry { get; set; } = 5;
@@ -23,8 +25,7 @@ namespace Grimoire.Botting.Commands.Combat
 		public async Task Execute(IBotEngine instance)
 		{
 
-			string PlayerName = instance.IsVar(this.PlayerName) ? Configuration.Tempvariable[instance.GetVar(this.PlayerName)] : this.PlayerName;
-			string playerName = PlayerName.ToLower();
+			_playerName = (instance.IsVar(this.PlayerName) ? Configuration.Tempvariable[instance.GetVar(this.PlayerName)] : this.PlayerName).ToLower();
 			int gotoDelay = 2000;
 			int gotoTry = 0;
 			int maxTry = MaxGotoTry == 0 ? 999 : MaxGotoTry;
@@ -44,12 +45,12 @@ namespace Grimoire.Botting.Commands.Combat
 				List<string> mapPlayers = World.PlayersInMap;
 				mapPlayers.ConvertAll<string>(a => a.ToLower());
 
-				if (!mapPlayers.Contains(playerName))
+				if (!mapPlayers.Contains(_playerName))
 				{
 					Player.MoveToCell("Blank");
 					await instance.WaitUntil(() => Player.State.InCombat != Player.CurrentState);
 					await Task.Delay(gotoDelay);
-					Player.GoToPlayer(playerName);
+					Player.GoToPlayer(_playerName);
 
 					gotoTry++;
 					following = gotoTry < maxTry;
@@ -97,7 +98,7 @@ namespace Grimoire.Botting.Commands.Combat
 
 				if (type == "str")
 					if (data[0] == "uotls")
-						if (data[2] == PlayerName)
+						if (data[2] == _playerName)
 						{
 							string movement = data[3];
 							string cell = null;
@@ -116,7 +117,7 @@ namespace Grimoire.Botting.Commands.Combat
 							}
 						}
 
-				if (msg.Contains("exitArea") && msg.Contains(PlayerName))
+				if (msg.Contains("exitArea") && msg.Contains(_playerName))
 				{
 					Player.CancelAutoAttack();
 					Player.CancelTarget();

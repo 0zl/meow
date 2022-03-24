@@ -22,7 +22,7 @@ namespace Grimoire.Networking.Handlers
 						Player.WalkToPoint("843", "400");
 						break;
 					default:
-						Player.WalkToPoint("486", "398");
+						Player.WalkToPoint("503", "276");
 						break;
 				}
 			}

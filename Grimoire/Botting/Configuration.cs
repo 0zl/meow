@@ -100,12 +100,6 @@ namespace Grimoire.Botting
             set;
         }
 
-        public bool EnableRejectAll
-        {
-            get;
-            set;
-        }
-
         public bool AutoRelogin
         {
             get;

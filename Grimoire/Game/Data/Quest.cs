@@ -137,6 +137,20 @@ namespace Grimoire.Game.Data
 			set;
 		}
 
+		[JsonProperty("iSlot")]
+		public int ISlot
+		{
+			get;
+			set;
+		}
+
+		[JsonProperty("iValue")]
+		public int IValue
+		{
+			get;
+			set;
+		}
+
 		public string ItemId
 		{
 			get;

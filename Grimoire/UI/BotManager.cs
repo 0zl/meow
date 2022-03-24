@@ -282,7 +282,6 @@ namespace Grimoire.UI
 				EnableRejection = chkReject.Checked,
 				EnablePickupAll = chkPickupAll.Checked,
 				EnablePickupAcTagged = chkPickupAcTag.Checked,
-				EnableRejectAll = chkRejectAll.Checked,
 				WaitForAllSkills = chkAllSkillsCD.Checked,
 				WaitForSkill = chkSkillCD.Checked,
 				SkipDelayIndexIf = chkSkip.Checked,
@@ -338,7 +337,6 @@ namespace Grimoire.UI
 				EnableRejection = chkReject.Checked,
 				EnablePickupAll = chkPickupAll.Checked,
 				EnablePickupAcTagged = chkPickupAcTag.Checked,
-				EnableRejectAll = chkRejectAll.Checked,
 				WaitForAllSkills = chkAllSkillsCD.Checked,
 				WaitForSkill = chkSkillCD.Checked,
 				SkipDelayIndexIf = chkSkip.Checked,
@@ -437,7 +435,6 @@ namespace Grimoire.UI
 				chkPickup.Checked = config.EnablePickup;
 				chkReject.Checked = config.EnableRejection;
 				chkPickupAll.Checked = config.EnablePickupAll;
-				chkRejectAll.Checked = config.EnableRejectAll;
 				chkAllSkillsCD.Checked = config.WaitForAllSkills;
 				chkSkillCD.Checked = config.WaitForSkill;
 				chkSkip.Checked = config.SkipDelayIndexIf;
@@ -1131,6 +1128,7 @@ namespace Grimoire.UI
 
 		private void cbBoosts_Click(object sender, EventArgs e)
 		{
+			if (!Player.IsLoggedIn) return;
 			cbBoosts.Items.Clear();
 			DarkComboBox.ObjectCollection items = cbBoosts.Items;
 			object[] array = Player.Inventory.Items.Where((InventoryItem i) => i.Category == "ServerUse").ToArray();
@@ -1810,7 +1808,7 @@ namespace Grimoire.UI
 			foreach (string item in lstItems.Items)
 			{
 				Player.Bank.TransferFromBank(item);
-				await Task.Delay(100);
+				await Task.Delay(200);
 				//LogForm.Instance.AppendDebug("Transferred from Bank: " + item + "\r\n");
 			}
 			SendInfoMessages("Unbanking done.");
@@ -1845,8 +1843,8 @@ namespace Grimoire.UI
 			Root.Instance.chkStartBot.Enabled = false;
 
 			if (chkEnable.Checked)
-			{					
-				if (lstItems.Items.Count > 0)
+			{
+				if (lstItems.Items.Count > 0 && chkInventOnStart.Checked)
 					await UnBankItems();
 				selectionMode(SelectionMode.One);
 				ActiveBotEngine.IsRunningChanged += OnIsRunningChanged;
@@ -2836,21 +2834,6 @@ namespace Grimoire.UI
 
 		}
 
-		private void btnSetFPSCmd_Click(object sender, EventArgs e)
-		{
-			AddCommand(new CmdSetFPS
-			{
-				FPS = (int)numSetFPS.Value
-			}, (ModifierKeys & Keys.Control) == Keys.Control);
-		}
-
-		private void lbLabels_DoubleClick(object sender, EventArgs e)
-		{
-			object selected = lbLabels.SelectedItem;
-			if (selected != null)
-				txtLabel.Text = selected.ToString().Substring(1, selected.ToString().Length - 2);
-		}
-
 		private void richTextBox2_TextChanged(object sender, EventArgs e)
 		{
 			try
@@ -2953,11 +2936,6 @@ namespace Grimoire.UI
 			}
 		}
 
-		private void lblUP_Click_1(object sender, EventArgs e)
-		{
-			lblUP.Text = $"{Player.Username} | {Player.Password}";
-		}
-
 		private void btnGetMapF_Click(object sender, EventArgs e)
 		{
 			tbMapF.Text = Player.Map;
@@ -3050,26 +3028,6 @@ namespace Grimoire.UI
 		}
 
 		private HandlerPrivateJoin handlerPrivateJoin = new HandlerPrivateJoin();
-
-		private void chkPrivateRoom_CheckedChanged(object sender, EventArgs e)
-		{
-			numPrivateRoom.Enabled = !chkPrivateRoom.Checked;
-			if (chkPrivateRoom.Checked)
-			{
-				handlerPrivateJoin.Room = numPrivateRoom.Text;
-				Proxy.Instance.RegisterHandler(handlerPrivateJoin);
-			}
-			else
-			{
-				Proxy.Instance.UnregisterHandler(handlerPrivateJoin);
-			}
-		}
-
-		private void chkPrivateRoom_MouseHover(object sender, EventArgs e)
-		{
-			ToolTip tooltip = new ToolTip();
-			tooltip.SetToolTip(this.chkPrivateRoom, "Auto join to private room.");
-		}
 
 
 		private void chkSaveProgress_CheckedChanged(object sender, EventArgs e)
@@ -3234,20 +3192,55 @@ namespace Grimoire.UI
 			ToolTip tooltip = new ToolTip();
 			tooltip.SetToolTip(this.chkAntiCounter, "Auto cancel target when monster countering attack.");
 		}
-
+		
 		private void chkAntiCounter_CheckedChanged(object sender, EventArgs e)
 		{
 			if (chkDisableAnims.Checked && chkAntiCounter.Checked)
 				chkDisableAnims.Checked = false;
 			if (chkAntiCounter.Checked)
 			{
-				//Proxy.Instance.ReceivedFromServer += AntiCounterHandler;
-				Flash.FlashCall += AntiCounterHandler;
+				Proxy.Instance.ReceivedFromServer += CapturePlayerAura;
+				//Flash.FlashCall += AntiCounterHandler;
 			}
 			else
 			{
-				//Proxy.Instance.ReceivedFromServer -= AntiCounterHandler;
-				Flash.FlashCall -= AntiCounterHandler;
+				Proxy.Instance.ReceivedFromServer -= CapturePlayerAura;
+				//Flash.FlashCall -= AntiCounterHandler;
+			}
+		}
+
+		private void CapturePlayerAura(Networking.Message message)
+		{
+			string msg = message.ToString();
+
+			try
+			{
+				//"cmd":"aura++","auras":[{"nam":"Counter Attack"
+				//prepares a counter attack!!
+				string c1 = "\"cmd\":\"aura++\",\"auras\":[{\"nam\":\"Counter Attack\"";
+				string c2 = "prepares a counter attack";
+				if (msg.Contains(c2))
+				{
+					Console.WriteLine("Counter Attack: active");
+					Player.CancelTarget();
+					Player.CancelAutoAttack();
+					if (chkEnable.Checked)
+					{
+						ActiveBotEngine.Configuration.SkipAttack = true;
+					}
+				}
+
+				//"cmd":"aura--","aura":{"nam":"Counter Attack"
+				if (msg.Contains("\"cmd\":\"aura--\",\"aura\":{\"nam\":\"Counter Attack\""))
+				{
+					Console.WriteLine("Counter Attack: fades");
+					ActiveBotEngine.Configuration.SkipAttack = false;
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("MyMsg: " + msg);
+				Console.WriteLine("MyError: " + e.Message);
 			}
 		}
 
@@ -3436,6 +3429,15 @@ namespace Grimoire.UI
 				SpecialJsonHandler = null;
 				SpecialXtHandler = null;
 			}
+		}
+
+		private async void chkGender_CheckedChanged(object sender, EventArgs e)
+		{
+			int userId = Flash.Call<int>("UserID", new string[0]);
+			string gender = Flash.Call<string>("Gender", new string[0]);
+			gender = (gender.ToUpper() == "M") ? "F" : "M";
+			string packet = $"{{\"t\":\"xt\",\"b\":{{\"r\":-1,\"o\":{{\"cmd\":\"genderSwap\",\"bitSuccess\":1,\"gender\":\"{gender}\",\"intCoins\":0,\"uid\":\"{userId}\",\"strHairFileName\":\"\",\"HairID\":\"\",\"strHairName\":\"\"}}}}}}";
+			await Proxy.Instance.SendToClient(packet);
 		}
 	}
 }

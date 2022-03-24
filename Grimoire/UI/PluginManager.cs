@@ -9,217 +9,217 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class PluginManager : DarkForm
-    {
-        private IContainer components;
-        public DarkGroupBox gbLoaded;
-        public DarkButton btnUnload;
-        public DarkTextBox txtDesc;
-        public DarkLabel lblAuthor;
-        public ListBox lstLoaded;
-        public DarkGroupBox gbLoad;
-        public DarkButton btnBrowse;
-        public DarkButton btnLoad;
-        private TreeView treePlugins;
-        public DarkTextBox txtPlugin;
+	public class PluginManager : DarkForm
+	{
+		private IContainer components;
+		public DarkGroupBox gbLoaded;
+		public DarkButton btnUnload;
+		public DarkTextBox txtDesc;
+		public DarkLabel lblAuthor;
+		public ListBox lstLoaded;
+		public DarkGroupBox gbLoad;
+		public DarkButton btnBrowse;
+		public DarkButton btnLoad;
+		private TreeView treePlugins;
+		public DarkTextBox txtPlugin;
 
-        public static PluginManager Instance
-        {
-            get;
-        } = new PluginManager();
+		public static PluginManager Instance
+		{
+			get;
+		} = new PluginManager();
 
-        public PluginManager()
-        {
-            InitializeComponent();
-            if (Program.PluginsManager.LoadedPlugins.Count > 0)
-            {
-                ListBox.ObjectCollection items = this.lstLoaded.Items;
-                object[] items2 = Program.PluginsManager.LoadedPlugins.ToArray();
-                items.AddRange(items2);
-                this.lstLoaded.SelectedIndex = 0;
-            }
-        }
+		public PluginManager()
+		{
+			InitializeComponent();
+			if (Program.PluginsManager.LoadedPlugins.Count > 0)
+			{
+				ListBox.ObjectCollection items = this.lstLoaded.Items;
+				object[] items2 = Program.PluginsManager.LoadedPlugins.ToArray();
+				items.AddRange(items2);
+				this.lstLoaded.SelectedIndex = 0;
+			}
+		}
 
-        private string path = Application.StartupPath + "\\Plugins";
+		private string path = Application.StartupPath + "\\Plugins";
 
-        private void PluginManager_Load(object sender, EventArgs e)
-        {
-            lstLoaded.DisplayMember = "Name";
-            if(!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            UpdateTree();
-        }
+		private void PluginManager_Load(object sender, EventArgs e)
+		{
+			lstLoaded.DisplayMember = "Name";
+			if(!Directory.Exists(path))
+			{
+				Directory.CreateDirectory(path);
+			}
+			UpdateTree();
+		}
 
-        private void AddTreeNodes(TreeNode node, string path)
-        {
-            foreach (string item in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly))
-            {
-                string add = Path.GetFileName(item);
-                if (node.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add))
-                {
-                    node.Nodes.Add(add).Nodes.Add("Loading...");
-                }
-            }
-            foreach (string item2 in Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly))
-            {
-                string add2 = Path.GetFileName(item2);
-                if (node.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add2))
-                {
-                    node.Nodes.Add(add2);
-                }
-            }
-        }
+		private void AddTreeNodes(TreeNode node, string path)
+		{
+			foreach (string item in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly))
+			{
+				string add = Path.GetFileName(item);
+				if (node.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add))
+				{
+					node.Nodes.Add(add).Nodes.Add("Loading...");
+				}
+			}
+			foreach (string item2 in Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly))
+			{
+				string add2 = Path.GetFileName(item2);
+				if (node.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add2))
+				{
+					node.Nodes.Add(add2);
+				}
+			}
+		}
 
-        private void AddTreeNodes(TreeView tree, string path)
-        {
-            foreach (string item in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly))
-            {
-                string add = Path.GetFileName(item);
-                if (tree.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add))
-                {
-                    tree.Nodes.Add(add).Nodes.Add("Loading...");
-                }
-            }
-            foreach (string item2 in Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly))
-            {
-                string add2 = Path.GetFileName(item2);
-                if (tree.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add2))
-                {
-                    tree.Nodes.Add(add2);
-                }
-            }
-        }
+		private void AddTreeNodes(TreeView tree, string path)
+		{
+			foreach (string item in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly))
+			{
+				string add = Path.GetFileName(item);
+				if (tree.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add))
+				{
+					tree.Nodes.Add(add).Nodes.Add("Loading...");
+				}
+			}
+			foreach (string item2 in Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly))
+			{
+				string add2 = Path.GetFileName(item2);
+				if (tree.Nodes.Cast<TreeNode>().ToList().All((TreeNode n) => n.Text != add2))
+				{
+					tree.Nodes.Add(add2);
+				}
+			}
+		}
 
-        private void UpdateTree()
-        {
-            treePlugins.Nodes.Clear();
-            AddTreeNodes(treePlugins, path);
-        }
+		private void UpdateTree()
+		{
+			treePlugins.Nodes.Clear();
+			AddTreeNodes(treePlugins, path);
+		}
 
-        private void treePlugins_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            string text;
-            if (File.Exists(text = Path.Combine(path, e.Node.FullPath)))
-            {
-                GrimoirePlugin grimoirePlugin = new GrimoirePlugin(text);
-                if (grimoirePlugin.Load())
-                {
-                    txtPlugin.Clear();
-                    lstLoaded.Items.Clear();
-                    ListBox.ObjectCollection items = lstLoaded.Items;
-                    object[] items2 = GrimoirePlugin.LoadedPlugins.ToArray();
-                    items.AddRange(items2);
-                    lstLoaded.SelectedItem = grimoirePlugin;
-                }
-                else
-                {
-                    MessageBox.Show(grimoirePlugin.LastError, "Grimoire", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                }
-            }
-        }
+		private void treePlugins_AfterSelect(object sender, TreeViewEventArgs e)
+		{
+			string text;
+			if (File.Exists(text = Path.Combine(path, e.Node.FullPath)))
+			{
+				GrimoirePlugin grimoirePlugin = new GrimoirePlugin(text);
+				if (grimoirePlugin.Load())
+				{
+					txtPlugin.Clear();
+					lstLoaded.Items.Clear();
+					ListBox.ObjectCollection items = lstLoaded.Items;
+					object[] items2 = GrimoirePlugin.LoadedPlugins.ToArray();
+					items.AddRange(items2);
+					lstLoaded.SelectedItem = grimoirePlugin;
+				}
+				else
+				{
+					MessageBox.Show(grimoirePlugin.LastError, "Grimoire", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+				}
+			}
+		}
 
-        private void treePlugins_AfterExpand(object sender, TreeViewEventArgs e)
-        {
-            string text;
-            if (Directory.Exists(text = Path.Combine(path, e.Node.FullPath)))
-            {
-                AddTreeNodes(e.Node, text);
-                if (e.Node.Nodes.Count > 0 && e.Node.Nodes[0].Text == "Loading...")
-                {
-                    e.Node.Nodes.RemoveAt(0);
-                }
-            }
-        }
+		private void treePlugins_AfterExpand(object sender, TreeViewEventArgs e)
+		{
+			string text;
+			if (Directory.Exists(text = Path.Combine(path, e.Node.FullPath)))
+			{
+				AddTreeNodes(e.Node, text);
+				if (e.Node.Nodes.Count > 0 && e.Node.Nodes[0].Text == "Loading...")
+				{
+					e.Node.Nodes.RemoveAt(0);
+				}
+			}
+		}
 
-        private string Plugintext;
-        private void btnBrowse_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Title = "Load Grimoire plugin";
-                openFileDialog.Filter = "Dynamic Link Library|*.dll";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    txtPlugin.Text = openFileDialog.SafeFileName;
-                    Plugintext = openFileDialog.FileName;
-                }
-            }
-        }
+		private string Plugintext;
+		private void btnBrowse_Click(object sender, EventArgs e)
+		{
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
+			{
+				openFileDialog.Title = "Load Grimoire plugin";
+				openFileDialog.Filter = "Dynamic Link Library|*.dll";
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					txtPlugin.Text = openFileDialog.SafeFileName;
+					Plugintext = openFileDialog.FileName;
+				}
+			}
+		}
 
-        private void btnLoad_Click(object sender, EventArgs e)
-        {
-            string text;
-            if (File.Exists(text = Plugintext))
-            {
-                GrimoirePlugin grimoirePlugin = new GrimoirePlugin(text);
-                if (grimoirePlugin.Load())
-                {
-                    txtPlugin.Clear();
-                    lstLoaded.Items.Clear();
-                    ListBox.ObjectCollection items = lstLoaded.Items;
-                    object[] items2 = GrimoirePlugin.LoadedPlugins.ToArray();
-                    items.AddRange(items2);
-                    lstLoaded.SelectedItem = grimoirePlugin;
-                }
-                else
-                {
-                    MessageBox.Show(grimoirePlugin.LastError, "Grimoire", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                }
-            }
-        }
+		private void btnLoad_Click(object sender, EventArgs e)
+		{
+			string text;
+			if (File.Exists(text = Plugintext))
+			{
+				GrimoirePlugin grimoirePlugin = new GrimoirePlugin(text);
+				if (grimoirePlugin.Load())
+				{
+					txtPlugin.Clear();
+					lstLoaded.Items.Clear();
+					ListBox.ObjectCollection items = lstLoaded.Items;
+					object[] items2 = GrimoirePlugin.LoadedPlugins.ToArray();
+					items.AddRange(items2);
+					lstLoaded.SelectedItem = grimoirePlugin;
+				}
+				else
+				{
+					MessageBox.Show(grimoirePlugin.LastError, "Grimoire", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+				}
+			}
+		}
 
-        private void btnUnload_Click(object sender, EventArgs e)
-        {
-            int selectedIndex;
-            if ((selectedIndex = lstLoaded.SelectedIndex) > -1)
-            {
-                GrimoirePlugin grimoirePlugin = GrimoirePlugin.LoadedPlugins[selectedIndex];
-                if (grimoirePlugin.Unload())
-                {
-                    lstLoaded.Items.RemoveAt(selectedIndex);
-                    lblAuthor.Text = "Plugin created by:";
-                    txtDesc.Clear();
-                }
-                else
-                {
-                    MessageBox.Show(grimoirePlugin.LastError, "Grimoire", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                }
-            }
-        }
+		private void btnUnload_Click(object sender, EventArgs e)
+		{
+			int selectedIndex;
+			if ((selectedIndex = lstLoaded.SelectedIndex) > -1)
+			{
+				GrimoirePlugin grimoirePlugin = GrimoirePlugin.LoadedPlugins[selectedIndex];
+				if (grimoirePlugin.Unload())
+				{
+					lstLoaded.Items.RemoveAt(selectedIndex);
+					lblAuthor.Text = "Plugin created by:";
+					txtDesc.Clear();
+				}
+				else
+				{
+					MessageBox.Show(grimoirePlugin.LastError, "Grimoire", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+				}
+			}
+		}
 
-        private void lstLoaded_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int selectedIndex;
-            if ((selectedIndex = lstLoaded.SelectedIndex) > -1)
-            {
-                GrimoirePlugin grimoirePlugin = GrimoirePlugin.LoadedPlugins[selectedIndex];
-                lblAuthor.Text = "Plugin created by: " + grimoirePlugin.Author;
-                txtDesc.Text = grimoirePlugin.Description;
-            }
-        }
+		private void lstLoaded_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			int selectedIndex;
+			if ((selectedIndex = lstLoaded.SelectedIndex) > -1)
+			{
+				GrimoirePlugin grimoirePlugin = GrimoirePlugin.LoadedPlugins[selectedIndex];
+				lblAuthor.Text = "Plugin created by: " + grimoirePlugin.Author;
+				txtDesc.Text = grimoirePlugin.Description;
+			}
+		}
 
-        private void PluginManager_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-                Hide();
-            }
-        }
+		private void PluginManager_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (e.CloseReason == CloseReason.UserClosing)
+			{
+				e.Cancel = true;
+				Hide();
+			}
+		}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && components != null)
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && components != null)
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        private void InitializeComponent()
-        {
+		private void InitializeComponent()
+		{
 			this.gbLoaded = new DarkUI.Controls.DarkGroupBox();
 			this.btnUnload = new DarkUI.Controls.DarkButton();
 			this.txtDesc = new DarkUI.Controls.DarkTextBox();
@@ -362,6 +362,6 @@ namespace Grimoire.UI
 			this.gbLoad.PerformLayout();
 			this.ResumeLayout(false);
 
-        }
-    }
+		}
+	}
 }

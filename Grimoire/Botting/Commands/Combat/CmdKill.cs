@@ -44,8 +44,8 @@ namespace Grimoire.Botting.Commands.Combat
 			if (AntiCounter)
 			{
 				OptionsManager.DisableAnimations = false;
-				//Proxy.Instance.ReceivedFromServer += CapturePlayerData;
-				Flash.FlashCall += AntiCounterHandler;
+				Proxy.Instance.ReceivedFromServer += CapturePlayerAura;
+				//Flash.FlashCall += AntiCounterHandler;
 			}
 
 			Player.AttackMonster(Monster);
@@ -59,8 +59,8 @@ namespace Grimoire.Botting.Commands.Combat
 			if (AntiCounter)
 			{
 				OptionsManager.DisableAnimations = disableAnims;
-				//Proxy.Instance.ReceivedFromServer -= CapturePlayerData;
-				Flash.FlashCall -= AntiCounterHandler;
+				Proxy.Instance.ReceivedFromServer -= CapturePlayerAura;
+				//Flash.FlashCall -= AntiCounterHandler;
 			}
 
 			_cts?.Cancel(false);
@@ -220,7 +220,7 @@ namespace Grimoire.Botting.Commands.Combat
 			}
 		}
 
-		private void CapturePlayerData(Message message)
+		private void CapturePlayerAura(Message message)
 		{
 			string msg = message.ToString();
 
@@ -233,6 +233,7 @@ namespace Grimoire.Botting.Commands.Combat
 				if (msg.Contains(c2))
 				{
 					Console.WriteLine("Counter Attack: active");
+					Player.CancelAutoAttack();
 					Player.CancelTarget();
 					onPause = true;
 				}
