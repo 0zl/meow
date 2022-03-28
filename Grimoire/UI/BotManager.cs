@@ -2107,6 +2107,11 @@ namespace Grimoire.UI
 			if (e.TabPage == tabBots)
 			{
 				this.txtSaved.Text = Path.Combine(Application.StartupPath, "Bots");
+				try
+				{
+					string botsDir = ClientConfig.GetValue(ClientConfig.C_BOTS_DIR);
+					if (Directory.Exists(botsDir)) this.txtSaved.Text = botsDir;
+				} catch{ }
 				UpdateTree();
 			}
 			else if (e.TabPage == tabMisc)
@@ -3221,13 +3226,13 @@ namespace Grimoire.UI
 				string c2 = "prepares a counter attack";
 				if (msg.Contains(c2))
 				{
-					Console.WriteLine("Counter Attack: active");
-					Player.CancelTarget();
 					Player.CancelAutoAttack();
+					Player.CancelTarget();
 					if (chkEnable.Checked)
 					{
 						ActiveBotEngine.Configuration.SkipAttack = true;
 					}
+					Console.WriteLine("Counter Attack: active");
 				}
 
 				//"cmd":"aura--","aura":{"nam":"Counter Attack"
@@ -3438,6 +3443,21 @@ namespace Grimoire.UI
 			gender = (gender.ToUpper() == "M") ? "F" : "M";
 			string packet = $"{{\"t\":\"xt\",\"b\":{{\"r\":-1,\"o\":{{\"cmd\":\"genderSwap\",\"bitSuccess\":1,\"gender\":\"{gender}\",\"intCoins\":0,\"uid\":\"{userId}\",\"strHairFileName\":\"\",\"HairID\":\"\",\"strHairName\":\"\"}}}}}}";
 			await Proxy.Instance.SendToClient(packet);
+		}
+
+		private void btnSetBotsDir_Click(object sender, EventArgs e)
+		{
+			using (FolderBrowserDialog openFolderDialog = new FolderBrowserDialog())
+			{
+				openFolderDialog.Description = "Choose your bots directory";
+				openFolderDialog.ShowNewFolderButton = true;
+				openFolderDialog.SelectedPath = txtSaved.Text;
+				if (openFolderDialog.ShowDialog() == DialogResult.OK)
+				{
+					txtSaved.Text = openFolderDialog.SelectedPath;
+				}
+			}
+			ClientConfig.SetValue(ClientConfig.C_BOTS_DIR, txtSaved.Text);
 		}
 	}
 }

@@ -162,7 +162,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EoL\EoLHook.cs" />
+    <Compile Include="Grimoire\UI\SkillPreset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\SkillPreset.Designer.cs">
+      <DependentUpon>SkillPreset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\Tools\ClientConfig.cs" />
+    <Compile Include="Hook\EoLHook.cs" />
     <Compile Include="Grimoire\Botting\Bot.cs" />
     <Compile Include="Grimoire\Botting\BotUtilities.cs" />
     <Compile Include="Grimoire\Botting\Commands\Combat\CmdAttack.cs" />
@@ -346,7 +353,6 @@
     <Compile Include="Grimoire\Networking\Handlers\HandlerLoadBank.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerLoadShop.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerLogin.cs" />
-    <Compile Include="Grimoire\Networking\Handlers\HandlerMapJoin.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerPlayers.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerPolicy.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerQuestComplete.cs" />
@@ -493,12 +499,6 @@
     <Compile Include="Grimoire\UI\Root.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Grimoire\UI\ScriptsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire\UI\ScriptsForm.designer.cs">
-      <DependentUpon>ScriptsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Grimoire\UI\Set.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -601,11 +601,11 @@
     <EmbeddedResource Include="Grimoire\UI\Root.resx">
       <DependentUpon>Root.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Grimoire\UI\ScriptsForm.resx">
-      <DependentUpon>ScriptsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Grimoire\UI\Set.resx">
       <DependentUpon>Set.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\SkillPreset.resx">
+      <DependentUpon>SkillPreset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Grimoire\UI\Travel.resx">
       <DependentUpon>Travel.cs</DependentUpon>

@@ -99,6 +99,11 @@ namespace Grimoire.Game
         public static string Password => Flash.Call<string>("GetPassword", new string[0]);
 
         /// <summary>
+        /// Grabs Player Equipped Class string.
+        /// </summary>
+        public static string EquippedClass => Flash.Call<string>("Class", new string[0]);
+
+        /// <summary>
         /// Checks if Logged in.
         /// </summary>
         public static bool IsLoggedIn => Flash.Call<bool>("IsLoggedIn", new string[0]);

@@ -44,8 +44,8 @@ namespace Grimoire.Botting.Commands.Combat
 			if (AntiCounter)
 			{
 				OptionsManager.DisableAnimations = false;
-				Proxy.Instance.ReceivedFromServer += CapturePlayerAura;
-				//Flash.FlashCall += AntiCounterHandler;
+				//Proxy.Instance.ReceivedFromServer += CapturePlayerData;
+				Flash.FlashCall += AntiCounterHandler;
 			}
 
 			Player.AttackMonster(Monster);
@@ -59,8 +59,8 @@ namespace Grimoire.Botting.Commands.Combat
 			if (AntiCounter)
 			{
 				OptionsManager.DisableAnimations = disableAnims;
-				Proxy.Instance.ReceivedFromServer -= CapturePlayerAura;
-				//Flash.FlashCall -= AntiCounterHandler;
+				//Proxy.Instance.ReceivedFromServer -= CapturePlayerData;
+				Flash.FlashCall -= AntiCounterHandler;
 			}
 
 			_cts?.Cancel(false);
@@ -102,8 +102,9 @@ namespace Grimoire.Botting.Commands.Combat
 						break;
 				}
 
-				if (KillPriority.Length > 0) {
-					List<string> priorities =  new List<string>();
+				if (KillPriority.Length > 0)
+				{
+					List<string> priorities = new List<string>();
 					if (KillPriority.Contains(","))
 					{
 						foreach (string p in KillPriority.Split(','))
@@ -111,7 +112,8 @@ namespace Grimoire.Botting.Commands.Combat
 							priorities.Add(p);
 						}
 					}
-					else {
+					else
+					{
 						priorities.Add(KillPriority);
 					}
 
@@ -204,15 +206,17 @@ namespace Grimoire.Botting.Commands.Combat
 								Player.CancelAutoAttack();
 								Player.CancelTarget();
 								onPause = true;
+								Console.WriteLine("Counter Attack: active");
 							}
 						JArray a = (JArray)data.a;
 						if (a != null)
-							foreach(JObject aura in a)
+							foreach (JObject aura in a)
 							{
 								JObject aura2 = (JObject)aura["aura"];
 								if (aura2.GetValue("nam")?.ToString() == "Counter Attack" && aura.GetValue("cmd")?.ToString() == "aura--")
 								{
 									onPause = false;
+									Console.WriteLine("Counter Attack: fades");
 									break;
 								}
 							}
@@ -220,7 +224,7 @@ namespace Grimoire.Botting.Commands.Combat
 			}
 		}
 
-		private void CapturePlayerAura(Message message)
+		private void CapturePlayerData(Message message)
 		{
 			string msg = message.ToString();
 
@@ -233,7 +237,6 @@ namespace Grimoire.Botting.Commands.Combat
 				if (msg.Contains(c2))
 				{
 					Console.WriteLine("Counter Attack: active");
-					Player.CancelAutoAttack();
 					Player.CancelTarget();
 					onPause = true;
 				}

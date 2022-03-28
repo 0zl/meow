@@ -13,6 +13,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Security;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
@@ -87,7 +88,7 @@ namespace Grimoire.Tools
 			else
 			{
 				SwfLoadProgress?.Invoke(int.Parse(text2));
-				if (text2 == "100") Flash.Call("SetTitle", $"Grimlite Li {AboutForm.Instance.getVersionCode()}");
+				if (text2 == "100") Flash.Call2("SetTitle", $"Grimlite Li {Program.Version}");
 			}
 		}
 
@@ -371,6 +372,7 @@ namespace Grimoire.Tools
 
 			object[] args = el.Elements().Select(x => FromFlashXml(x)).ToArray();
 
+			Console.WriteLine($"name: {name}");
 			switch (name)
 			{
 				case "debug":
@@ -379,6 +381,10 @@ namespace Grimoire.Tools
 
 				case "progress":
 					SwfLoadProgress?.Invoke(int.Parse(args[0].ToString()));
+					if (args[0].ToString() == "100")
+					{
+						Flash.Call2("SetTitle", $"Grimlite Li {Program.Version}");
+					}
 					break;
 
 				case "modifyServers":

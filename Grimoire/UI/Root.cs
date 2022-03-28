@@ -16,7 +16,7 @@ using DarkUI.Controls;
 using System.Reflection;
 using System.Linq;
 using Grimoire.FlashTools;
-using Grimoire.FlashEoLHook;
+using Grimoire.Utils;
 
 namespace Grimoire.UI
 {
@@ -93,7 +93,7 @@ namespace Grimoire.UI
 		//public AxShockwaveFlash Client => flashPlayer;
 
 		private string defFlashFile = "Loader/grimoire.swf";
-		private string title = $"Grimlite Li {AboutForm.Instance.getVersionCode()}";
+		private string title = $"Grimlite Li";
 
 		public Root()
 		{
@@ -125,33 +125,11 @@ namespace Grimoire.UI
 			bool owo;
 			try
 			{
-				owo = bool.Parse(GetValueClientConfig("owo"));
+				owo = bool.Parse(ClientConfig.GetValue("owo"));
 			}
 			catch { 
 				owo = false; 
 			}
-		}
-
-		public string GetValueClientConfig(string key)
-		{
-			Config clientConfig = Config.Load(Application.StartupPath + "\\ClientConfig.cfg");
-			string value;
-			try
-			{
-				value = clientConfig.Get(key);
-			}
-			catch 
-			{
-				value = null;
-			}
-			return value;
-		}
-
-		public void UpdateClientConfig(string key, string value)
-		{
-			Config clientConfig = Config.Load(Application.StartupPath + "\\ClientConfig.cfg");
-			clientConfig.Set(key, value);
-			clientConfig.Save();
 		}
 
 		private void Root_FormClosing(object sender, FormClosingEventArgs e)
@@ -170,7 +148,7 @@ namespace Grimoire.UI
 
 		public void InitFlashMovie(string gameSwf)
 		{
-			EoLHook.Hook();
+			Hook.EoLHook.Hook();
 			Flash.flash?.Dispose();
 			Flash.SwfLoadProgress -= OnLoadProgress;
 			Flash.SwfLoadProgress += OnLoadProgress;
@@ -199,7 +177,7 @@ namespace Grimoire.UI
 			}
 
 			Flash.flash = flashPlayer;
-			EoLHook.Unhook();
+			Hook.EoLHook.Unhook();
 		}
 
 		private void OnLoadProgress(int progress)
@@ -316,8 +294,8 @@ namespace Grimoire.UI
 			this.cbPads = new DarkUI.Controls.DarkComboBox();
 			this.cbCells = new DarkUI.Controls.DarkComboBox();
 			this.btnBank = new DarkUI.Controls.DarkButton();
-			this.chkAutoAttack = new DarkCheckBox();
-			this.chkStartBot = new DarkCheckBox();
+			this.chkAutoAttack = new DarkUI.Controls.DarkCheckBox();
+			this.chkStartBot = new DarkUI.Controls.DarkCheckBox();
 			this.btnGetCell = new DarkUI.Controls.DarkButton();
 			this.btnReloadBank = new DarkUI.Controls.DarkButton();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -891,7 +869,7 @@ namespace Grimoire.UI
 			this.infRangeToolStripMenuItem.CheckOnClick = true;
 			this.infRangeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.infRangeToolStripMenuItem.Name = "infRangeToolStripMenuItem";
-			this.infRangeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.infRangeToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.infRangeToolStripMenuItem.Text = "Infinite Range";
 			this.infRangeToolStripMenuItem.Click += new System.EventHandler(this.infRangeToolStripMenuItem_Click);
 			// 
@@ -901,7 +879,7 @@ namespace Grimoire.UI
 			this.provokeToolStripMenuItem1.CheckOnClick = true;
 			this.provokeToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.provokeToolStripMenuItem1.Name = "provokeToolStripMenuItem1";
-			this.provokeToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+			this.provokeToolStripMenuItem1.Size = new System.Drawing.Size(176, 22);
 			this.provokeToolStripMenuItem1.Text = "Provoke";
 			this.provokeToolStripMenuItem1.Click += new System.EventHandler(this.provokeToolStripMenuItem1_Click);
 			// 
@@ -911,7 +889,7 @@ namespace Grimoire.UI
 			this.enemyMagnetToolStripMenuItem.CheckOnClick = true;
 			this.enemyMagnetToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.enemyMagnetToolStripMenuItem.Name = "enemyMagnetToolStripMenuItem";
-			this.enemyMagnetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.enemyMagnetToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.enemyMagnetToolStripMenuItem.Text = "Enemy Magnet";
 			this.enemyMagnetToolStripMenuItem.Click += new System.EventHandler(this.enemyMagnetToolStripMenuItem_Click);
 			// 
@@ -921,7 +899,7 @@ namespace Grimoire.UI
 			this.lagKillerToolStripMenuItem.CheckOnClick = true;
 			this.lagKillerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.lagKillerToolStripMenuItem.Name = "lagKillerToolStripMenuItem";
-			this.lagKillerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.lagKillerToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.lagKillerToolStripMenuItem.Text = "Lag Killer";
 			this.lagKillerToolStripMenuItem.Click += new System.EventHandler(this.lagKillerToolStripMenuItem_Click);
 			// 
@@ -931,7 +909,7 @@ namespace Grimoire.UI
 			this.hidePlayersToolStripMenuItem.CheckOnClick = true;
 			this.hidePlayersToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.hidePlayersToolStripMenuItem.Name = "hidePlayersToolStripMenuItem";
-			this.hidePlayersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.hidePlayersToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.hidePlayersToolStripMenuItem.Text = "Hide Players";
 			this.hidePlayersToolStripMenuItem.Click += new System.EventHandler(this.hidePlayersToolStripMenuItem_Click);
 			// 
@@ -941,7 +919,7 @@ namespace Grimoire.UI
 			this.skipCutscenesToolStripMenuItem.CheckOnClick = true;
 			this.skipCutscenesToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.skipCutscenesToolStripMenuItem.Name = "skipCutscenesToolStripMenuItem";
-			this.skipCutscenesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.skipCutscenesToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.skipCutscenesToolStripMenuItem.Text = "Skip Cutscenes";
 			this.skipCutscenesToolStripMenuItem.Click += new System.EventHandler(this.skipCutscenesToolStripMenuItem_Click);
 			// 
@@ -951,7 +929,7 @@ namespace Grimoire.UI
 			this.disableAnimationsToolStripMenuItem.CheckOnClick = true;
 			this.disableAnimationsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.disableAnimationsToolStripMenuItem.Name = "disableAnimationsToolStripMenuItem";
-			this.disableAnimationsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.disableAnimationsToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.disableAnimationsToolStripMenuItem.Text = "Disable Animations";
 			this.disableAnimationsToolStripMenuItem.Visible = false;
 			this.disableAnimationsToolStripMenuItem.Click += new System.EventHandler(this.disableAnimationsToolStripMenuItem_Click);
@@ -964,7 +942,7 @@ namespace Grimoire.UI
 			this.toolStripTextBox1});
 			this.walkspeedToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.walkspeedToolStripMenuItem.Name = "walkspeedToolStripMenuItem";
-			this.walkspeedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.walkspeedToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.walkspeedToolStripMenuItem.Text = "Walkspeed";
 			this.walkspeedToolStripMenuItem.Click += new System.EventHandler(this.walkspeedToolStripMenuItem_Click);
 			// 
@@ -982,7 +960,7 @@ namespace Grimoire.UI
 			this.enableOptionsToolStripMenuItem.CheckOnClick = true;
 			this.enableOptionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.enableOptionsToolStripMenuItem.Name = "enableOptionsToolStripMenuItem";
-			this.enableOptionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.enableOptionsToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.enableOptionsToolStripMenuItem.Text = "Enable Options";
 			this.enableOptionsToolStripMenuItem.Visible = false;
 			this.enableOptionsToolStripMenuItem.Click += new System.EventHandler(this.enableOptionsToolStripMenuItem_Click);
@@ -1382,6 +1360,61 @@ namespace Grimoire.UI
 			}
 		}
 
+		private List<Skill> getSkillPreset()
+		{
+			List<Skill> listSkill = new List<Skill>();
+			try
+			{
+				string playerClass = Player.EquippedClass;
+				string skillPreset = ClientConfig.GetValue($"{ClientConfig.C_SKILL_PRESET_PREFIX}{playerClass.ToUpper()}");
+				if (skillPreset != null)
+				{
+					string[] skills = skillPreset.Split(';');
+					foreach (string skill in skills)
+					{
+						if (skill.Contains(':'))
+						{
+							string skillIndex = skill.Split(':')[0];
+							string safer = skill.Split(':')[1];
+							string sType = safer.Remove(0, 2)[0].ToString();
+							int sValue = int.Parse(safer.Remove(0, 3));
+							switch (safer.Substring(0, 2))
+							{
+								case "SH":
+									listSkill.Add(new Skill
+									{
+										Type = Skill.SkillType.Safe,
+										SType = sType == ">" ? Skill.SafeType.GreaterThan : Skill.SafeType.LowerThan,
+										SafeValue = sValue,
+										IsSafeMp = false,
+										Index = skillIndex,
+									});
+									break;
+								case "SM":
+									listSkill.Add(
+										new Skill
+										{
+											Type = Skill.SkillType.Safe,
+											SType = sType == ">" ? Skill.SafeType.GreaterThan : Skill.SafeType.LowerThan,
+											SafeValue = sValue,
+											IsSafeMp = true,
+											Index = skillIndex
+										});
+									break;
+							}
+						}
+						else
+						{
+							listSkill.Add(
+								new Skill { Type = Skill.SkillType.Normal, Index = skill }
+							);
+						}
+					}
+				}
+			} catch { } 
+			return listSkill;
+		}
+
 		private async void chkAutoAttack_CheckedChanged(object sender, EventArgs e)
 		{
 			if (!Player.IsLoggedIn || chkStartBot.Checked)
@@ -1390,15 +1423,10 @@ namespace Grimoire.UI
 				return;
 			}
 
-			List<Skill> listSkill = new List<Skill>();
-			if (BotManager.Instance.lstSkills.Items.Count > 0)
+			List<Skill> listSkill = getSkillPreset();
+			if (listSkill.Count <= 0)
 			{
-				listSkill = BotManager.Instance.lstSkills.Items.Cast<Skill>().ToList();
-			}
-			else
-			{
-				listSkill = new List<Skill>
-				{
+				listSkill = new List<Skill> {
 					new Skill {Type = Skill.SkillType.Normal, Index = "1"},
 					new Skill {Type = Skill.SkillType.Normal, Index = "2"},
 					new Skill {Type = Skill.SkillType.Normal, Index = "3"},
@@ -1412,7 +1440,7 @@ namespace Grimoire.UI
 				if (!Player.HasTarget) Player.AttackMonster("*");
 				if (listSkill.Count > 0)
 				{
-					if (listSkill[i].Type != Skill.SkillType.Label)
+					if (listSkill[i].Type != Skill.SkillType.Label && Player.HasTarget)
 						listSkill[i].ExecuteSkill();
 				}
 				await Task.Delay(100);

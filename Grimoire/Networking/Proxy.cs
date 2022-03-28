@@ -144,8 +144,7 @@ namespace Grimoire.Networking
 		public void OnClientMessage(string message)
 		{
 			if (AppClosingToken.IsCancellationRequested) return;
-			Message message2 = this.CreateMessage(message);
-			ReceivedFromClient?.Invoke(message2);
+			ReceivedFromClient?.Invoke(this.CreateMessage(message));
 
 			/*Receive receivedFromClient = this.ReceivedFromClient;
 			if (receivedFromClient != null)
@@ -161,8 +160,7 @@ namespace Grimoire.Networking
 		public void OnServerMessage(string message)
 		{
 			if (AppClosingToken.IsCancellationRequested) return;
-			Message message2 = this.CreateMessage(message);
-			ReceivedFromServer?.Invoke(message2);
+			ReceivedFromServer?.Invoke(this.CreateMessage(message));
 
 			/*Receive receivedFromServer = this.ReceivedFromServer;
 			if (receivedFromServer != null)
@@ -270,16 +268,14 @@ namespace Grimoire.Networking
 			//new HandlerDropItem(),
 			new HandlerGetQuests(),
 			new HandlerQuestComplete(),
-			//new HandlerMapJoin(),
 			//new HandlerLoadBank(),
 			new HandlerLoadShop()
 		};
 
 		private readonly List<IXtMessageHandler> _handlersXt = new List<IXtMessageHandler>
 		{
-			//new HandlerWarningsXt(),
-			//new HandlerLogin(),
-			//new HandlerAFK(),
+			new HandlerLogin(),
+			new HandlerAFK(),
 			//new HandlerChat(),
 			//new HandlerXtJoin(),
 			//new HandlerXtCellJoin()
@@ -288,7 +284,7 @@ namespace Grimoire.Networking
 
 		private readonly List<IXmlMessageHandler> _handlersXml = new List<IXmlMessageHandler>
 		{
-			new HandlerPolicy()
+			//new HandlerPolicy()
 		};
 	}
 }

@@ -85,14 +85,15 @@ namespace Grimoire.Botting.Commands.Combat
 							config.Drops.Remove(_itemName);
 							removedList.Add(_itemName);
 						}
-
 					}
 				}
 
 				if (ItemType == ItemType.Items)
 				{
 					int times = 0;
-					while (instance.IsRunning && Player.IsLoggedIn && Player.IsAlive &&
+					while (instance.IsRunning && 
+						Player.IsLoggedIn && 
+						Player.IsAlive &&
 						!Enumerable.Range(0, itemsName.Length).All(i => Player.Inventory.ContainsItem(itemsName[i], quantities[i]))
 						)
 					{
@@ -112,7 +113,9 @@ namespace Grimoire.Botting.Commands.Combat
 				}
 				else
 				{
-					while (instance.IsRunning && Player.IsLoggedIn && Player.IsAlive &&
+					while (instance.IsRunning && 
+						Player.IsLoggedIn && 
+						Player.IsAlive &&
 						!Player.TempInventory.ContainsItem(ItemName, Quantity))
 					{
 						await kill.Execute(instance);

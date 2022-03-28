@@ -11,13 +11,10 @@ namespace Grimoire.UI
 {
 	public partial class AboutForm : DarkForm
 	{
-		private readonly string version = "2.3.4";
-		private readonly string releaseDate = "24-03-2022";
-
 		public AboutForm()
 		{
 			InitializeComponent();
-			this.lblVersion.Text = $"Version {version} ({releaseDate})";
+			this.lblVersion.Text = $"Version {Program.Version} ({Program.ReleaseDate})";
 		}
 
 		private void AboutForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -94,18 +91,7 @@ namespace Grimoire.UI
 		//required to checking version in some existing plugins
 		public string getVersion()
 		{
-			return $"Version {version} ({releaseDate.Replace("-", "")})";
+			return $"Version {Program.Version} ({Program.ReleaseDate.Replace("-", "")})";
 		}
-
-		public string getVersionCode()
-		{
-			return version;
-		}
-
-		public string getReleaseDate()
-		{
-			return releaseDate;
-		}
-
 	}
 }
