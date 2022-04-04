@@ -28,7 +28,7 @@ namespace Grimoire.UI
 
 		private void pbFrozttGithub_Click(object sender, EventArgs e)
 		{
-			Process.Start("https://github.com/dwiki08/meow");
+			Process.Start("https://github.com/dwiki08/Grimlite-Li");
 		}
 
 		private void pbCatGithub_Click(object sender, EventArgs e)
@@ -92,6 +92,18 @@ namespace Grimoire.UI
 		public string getVersion()
 		{
 			return $"Version {Program.Version} ({Program.ReleaseDate.Replace("-", "")})";
+		}
+
+		int clickCounter = 0;
+
+		private void pbGrimoireBig_Click(object sender, MouseEventArgs e)
+		{
+			clickCounter++;
+			if (clickCounter >= 3)
+			{
+				Root.EggsForm = new IceCreamForm();
+				this.appName.Text = "You found the Treasure !!";
+			}
 		}
 	}
 }

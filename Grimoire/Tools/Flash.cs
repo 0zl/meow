@@ -372,7 +372,7 @@ namespace Grimoire.Tools
 
 			object[] args = el.Elements().Select(x => FromFlashXml(x)).ToArray();
 
-			Console.WriteLine($"name: {name}");
+			//Console.WriteLine($"name: {name}");
 			switch (name)
 			{
 				case "debug":
@@ -392,6 +392,7 @@ namespace Grimoire.Tools
 					break;
 
 				case "getServers":
+				case "getServers2":
 					JObject packet = (JObject)JObject.Parse(args[0].ToString());
 					JObject login = (JObject)packet["login"];
 					JArray servers = (JArray)packet["servers"];
@@ -414,30 +415,6 @@ namespace Grimoire.Tools
 					}
 					BotManager.Instance.OnServersLoaded(array);
 					PacketInterceptor.Instance.OnServersLoaded(array);
-					break;
-
-				case "getServers2":
-					Console.WriteLine("servers2: " + args[0].ToString());
-					JArray servers2 = (JArray)JArray.Parse(args[0].ToString());
-					Server[] array2 = new Server[servers2.Count];
-					for (int i = 0; i < servers2.Count; i++)
-					{
-						JObject server = (JObject)servers2[i];
-						array2[i] = new Server
-						{
-							IsChatRestricted = server.GetValue("iChat")?.ToString() == "0",
-							PlayerCount = int.Parse(server.GetValue("iCount")?.ToString()),
-							IsMemberOnly = server.GetValue("bUpg")?.ToString() == "1",
-							IsOnline = server.GetValue("bOnline")?.ToString() == "1",
-							Name = server.GetValue("sName")?.ToString(),
-							Port = int.Parse(server.GetValue("iPort")?.ToString()),
-							Ip = server.GetValue("sIP")?.ToString()
-						};
-						server["sIP"] = server["sIP"];
-						server["iPort"] = server["iPort"].ToString();
-					}
-					BotManager.Instance.OnServersLoaded(array2);
-					PacketInterceptor.Instance.OnServersLoaded(array2);
 					break;
 
 				case "packetFromClient":

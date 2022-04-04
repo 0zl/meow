@@ -78,6 +78,8 @@ namespace Grimoire.Tools
                 {
                     TreeNode treeNode = tree.Nodes.Add($"{item.Id} - {item.Name}");
                     treeNode.Nodes.Add($"ID: {item.Id}");
+                    if (item.ISlot > 0) treeNode.Nodes.Add($"iSlot: {item.ISlot}");
+                    if (item.IValue > 0) treeNode.Nodes.Add($"iValue: {item.IValue}");
                     treeNode.Nodes.Add($"Description: {item.Description}");
                     treeNode.ContextMenuStrip = MenuQuest(item.Id);
                     List<InventoryItem> requiredItems = item.RequiredItems;

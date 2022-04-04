@@ -37,25 +37,27 @@ namespace Grimoire.UI
 			// imgAstolfo
 			// 
 			this.imgAstolfo.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.imgAstolfo.Image = global::Properties.Resources.astolfo;
+			this.imgAstolfo.Image = ((System.Drawing.Image)(resources.GetObject("imgAstolfo.Image")));
 			this.imgAstolfo.InitialImage = null;
 			this.imgAstolfo.Location = new System.Drawing.Point(0, 0);
 			this.imgAstolfo.Name = "imgAstolfo";
-			this.imgAstolfo.Size = new System.Drawing.Size(600, 427);
+			this.imgAstolfo.Size = new System.Drawing.Size(1284, 701);
 			this.imgAstolfo.TabIndex = 172;
 			this.imgAstolfo.TabStop = false;
+			this.imgAstolfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.imgAstolfo_MouseClick);
 			// 
 			// IceCreamForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(600, 427);
+			this.ClientSize = new System.Drawing.Size(1284, 701);
 			this.ControlBox = false;
 			this.Controls.Add(this.imgAstolfo);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "IceCreamForm";
-			this.Text = "Hello there !!";
+			this.Text = "Dig your treasure here !!";
+			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			((System.ComponentModel.ISupportInitialize)(this.imgAstolfo)).EndInit();
 			this.ResumeLayout(false);
 

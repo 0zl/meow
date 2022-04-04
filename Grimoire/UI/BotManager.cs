@@ -160,7 +160,7 @@ namespace Grimoire.UI
 		private DarkTextBox txtAuthor;
 		private DarkCheckBox chkUseSkillTargeted;
 		public DarkCheckBox chkFollowOnly;
-		private DarkTextBox tbFollowPlayer2;
+		public DarkTextBox tbFollowPlayer2;
 		private DarkGroupBox darkGroupBox11;
 		private DarkListBox lbLabels;
 		private DarkTextBox txtSavedDesc;
@@ -301,7 +301,6 @@ namespace Grimoire.UI
 				RestartUponDeath = chkRestartDeath.Checked,
 				AFK = chkAFK.Checked,
 				AntiCounter = chkAntiCounter.Checked,
-				DropDelay = (int)numDropDelay.Value,
 				DisableAnimations = chkDisableAnims.Checked,
 				FollowCheck = chkFollowOnly.Checked,
 				FollowName = tbFollowPlayer2.Text
@@ -356,7 +355,6 @@ namespace Grimoire.UI
 				RestartUponDeath = chkRestartDeath.Checked,
 				AFK = chkAFK.Checked,
 				AntiCounter = chkAntiCounter.Checked,
-				DropDelay = (int)numDropDelay.Value,
 				DisableAnimations = chkDisableAnims.Checked,
 				FollowCheck = chkFollowOnly.Checked,
 				FollowName = tbFollowPlayer2.Text
@@ -462,7 +460,6 @@ namespace Grimoire.UI
 				chkRestartDeath.Checked = config.RestartUponDeath;
 				chkAFK.Checked = config.AFK;
 				chkAntiCounter.Checked = config.AntiCounter;
-				numDropDelay.Value = config.DropDelay <= 0 ? 500 : config.DropDelay;
 				txtAuthor.Text = config.Author;
 				txtDescription.Text =
 				txtSavedDesc.Text = DocConvert.IsBase64Encoded(config.Description) ? DocConvert.Unzip(config.Description) : config.Description ?? "Description"; ;
@@ -1508,11 +1505,6 @@ namespace Grimoire.UI
 			}
 		}
 
-		private void btnSoundClear_Click(object sender, EventArgs e)
-		{
-			lstSoundItems.Items.Clear();
-		}
-
 		private void btnSoundTest_Click(object sender, EventArgs e)
 		{
 			for (int i = 0; i < 5; i++)
@@ -1910,16 +1902,6 @@ namespace Grimoire.UI
 
 		public void BotStateChanged(bool IsRunning)
 		{
-			/*if (IsRunning)
-			{
-				btnBotStart.Hide();
-				btnBotStop.Show();
-			}
-			else
-			{
-				btnBotStop.Hide();
-				btnBotStart.Show();
-			}*/
 			btnUp.Enabled = !IsRunning;
 			btnDown.Enabled = !IsRunning;
 			btnClear.Enabled = !IsRunning;
@@ -1975,15 +1957,6 @@ namespace Grimoire.UI
 			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
-		public void changeGenderAsync(object sender, EventArgs e)
-		{
-			int num = Flash.Call<int>("UserID", new string[0]);
-			string text = Flash.Call<string>("Gender", new string[0]);
-			text = (!text.Contains("M")) ? "M" : "F";
-			string data = $"{{\"t\":\"xt\",\"b\":{{\"r\":-1,\"o\":{{\"cmd\":\"genderSwap\",\"bitSuccess\":1,\"gender\":\"{text}\",\"intCoins\":0,\"uid\":\"{num}\",\"strHairFileName\":\"\",\"HairID\":\"\",\"strHairName\":\"\"}}}}}}";
-			_ = Proxy.Instance.SendToClient(data);
-		}
-
 		private void logScript(object sender, EventArgs e)
 		{
 			AddCommand(new CmdLog
@@ -1998,25 +1971,6 @@ namespace Grimoire.UI
 			{
 				Text = txtLog.Text,
 				Debug = true
-			}, (ModifierKeys & Keys.Control) == Keys.Control);
-		}
-
-		private void logsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			LogForm.Instance.Show();
-			LogForm.Instance.BringToFront();
-		}
-
-		private void btnYulgar_Click(object sender, EventArgs e)
-		{
-			AddCommand(new CmdYulgar(), (ModifierKeys & Keys.Control) == Keys.Control);
-		}
-
-		private void btnProvoke_Click(object sender, EventArgs e)
-		{
-			AddCommand(new CmdToggleProvoke
-			{
-				Type = 2
 			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
@@ -2046,11 +2000,6 @@ namespace Grimoire.UI
 
 		private void btnProvokeOn_Click(object sender, EventArgs e)
 		{
-			/*AddCommand(new CmdToggleProvoke
-			{
-				Type = 1
-			}, (ModifierKeys & Keys.Control) == Keys.Control);*/
-
 			AddCommand(new CmdProvoke
 			{
 				Set = true
@@ -2059,11 +2008,6 @@ namespace Grimoire.UI
 
 		private void btnProvokeOff_Click(object sender, EventArgs e)
 		{
-			/*AddCommand(new CmdToggleProvoke
-			{
-				Type = 0
-			}, (ModifierKeys & Keys.Control) == Keys.Control);*/
-
 			AddCommand(new CmdProvoke
 			{
 				Set = false
@@ -2176,22 +2120,6 @@ namespace Grimoire.UI
 
 		}
 
-		private void lstCommands_MouseEnter(object sender, EventArgs e)
-		{
-			if (lstCommands.Items.Count <= 0)
-			{
-				Color c1 = lstCommands.BackColor;
-				Color c2 = Color.FromArgb(c1.A, (int)(c1.R * 0.8), (int)(c1.G * 0.8), (int)(c1.B * 0.8));
-				lstCommands.BackColor = c2;
-			}
-		}
-
-		private void lstCommands_MouseLeave(object sender, EventArgs e)
-		{
-			Color lstCommandsBackColor = Color.FromArgb(60, 63, 65);
-			lstCommands.BackColor = lstCommandsBackColor;
-		}
-
 		private void btnBlank_Click(object sender, EventArgs e)
 		{
 			AddCommand(new CmdBlank3 { Text = "...", Alpha = 1, R = 220, G = 220, B = 220 }, (ModifierKeys & Keys.Control) == Keys.Control);
@@ -2249,14 +2177,8 @@ namespace Grimoire.UI
 			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
-		private void chkBuffup_CheckedChanged(object sender, EventArgs e)
+		private async void btnSetHero_Click(object sender, EventArgs e)
 		{
-			OptionsManager.Buff = chkBuffup.Checked;
-		}
-
-		private void btnSetHero_Click(object sender, EventArgs e)
-		{
-#pragma warning disable CS4014 // Because this call is not awaited
 			Button s = (Button)sender;
 			switch (s.Name)
 			{
@@ -2282,7 +2204,6 @@ namespace Grimoire.UI
 					Player.ChangeAccessLevel("Moderator");
 					break;
 			}
-#pragma warning restore CS4014 // Because this call is not awaited
 		}
 
 		private void chkToggleMute_CheckedChanged(object sender, EventArgs e)
@@ -2309,11 +2230,6 @@ namespace Grimoire.UI
 					c.Save();
 				}
 			}
-		}
-
-		private void numDropDelay_ValueChanged(object sender, EventArgs e)
-		{
-			Bot.Instance.DropDelay = (int)numDropDelay.Value;
 		}
 
 		private void btnAttack_Click(object sender, EventArgs e)
@@ -2374,7 +2290,7 @@ namespace Grimoire.UI
 			}
 			else
 			{
-				this.ClientSize = new Size(p1w + 500, ClientSize.Height);
+				this.ClientSize = new Size(p1w + 580, ClientSize.Height);
 				splitContainer2.Panel2Collapsed = false;
 				mainTabControl.Visible = true;
 			}
@@ -2577,21 +2493,6 @@ namespace Grimoire.UI
 			return g.MeasureCharacterRanges(s, font, layoutRectangle, format)[0];
 		}
 
-		private Region DrawRTLString(Graphics g, string s, Font font, Brush brush, RectangleF layoutRectangle)
-		{
-			var format = new StringFormat()
-			{
-				Alignment = StringAlignment.Near,
-				FormatFlags = StringFormatFlags.DirectionRightToLeft
-			};
-			format.SetMeasurableCharacterRanges(new[] { new CharacterRange(0, s.Length) });
-			//g.DrawString(s, font, brush, layoutRectangle, format);
-			Region length = g.MeasureCharacterRanges(s, font, layoutRectangle, format)[0];
-			layoutRectangle = new RectangleF(layoutRectangle.Width, layoutRectangle.Y, length.GetBounds(g).Width, layoutRectangle.Height);
-			DrawString(g, s, font, brush, layoutRectangle, format);
-			return length;
-		}
-
 		private void multilineToggleToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			MultiMode();
@@ -2628,12 +2529,6 @@ namespace Grimoire.UI
 					break;
 			}
 			AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
-		}
-
-		private void treeBots_DragEnter(object sender, DragEventArgs e)
-		{
-			if (e.Data.GetDataPresent(DataFormats.FileDrop))
-				e.Effect = DragDropEffects.Copy;
 		}
 
 		private void btnClientPacket_Click(object sender, EventArgs e)
@@ -2705,7 +2600,6 @@ namespace Grimoire.UI
 			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
-		// Experimental!
 		public int LastIndexedSearch = 0;
 		public string SKeyword = "";
 		public List<int> Filtered = new List<int>();
@@ -2717,70 +2611,28 @@ namespace Grimoire.UI
 
 			if (Keyword != SKeyword)
 			{
+				LastIndexedSearch = 0;
 				SKeyword = "";
 				Filtered.Clear();
 			}
 
-			// Collect all filtered result
 			for (int i = 0; i < lists.Count; i++)
 			{
-				if (Keyword == SKeyword)
-				{
-					Console.WriteLine("Using Cached List.");
+				if (Keyword == SKeyword) 
 					break;
-				}
-
-				bool KeywordMatch = Regex.IsMatch(lists[i].ToString(), $@"(^|\s){Keyword}(\s|$)");
-
-				// Collect all filtered result
-				if (KeywordMatch)
-				{
+				if (lists[i].ToString().IndexOf(Keyword, StringComparison.OrdinalIgnoreCase) >= 0)
 					Filtered.Add(i);
-				}
 			}
 
 			SKeyword = Keyword;
-			// Use the filtered Index
 			if (Filtered.Count > 0)
 			{
 				lstCommands.SelectedIndex = -1;
 				lstCommands.SelectedIndex = Filtered[LastIndexedSearch];
 				LastIndexedSearch++;
-
 				if (LastIndexedSearch >= Filtered.Count)
-				{
 					LastIndexedSearch = 0;
-				}
 			}
-		}
-
-		private void btnClientMessageEvt(object sender, EventArgs e)
-		{
-			IBotCommand cmd;
-			switch (((Button)sender).Name)
-			{
-				case "btnAddWarnMsg":
-					cmd = new CmdClientMessage
-					{
-						IsWarning = true,
-						Messages = (string)inputMsgClient.Text
-					};
-					break;
-				case "btnAddInfoMsg":
-					cmd = new CmdClientMessage
-					{
-						Messages = (string)inputMsgClient.Text
-					};
-					break;
-				default:
-					cmd = new CmdClientMessage
-					{
-						Messages = (string)inputMsgClient.Text
-					};
-					break;
-			};
-
-			AddCommand(cmd, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
 		private void btnReturnCmd_Click(object sender, EventArgs e)
@@ -2791,52 +2643,6 @@ namespace Grimoire.UI
 		private void btnClearTempVar_Click(object sender, EventArgs e)
 		{
 			AddCommand(new CmdClearTemp(), (ModifierKeys & Keys.Control) == Keys.Control);
-		}
-
-		private void btnSaveAllCommands_Click(object sender, EventArgs e)
-		{
-			using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-			{
-				saveFileDialog.Title = "Save bot";
-				saveFileDialog.InitialDirectory = Path.Combine(Application.StartupPath, "Bots");
-				saveFileDialog.DefaultExt = ".gbot";
-				saveFileDialog.Filter = "Grimoire bots|*.gbot";
-				saveFileDialog.CheckFileExists = false;
-				if (saveFileDialog.ShowDialog() == DialogResult.OK)
-				{
-					Configuration oldConfig = GenerateConfiguration();
-					chkAll.Checked = true;
-					btnClear.PerformClick();
-					chkAll.Checked = false;
-
-					var type = typeof(IBotCommand); // Get the type of our interface
-					var types = AppDomain.CurrentDomain.GetAssemblies() // Get the assemblies associated with our project
-						.SelectMany(s => s.GetTypes()) // Get all the types
-						.Where(p => type.IsAssignableFrom(p) && !p.IsInterface); // Filter to find any type that can be assigned to an IModule
-
-					var typeList = types as Type[] ?? types.ToArray(); // Convert to an array
-					for (int i = 0; i < typeList.Count(); i++)
-					{
-						//AddCommand(new typeList[i]);
-						//someone figure out how to do this thx
-					}
-
-					Configuration value = GenerateConfiguration();
-					try
-					{
-						File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(value, Formatting.Indented, _saveSerializerSettings));
-					}
-					catch (Exception ex)
-					{
-						MessageBox.Show("Unable to save bot: " + ex.Message);
-					}
-					finally
-					{
-						ApplyConfiguration(oldConfig);
-					}
-				}
-			}
-
 		}
 
 		private void richTextBox2_TextChanged(object sender, EventArgs e)
@@ -3059,15 +2865,10 @@ namespace Grimoire.UI
 			tooltip.SetToolTip(this.chkSaveProgress, "Just logout every...");
 		}
 
-
-		private static async void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+		private static void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
 		{
 			if (Player.IsLoggedIn)
 			{
-				/*Player.MoveToCell("Blank", "Spawn");
-				await Task.Delay(3000);
-				string username = OptionsManager.LoginUsername != null ? OptionsManager.LoginUsername : Player.Username;
-				await Proxy.Instance.SendToServer($"%xt%zm%house%1%{username}%");*/
 				Player.Logout();
 				LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Progress saved.\r\n");
 			}
@@ -3205,12 +3006,10 @@ namespace Grimoire.UI
 			if (chkAntiCounter.Checked)
 			{
 				Proxy.Instance.ReceivedFromServer += CapturePlayerAura;
-				//Flash.FlashCall += AntiCounterHandler;
 			}
 			else
 			{
 				Proxy.Instance.ReceivedFromServer -= CapturePlayerAura;
-				//Flash.FlashCall -= AntiCounterHandler;
 			}
 		}
 
@@ -3249,91 +3048,7 @@ namespace Grimoire.UI
 			}
 		}
 
-		private void AntiCounterHandler(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
-		{
-			string msg = args[0].ToString();
-			if (!msg.StartsWith("{")) return;
-			if (function == "pext")
-			{
-				dynamic packet = JsonConvert.DeserializeObject<dynamic>(msg);
-				string type = packet["params"].type;
-				dynamic data = packet["params"].dataObj;
-				if (type == "json")
-					if (data.cmd == "ct")
-					{
-						JArray anims = (JArray)data.anims;
-						if (anims != null)
-							if (anims[0]["msg"].ToString().ToLower().Contains("prepares a counter attack"))
-							{
-								Player.CancelAutoAttack();
-								Player.CancelTarget();
-								if (chkEnable.Checked)
-								{
-									ActiveBotEngine.Configuration.SkipAttack = true;
-								}
-							}
-						JArray a = (JArray)data.a;
-						if (a != null)
-							foreach (JObject aura in a)
-							{
-								JObject aura2 = (JObject)aura["aura"];
-								if (aura2.GetValue("nam")?.ToString() == "Counter Attack" && aura.GetValue("cmd")?.ToString() == "aura--")
-								{
-									ActiveBotEngine.Configuration.SkipAttack = false;
-									break;
-								}
-							}
-					}
-			}
-		}
-
-		private void FollowHandler(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
-		{
-			string msg = args[0].ToString();
-			if (!msg.StartsWith("{")) return;
-			if (function == "pext")
-			{
-				dynamic packet = JsonConvert.DeserializeObject<dynamic>(msg);
-				string type = packet["params"].type;
-				dynamic data = packet["params"].dataObj;
-
-				if (type == "str")
-					if (data[0] == "uotls")
-						if (data[2] == PlayerName)
-						{
-							string movement = data[3];
-							string cell = null;
-							string pad = null;
-							foreach (string m in movement.Split(','))
-							{
-								if (m.Split(':')[0] == "strFrame")
-									cell = m.Split(':')[1];
-								if (m.Split(':')[0] == "strPad")
-									pad = m.Split(':')[1];
-							}
-							if (cell != null && pad != null)
-							{
-								Player.MoveToCell(cell, pad);
-								Player.SetSpawnPoint();
-							}
-						}
-
-				if (msg.Contains("exitArea") && msg.Contains(PlayerName))
-				{
-					Player.CancelAutoAttack();
-					Player.CancelTarget();
-				}
-			}
-		}
-
-		private void chkUseSkillTargeted_MouseHover(object sender, EventArgs e)
-		{
-			ToolTip tooltip = new ToolTip();
-			tooltip.SetToolTip(this.chkAntiMod, "Use skill when player has target only.");
-		}
-
-		private string PlayerName;
-		private bool isFollowing = false;
+		private HandlerFollow HandlerFollow = new HandlerFollow();
 		private async void chkEnableSettings_CheckedChanged(object sender, EventArgs e)
 		{
 			Root.Instance.enableOptionsToolStripMenuItem.Checked = chkEnableSettings.Checked;
@@ -3341,39 +3056,37 @@ namespace Grimoire.UI
 			chkFollowOnly.Enabled = !chkEnableSettings.Checked;
 			if (chkFollowOnly.Checked && chkEnableSettings.Checked)
 			{
-				isFollowing = true;
-				PlayerName = tbFollowPlayer2.Text;
-
-				//Proxy.Instance.ReceivedFromServer += FollowHandler;
-				Flash.FlashCall += FollowHandler;
-
+				string PlayerName = tbFollowPlayer2.Text;
+				Proxy.Instance.RegisterHandler(HandlerFollow);
 				while (chkFollowOnly.Checked && chkEnableSettings.Checked)
 				{
-					if (!Player.IsLoggedIn)
+					if (Player.IsLoggedIn)
 					{
-						await Task.Delay(2000);
-						return;
-					}
-					List<string> mapPlayers = World.PlayersInMap;
-					mapPlayers.ConvertAll<string>(a => a.ToLower());
-					if (!mapPlayers.Contains(PlayerName))
-					{
-						Player.MoveToCell("Blank");
-						await Task.Delay(3000);
-						Player.GoToPlayer(PlayerName);
+						List<string> mapPlayers = World.PlayersInMap;
+						mapPlayers.ConvertAll<string>(a => a.ToLower());
+						if (!mapPlayers.Contains(PlayerName))
+						{
+							Player.CancelAutoAttack();
+							Player.CancelTarget();
+							Player.MoveToCell("Grimlite");
+							ActiveBotEngine.Stop();
+							await ActiveBotEngine.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
+							await Task.Delay(1000);
+							Player.GoToPlayer(PlayerName);
+						}
 					}
 					await Task.Delay(2000);
 				}
 			}
 			else
 			{
-				if (isFollowing)
-				{
-					isFollowing = false;
-					//Proxy.Instance.ReceivedFromServer -= FollowHandler;
-					Flash.FlashCall -= FollowHandler;
-				}
+				Proxy.Instance.UnregisterHandler(HandlerFollow);
 			}
+		}
+		private void chkUseSkillTargeted_MouseHover(object sender, EventArgs e)
+		{
+			ToolTip tooltip = new ToolTip();
+			tooltip.SetToolTip(this.chkAntiMod, "Use skill when player has target only.");
 		}
 
 		private void btnAddSkillSet_Click(object sender, EventArgs e)

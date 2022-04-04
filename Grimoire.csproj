@@ -162,6 +162,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Grimoire\Networking\Handlers\HandlerFollow.cs" />
     <Compile Include="Grimoire\UI\SkillPreset.cs">
       <SubType>Form</SubType>
     </Compile>

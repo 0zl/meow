@@ -15,6 +15,21 @@ namespace Grimoire.UI
 		public IceCreamForm()
 		{
 			InitializeComponent();
+			this.WindowState = FormWindowState.Maximized;
+			this.MinimumSize = this.Size;
+			this.MaximumSize = this.Size;
+		}
+
+		private void imgAstolfo_MouseClick(object sender, MouseEventArgs e)
+		{
+			ShowForm(new IceCreamForm());
+		}
+
+		public void ShowForm(Form form)
+		{
+			form.Show();
+			form.BringToFront();
+			form.Focus();
 		}
 	}
 }

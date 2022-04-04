@@ -261,12 +261,6 @@ namespace Grimoire.Botting
             set;
         }
 
-        public int DropDelay
-        { 
-            get; 
-            set; 
-        }
-
         public bool AntiCounter
         {
             get;

@@ -34,7 +34,6 @@ namespace Grimoire.Botting.Commands.Map
 					int num = random.Next(1000, 99999);
 					roomNumber = num.ToString();
 				}
-
 				await this.TryJoin(instance, namName, roomNumber);
 			}
 
@@ -65,11 +64,10 @@ namespace Grimoire.Botting.Commands.Map
 			}
 			String join = RoomNumber.Length > 0 ? $"{MapName}-{RoomNumber}" : MapName;
 			Player.JoinMap(join, this.Cell, this.Pad);
-			await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 5);
+			await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 10);
 			await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
 			if (provoke) instance.Configuration.ProvokeMonsters = true;
 		}
-
 
 		public override string ToString()
 		{

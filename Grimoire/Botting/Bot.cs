@@ -349,7 +349,7 @@ namespace Grimoire.Botting
 			}
 			BotData.State TempState = BotData.BotState;
 			BotData.BotState = BotData.State.Quest;
-			string pCell = Player.Cell;
+			/*string pCell = Player.Cell;
 			string pPad = Player.Pad;
 			bool provokeMons = this.Configuration.ProvokeMonsters;
 			if (provokeMons) this.Configuration.ProvokeMonsters = false;
@@ -357,62 +357,60 @@ namespace Grimoire.Botting
 			{
 				if (quest.CompleteInBlank)
 				{
-					Player.MoveToCell("Blank", "Left");
+					Player.MoveToCell("Grimlite", "Left");
 				}
 				else
 				{
 					Player.MoveToCell(pCell, pPad);
 				}
 				await this.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
-				await Task.Delay(2000);
-			}
-			int tryComplete = 0;
-			while (quest.CanComplete)
+			}*/
+			if (quest.SafeRelogin)
 			{
-				quest.Complete();
-				await Task.Delay(1000);
-				tryComplete++;
-				if (tryComplete > 5 && quest.SafeRelogin) Player.Logout();
+				int tryComplete = 0;
+				while (quest.CanComplete)
+				{
+					quest.Complete();
+					await Task.Delay(1000);
+					tryComplete++;
+					if (tryComplete > 5 && quest.SafeRelogin) Player.Logout();
+				}
+			} 
+			else
+			{
+				if (quest.CanComplete)
+					quest.Complete();
 			}
-			if (quest.CompleteInBlank)
+			/*if (quest.CompleteInBlank)
 			{
 				Player.MoveToCell(pCell, pPad);
 			}
-			this.Configuration.ProvokeMonsters = provokeMons;
+			this.Configuration.ProvokeMonsters = provokeMons;*/
 			BotData.BotState = TempState;
 			_questDelayCounter.Restart();
 		}
 
-		public int DropDelay { get; set; } = 1000;
-
 		private void OnItemDropped(InventoryItem drop)
 		{
+			Console.WriteLine($"OnItemDropped : {drop.Name}");
 			NotifyDrop(drop);
 			bool flag = Configuration.Drops.Any((string d) => d.Equals(drop.Name, StringComparison.OrdinalIgnoreCase));
 			if (Configuration.EnablePickupAll)
 			{
-				Task.Delay(DropDelay);
 				World.DropStack.GetDrop(drop.Id);
 			}
 			else if (Configuration.EnablePickup && flag)
 			{
-				Task.Delay(DropDelay);
 				World.DropStack.GetDrop(drop.Id);
 			}
 
 			if (Configuration.EnablePickupAcTagged)
 			{
-				Task.Delay(DropDelay);
 				if (drop.IsAcItem)
 				{
 					World.DropStack.GetDrop(drop.Id);
 				}
 			}
-
-			//else if (Configuration.EnableRejectAll)
-			//{
-			//    World.DropStack.RemoveAll(drop.Id);
-			//}
 		}
 
 		private void NotifyDrop(InventoryItem drop)

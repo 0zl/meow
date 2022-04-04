@@ -235,10 +235,11 @@ namespace Grimoire.UI
 			ShowForm(PacketTamperer.Instance);
 		}
 
-		public void ShowForm(Form form1)
+		public static Form EggsForm = null;
+
+		public void ShowForm(Form form)
 		{
-			//Form form = new IceCreamForm();
-			Form form = form1;
+			if (EggsForm != null) form = EggsForm;
 			if (form.WindowState == FormWindowState.Minimized)
 			{
 				form.WindowState = FormWindowState.Normal;
