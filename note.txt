@@ -1,1 +1,0 @@
-cmd Join Map should wait until entered the map

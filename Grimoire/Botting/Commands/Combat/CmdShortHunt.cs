@@ -1,9 +1,6 @@
 ﻿using Grimoire.Botting.Commands.Map;
 using Grimoire.Game;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Grimoire.Tools;
 using System.Threading.Tasks;
 
 namespace Grimoire.Botting.Commands.Combat
@@ -48,7 +45,8 @@ namespace Grimoire.Botting.Commands.Combat
 
                 if (BlankFirst)
                 {
-                    Player.MoveToCell("Blank", "Left");
+                    string[] safeCell = ClientConfig.GetValue(ClientConfig.C_SAFE_CELL).Split(',');
+                    Player.MoveToCell(safeCell[0], safeCell[1]);
                     await instance.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
                     await Task.Delay(1000);
                 }

@@ -77,7 +77,6 @@ namespace Grimoire.Botting.Commands.Misc
                 "{INT VALUE:\\s*(.*?)}",    RegexOptions.IgnoreCase).Replace(text, (Match m) =>
                 $"{Configuration.Tempvalues[m.Groups[1].Value]}");
 
-            text = text + "\r\n";
             if (Debug)
                 if (Clear)
                     LogForm.Instance.txtLogDebug.Clear();

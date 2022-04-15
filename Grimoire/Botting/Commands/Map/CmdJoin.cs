@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Grimoire.Game;
-using Grimoire.Networking;
+using Grimoire.Tools;
 
 namespace Grimoire.Botting.Commands.Map
 {
@@ -58,8 +58,9 @@ namespace Grimoire.Botting.Commands.Map
 			await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer), null, 15);
 			if (Player.CurrentState == Player.State.InCombat)
 			{
-				Player.MoveToCell(Player.Cell, Player.Pad);
-				await instance.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
+				string[] safeCell = ClientConfig.GetValue(ClientConfig.C_SAFE_CELL).Split(',');
+				Player.MoveToCell(safeCell[0], safeCell[1]);
+				await instance.WaitUntil(() => Player.CurrentState != Player.State.InCombat, timeout: 10);
 				await Task.Delay(1500);
 			}
 			String join = RoomNumber.Length > 0 ? $"{MapName}-{RoomNumber}" : MapName;

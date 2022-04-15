@@ -140,13 +140,11 @@ namespace Grimoire.UI
 			set;
 		}
 
-		public static System.Timers.Timer SaveProgressTimer = new System.Timers.Timer();
 		private DarkButton btnSetSpawn2;
 		private DarkGroupBox darkGroupBox15;
 		private DarkButton btnFollowCmd;
 		private DarkTextBox tbFollowPlayer;
 		private DarkGroupBox darkGroupBox16;
-		private DarkButton btnAMTest;
 		private DarkCheckBox chkAMStopBot;
 		private DarkCheckBox chkAMLogout;
 		private DarkCheckBox chkAntiMod;
@@ -1150,7 +1148,6 @@ namespace Grimoire.UI
 			AddQuest(
 				(int)numQuestID.Value, 
 				chkQuestItem.Checked ? numQuestItem.Value.ToString() : null, 
-				chkInBlankCell.Checked,
 				chkReloginCompleteQuest.Checked
 				);
 		}
@@ -1162,7 +1159,6 @@ namespace Grimoire.UI
 			{
 				CompleteTry = (int)numEnsureTries.Value,
 				LogoutFailed = chkReloginCompleteQuest.Checked,
-				InBlank = chkInBlankCell.Checked
 			};
 			q.Id = (int)numQuestID.Value;
 			if (chkQuestItem.Checked)
@@ -2838,9 +2834,7 @@ namespace Grimoire.UI
 			}, (Control.ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
-		private HandlerPrivateJoin handlerPrivateJoin = new HandlerPrivateJoin();
-
-
+		private System.Timers.Timer SaveProgressTimer = new System.Timers.Timer();
 		private void chkSaveProgress_CheckedChanged(object sender, EventArgs e)
 		{
 			numSaveProgress.Enabled = !chkSaveProgress.Checked;
@@ -2870,7 +2864,7 @@ namespace Grimoire.UI
 			if (Player.IsLoggedIn)
 			{
 				Player.Logout();
-				LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Progress saved.\r\n");
+				LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Progress saved.");
 			}
 		}
 
@@ -2898,14 +2892,11 @@ namespace Grimoire.UI
 			{
 				Flash.FlashCall += AntiMODHandler;
 				chkHidePlayers.Checked = false;
-				Console.WriteLine("AntiMod enable");
 			}
 			else
 			{
 				Flash.FlashCall -= AntiMODHandler;
-				Console.WriteLine("AntiMod disable");
 			}
-			btnAMTest.Enabled = !chkAntiMod.Checked;
 			chkAMLogout.Enabled = !chkAntiMod.Checked;
 			chkAMStopBot.Enabled = !chkAntiMod.Checked;
 		}
@@ -3049,27 +3040,23 @@ namespace Grimoire.UI
 		}
 
 		private HandlerFollow HandlerFollow = new HandlerFollow();
-		private async void chkEnableSettings_CheckedChanged(object sender, EventArgs e)
+		private async Task setFollowHandler()
 		{
-			Root.Instance.enableOptionsToolStripMenuItem.Checked = chkEnableSettings.Checked;
-			tbFollowPlayer2.Enabled = !chkEnableSettings.Checked;
-			chkFollowOnly.Enabled = !chkEnableSettings.Checked;
 			if (chkFollowOnly.Checked && chkEnableSettings.Checked)
 			{
 				string PlayerName = tbFollowPlayer2.Text;
+				string[] safeCell = ClientConfig.GetValue(ClientConfig.C_SAFE_CELL).Split(',');
 				Proxy.Instance.RegisterHandler(HandlerFollow);
 				while (chkFollowOnly.Checked && chkEnableSettings.Checked)
 				{
 					if (Player.IsLoggedIn)
 					{
-						List<string> mapPlayers = World.PlayersInMap;
-						mapPlayers.ConvertAll<string>(a => a.ToLower());
+						List<string> mapPlayers = World.PlayersInMap.ConvertAll<string>(a => a.ToLower());
 						if (!mapPlayers.Contains(PlayerName))
 						{
 							Player.CancelAutoAttack();
 							Player.CancelTarget();
-							Player.MoveToCell("Grimlite");
-							ActiveBotEngine.Stop();
+							Player.MoveToCell(safeCell[0], safeCell[1]);
 							await ActiveBotEngine.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
 							await Task.Delay(1000);
 							Player.GoToPlayer(PlayerName);
@@ -3083,6 +3070,15 @@ namespace Grimoire.UI
 				Proxy.Instance.UnregisterHandler(HandlerFollow);
 			}
 		}
+
+		private async void chkEnableSettings_CheckedChanged(object sender, EventArgs e)
+		{
+			Root.Instance.enableOptionsToolStripMenuItem.Checked = chkEnableSettings.Checked;
+			tbFollowPlayer2.Enabled = !chkEnableSettings.Checked;
+			chkFollowOnly.Enabled = !chkEnableSettings.Checked;
+			await setFollowHandler();
+		}
+
 		private void chkUseSkillTargeted_MouseHover(object sender, EventArgs e)
 		{
 			ToolTip tooltip = new ToolTip();
@@ -3116,12 +3112,6 @@ namespace Grimoire.UI
 		{
 			ToolTip tooltip = new ToolTip();
 			tooltip.SetToolTip(this.chkReloginCompleteQuest, "Automatic logout when a quest take 5 times to complete.");
-		}
-
-		private void chkInBlankCell_MouseHover(object sender, EventArgs e)
-		{
-			ToolTip tooltip = new ToolTip();
-			tooltip.SetToolTip(this.chkInBlankCell, "Completing quest in blank cell.");
 		}
 
 		private void btnReloadMap_Click(object sender, EventArgs e)
@@ -3171,6 +3161,11 @@ namespace Grimoire.UI
 				}
 			}
 			ClientConfig.SetValue(ClientConfig.C_BOTS_DIR, txtSaved.Text);
+		}
+
+		private void btnHideLoading_Click(object sender, EventArgs e)
+		{
+			Flash.Call2("HideConnMC", new object[0]);
 		}
 	}
 }

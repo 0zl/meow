@@ -283,7 +283,7 @@ namespace Grimoire.UI
 			// 
 			this.chkEnableAutoTarget.AutoSize = true;
 			this.chkEnableAutoTarget.ForeColor = System.Drawing.SystemColors.Window;
-			this.chkEnableAutoTarget.Location = new System.Drawing.Point(159, 41);
+			this.chkEnableAutoTarget.Location = new System.Drawing.Point(139, 41);
 			this.chkEnableAutoTarget.Name = "chkEnableAutoTarget";
 			this.chkEnableAutoTarget.Size = new System.Drawing.Size(50, 17);
 			this.chkEnableAutoTarget.TabIndex = 19;
@@ -325,7 +325,7 @@ namespace Grimoire.UI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
 			this.ClientSize = new System.Drawing.Size(301, 232);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);

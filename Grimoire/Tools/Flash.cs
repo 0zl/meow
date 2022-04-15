@@ -119,7 +119,7 @@ namespace Grimoire.Tools
 			return args.Length > 0 ? Call("callGameFunction", new object[] { path }.Concat(args).ToArray()) : Call<string>("callGameFunction0", path);
 		}
 
-		public void SetGameObject(string path, object value)
+		public static void SetGameObject(string path, object value)
 		{
 			Call("setGameObject", path, value);
 		}
@@ -376,7 +376,9 @@ namespace Grimoire.Tools
 			switch (name)
 			{
 				case "debug":
-					Console.WriteLine("SWFDebug: " + args[0]);
+					Console.WriteLine($"SWFDebug: {args[0]}");
+					if (ClientConfig.GetValue(ClientConfig.C_LOG_DEBUG_SWF) == "true")
+						LogForm.Instance.AppendDebug($"SWFDebug: {args[0]}");
 					break;
 
 				case "progress":
@@ -482,9 +484,9 @@ namespace Grimoire.Tools
 				//Console.WriteLine($"cmd: {data.cmd}");
 				switch ((string)data.cmd)
 				{
-					/*case "loadInventoryBig":
+					case "loadInventoryBig":
 						Player.Bank.GetBank();
-						break;*/
+						break;
 
 					case "dropItem":
 						JObject items = (JObject)data["items"];

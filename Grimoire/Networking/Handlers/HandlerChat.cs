@@ -113,7 +113,7 @@ namespace Grimoire.Networking.Handlers
                     tolog = $"{tolog}: {message.Arguments[4]}";
                     break;
             }
-            LogForm.Instance.AppendChat(string.Format("[{0:hh:mm:ss}] {1} \r\n", DateTime.Now, tolog));
+            LogForm.Instance.AppendChat(string.Format("[{0:hh:mm:ss}] {1}", DateTime.Now, tolog));
         }
 	}
 }

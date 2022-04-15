@@ -12,15 +12,19 @@ namespace Grimoire.Networking.Handlers
             get;
         } = new string[1]
         {
-            "afk"
+            "uotls"
         };
 
         public void Handle(XtMessage message)
         {
-            if (OptionsManager.AFK && message.Arguments[5] == "true" && Root.Instance.chkStartBot.Checked)
+            //% xt % uotls % -1 % jeazt % afk:true %
+            if (OptionsManager.AFK && 
+                message.Arguments[4] == Player.Username &&
+                message.Arguments[5] == "afk:true" && 
+                Root.Instance.chkStartBot.Checked)
             {
-                LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Logout on AFK.");
                 Player.Logout();
+                LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Logout on AFK.");
             }
         }
     }

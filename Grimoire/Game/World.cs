@@ -60,7 +60,7 @@ namespace Grimoire.Game
 
         public static void OnItemDropped(InventoryItem drop)
         {
-            Console.WriteLine($"OnItemDropped : {drop.Name}");
+            //Console.WriteLine($"OnItemDropped : {drop.Name}");
             Action<InventoryItem> itemDropped = ItemDropped;
             if (itemDropped != null)
             {

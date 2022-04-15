@@ -1,10 +1,5 @@
 ﻿using Grimoire.Game;
 using Grimoire.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Grimoire.Networking.Handlers
 {
@@ -15,12 +10,10 @@ namespace Grimoire.Networking.Handlers
 
         public string targetUsername => BotManager.Instance.tbFollowPlayer2.Text.ToLower();
 
-        public async void Handle(XtMessage message)
+        public void Handle(XtMessage message)
         {
             try
             {
-                Console.WriteLine($"packet: {message.RawContent}");
-
                 string currUsername = message.Arguments[4].ToLower();
                 if (currUsername == targetUsername && !World.IsMapLoading)
                 {

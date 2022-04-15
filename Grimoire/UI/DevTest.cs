@@ -40,7 +40,7 @@ namespace Grimoire.UI
 
 		private void radGetGame_CheckedChanged(object sender, EventArgs e)
 		{
-			if (radGetGame.Checked)
+			/*if (radGetGame.Checked)
 			{
 				chkArgs.Checked = false;
 				chkArgs.Enabled = false;
@@ -48,10 +48,10 @@ namespace Grimoire.UI
 			else
 			{
 				chkArgs.Enabled = true;
-			}
+			}*/
 		}
 
-		private void btnCall_Click_1(object sender, EventArgs e)
+		private async void btnCall_Click_1(object sender, EventArgs e)
 		{
 			string[] args = chkArgs.Checked ? (tbArgs.Text.Contains(',') ? tbArgs.Text.Split(',') : new string[] { tbArgs.Text }) : new string[0];
 			if (radGrimoire.Checked)
@@ -66,6 +66,25 @@ namespace Grimoire.UI
 			}
 			if (radGetGame.Checked)
 			{
+				if (tbArgs.Text.Length > 0 && chkArgs.Checked)
+				{
+					object value = tbArgs.Text;
+					switch (tbArgs.Text)
+					{
+						case "True":
+						case "true":
+							value = true;
+							break;
+						case "False":
+						case "false":
+							value = false;
+							break;
+					}
+					btnCall.Enabled = false;
+					Flash.SetGameObject(tbGameFunction.Text, value);
+					await Task.Delay(1000);
+					btnCall.Enabled = true;
+				}
 				string res = Flash.GetGameObject(tbGameFunction.Text);
 				tbLogs.Text = res == null ? "Can't call the function." : res.Length < 1 ? "Function called, but can't process its return." : res;
 			}
@@ -91,6 +110,11 @@ namespace Grimoire.UI
 			{
 				//not vaild json
 			}
+		}
+
+		private void DevTest_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

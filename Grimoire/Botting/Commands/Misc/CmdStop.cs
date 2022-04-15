@@ -18,10 +18,10 @@ namespace Grimoire.Botting.Commands.Misc
                     {
                         Player.Bank.TransferToBank(item.Name);
                         Task.Delay(70);
-                        LogForm.Instance.AppendDebug("Transferred to Bank: " + item.Name + "\r\n");
+                        LogForm.Instance.AppendDebug("Transferred to Bank: " + item.Name);
                     }
                 }
-                LogForm.Instance.AppendDebug("Banked all AC Items in Items list \r\n");
+                LogForm.Instance.AppendDebug("Banked all AC Items in Items list");
             }
             Task.Delay(2000);
             instance.Stop();

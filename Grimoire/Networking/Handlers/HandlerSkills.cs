@@ -82,7 +82,7 @@ namespace Grimoire.Networking.Handlers
                             DPSForm.Instance.Damage[Player.Username] += dmg;
                         */
 
-                        LogForm.Instance.AppendDebug($"Damage by you: {hp.ToString()}\r\n");
+                        LogForm.Instance.AppendDebug($"Damage by you: {hp.ToString()}");
                     }
                 }
             }

@@ -99,8 +99,7 @@
     <Reference Include="Costura, Version=5.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Costura.Fody.5.6.0\lib\netstandard1.0\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="DarkUI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DarkUI">
       <HintPath>Dependency\DarkUI.dll</HintPath>
     </Reference>
     <Reference Include="EasyHook, Version=2.7.7097.0, Culture=neutral, PublicKeyToken=4b580fca19d0b0c5, processorArchitecture=MSIL">

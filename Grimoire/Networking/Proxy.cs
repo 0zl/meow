@@ -274,7 +274,7 @@ namespace Grimoire.Networking
 
 		private readonly List<IXtMessageHandler> _handlersXt = new List<IXtMessageHandler>
 		{
-			new HandlerLogin(),
+			//new HandlerLogin(),
 			new HandlerAFK(),
 			//new HandlerChat(),
 			//new HandlerXtJoin(),

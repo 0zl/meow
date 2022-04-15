@@ -35,6 +35,10 @@ namespace Grimoire.Botting
 
 		private bool _isRunning;
 
+		private bool _isRunningQuestList;
+
+		private bool _onCompletingQuest;
+
 		private CancellationTokenSource _ctsBot;
 
 		private Stopwatch _questDelayCounter;
@@ -42,6 +46,8 @@ namespace Grimoire.Botting
 		private Stopwatch _boostDelayCounter;
 
 		private List<string> _bsLabels = new List<string>();
+
+		private string lastCommand = null;
 
 		public int Index
 		{
@@ -98,6 +104,7 @@ namespace Grimoire.Botting
 
 		public void Start(Configuration config)
 		{
+			SetLitePrefSettings();
 			IsRunning = true;
 			Configuration = config;
 			Index = 0;
@@ -132,6 +139,7 @@ namespace Grimoire.Botting
 
 		public void Stop()
 		{
+			SetLitePrefSettings(restore: true);
 			_ctsBot?.Cancel(throwOnFirstException: false);
 			World.ItemDropped -= OnItemDropped;
 			Player.Quests.QuestsLoaded -= OnQuestsLoaded;
@@ -144,7 +152,138 @@ namespace Grimoire.Botting
 			BotData.BotState = BotData.State.Others;
 		}
 
+		private bool litePrefReAccept = false;
+		private bool litePrefCustomDrop = false;
+		private void SetLitePrefSettings(bool restore = false)
+		{
+			return;
+			if (restore)
+			{
+				Flash.SetGameObject("litePreference.data.bReaccept", litePrefReAccept);
+				Flash.SetGameObject("litePreference.data.bCustomDrops", litePrefCustomDrop);
+				Flash.SetGameObject("cDropsUI.visible", litePrefCustomDrop);
+			} 
+			else
+			{
+				litePrefReAccept = Flash.GetGameObject("litePreference.data.bReaccept") == "True";
+				litePrefReAccept = Flash.GetGameObject("litePreference.data.bCustomDrops") == "True";
+				Flash.SetGameObject("litePreference.data.bReaccept", false);
+				Flash.SetGameObject("litePreference.data.bCustomDrops", true);
+				Flash.SetGameObject("cDropsUI.visible", true);
+			}
+		}
+
 		private async Task Activate()
+		{
+			if (Configuration.Quests.Count > 0)
+			{
+				_isRunningQuestList = true;
+				StartQuestList();
+			}
+
+			while (!_ctsBot.IsCancellationRequested)
+			{
+				if (Player.IsLoggedIn && !Player.IsAlive)
+				{
+					World.SetSpawnPoint();
+					await this.WaitUntil(() => Player.IsAlive, () => IsRunning && Player.IsLoggedIn, -1);
+					await Task.Delay(1000);
+					Index = Configuration.RestartUponDeath ? 0 : Index - 1;
+				}
+
+				if (!Player.IsLoggedIn)
+				{
+					LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Disconnected. Last cmd: [{Index}]{lastCommand}");
+					_isRunningQuestList = false;
+
+					if (Configuration.AutoRelogin)
+					{
+						bool infiniteRange = OptionsManager.InfiniteRange;
+						bool provoke = OptionsManager.ProvokeMonsters;
+						bool lagKiller = OptionsManager.LagKiller;
+						bool skipCutscene = OptionsManager.SkipCutscenes;
+						bool playerAnim = OptionsManager.DisableAnimations;
+						bool enemyMagnet = OptionsManager.EnemyMagnet;
+						bool reloginOnAFK = OptionsManager.AFK;
+
+						if (Configuration.Quests.Count > 0)
+						{
+							_isRunningQuestList = true;
+							StartQuestList();
+						}
+
+						OptionsManager.Stop();
+						await AutoRelogin.Login(Configuration.Server, Configuration.RelogDelay, _ctsBot, Configuration.RelogRetryUponFailure);
+						Index = 0;
+						this.LoadAllQuests();
+						this.LoadBankItems();
+						OptionsManager.Start();
+						LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Relogin success.");
+
+						OptionsManager.InfiniteRange = infiniteRange;
+						OptionsManager.ProvokeMonsters = provoke;
+						OptionsManager.LagKiller = lagKiller;
+						OptionsManager.SkipCutscenes = skipCutscene;
+						OptionsManager.DisableAnimations = playerAnim;
+						OptionsManager.EnemyMagnet = enemyMagnet;
+						OptionsManager.AFK = reloginOnAFK;
+					}
+					else
+					{
+						Stop();
+						return;
+					}
+				}
+
+				if (_ctsBot.IsCancellationRequested)
+					return;
+
+				if (Configuration.RestIfHp)
+					await RestHealth();
+
+				if (_ctsBot.IsCancellationRequested)
+					return;
+
+				if (Configuration.RestIfMp)
+					await RestMana();
+
+				if (_ctsBot.IsCancellationRequested)
+					return;
+
+				IndexChanged?.Invoke(Index);
+				IBotCommand cmd = Configuration.Commands[Index];
+				if (cmd is CmdBackgroundPacket)
+				{
+					ToggleSpammer(cmd);
+				}
+				else
+				{
+					lastCommand = cmd.ToString();
+					await cmd.Execute(this);
+				}
+
+				if (_ctsBot.IsCancellationRequested)
+					return;
+
+				if (Configuration.BotDelay > 0 &&
+					(!Configuration.SkipDelayIndexIf || Configuration.SkipDelayIndexIf && cmd.RequiresDelay()))
+						await Task.Delay(_config.BotDelay);
+
+				if (_ctsBot.IsCancellationRequested)
+					return;
+
+				//if (Configuration.Quests.Count > 0)
+				//	await CheckQuests();
+
+				if (Configuration.Boosts.Count > 0)
+					CheckBoosts();
+
+				if (!_ctsBot.IsCancellationRequested)
+					Index++;
+			}
+		}
+
+		private async Task Activate_Satanic()
 		{
 			while (true)
 			{
@@ -154,6 +293,9 @@ namespace Grimoire.Botting
 				}
 				if (!Player.IsLoggedIn)
 				{
+					LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Disconnected.");
+					LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Last executed: [{Index}]{lastCommand}");
+
 					if (!Configuration.AutoRelogin)
 					{
 						break;
@@ -182,7 +324,7 @@ namespace Grimoire.Botting
 					OptionsManager.AFK = reloginOnAFK;
 
 					OptionsManager.Start();
-					LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Relogin. \r\n");
+					LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Relogin success.");
 				}
 				if (!_ctsBot.IsCancellationRequested)
 				{
@@ -220,6 +362,7 @@ namespace Grimoire.Botting
 								}
 								else
 								{
+									lastCommand = cmd.ToString();
 									await cmd.Execute(this);
 								}
 
@@ -265,6 +408,37 @@ namespace Grimoire.Botting
 			Stop();
 		}
 
+		private async void StartQuestList()
+		{
+			int questDelay = (int)BotManager.Instance.numQuestDelay.Value;
+			if (Configuration.Quests.Count > 0)
+			{
+				while (!_ctsBot.IsCancellationRequested && _isRunningQuestList && Player.IsLoggedIn)
+				{
+					Quest quest = Configuration.Quests.FirstOrDefault((Quest q) => q.CanComplete);
+					if (quest != null)
+					{
+						bool provoke = OptionsManager.ProvokeMonsters;
+						if (provoke) OptionsManager.ProvokeMonsters = false;
+						BotData.State TempState = BotData.BotState;
+						BotData.BotState = BotData.State.Quest;
+						_onCompletingQuest = true;
+
+						quest.Complete();
+						await Task.Delay(questDelay);
+
+						if (provoke) OptionsManager.ProvokeMonsters = true;
+						BotData.BotState = TempState;
+						_onCompletingQuest = false;
+					} 
+					else
+					{
+						await Task.Delay(questDelay);
+					}
+				}
+			}
+		}
+
 		private async void ToggleSpammer(IBotCommand cmd)
 		{
 			CmdBackgroundPacket bSpammer = (CmdBackgroundPacket)cmd;
@@ -278,12 +452,14 @@ namespace Grimoire.Botting
 					_bsLabels.RemoveAll(label => label == bSpammer.Label);
 					break;
 			}
-			Console.WriteLine($"labels: {_bsLabels.Count} {_bsLabels}");
 
 			while (_bsLabels.Contains(bSpammer.Label) && bSpammer.Packet != null)
 			{
-				await Proxy.Instance.SendToServer(bSpammer.Packet);
-				await Task.Delay(bSpammer.Delay);
+				if (!_onCompletingQuest)
+				{
+					await Proxy.Instance.SendToServer(bSpammer.Packet);
+					await Task.Delay(bSpammer.Delay);
+				}
 			}
 		}
 
@@ -293,14 +469,17 @@ namespace Grimoire.Botting
 			{
 				BotData.State TempState = BotData.BotState;
 				BotData.BotState = BotData.State.Rest;
+				bool provokeMons = this.Configuration.ProvokeMonsters;
+				if (provokeMons) this.Configuration.ProvokeMonsters = false;
 				if (Configuration.ExitCombatBeforeRest)
 				{
 					Player.MoveToCell(Player.Cell, Player.Pad);
-					await Task.Delay(500);
+					await Task.Delay(2000);
 				}
 				Player.Rest();
 				await this.WaitUntil(() => Player.Health >= Player.HealthMax);
 				BotData.BotState = TempState;
+				if (provokeMons) this.Configuration.ProvokeMonsters = true;
 			}
 		}
 
@@ -310,14 +489,17 @@ namespace Grimoire.Botting
 			{
 				BotData.State TempState = BotData.BotState;
 				BotData.BotState = BotData.State.Rest;
+				bool provokeMons = this.Configuration.ProvokeMonsters;
+				if (provokeMons) this.Configuration.ProvokeMonsters = false;
 				if (Configuration.ExitCombatBeforeRest)
 				{
 					Player.MoveToCell(Player.Cell, Player.Pad);
-					await Task.Delay(500);
+					await Task.Delay(2000);
 				}
 				Player.Rest();
 				await this.WaitUntil(() => Player.Mana >= Player.ManaMax);
 				BotData.BotState = TempState;
+				if (provokeMons) this.Configuration.ProvokeMonsters = true;
 			}
 		}
 
@@ -338,7 +520,7 @@ namespace Grimoire.Botting
 
 		private async Task CheckQuests()
 		{
-			if (!World.IsActionAvailable(LockActions.TryQuestComplete) || _questDelayCounter.ElapsedMilliseconds < 3000)
+			if (!World.IsActionAvailable(LockActions.TryQuestComplete) || _questDelayCounter.ElapsedMilliseconds < 1500)
 			{
 				return;
 			}
@@ -378,8 +560,7 @@ namespace Grimoire.Botting
 			} 
 			else
 			{
-				if (quest.CanComplete)
-					quest.Complete();
+				quest.Complete();
 			}
 			/*if (quest.CompleteInBlank)
 			{
@@ -392,7 +573,6 @@ namespace Grimoire.Botting
 
 		private void OnItemDropped(InventoryItem drop)
 		{
-			Console.WriteLine($"OnItemDropped : {drop.Name}");
 			NotifyDrop(drop);
 			bool flag = Configuration.Drops.Any((string d) => d.Equals(drop.Name, StringComparison.OrdinalIgnoreCase));
 			if (Configuration.EnablePickupAll)

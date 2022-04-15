@@ -10,225 +10,226 @@ using System.Windows.Forms;
 
 namespace Grimoire.UI
 {
-    public class LogForm : DarkForm
-    {
-        public class DebugLogger : TraceListener
-        {
-            private LogForm log;
+	public class LogForm : DarkForm
+	{
+		public class DebugLogger : TraceListener
+		{
+			private LogForm log;
 
-            public DebugLogger(LogForm log)
-            {
-                this.log = log;
-            }
+			public DebugLogger(LogForm log)
+			{
+				this.log = log;
+			}
 
-            public override void Write(string message)
-            {
-                log.AppendDebug(message);
-            }
+			public override void Write(string message)
+			{
+				log.AppendDebug(message);
+			}
 
-            public override void WriteLine(string message)
-            {
-                log.AppendDebug(message + "\r\n");
-            }
-        }
+			public override void WriteLine(string message)
+			{
+				log.AppendDebug(message);
+			}
+		}
 
-        public static DebugLogger logRec;
+		public static DebugLogger logRec;
 
-        private IContainer components;
+		private IContainer components;
 
-        public TextBox iable;
+		public TextBox iable;
 
-        private DarkButton btnClear;
+		private DarkButton btnClear;
 
-        private DarkButton btnSave;
+		private DarkButton btnSave;
 
-        private FlatTabControl.FlatTabControl tabLogs;
+		private FlatTabControl.FlatTabControl tabLogs;
 
-        private TabPage tabLogDebug;
+		private TabPage tabLogDebug;
 
-        private TabPage tabLogScript;
+		private TabPage tabLogScript;
 
-        public DarkTextBox txtLogDebug;
+		public DarkTextBox txtLogDebug;
 
-        public DarkTextBox txtLogScript;
+		public DarkTextBox txtLogScript;
 
-        private TabPage tabLogDrops;
+		private TabPage tabLogDrops;
 
-        private TabPage tabLogChat;
+		private TabPage tabLogChat;
 
-        private DarkTextBox txtLogDrops;
+		private DarkTextBox txtLogDrops;
 
-        private ContextMenuStrip contextMenuStrip1;
+		private ContextMenuStrip contextMenuStrip1;
 
-        private ToolStripMenuItem changeFontToolStripMenuItem;
+		private ToolStripMenuItem changeFontToolStripMenuItem;
 
-        private ToolStripMenuItem changeColorToolStripMenuItem;
+		private ToolStripMenuItem changeColorToolStripMenuItem;
 
-        private ColorDialog colorDialog1;
+		private ColorDialog colorDialog1;
 
-        public TextBox txtLogChat;
+		public TextBox txtLogChat;
 
-        public TextBox SelectedLog
-        {
-            get
-            {
-                if (tabLogs.SelectedIndex == 0)
-                {
-                    return txtLogDebug;
-                }
-                else if (tabLogs.SelectedIndex == 1)
-                {
-                    return txtLogScript;
-                }
-                else if (tabLogs.SelectedIndex == 2)
-                {
-                    return txtLogDrops;
-                }
-                else //(tabLogs.SelectedIndex == 3)
-                {
-                    return txtLogChat;
-                }
-            }
-        }
+		public TextBox SelectedLog
+		{
+			get
+			{
+				if (tabLogs.SelectedIndex == 0)
+				{
+					return txtLogDebug;
+				}
+				else if (tabLogs.SelectedIndex == 1)
+				{
+					return txtLogScript;
+				}
+				else if (tabLogs.SelectedIndex == 2)
+				{
+					return txtLogDrops;
+				}
+				else //(tabLogs.SelectedIndex == 3)
+				{
+					return txtLogChat;
+				}
+			}
+		}
 
-        public static LogForm Instance
-        {
-            get;
-        }
+		public static LogForm Instance
+		{
+			get;
+		}
 
-        public LogForm()
-        {
-            InitializeComponent();
-            logRec = new DebugLogger(this);
-        }
+		public LogForm()
+		{
+			InitializeComponent();
+			logRec = new DebugLogger(this);
+		}
 
-        private void LogForm_Load(object sender, EventArgs e)
-        {
-            FormClosing += LogForm_FormClosing;
-            string font = Config.Load(Application.StartupPath + "\\config.cfg").Get("font");
-            float? fontSize = float.Parse(Config.Load(Application.StartupPath + "\\config.cfg").Get("fontSize") ?? "8.25", System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
-            if (font != null && fontSize != null)
-            {
-                this.Font = new Font(font, (float)fontSize, FontStyle.Regular, GraphicsUnit.Point, 0);
-            }
-        }
+		private void LogForm_Load(object sender, EventArgs e)
+		{
+			FormClosing += LogForm_FormClosing;
+			string font = Config.Load(Application.StartupPath + "\\config.cfg").Get("font");
+			float? fontSize = float.Parse(Config.Load(Application.StartupPath + "\\config.cfg").Get("fontSize") ?? "8.25", System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+			if (font != null && fontSize != null)
+			{
+				this.Font = new Font(font, (float)fontSize, FontStyle.Regular, GraphicsUnit.Point, 0);
+			}
+		}
 
-        private void LogForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Hide();
-            e.Cancel = true;
-        }
+		private void LogForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Hide();
+			e.Cancel = true;
+		}
 
-        //
-        // Append Debug
-        //
-        public void AppendDebug(string text, bool force = false)
-        {
-            if (/*Visible || force*/ true)
-            {
-                if (text.Contains("{CLEAR}"))
-                    txtLogDebug.Clear();
-                if (txtLogDebug.InvokeRequired)
-                {
-                    txtLogDebug.Invoke((Action)delegate
-                    {
-                        txtLogDebug.AppendText(text);
-                    });
-                }
-                else
-                    txtLogDebug.AppendText(text);
-            }
-        }
+		//
+		// Append Debug
+		//
+		public void AppendDebug(string text, bool ignoreInvoke = true)
+		{
+			if (Visible || ignoreInvoke)
+			{
+				if (text.Contains("{CLEAR}"))
+					txtLogDebug.Clear();
+				if (txtLogDebug.InvokeRequired)
+				{
+					txtLogDebug.Invoke((Action)delegate
+					{
+						txtLogDebug.AppendText(text + "\r\n");
+					});
+				}
+				else
+					txtLogDebug.AppendText(text + "\r\n");
+			}
+		}
 
-        //
-        // Append Drops
-        //
-        public void AppendDrops(string text)
-        {
-            if (Visible)
-            {
-               if (text.Contains("{CLEAR}"))
-                    txtLogDrops.Clear();
-               if (txtLogDrops.InvokeRequired)
-               {
-                    txtLogDrops.Invoke((Action)delegate
-                    {
-                        txtLogDrops.AppendText(text);
-                    });
-               }
-               else
-                    txtLogDrops.AppendText(text);
-            }
-        }
+		//
+		// Append Drops
+		//
+		public void AppendDrops(string text, bool ignoreInvoke = true)
+		{
+			if (Visible || ignoreInvoke)
+			{
+			   if (text.Contains("{CLEAR}"))
+					txtLogDrops.Clear();
+			   if (txtLogDrops.InvokeRequired)
+			   {
+					txtLogDrops.Invoke((Action)delegate
+					{
+						txtLogDrops.AppendText(text + "\r\n");
+					});
+			   }
+			   else
+					txtLogDrops.AppendText(text + "\r\n");
+			}
+		}
 
-        //
-        // Append Chat
-        //
-        public void AppendChat(string text)
-        {
-            if (Visible)
-            {
-                if (text.Contains("{CLEAR}"))
-                    txtLogChat.Clear();
-                if (txtLogChat.InvokeRequired)
-                {
-                    txtLogChat.Invoke((Action)delegate
-                    {
-                        txtLogChat.AppendText(text);
-                    });
-                }
-                else
-                    txtLogChat.AppendText(text);
-            }
-        }
-        //
-        // Append Script
-        //
-        public void AppendScript(string text, bool ignoreInvoke = false, bool force = false)
-        {
-            if (/*Visible || force*/ true)
-            {
-                if (text.Contains("{CLEAR}"))
-                    txtLogScript.Clear();
-                if (txtLogScript.InvokeRequired)
-                {
-                    txtLogScript.Invoke((Action)delegate
-                    {
-                        txtLogScript.AppendText(text);
-                    });
-                }
-                else
-                    txtLogScript.AppendText(text);
-            }
-        }
+		//
+		// Append Chat
+		//
+		public void AppendChat(string text, bool ignoreInvoke = true)
+		{
+			if (Visible || ignoreInvoke)
+			{
+				if (text.Contains("{CLEAR}"))
+					txtLogChat.Clear();
+				if (txtLogChat.InvokeRequired)
+				{
+					txtLogChat.Invoke((Action)delegate
+					{
+						txtLogChat.AppendText(text + "\r\n");
+					});
+				}
+				else
+					txtLogChat.AppendText(text + "\r\n");
+			}
+		}
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            SelectedLog.Clear();
-        }
+		//
+		// Append Script
+		//
+		public void AppendScript(string text, bool ignoreInvoke = true)
+		{
+			if (Visible || ignoreInvoke)
+			{
+				if (text.Contains("{CLEAR}"))
+					txtLogScript.Clear();
+				if (txtLogScript.InvokeRequired)
+				{
+					txtLogScript.Invoke((Action)delegate
+					{
+						txtLogScript.AppendText(text + "\r\n");
+					});
+				}
+				else
+					txtLogScript.AppendText(text + "\r\n");
+			}
+		}
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-            {
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    File.WriteAllText(saveFileDialog.FileName, SelectedLog.Text);
-                }
-            }
-        }
+		private void btnClear_Click(object sender, EventArgs e)
+		{
+			SelectedLog.Clear();
+		}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && components != null)
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		private void btnSave_Click(object sender, EventArgs e)
+		{
+			using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+			{
+				if (saveFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					File.WriteAllText(saveFileDialog.FileName, SelectedLog.Text);
+				}
+			}
+		}
 
-        private void InitializeComponent()
-        {
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && components != null)
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
+
+		private void InitializeComponent()
+		{
 			this.components = new System.ComponentModel.Container();
 			this.txtLogDebug = new DarkUI.Controls.DarkTextBox();
 			this.btnClear = new DarkUI.Controls.DarkButton();
@@ -289,8 +290,8 @@ namespace Grimoire.UI
 			// tabLogs
 			// 
 			this.tabLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Left) 
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.tabLogs.ContextMenuStrip = this.contextMenuStrip1;
 			this.tabLogs.Controls.Add(this.tabLogDebug);
 			this.tabLogs.Controls.Add(this.tabLogScript);
@@ -304,8 +305,8 @@ namespace Grimoire.UI
 			// contextMenuStrip1
 			// 
 			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.changeFontToolStripMenuItem,
-            this.changeColorToolStripMenuItem});
+			this.changeFontToolStripMenuItem,
+			this.changeColorToolStripMenuItem});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
 			this.contextMenuStrip1.Size = new System.Drawing.Size(148, 48);
 			// 
@@ -430,25 +431,25 @@ namespace Grimoire.UI
 			this.tabLogChat.PerformLayout();
 			this.ResumeLayout(false);
 
-        }
+		}
 
-        static LogForm()
-        {
-            Instance = new LogForm();
-        }
+		static LogForm()
+		{
+			Instance = new LogForm();
+		}
 
-        private void changeColorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ColorDialog cdlg = new ColorDialog();
-            cdlg.ShowDialog();
-            this.ForeColor = cdlg.Color;
-        }
+		private void changeColorToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ColorDialog cdlg = new ColorDialog();
+			cdlg.ShowDialog();
+			this.ForeColor = cdlg.Color;
+		}
 
-        private void changeFontToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FontDialog fdlg = new FontDialog();
-            fdlg.ShowDialog();
-            this.Font = fdlg.Font;
-        }
-    }
+		private void changeFontToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			FontDialog fdlg = new FontDialog();
+			fdlg.ShowDialog();
+			this.Font = fdlg.Font;
+		}
+	}
 }
