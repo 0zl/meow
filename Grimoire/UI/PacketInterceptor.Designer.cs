@@ -187,8 +187,8 @@ namespace Grimoire.UI
 			// lblServer
 			// 
 			this.lblServer.AutoSize = true;
-			this.lblServer.BackColor = System.Drawing.SystemColors.Control;
-			this.lblServer.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.lblServer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
+			this.lblServer.ForeColor = System.Drawing.SystemColors.Control;
 			this.lblServer.Location = new System.Drawing.Point(13, 15);
 			this.lblServer.Name = "lblServer";
 			this.lblServer.Size = new System.Drawing.Size(41, 13);
@@ -198,6 +198,7 @@ namespace Grimoire.UI
 			// btnConnect
 			// 
 			this.btnConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnConnect.ForeColor = System.Drawing.SystemColors.Control;
 			this.btnConnect.Location = new System.Drawing.Point(650, 11);
 			this.btnConnect.Name = "btnConnect";
 			this.btnConnect.Size = new System.Drawing.Size(138, 23);
@@ -209,6 +210,8 @@ namespace Grimoire.UI
 			// 
 			this.cbServers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.cbServers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
+			this.cbServers.ForeColor = System.Drawing.SystemColors.Control;
 			this.cbServers.FormattingEnabled = true;
 			this.cbServers.Location = new System.Drawing.Point(60, 12);
 			this.cbServers.Name = "cbServers";
@@ -249,7 +252,7 @@ namespace Grimoire.UI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.SystemColors.Control;
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
 			this.ClientSize = new System.Drawing.Size(800, 538);
 			this.Controls.Add(this.btnSendToServer);
 			this.Controls.Add(this.btnSendToClient);

@@ -220,7 +220,7 @@ namespace Grimoire.UI
 			this.lstPackets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.lstPackets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+			this.lstPackets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
 			this.lstPackets.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lstPackets.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
 			this.lstPackets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -229,14 +229,14 @@ namespace Grimoire.UI
 			this.lstPackets.ItemHeight = 18;
 			this.lstPackets.Location = new System.Drawing.Point(12, 12);
 			this.lstPackets.Name = "lstPackets";
-			this.lstPackets.Size = new System.Drawing.Size(325, 92);
+			this.lstPackets.Size = new System.Drawing.Size(325, 110);
 			this.lstPackets.TabIndex = 0;
 			// 
 			// txtPacket
 			// 
 			this.txtPacket.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtPacket.Location = new System.Drawing.Point(12, 111);
+			this.txtPacket.Location = new System.Drawing.Point(12, 125);
 			this.txtPacket.Name = "txtPacket";
 			this.txtPacket.Size = new System.Drawing.Size(325, 20);
 			this.txtPacket.TabIndex = 27;
@@ -376,7 +376,7 @@ namespace Grimoire.UI
 			this.tableLayoutPanel1.Controls.Add(this.btnStart, 3, 2);
 			this.tableLayoutPanel1.Controls.Add(this.btnStop, 2, 2);
 			this.tableLayoutPanel1.Controls.Add(this.btnSend, 0, 2);
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 137);
+			this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 151);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 3;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -389,7 +389,7 @@ namespace Grimoire.UI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(348, 228);
+			this.ClientSize = new System.Drawing.Size(348, 242);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Controls.Add(this.txtPacket);
 			this.Controls.Add(this.lstPackets);

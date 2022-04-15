@@ -179,7 +179,7 @@ namespace Grimoire.UI
 			// 
 			// txtSend
 			// 
-			this.txtSend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.txtSend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
 			this.txtSend.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.txtSend.ForeColor = System.Drawing.Color.Gainsboro;
 			this.txtSend.Location = new System.Drawing.Point(0, 0);
@@ -191,7 +191,7 @@ namespace Grimoire.UI
 			// 
 			// txtReceive
 			// 
-			this.txtReceive.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.txtReceive.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
 			this.txtReceive.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.txtReceive.ForeColor = System.Drawing.Color.Gainsboro;
 			this.txtReceive.Location = new System.Drawing.Point(0, 0);

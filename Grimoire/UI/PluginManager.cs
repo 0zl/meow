@@ -278,7 +278,7 @@ namespace Grimoire.UI
 			// 
 			// lstLoaded
 			// 
-			this.lstLoaded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+			this.lstLoaded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
 			this.lstLoaded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lstLoaded.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.lstLoaded.FormattingEnabled = true;
@@ -330,7 +330,7 @@ namespace Grimoire.UI
 			// 
 			// treePlugins
 			// 
-			this.treePlugins.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.treePlugins.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
 			this.treePlugins.ForeColor = System.Drawing.Color.Gainsboro;
 			this.treePlugins.Location = new System.Drawing.Point(12, 70);
 			this.treePlugins.Name = "treePlugins";

@@ -35,7 +35,7 @@ namespace Grimoire.UI
 		private DarkGroupBox aweGroup;
 		private RadioButton aweWizard;
 		private RadioButton aweLucky;
-		private DarkPanel panel1;
+		private Panel panel1;
 		private RadioButton aweThief;
 		private RadioButton aweHybrid;
 		private RadioButton aweHealer;

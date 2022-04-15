@@ -10,15 +10,9 @@ namespace Grimoire.UI
 		#region Definitions
 		private IContainer components;
 		private Panel[] _panels;
-		public ListBox lstCommands;
-		public ListBox lstSkills;
-		private ListBox lstQuests;
-		public ListBox lstDrops;
-		private ListBox lstBoosts;
 		public static LogForm Log;
 		private string _customName;
 		private string _customGuild;
-		private ListBox lstItems;
 		public FlatTabControl.FlatTabControl mainTabControl;
 		private TabPage tabCombat;
 		private DarkButton btnUseSkillSet;
@@ -749,10 +743,10 @@ namespace Grimoire.UI
 			// lstCommands
 			// 
 			this.lstCommands.AllowDrop = true;
-			this.lstCommands.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lstCommands.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.lstCommands.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
+			this.lstCommands.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.lstCommands.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lstCommands.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
 			this.lstCommands.ForeColor = System.Drawing.Color.Gainsboro;
@@ -776,10 +770,10 @@ namespace Grimoire.UI
 			// 
 			// lstBoosts
 			// 
-			this.lstBoosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lstBoosts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.lstBoosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
+			this.lstBoosts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.lstBoosts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lstBoosts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
 			this.lstBoosts.FormattingEnabled = true;
@@ -793,10 +787,10 @@ namespace Grimoire.UI
 			// 
 			// lstDrops
 			// 
-			this.lstDrops.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lstDrops.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.lstDrops.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
+			this.lstDrops.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.lstDrops.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lstDrops.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
 			this.lstDrops.FormattingEnabled = true;
@@ -810,10 +804,10 @@ namespace Grimoire.UI
 			// 
 			// lstItems
 			// 
-			this.lstItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lstItems.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.lstItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
+			this.lstItems.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.lstItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lstItems.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
 			this.lstItems.FormattingEnabled = true;
@@ -827,10 +821,10 @@ namespace Grimoire.UI
 			// 
 			// lstQuests
 			// 
-			this.lstQuests.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lstQuests.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.lstQuests.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
+			this.lstQuests.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.lstQuests.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lstQuests.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
 			this.lstQuests.FormattingEnabled = true;
@@ -844,10 +838,10 @@ namespace Grimoire.UI
 			// 
 			// lstSkills
 			// 
-			this.lstSkills.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lstSkills.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.lstSkills.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
+			this.lstSkills.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.lstSkills.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lstSkills.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
 			this.lstSkills.FormattingEnabled = true;
@@ -875,7 +869,7 @@ namespace Grimoire.UI
 			this.mainTabControl.Controls.Add(this.tabInfo);
 			this.mainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mainTabControl.Location = new System.Drawing.Point(0, 0);
-			this.mainTabControl.myBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.mainTabControl.myBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.mainTabControl.Name = "mainTabControl";
 			this.mainTabControl.Padding = new System.Drawing.Point(3, 2);
 			this.mainTabControl.SelectedIndex = 0;
@@ -885,7 +879,7 @@ namespace Grimoire.UI
 			// 
 			// tabCombat
 			// 
-			this.tabCombat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabCombat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabCombat.Controls.Add(this.darkGroupBox20);
 			this.tabCombat.Controls.Add(this.darkGroupBox19);
 			this.tabCombat.Controls.Add(this.darkGroupBox17);
@@ -1521,7 +1515,7 @@ namespace Grimoire.UI
 			// 
 			// tabMap
 			// 
-			this.tabMap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabMap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabMap.Controls.Add(this.btnCurrBlank);
 			this.tabMap.Controls.Add(this.btnSetSpawn);
 			this.tabMap.Controls.Add(this.btnWalkRdm);
@@ -1544,7 +1538,7 @@ namespace Grimoire.UI
 			this.tabMap.Margin = new System.Windows.Forms.Padding(0);
 			this.tabMap.Name = "tabMap";
 			this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMap.Size = new System.Drawing.Size(541, 301);
+			this.tabMap.Size = new System.Drawing.Size(192, 73);
 			this.tabMap.TabIndex = 2;
 			this.tabMap.Text = "Map";
 			// 
@@ -1762,7 +1756,7 @@ namespace Grimoire.UI
 			// 
 			// tabItem
 			// 
-			this.tabItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabItem.Controls.Add(this.darkGroupBox5);
 			this.tabItem.Controls.Add(this.darkGroupBox4);
 			this.tabItem.Controls.Add(this.darkGroupBox3);
@@ -1784,7 +1778,7 @@ namespace Grimoire.UI
 			this.tabItem.Margin = new System.Windows.Forms.Padding(0);
 			this.tabItem.Name = "tabItem";
 			this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-			this.tabItem.Size = new System.Drawing.Size(541, 301);
+			this.tabItem.Size = new System.Drawing.Size(192, 73);
 			this.tabItem.TabIndex = 1;
 			this.tabItem.Text = "Item";
 			// 
@@ -2163,7 +2157,7 @@ namespace Grimoire.UI
 			// 
 			// tabQuest
 			// 
-			this.tabQuest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabQuest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabQuest.Controls.Add(this.darkLabel8);
 			this.tabQuest.Controls.Add(this.darkLabel5);
 			this.tabQuest.Controls.Add(this.numQuestDelay);
@@ -2187,7 +2181,7 @@ namespace Grimoire.UI
 			this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
 			this.tabQuest.Name = "tabQuest";
 			this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-			this.tabQuest.Size = new System.Drawing.Size(541, 301);
+			this.tabQuest.Size = new System.Drawing.Size(192, 73);
 			this.tabQuest.TabIndex = 3;
 			this.tabQuest.Text = "Quest";
 			// 
@@ -2457,7 +2451,7 @@ namespace Grimoire.UI
 			// 
 			// tabMisc
 			// 
-			this.tabMisc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabMisc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabMisc.Controls.Add(this.darkGroupBox11);
 			this.tabMisc.Controls.Add(this.btnAddLabel);
 			this.tabMisc.Controls.Add(this.btnGotoLabel);
@@ -2489,7 +2483,7 @@ namespace Grimoire.UI
 			this.tabMisc.Margin = new System.Windows.Forms.Padding(0);
 			this.tabMisc.Name = "tabMisc";
 			this.tabMisc.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMisc.Size = new System.Drawing.Size(541, 301);
+			this.tabMisc.Size = new System.Drawing.Size(192, 73);
 			this.tabMisc.TabIndex = 4;
 			this.tabMisc.Text = "Misc";
 			// 
@@ -2505,7 +2499,7 @@ namespace Grimoire.UI
 			// 
 			// lbLabels
 			// 
-			this.lbLabels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.lbLabels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
 			this.lbLabels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lbLabels.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lbLabels.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -3025,7 +3019,7 @@ namespace Grimoire.UI
 			// 
 			// tabMisc2
 			// 
-			this.tabMisc2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabMisc2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabMisc2.Controls.Add(this.darkGroupBox21);
 			this.tabMisc2.Controls.Add(this.darkGroupBox15);
 			this.tabMisc2.Controls.Add(this.darkGroupBox13);
@@ -3384,7 +3378,7 @@ namespace Grimoire.UI
 			// 
 			// tabOptions
 			// 
-			this.tabOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabOptions.Controls.Add(this.chkFollowOnly);
 			this.tabOptions.Controls.Add(this.tbFollowPlayer2);
 			this.tabOptions.Controls.Add(this.chkWalkSpeed);
@@ -3412,7 +3406,7 @@ namespace Grimoire.UI
 			this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
 			this.tabOptions.Name = "tabOptions";
 			this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-			this.tabOptions.Size = new System.Drawing.Size(541, 301);
+			this.tabOptions.Size = new System.Drawing.Size(192, 73);
 			this.tabOptions.TabIndex = 5;
 			this.tabOptions.Text = "Options";
 			// 
@@ -3503,7 +3497,7 @@ namespace Grimoire.UI
 			// 
 			this.lstLogText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.lstLogText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.lstLogText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
 			this.lstLogText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lstLogText.ForeColor = System.Drawing.Color.Gainsboro;
 			this.lstLogText.FormattingEnabled = true;
@@ -3680,7 +3674,7 @@ namespace Grimoire.UI
 			// 
 			// lstSoundItems
 			// 
-			this.lstSoundItems.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.lstSoundItems.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
 			this.lstSoundItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.lstSoundItems.ForeColor = System.Drawing.Color.Gainsboro;
 			this.lstSoundItems.FormattingEnabled = true;
@@ -3890,7 +3884,7 @@ namespace Grimoire.UI
 			// 
 			// tabOptions2
 			// 
-			this.tabOptions2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabOptions2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabOptions2.Controls.Add(this.darkGroupBox23);
 			this.tabOptions2.Controls.Add(this.darkGroupBox22);
 			this.tabOptions2.Controls.Add(this.btnHideLoading);
@@ -3918,7 +3912,7 @@ namespace Grimoire.UI
 			this.tabOptions2.Margin = new System.Windows.Forms.Padding(0);
 			this.tabOptions2.Name = "tabOptions2";
 			this.tabOptions2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabOptions2.Size = new System.Drawing.Size(541, 301);
+			this.tabOptions2.Size = new System.Drawing.Size(192, 73);
 			this.tabOptions2.TabIndex = 7;
 			this.tabOptions2.Text = "Client";
 			// 
@@ -4380,7 +4374,7 @@ namespace Grimoire.UI
 			// 
 			// tabHunt
 			// 
-			this.tabHunt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabHunt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabHunt.Controls.Add(this.btnAddCmdHunt);
 			this.tabHunt.Controls.Add(this.chkIsTempF);
 			this.tabHunt.Controls.Add(this.darkLabel3);
@@ -4401,7 +4395,7 @@ namespace Grimoire.UI
 			this.tabHunt.Margin = new System.Windows.Forms.Padding(0);
 			this.tabHunt.Name = "tabHunt";
 			this.tabHunt.Padding = new System.Windows.Forms.Padding(3);
-			this.tabHunt.Size = new System.Drawing.Size(541, 301);
+			this.tabHunt.Size = new System.Drawing.Size(192, 73);
 			this.tabHunt.TabIndex = 3;
 			this.tabHunt.Text = "Hunt";
 			// 
@@ -4556,7 +4550,7 @@ namespace Grimoire.UI
 			// 
 			// tabBots
 			// 
-			this.tabBots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabBots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabBots.Controls.Add(this.btnSetBotsDir);
 			this.tabBots.Controls.Add(this.txtSavedDesc);
 			this.tabBots.Controls.Add(this.darkPanel1);
@@ -4576,7 +4570,7 @@ namespace Grimoire.UI
 			this.tabBots.Margin = new System.Windows.Forms.Padding(0);
 			this.tabBots.Name = "tabBots";
 			this.tabBots.Padding = new System.Windows.Forms.Padding(3);
-			this.tabBots.Size = new System.Drawing.Size(541, 301);
+			this.tabBots.Size = new System.Drawing.Size(192, 73);
 			this.tabBots.TabIndex = 6;
 			this.tabBots.Text = "Bots";
 			// 
@@ -4612,7 +4606,7 @@ namespace Grimoire.UI
 			// treeBots
 			// 
 			this.treeBots.AllowDrop = true;
-			this.treeBots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.treeBots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(56)))));
 			this.treeBots.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.treeBots.ForeColor = System.Drawing.Color.Gainsboro;
 			this.treeBots.LineColor = System.Drawing.Color.DarkGray;
@@ -4628,7 +4622,7 @@ namespace Grimoire.UI
 			this.lblBoosts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblBoosts.AutoSize = true;
 			this.lblBoosts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.lblBoosts.Location = new System.Drawing.Point(286, 275);
+			this.lblBoosts.Location = new System.Drawing.Point(286, 47);
 			this.lblBoosts.Name = "lblBoosts";
 			this.lblBoosts.Size = new System.Drawing.Size(42, 13);
 			this.lblBoosts.TabIndex = 25;
@@ -4640,7 +4634,7 @@ namespace Grimoire.UI
 			this.lblDrops.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblDrops.AutoSize = true;
 			this.lblDrops.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.lblDrops.Location = new System.Drawing.Point(230, 275);
+			this.lblDrops.Location = new System.Drawing.Point(230, 47);
 			this.lblDrops.Name = "lblDrops";
 			this.lblDrops.Size = new System.Drawing.Size(38, 13);
 			this.lblDrops.TabIndex = 24;
@@ -4652,7 +4646,7 @@ namespace Grimoire.UI
 			this.lblQuests.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblQuests.AutoSize = true;
 			this.lblQuests.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.lblQuests.Location = new System.Drawing.Point(172, 275);
+			this.lblQuests.Location = new System.Drawing.Point(172, 47);
 			this.lblQuests.Name = "lblQuests";
 			this.lblQuests.Size = new System.Drawing.Size(43, 13);
 			this.lblQuests.TabIndex = 23;
@@ -4664,7 +4658,7 @@ namespace Grimoire.UI
 			this.lblSkills.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblSkills.AutoSize = true;
 			this.lblSkills.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.lblSkills.Location = new System.Drawing.Point(119, 275);
+			this.lblSkills.Location = new System.Drawing.Point(119, 47);
 			this.lblSkills.Name = "lblSkills";
 			this.lblSkills.Size = new System.Drawing.Size(34, 13);
 			this.lblSkills.TabIndex = 22;
@@ -4676,7 +4670,7 @@ namespace Grimoire.UI
 			this.lblCommands.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblCommands.AutoSize = true;
 			this.lblCommands.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.lblCommands.Location = new System.Drawing.Point(38, 262);
+			this.lblCommands.Location = new System.Drawing.Point(38, 34);
 			this.lblCommands.Name = "lblCommands";
 			this.lblCommands.Size = new System.Drawing.Size(62, 26);
 			this.lblCommands.TabIndex = 21;
@@ -4688,7 +4682,7 @@ namespace Grimoire.UI
 			this.lblItems.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblItems.AutoSize = true;
 			this.lblItems.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.lblItems.Location = new System.Drawing.Point(348, 275);
+			this.lblItems.Location = new System.Drawing.Point(348, 47);
 			this.lblItems.Name = "lblItems";
 			this.lblItems.Size = new System.Drawing.Size(35, 13);
 			this.lblItems.TabIndex = 146;
@@ -4741,13 +4735,13 @@ namespace Grimoire.UI
 			// 
 			// tabInfo
 			// 
-			this.tabInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabInfo.Controls.Add(this.panel5);
 			this.tabInfo.ForeColor = System.Drawing.Color.Gainsboro;
 			this.tabInfo.Location = new System.Drawing.Point(4, 23);
 			this.tabInfo.Name = "tabInfo";
 			this.tabInfo.Padding = new System.Windows.Forms.Padding(3);
-			this.tabInfo.Size = new System.Drawing.Size(541, 301);
+			this.tabInfo.Size = new System.Drawing.Size(192, 73);
 			this.tabInfo.TabIndex = 9;
 			this.tabInfo.Text = "Info";
 			this.tabInfo.ToolTipText = "The Info about the bot you\'ve loaded";
@@ -4760,15 +4754,16 @@ namespace Grimoire.UI
 			this.panel5.Location = new System.Drawing.Point(3, 3);
 			this.panel5.Margin = new System.Windows.Forms.Padding(5);
 			this.panel5.Name = "panel5";
-			this.panel5.Size = new System.Drawing.Size(535, 295);
+			this.panel5.Size = new System.Drawing.Size(186, 67);
 			this.panel5.TabIndex = 0;
 			// 
 			// richTextBox2
 			// 
 			this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
 			this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.richTextBox2.Location = new System.Drawing.Point(0, 276);
+			this.richTextBox2.ForeColor = System.Drawing.Color.Silver;
+			this.richTextBox2.Location = new System.Drawing.Point(0, 48);
 			this.richTextBox2.Name = "richTextBox2";
 			this.richTextBox2.Size = new System.Drawing.Size(54, 22);
 			this.richTextBox2.TabIndex = 1;
@@ -4777,14 +4772,14 @@ namespace Grimoire.UI
 			// 
 			// rtbInfo
 			// 
-			this.rtbInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.rtbInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.rtbInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.rtbInfo.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.rtbInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.rtbInfo.ForeColor = System.Drawing.Color.Gainsboro;
 			this.rtbInfo.Location = new System.Drawing.Point(0, 0);
 			this.rtbInfo.Name = "rtbInfo";
-			this.rtbInfo.Size = new System.Drawing.Size(535, 295);
+			this.rtbInfo.Size = new System.Drawing.Size(186, 67);
 			this.rtbInfo.TabIndex = 0;
 			this.rtbInfo.Text = "This is where information about a bot will be shown in RichTextFormat";
 			this.rtbInfo.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtbInfo_LinkClicked);
@@ -4793,6 +4788,7 @@ namespace Grimoire.UI
 			// 
 			this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.splitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
 			this.splitContainer1.IsSplitterFixed = true;
 			this.splitContainer1.Location = new System.Drawing.Point(0, 255);
 			this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
@@ -4800,7 +4796,7 @@ namespace Grimoire.UI
 			// 
 			// splitContainer1.Panel1
 			// 
-			this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.splitContainer1.Panel1.Controls.Add(this.cbLists);
 			this.splitContainer1.Panel1.Controls.Add(this.panel3);
 			this.splitContainer1.Panel1.Controls.Add(this.chkAll);
@@ -4861,6 +4857,7 @@ namespace Grimoire.UI
 			// 
 			this.chkAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkAll.AutoSize = true;
+			this.chkAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
 			this.chkAll.Location = new System.Drawing.Point(82, 28);
 			this.chkAll.Name = "chkAll";
 			this.chkAll.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -4882,7 +4879,7 @@ namespace Grimoire.UI
 			// 
 			// panel4
 			// 
-			this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.panel4.Controls.Add(this.chkEnable);
 			this.panel4.Controls.Add(this.btnRemove);
 			this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
@@ -4940,6 +4937,7 @@ namespace Grimoire.UI
 			// 
 			// panel1
 			// 
+			this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
 			this.panel1.Controls.Add(this.splitContainer1);
 			this.panel1.Controls.Add(this.lstCommands);
 			this.panel1.Controls.Add(this.lstDrops);
@@ -4967,6 +4965,7 @@ namespace Grimoire.UI
 			// 
 			// splitContainer2.Panel2
 			// 
+			this.splitContainer2.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
 			this.splitContainer2.Panel2.Controls.Add(this.mainTabControl);
 			this.splitContainer2.Size = new System.Drawing.Size(808, 328);
 			this.splitContainer2.SplitterDistance = 255;
@@ -5033,7 +5032,7 @@ namespace Grimoire.UI
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.ClientSize = new System.Drawing.Size(822, 342);
 			this.ContextMenuStrip = this.BotManagerMenuStrip;
 			this.Controls.Add(this.splitContainer2);
@@ -5194,5 +5193,12 @@ namespace Grimoire.UI
 		private DarkLabel darkLabel5;
 		public DarkNumericUpDown numQuestDelay;
 		private DarkLabel darkLabel8;
+		private DarkListBox lbLabels;
+		public ListBox lstCommands;
+		public ListBox lstSkills;
+		private ListBox lstQuests;
+		public ListBox lstDrops;
+		private ListBox lstBoosts;
+		private ListBox lstItems;
 	}
 }

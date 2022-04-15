@@ -290,13 +290,13 @@ namespace Grimoire.UI
 			// tabLogs
 			// 
 			this.tabLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-			| System.Windows.Forms.AnchorStyles.Left) 
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabLogs.ContextMenuStrip = this.contextMenuStrip1;
 			this.tabLogs.Controls.Add(this.tabLogDebug);
 			this.tabLogs.Controls.Add(this.tabLogScript);
 			this.tabLogs.Location = new System.Drawing.Point(0, 0);
-			this.tabLogs.myBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabLogs.myBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabLogs.Name = "tabLogs";
 			this.tabLogs.SelectedIndex = 0;
 			this.tabLogs.Size = new System.Drawing.Size(428, 243);
@@ -305,8 +305,8 @@ namespace Grimoire.UI
 			// contextMenuStrip1
 			// 
 			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.changeFontToolStripMenuItem,
-			this.changeColorToolStripMenuItem});
+            this.changeFontToolStripMenuItem,
+            this.changeColorToolStripMenuItem});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
 			this.contextMenuStrip1.Size = new System.Drawing.Size(148, 48);
 			// 
@@ -326,7 +326,7 @@ namespace Grimoire.UI
 			// 
 			// tabLogDebug
 			// 
-			this.tabLogDebug.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabLogDebug.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabLogDebug.Controls.Add(this.txtLogDebug);
 			this.tabLogDebug.ForeColor = System.Drawing.Color.Gainsboro;
 			this.tabLogDebug.Location = new System.Drawing.Point(4, 25);
@@ -338,13 +338,13 @@ namespace Grimoire.UI
 			// 
 			// tabLogScript
 			// 
-			this.tabLogScript.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+			this.tabLogScript.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
 			this.tabLogScript.Controls.Add(this.txtLogScript);
 			this.tabLogScript.ForeColor = System.Drawing.Color.Gainsboro;
 			this.tabLogScript.Location = new System.Drawing.Point(4, 25);
 			this.tabLogScript.Name = "tabLogScript";
 			this.tabLogScript.Padding = new System.Windows.Forms.Padding(3);
-			this.tabLogScript.Size = new System.Drawing.Size(420, 214);
+			this.tabLogScript.Size = new System.Drawing.Size(420, 211);
 			this.tabLogScript.TabIndex = 1;
 			this.tabLogScript.Text = "Script";
 			// 
@@ -356,7 +356,7 @@ namespace Grimoire.UI
 			this.txtLogScript.Name = "txtLogScript";
 			this.txtLogScript.ReadOnly = true;
 			this.txtLogScript.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtLogScript.Size = new System.Drawing.Size(414, 208);
+			this.txtLogScript.Size = new System.Drawing.Size(414, 205);
 			this.txtLogScript.TabIndex = 1;
 			// 
 			// tabLogDrops

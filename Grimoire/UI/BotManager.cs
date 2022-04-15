@@ -160,7 +160,6 @@ namespace Grimoire.UI
 		public DarkCheckBox chkFollowOnly;
 		public DarkTextBox tbFollowPlayer2;
 		private DarkGroupBox darkGroupBox11;
-		private DarkListBox lbLabels;
 		private DarkTextBox txtSavedDesc;
 		public PacketSpammer botPacketSpammer;
 
