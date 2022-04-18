@@ -381,6 +381,18 @@ namespace Grimoire.Tools
 						LogForm.Instance.AppendDebug($"SWFDebug: {args[0]}");
 					break;
 
+				case "connection":
+					switch (args[0].ToString())
+					{
+						case "OnConnection":
+							Root.Instance.HideCharSelect();
+							break;
+						case "OnConnectionLost":
+							Root.Instance.LoadCharSelect();
+							break;
+					}
+					break;
+
 				case "progress":
 					SwfLoadProgress?.Invoke(int.Parse(args[0].ToString()));
 					if (args[0].ToString() == "100")
