@@ -190,7 +190,7 @@ namespace Grimoire.UI
 
 		public void InitFlashMovie(string gameSwf)
 		{
-			Hook.EoLHook.Hook();
+			//Hook.EoLHook.Hook();
 			Flash.flash?.Dispose();
 			Flash.SwfLoadProgress -= OnLoadProgress;
 			Flash.SwfLoadProgress += OnLoadProgress;
@@ -219,7 +219,7 @@ namespace Grimoire.UI
 			}
 
 			Flash.flash = flashPlayer;
-			Hook.EoLHook.Unhook();
+			//Hook.EoLHook.Unhook();
 		}
 
 		private void OnLoadProgress(int progress)

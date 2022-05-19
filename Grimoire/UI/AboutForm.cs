@@ -28,7 +28,7 @@ namespace Grimoire.UI
 
 		private void pbFrozttGithub_Click(object sender, EventArgs e)
 		{
-			Process.Start("https://github.com/dwiki08/Grimlite-Li");
+			Process.Start("https://github.com/Froztt13/Grimlite-Li");
 		}
 
 		private void pbCatGithub_Click(object sender, EventArgs e)
@@ -101,7 +101,7 @@ namespace Grimoire.UI
 			clickCounter++;
 			if (clickCounter >= 3)
 			{
-				Root.EggsForm = new IceCreamForm();
+				Root.EggsForm = new Egg();
 				this.appName.Text = "You found the Treasure !!";
 			}
 		}
