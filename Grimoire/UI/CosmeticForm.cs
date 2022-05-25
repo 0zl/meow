@@ -58,7 +58,11 @@ namespace Grimoire.UI
 
         private void btnCopyAll_Click(object sender, EventArgs e)
         {
-            lbItems.Items.Cast<CosmeticEquipment>().ForEach(x => x.Equip());
+            try
+			{
+                lbItems.Items.Cast<CosmeticEquipment>().ForEach(x => x.Equip());
+            } 
+            catch { }
         }
 
         private void btnEquipSelected_Click(object sender, EventArgs e)
@@ -95,7 +99,7 @@ namespace Grimoire.UI
         private void btnClear_Click(object sender, EventArgs e)
         {
             lbItems.Items.Clear();
-            TextBox[] textboxes = new TextBox[14]
+            TextBox[] textboxes = new TextBox[]
             {
                 txtHelm1,
                 txtHelm2,
@@ -110,7 +114,9 @@ namespace Grimoire.UI
                 txtCape1,
                 txtCape2,
                 txtOff1,
-                txtOff2
+                txtOff2,
+                txtMisc1,
+                txtMisc2
             };
             foreach (TextBox tb in textboxes)
                 tb.Text = "";
@@ -157,6 +163,11 @@ namespace Grimoire.UI
                             {
                                 txtArmor1.Text = i[0];
                                 txtArmor2.Text = i[1];
+                            }
+                            else if (lbl == "Ground" && txtMisc1.Text != (txtMisc1.Text.NullIfEmpty() ?? i[0]))
+                            {
+                                txtMisc1.Text = i[0];
+                                txtMisc2.Text = i[1];
                             }
                         }
                 }catch{}
@@ -216,6 +227,11 @@ namespace Grimoire.UI
                             txtArmor2.Text = i[1];
                             break;
 
+                        case "Ground":
+                            txtMisc1.Text = i[0];
+                            txtMisc2.Text = i[1];
+                            break;
+
                         default:
                             txtWeapon1.Text = i[0];
                             txtWeapon2.Text = i[1];
@@ -269,6 +285,12 @@ namespace Grimoire.UI
                     link = txtOff2.Text;
                     break;
 
+                case "Ground":
+                    txt = "mi";
+                    file = txtMisc1.Text;
+                    link = txtMisc2.Text;
+                    break;
+
                 default:
                     txt = "Weapon";
                     file = txtWeapon1.Text;
@@ -285,7 +307,7 @@ namespace Grimoire.UI
 
         private void btnSaveSet_Click(object sender, EventArgs e)
         {
-            string[] _data = new string[21]
+            string[] _data = new string[24]
             {
                "Helmet:",
                $"he file:{txtHelm1.Text ?? "None"}",
@@ -295,10 +317,10 @@ namespace Grimoire.UI
                $"co link:{txtArmor2.Text ?? "None"}",
                "\r\nClass:",
                $"ar file:{txtClass1.Text ?? "None"}",
-               $"ar link:{txtClass2.Text ?? "None"}\r\n",
+               $"ar link:{txtClass2.Text ?? "None"}",
                "\r\nWeapon:",
                $"Weapon file:{txtWeapon1.Text ?? "None"}",
-               $"Weapon link:{txtWeapon2.Text ?? "None"}\r\n",
+               $"Weapon link:{txtWeapon2.Text ?? "None"}",
                "\r\nPet:",
                $"pe file:{txtPet1.Text ?? "None"}",
                $"pe link:{txtPet2.Text ?? "None"}",
@@ -307,7 +329,10 @@ namespace Grimoire.UI
                $"ba link:{txtCape2.Text ?? "None"}",
                "\r\nOff:",
                $"off file:{txtOff1.Text ?? "None"}",
-               $"off link:{txtOff2.Text ?? "None"}"
+               $"off link:{txtOff2.Text ?? "None"}",
+               "\r\nGround:",
+               $"mi file:{txtMisc1.Text ?? "None"}",
+               $"mi link:{txtMisc2.Text ?? "None"}"
             };
             SaveFileDialog saveFileDialog = new SaveFileDialog()
             {
@@ -344,6 +369,8 @@ namespace Grimoire.UI
                     txtCape2.Text = s[17].Split(':')[1];
                     txtOff1.Text = s[19].Split(':')[1];
                     txtOff2.Text = s[20].Split(':')[1];
+                    txtMisc1.Text = s[22].Split(':')[1];
+                    txtMisc2.Text = s[23].Split(':')[1];
                 }
                 catch { }
             }
@@ -382,6 +409,11 @@ namespace Grimoire.UI
                     txtArmor2.Text = i[1];
                     break;
 
+                case "Ground":
+                    txtMisc1.Text = i[0];
+                    txtMisc2.Text = i[1];
+                    break;
+
                 default:
                     txtWeapon1.Text = i[0];
                     txtWeapon2.Text = i[1];
@@ -405,5 +437,5 @@ namespace Grimoire.UI
 
             }
         }
-    }
+	}
 }

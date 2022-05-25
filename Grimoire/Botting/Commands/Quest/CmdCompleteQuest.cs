@@ -12,7 +12,6 @@ namespace Grimoire.Botting.Commands.Quest
         }
         public int CompleteTry { get; set; } = 1;
         public bool ReAccept { get; set; } = false;
-        public bool LogoutFailed { get; set; } = false;
         public bool InBlank { get; set; } = false;
         public int Delay { get; set; } = 1000;
 
@@ -48,11 +47,6 @@ namespace Grimoire.Botting.Commands.Quest
             {
                 await Task.Delay(1000);
                 Quest.Accept();
-            }
-
-            if (Player.Quests.CanComplete(Quest.Id) && LogoutFailed)
-            {
-                Player.Logout();
             }
         }
 

@@ -1157,7 +1157,6 @@ namespace Grimoire.UI
 			CmdCompleteQuest cmd = new CmdCompleteQuest
 			{
 				CompleteTry = (int)numEnsureTries.Value,
-				LogoutFailed = chkReloginCompleteQuest.Checked,
 			};
 			q.Id = (int)numQuestID.Value;
 			if (chkQuestItem.Checked)
@@ -1816,6 +1815,11 @@ namespace Grimoire.UI
 			SendInfoMessages("Banking done.");
 		}
 
+		private void setPresetsSkills()
+		{
+
+		}
+
 		private async void chkEnableBot_CheckedChanged(object sender, EventArgs e)
 		{
 			if (chkEnable.Checked && (lstCommands.Items.Count <= 0 || !Player.IsLoggedIn))
@@ -1825,12 +1829,19 @@ namespace Grimoire.UI
 			}
 
 			chkAntiMod.Enabled = !chkEnable.Checked;
+			chkAMLogout.Enabled = !chkEnable.Checked;
+			chkAMStopBot.Enabled = !chkEnable.Checked;
+			chkReloginCompleteQuest.Enabled = !chkEnable.Checked;
+			numQuestDelay.Enabled = !chkEnable.Checked;
+			numBotDelay.Enabled = !chkEnable.Checked;
 
 			chkEnable.Enabled = false;
 			Root.Instance.chkStartBot.Enabled = false;
 
 			if (chkEnable.Checked)
 			{
+				setPresetsSkills();
+
 				if (lstItems.Items.Count > 0 && chkInventOnStart.Checked)
 					await UnBankItems();
 				selectionMode(SelectionMode.One);
@@ -3120,6 +3131,11 @@ namespace Grimoire.UI
 
 		private void chkSpecial_CheckedChanged(object sender, EventArgs e)
 		{
+			if (!Player.IsLoggedIn)
+			{
+				if (chkSpecial.Checked) chkSpecial.Checked = false;
+				return;
+			}
 			cmbSpecials.Enabled = !chkSpecial.Checked;
 
 			if (chkSpecial.Checked)
