@@ -13,6 +13,8 @@ namespace Grimoire.Botting.Commands.Map
 
 		public string Pad { get; set; }
 
+		public int Try { get; set; } = 1;
+
 		public async Task Execute(IBotEngine instance)
 		{
 			BotData.BotState = BotData.State.Move;
@@ -26,6 +28,8 @@ namespace Grimoire.Botting.Commands.Map
 			string _roomNumber = this.Map.Contains("-") ? this.Map.Split('-')[1] : "";
 			string roomNumber = (instance.IsVar(_roomNumber) ? Configuration.Tempvariable[instance.GetVar(_roomNumber)] : _roomNumber);
 
+			int _try = Try;
+
 			if (!namName.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
 			{
 				if (!int.TryParse(roomNumber, out int n) && roomNumber != "")
@@ -34,7 +38,14 @@ namespace Grimoire.Botting.Commands.Map
 					int num = random.Next(1000, 99999);
 					roomNumber = num.ToString();
 				}
-				await this.TryJoin(instance, namName, roomNumber);
+				bool provoke = instance.Configuration.ProvokeMonsters;
+				if (provoke) instance.Configuration.ProvokeMonsters = false;
+				while (_try > 0 && Player.Map != Map)
+				{
+					await this.TryJoin(instance, namName, roomNumber);
+					_try--;
+				}
+				if (provoke) instance.Configuration.ProvokeMonsters = true;
 			}
 
 			if (namName.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
@@ -53,8 +64,6 @@ namespace Grimoire.Botting.Commands.Map
 
 		public async Task TryJoin(IBotEngine instance, string MapName, string RoomNumber)
 		{
-			bool provoke = instance.Configuration.ProvokeMonsters;
-			if (provoke) instance.Configuration.ProvokeMonsters = false;
 			await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer), null, 15);
 			if (Player.CurrentState == Player.State.InCombat)
 			{
@@ -67,14 +76,13 @@ namespace Grimoire.Botting.Commands.Map
 			Player.JoinMap(join, this.Cell, this.Pad);
 			await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 10);
 			await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
-			if (provoke) instance.Configuration.ProvokeMonsters = true;
 		}
 
 		public override string ToString()
 		{
 			return string.Concat(new string[]
 			{
-				"Join: ",
+				$"Join: [{Try}x] ",
 				this.Map,
 				", ",
 				this.Cell,

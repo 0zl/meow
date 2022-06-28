@@ -375,13 +375,15 @@ namespace Grimoire.UI
 					{
 						usingSpammer = false;
 						int i = 1;
-						while (i <= spamTimes && btnSpam.Text == "Stop")
+						while (i <= spamTimes && btnSpam.Text.Equals("Stop"))
 						{
 							await Proxy.Instance.SendToServer(textToSend.Text);
 							await Task.Delay(spamDelay);
 							i++;
 						}
-                    }
+						btnSpam.Text = "Spam";
+						btnSendOnce.Enabled = true;
+					}
                     else
                     {
 						usingSpammer = true;

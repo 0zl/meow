@@ -161,6 +161,7 @@ namespace Grimoire.Game.Data
 			get;
 			set;
 		}
+
 		public bool SafeRelogin
 		{
 			get;
@@ -214,10 +215,9 @@ namespace Grimoire.Game.Data
 
 		public override string ToString()
 		{
-			string isInBlank = CompleteInBlank ? " [InBlank]" : "";
 			string itemId = ItemId != null ? $": {ItemId}" : "";
 			string safeRelogin = SafeRelogin ? " [SafeRelogin]" : "";
-			return $"{Id}{itemId}{isInBlank}{safeRelogin}";
+			return $"{Id}{itemId}{safeRelogin}";
 		}
 
 		#region ShouldSerialize

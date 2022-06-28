@@ -20,23 +20,23 @@ namespace Grimoire.Botting.Commands.Combat
 			string target = instance.IsVar(Target) ? Configuration.Tempvariable[instance.GetVar(Target)] : Target;
 			if (instance.Configuration.SkipAttack)
 			{
-				if (Player.HasTarget) Player.CancelTarget(); 
+				if (Player.HasTarget) Player.CancelTarget();
 				return;
 			}
 			Player.AttackMonster(target);
 			if (Targeted)
-            {
+			{
 				if (!Player.HasTarget) return;
-            }
+			}
 			bool waitSkillCD = instance.Configuration.WaitForSkill;
-			if (Wait) 
+			if (Wait)
 				await Task.Delay(Player.SkillAvailable(Skill.Index));
 			Player.UseSkill(Skill.Index);
 		}
 
 		public override string ToString()
 		{
-			return "Skill " + $"[{Target}] " + (Wait? "[Wait] " : " ") + (!Targeted ? "[Force] " : " ") + Skill.Index + ": " + Skill.GetSkillName(Skill.Index);
+			return "Skill " + $"[{Target}] " + (Wait ? "[Wait] " : " ") + (!Targeted ? "[Force] " : " ") + Skill.Index + ": " + Skill.GetSkillName(Skill.Index);
 		}
 	}
 }
