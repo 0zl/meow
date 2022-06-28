@@ -301,8 +301,8 @@ namespace Grimoire.Botting
 					Quest quest = Configuration.Quests.FirstOrDefault((Quest q) => q.CanComplete);
 					if (quest != null)
 					{
-						bool provoke = OptionsManager.ProvokeMonsters;
-						if (provoke) OptionsManager.ProvokeMonsters = false;
+						//bool provoke = OptionsManager.ProvokeMonsters;
+						//if (provoke) OptionsManager.ProvokeMonsters = false;
 						BotData.State TempState = BotData.BotState;
 						BotData.BotState = BotData.State.Quest;
 						_onCompletingQuest = true;
@@ -329,7 +329,7 @@ namespace Grimoire.Botting
 							qFailures[quest.Id] = 0;
 						}
 
-						if (provoke) OptionsManager.ProvokeMonsters = true;
+						//if (provoke) OptionsManager.ProvokeMonsters = true;
 						BotData.BotState = TempState;
 						_onCompletingQuest = false;
 					}

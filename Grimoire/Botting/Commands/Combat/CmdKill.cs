@@ -22,6 +22,8 @@ namespace Grimoire.Botting.Commands.Combat
 
 		public async Task Execute(IBotEngine instance)
 		{
+			onPause = false;
+
 			if (instance.Configuration.SkipAttack)
 			{
 				if (Player.HasTarget) Player.CancelTarget();

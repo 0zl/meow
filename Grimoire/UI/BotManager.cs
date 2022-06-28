@@ -156,7 +156,7 @@ namespace Grimoire.UI
 		private DarkButton btnGotoLabel;
 		private DarkTextBox txtLabel;
 		private DarkTextBox txtAuthor;
-		private DarkCheckBox chkUseSkillTargeted;
+		private DarkCheckBox chkForceSkill;
 		public DarkCheckBox chkFollowOnly;
 		public DarkTextBox tbFollowPlayer2;
 		private DarkGroupBox darkGroupBox11;
@@ -260,7 +260,7 @@ namespace Grimoire.UI
 			return new Configuration
 			{
 				Author = txtAuthor.Text,
-				Description = rtbInfo.Rtf ?? rtbInfo.Text,
+				Description = txtDescription.Text,
 				Commands = lstCommands.Items.Cast<IBotCommand>().ToList(),
 				Skills = lstSkills.Items.Cast<Skill>().ToList(),
 				Quests = lstQuests.Items.Cast<Quest>().ToList(),
@@ -459,7 +459,7 @@ namespace Grimoire.UI
 				chkAntiCounter.Checked = config.AntiCounter;
 				txtAuthor.Text = config.Author;
 				txtDescription.Text =
-				txtSavedDesc.Text = DocConvert.IsBase64Encoded(config.Description) ? DocConvert.Unzip(config.Description) : config.Description ?? "Description"; ;
+				txtSavedDesc.Text = DocConvert.IsBase64Encoded(config.Description) ? DocConvert.Unzip(config.Description) : config.Description ?? "Description";
 				var description = txtSavedDesc.Text ?? "Description";
 				if (description.StartsWith("{\\rtf") || description.StartsWith("{\rtf"))
 					rtbInfo.Rtf = description; //mainTabControl.SelectedTab = tabInfo;
@@ -915,7 +915,8 @@ namespace Grimoire.UI
 				{
 					Map = txtJoin.Text,
 					Cell = cell,
-					Pad = pad
+					Pad = pad,
+					Try = (int)numJoinTry.Value
 				}, (ModifierKeys & Keys.Control) == Keys.Control);
 			}
 		}
@@ -1914,13 +1915,12 @@ namespace Grimoire.UI
 			btnRemove.Enabled = !IsRunning;
 		}
 
-		public void AddQuest(int QuestID, string ItemID = null, bool completeInBlank = false, bool safeRelogin = false)
+		public void AddQuest(int QuestID, string ItemID = null, bool safeRelogin = false)
 		{
 			Quest quest = new Quest
 			{
 				Id = QuestID,
 				ItemId = ItemID,
-				CompleteInBlank = completeInBlank,
 				SafeRelogin = safeRelogin
 			};
 			quest.Text = (quest.ItemId != null) ? $"{quest.Id}:{quest.ItemId}" : quest.Id.ToString();
@@ -2176,10 +2176,10 @@ namespace Grimoire.UI
 
 			AddCommand(new CmdUseSkill
 			{
-				Skill = skill,
+				Index = skill.Index,
 				Wait = cbSkillCmdWait.Checked,
-				Targeted = !chkUseSkillTargeted.Checked,
-				Target = target
+				Force = chkForceSkill.Checked,
+				Monster = target
 			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 

@@ -94,6 +94,7 @@ namespace Grimoire.UI
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 1;
 			this.btnCancel.Text = "Cancel";
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
 			// txtCmd
 			// 
@@ -124,5 +125,10 @@ namespace Grimoire.UI
 			this.PerformLayout();
 
         }
-    }
+
+		private void btnCancel_Click(object sender, EventArgs e)
+		{
+
+		}
+	}
 }
