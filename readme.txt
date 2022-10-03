@@ -1,3 +1,3 @@
-1.7.7 - latest catgirl.swf needed.
+GrimLite Li 2.3.6
 
-Note: Path to finding catgirl.swf is using my "D:" directory.
+25-05-2022

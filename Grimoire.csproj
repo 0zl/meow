@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Costura.Fody.5.6.0\build\Costura.Fody.props" Condition="Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.props')" />
   <PropertyGroup>
     <ProjectGuid>{16F81920-2DC0-4AAB-AA6C-D9AE599F6367}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,7 +9,7 @@
     <LangVersion>8.0</LangVersion>
     <AssemblyName>Grimoire</AssemblyName>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -59,7 +60,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\big.Ico</ApplicationIcon>
+    <ApplicationIcon>4zvbZ3m.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -95,8 +96,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dependency\AxInterop.ShockwaveFlashObjects.dll</HintPath>
     </Reference>
-    <Reference Include="DarkUI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Costura, Version=5.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Costura.Fody.5.6.0\lib\netstandard1.0\Costura.dll</HintPath>
+    </Reference>
+    <Reference Include="DarkUI">
       <HintPath>Dependency\DarkUI.dll</HintPath>
     </Reference>
     <Reference Include="EasyHook, Version=2.7.7097.0, Culture=neutral, PublicKeyToken=4b580fca19d0b0c5, processorArchitecture=MSIL">
@@ -117,9 +120,19 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Drawing.Common.6.0.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms">
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Windows.Forms\v4.0_4.0.0.0__b77a5c561934e089\System.Windows.Forms.dll</HintPath>
     </Reference>
@@ -145,313 +158,372 @@
     <Reference Include="Unity3.Eyedropper">
       <HintPath>Dependency\Unity3.Eyedropper.dll</HintPath>
     </Reference>
-    <Reference Include="updater, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\GrimoireLite\updater.exe</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EoL\Bypass.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Combat\CmdAttack.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Combat\CmdKill.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Combat\CmdKillFor.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Combat\CmdRest.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Combat\CmdUseSkill.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Combat\CmdSkillSet.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdLoadTravel.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdWhitelist.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdBankSwap.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdBankTransfer.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdBuy.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdBuyBack.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdBuyFast.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdEquip.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdEquipSet.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdGetDrop.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdLoad.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdMapItem.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Item\CmdSell.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Map\CmdJoin.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Map\CmdMoveToCell.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Map\CmdSetSpawn.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Map\CmdTravel.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Map\CmdWalk.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Map\CmdYulgar.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdCellIs.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdCellIsNot.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdEquipped.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdFactionRankGreaterThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdFactionRankLessThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdGoldGreaterThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdGoldLessThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdHealthGreaterThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdHealthLessThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdInBank.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdInCombat.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdInHouse.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdInInventory.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdInTemp.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntEqualInt.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntGreaterThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntIs.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntIsNot.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntLessThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIntNotEqualInt.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsMaxStack.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsMember.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsNotMaxStack.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdIsNotMember.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdItemNotPickupable.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdItemPickupable.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdLevelGreaterThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdLevelIs.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdLevelLessThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdListInInv.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdManaGreaterThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdManaLessThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdMapIs.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdMapIsNot.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdMonsterInRoom.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdMonsterNotInRoom.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdMonstersGreaterThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdMonstersLessThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdNotEquipped.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdNotInBank.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdNotInCombat.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdNotInHouse.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdNotInInventory.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdNotInTemp.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerInRoom.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerIsInCell.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerIsInMyCell.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerIsNotInCell.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerIsNotInMyCell.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayerNotInRoom.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayersGreaterThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdPlayersLessThan.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdQuestAvailable.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdQuestCompleted.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdQuestInProgress.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdQuestNotAvailable.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdQuestNotCompleted.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdQuestNotInProgress.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdSetVar.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\CmdUpdateVar.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc.Statements\StatementCommand.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdBankList.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdSetFPS.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdClearTemp.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdBeep.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdBlank.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdBotDelay.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdChange.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdClientMessage.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdDelay.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdGotoLabel.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdGotoPlayer.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdIndex.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdInt.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdLabel.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdLoadBot.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdReturn.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdLog.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdLogout.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdPacketDelay.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdPacketSpammer.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdPacket.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdRestart.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdStop.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\CmdToggleProvoke.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Misc\RegularExpression.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Quest\CmdAcceptQuest.cs" />
-    <Compile Include="Grimoire.Botting.Commands.Quest\CmdCompleteQuest.cs" />
-    <Compile Include="Grimoire.Botting.Commands\ItemType.cs" />
-    <Compile Include="Grimoire.Botting\Bot.cs" />
-    <Compile Include="Grimoire.Botting\BotUtilities.cs" />
-    <Compile Include="Grimoire.Botting\Config.cs" />
-    <Compile Include="Grimoire.Botting\Configuration.cs" />
-    <Compile Include="Grimoire.Botting\CosmeticEquipment.cs" />
-    <Compile Include="Grimoire.Botting\EquipType.cs" />
-    <Compile Include="Grimoire.Botting\Extensions.cs" />
-    <Compile Include="Grimoire.Botting\IBotCommand.cs" />
-    <Compile Include="Grimoire.Botting\IBotEngine.cs" />
-    <Compile Include="Grimoire.Botting\OptionsManager.cs" />
-    <Compile Include="Grimoire.Game.Data\Bank.cs" />
-    <Compile Include="Grimoire.Game.Data\CompletedQuest.cs" />
-    <Compile Include="Grimoire.Game.Data\Faction.cs" />
-    <Compile Include="Grimoire.Game.Data\House.cs" />
-    <Compile Include="Grimoire.Game.Data\Inventory.cs" />
-    <Compile Include="Grimoire.Game.Data\InventoryItem.cs" />
-    <Compile Include="Grimoire.Game.Data\BankItem.cs" />
-    <Compile Include="Grimoire.Game.Data\InventoryItemCombined.cs" />
-    <Compile Include="Grimoire.Game.Data\ItemBase.cs" />
-    <Compile Include="Grimoire.Game.Data\Monster.cs" />
-    <Compile Include="Grimoire.Game.Data\Quest.cs" />
-    <Compile Include="Grimoire.Game.Data\QuestInfo.cs" />
-    <Compile Include="Grimoire.Game.Data\QuestReward.cs" />
-    <Compile Include="Grimoire.Game.Data\Quests.cs" />
-    <Compile Include="Grimoire.Game.Data\Server.cs" />
-    <Compile Include="Grimoire.Game.Data\Shop.cs" />
-    <Compile Include="Grimoire.Game.Data\ShopInfo.cs" />
-    <Compile Include="Grimoire.Game.Data\Skill.cs" />
-    <Compile Include="Grimoire.Game.Data\TempInventory.cs" />
-    <Compile Include="Grimoire.Game.Data\TempItem.cs" />
-    <Compile Include="Grimoire.Game\BotData.cs" />
-    <Compile Include="Grimoire.Game\DropStack.cs" />
-    <Compile Include="Grimoire.Game\LockActions.cs" />
-    <Compile Include="Grimoire.Game\Player.cs" />
-    <Compile Include="Grimoire.Game\PlayerInfo.cs" />
-    <Compile Include="Grimoire.Game\World.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerAFK.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerWarnings.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerXtJoin.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerChat.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerLogin.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerAnimations.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerDropItem.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerGetQuests.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerLoadBank.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerLoadShop.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerMapJoin.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerPlayers.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerPolicy.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerQuestComplete.cs" />
-    <Compile Include="Grimoire.Networking.Handlers\HandlerSkills.cs" />
-    <Compile Include="Grimoire.Networking\IJsonMessageHandler.cs" />
-    <Compile Include="Grimoire.Networking\IXmlMessageHandler.cs" />
-    <Compile Include="Grimoire.Networking\IXtMessageHandler.cs" />
-    <Compile Include="Grimoire.Networking\JsonMessage.cs" />
-    <Compile Include="Grimoire.Networking\Message.cs" />
-    <Compile Include="Grimoire.Networking\Proxy.cs" />
-    <Compile Include="Grimoire.Networking\XmlMessage.cs" />
-    <Compile Include="Grimoire.Networking\XtMessage.cs" />
-    <Compile Include="Grimoire.Tools\DocToRtf.cs" />
-    <Compile Include="Grimoire.UI\CommandNode.cs">
+    <Compile Include="Grimoire\Networking\Handlers\HandlerAutoZoneDarkCarnax.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerFollow.cs" />
+    <Compile Include="Grimoire\UI\SkillPreset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\SkillPreset.Designer.cs">
+      <DependentUpon>SkillPreset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\Tools\ClientConfig.cs" />
+    <Compile Include="Hook\EoLHook.cs" />
+    <Compile Include="Grimoire\Botting\Bot.cs" />
+    <Compile Include="Grimoire\Botting\BotUtilities.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Combat\CmdAttack.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Combat\CmdFollow.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Combat\CmdKill.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Combat\CmdKillFor.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Combat\CmdRest.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Combat\CmdShortHunt.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Combat\CmdSkillSet.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Combat\CmdUseSkill.cs" />
+    <Compile Include="Grimoire\Botting\Commands\ItemType.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdBankSwap.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdBankTransfer.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdBuy.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdBuyBack.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdBuyFast.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdEquip.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdEquipSet.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdGetDrop.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdLoad.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdLoadTravel.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdMapItem.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdSell.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Item\CmdWhitelist.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Map\CmdJoin.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Map\CmdMoveToCell.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Map\CmdSetSpawn.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Map\CmdTravel.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Map\CmdWalk.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Map\CmdYulgar.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdBackgroundPacket.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdBankList.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdBeep.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdBlank.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdBotDelay.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdChange.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdClearTemp.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdClientMessage.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdDelay.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdGotoLabel.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdGotoPlayer.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdIndex.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdInt.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdLabel.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdLoadBot.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdLog.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdLogout.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdPacket.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdPacketDelay.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdPacketSpammer.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdPing.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdProvoke.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdRestart.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdReturn.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdSetFPS.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdStop.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\CmdToggleProvoke.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\RegularExpression.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdCellIs.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdCellIsNot.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdEquipped.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdFactionRankGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdFactionRankLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdGoldGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdGoldLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdHasTarget.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdHealthGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdHealthLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdInBank.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdInBankOrInvent.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdInCombat.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdInHouse.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdInInventory.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdInTemp.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdIntEqualInt.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdIntGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdIntIs.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdIntIsNot.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdIntLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdIntNotEqualInt.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdIsMaxStack.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdIsMember.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdIsNotMaxStack.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdIsNotMember.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdItemNotPickupable.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdItemPickupable.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdLevelGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdLevelIs.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdLevelLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdListInInv.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdManaGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdManaLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMapIs.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMapIsNot.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonsterHealthGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonsterHealthLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonsterInRoom.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonsterNotInRoom.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonstersGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdMonstersLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotEquipped.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotHasTarget.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInBank.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInBankAndInvent.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInCombat.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInHouse.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInInventory.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdNotInTemp.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerHPGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerHPLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerInRoom.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerIsInCell.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerIsInMyCell.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerIsNotInCell.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerIsNotInMyCell.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerNotInRoom.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayersGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayersLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdQuestAvailable.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdQuestCompleted.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdQuestInProgress.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdQuestNotAvailable.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdQuestNotCompleted.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdQuestNotInProgress.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdSetVar.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetHealthBetween.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetHealthGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetHealthLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdUpdateVar.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\StatementCommand.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Quest\CmdAcceptQuest.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Quest\CmdCompleteQuest.cs" />
+    <Compile Include="Grimoire\Botting\Config.cs" />
+    <Compile Include="Grimoire\Botting\Configuration.cs" />
+    <Compile Include="Grimoire\Botting\CosmeticEquipment.cs" />
+    <Compile Include="Grimoire\Botting\EquipType.cs" />
+    <Compile Include="Grimoire\Botting\Extensions.cs" />
+    <Compile Include="Grimoire\Botting\IBotCommand.cs" />
+    <Compile Include="Grimoire\Botting\IBotEngine.cs" />
+    <Compile Include="Grimoire\Botting\OptionsManager.cs" />
+    <Compile Include="Grimoire\FlashTools\FlashArray.cs" />
+    <Compile Include="Grimoire\FlashTools\FlashCaller.cs" />
+    <Compile Include="Grimoire\FlashTools\FlashObject.cs" />
+    <Compile Include="Grimoire\FlashTools\FlashUtil.cs" />
+    <Compile Include="Grimoire\FlashTools\IFlashObject.cs" />
+    <Compile Include="Grimoire\GameProxy\CaptureProxy.cs" />
+    <Compile Include="Grimoire\GameProxy\Interceptor.cs" />
+    <Compile Include="Grimoire\GameProxy\MessageInfo.cs" />
+    <Compile Include="Grimoire\Game\BotData.cs" />
+    <Compile Include="Grimoire\Game\Data\Bank.cs" />
+    <Compile Include="Grimoire\Game\Data\BankItem.cs" />
+    <Compile Include="Grimoire\Game\Data\CompletedQuest.cs" />
+    <Compile Include="Grimoire\Game\Data\Faction.cs" />
+    <Compile Include="Grimoire\Game\Data\House.cs" />
+    <Compile Include="Grimoire\Game\Data\Inventory.cs" />
+    <Compile Include="Grimoire\Game\Data\InventoryItem.cs" />
+    <Compile Include="Grimoire\Game\Data\InventoryItemCombined.cs" />
+    <Compile Include="Grimoire\Game\Data\ItemBase.cs" />
+    <Compile Include="Grimoire\Game\Data\Monster.cs" />
+    <Compile Include="Grimoire\Game\Data\Quest.cs" />
+    <Compile Include="Grimoire\Game\Data\QuestInfo.cs" />
+    <Compile Include="Grimoire\Game\Data\QuestReward.cs" />
+    <Compile Include="Grimoire\Game\Data\Quests.cs" />
+    <Compile Include="Grimoire\Game\Data\Server.cs" />
+    <Compile Include="Grimoire\Game\Data\Shop.cs" />
+    <Compile Include="Grimoire\Game\Data\ShopInfo.cs" />
+    <Compile Include="Grimoire\Game\Data\Skill.cs" />
+    <Compile Include="Grimoire\Game\Data\TempInventory.cs" />
+    <Compile Include="Grimoire\Game\Data\TempItem.cs" />
+    <Compile Include="Grimoire\Game\DropStack.cs" />
+    <Compile Include="Grimoire\Game\LockActions.cs" />
+    <Compile Include="Grimoire\Game\Player.cs" />
+    <Compile Include="Grimoire\Game\PlayerInfo.cs" />
+    <Compile Include="Grimoire\Game\World.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerAutoZoneUltraDage.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerAFK.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerAnimations.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerChat.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerDropItem.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerGetQuests.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerLoadBank.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerLoadShop.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerLogin.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerPlayers.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerPolicy.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerQuestComplete.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerSkills.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerWarnings.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerXtJoin.cs" />
+    <Compile Include="Grimoire\Networking\IJsonMessageHandler.cs" />
+    <Compile Include="Grimoire\Networking\IXmlMessageHandler.cs" />
+    <Compile Include="Grimoire\Networking\IXtMessageHandler.cs" />
+    <Compile Include="Grimoire\Networking\JsonMessage.cs" />
+    <Compile Include="Grimoire\Networking\Message.cs" />
+    <Compile Include="Grimoire\Networking\Proxy.cs" />
+    <Compile Include="Grimoire\Networking\XmlMessage.cs" />
+    <Compile Include="Grimoire\Networking\XtMessage.cs" />
+    <Compile Include="Grimoire\Properties\Settings.cs" />
+    <Compile Include="Grimoire\Tools\AutoRelogin.cs" />
+    <Compile Include="Grimoire\Tools\BoolConverter.cs" />
+    <Compile Include="Grimoire\Tools\Buyback\AutoBuyBack.cs" />
+    <Compile Include="Grimoire\Tools\Buyback\BuyBackPage.cs" />
+    <Compile Include="Grimoire\Tools\DocToRtf.cs" />
+    <Compile Include="Grimoire\Tools\Flash.cs" />
+    <Compile Include="Grimoire\Tools\Grabber.cs" />
+    <Compile Include="Grimoire\Networking\GrimoireClient.cs" />
+    <Compile Include="Grimoire\Tools\Hotkey.cs" />
+    <Compile Include="Grimoire\Tools\IntStringConverter.cs" />
+    <Compile Include="Grimoire\Tools\KeyboardHook.cs" />
+    <Compile Include="Grimoire\Tools\PluginManager.cs" />
+    <Compile Include="Grimoire\Tools\Plugins\GrimoirePlugin.cs" />
+    <Compile Include="Grimoire\Tools\Plugins\GrimoirePluginEntry.cs" />
+    <Compile Include="Grimoire\Tools\Plugins\IGrimoirePlugin.cs" />
+    <Compile Include="Grimoire\Tools\QuestReqConverter.cs" />
+    <Compile Include="Grimoire\Tools\QuestRewardConverter.cs" />
+    <Compile Include="Grimoire\Tools\Spammer.cs" />
+    <Compile Include="Grimoire\Tools\StringBoolConverter.cs" />
+    <Compile Include="Grimoire\Tools\TrimConverter.cs" />
+    <Compile Include="Grimoire\UI\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\BankForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\BankForm.Designer.cs">
+      <DependentUpon>BankForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\BotManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\BotManager.Designer.cs">
+      <DependentUpon>BotManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\CommandColorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\CommandColorForm.Designer.cs">
+      <DependentUpon>CommandColorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\CommandNode.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Grimoire.UI\CommandNode.Designer.cs">
+    <Compile Include="Grimoire\UI\CommandNode.Designer.cs">
       <DependentUpon>CommandNode.cs</DependentUpon>
     </Compile>
-    <Compile Include="Grimoire.UI\DPSForm.cs">
+    <Compile Include="Grimoire\UI\CommandNodeEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Grimoire.UI\DPSForm.Designer.cs">
-      <DependentUpon>DPSForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Grimoire.UI\CommandNodeEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\CommandNodeEditor.Designer.cs">
+    <Compile Include="Grimoire\UI\CommandNodeEditor.Designer.cs">
       <DependentUpon>CommandNodeEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Grimoire\UI\CosmeticForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\CosmeticForm.Designer.cs">
+      <DependentUpon>CosmeticForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\DevTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\DevTest.Designer.cs">
+      <DependentUpon>DevTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\DPSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\DPSForm.Designer.cs">
+      <DependentUpon>DPSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\EyeDropper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\EyeDropper.Designer.cs">
+      <DependentUpon>EyeDropper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\Hotkeys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\Egg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\Egg.Designer.cs">
+      <DependentUpon>Egg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\PacketInterceptor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\PacketInterceptor.Designer.cs">
+      <DependentUpon>PacketInterceptor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\Loaders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\LogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\Notepad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\Notepad.Designer.cs">
+      <DependentUpon>Notepad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\PacketLogger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\PacketSpammer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\PacketTamperer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\PluginManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\PvP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\PvP.Designer.cs">
+      <DependentUpon>PvP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\RawCommandEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\Root.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\Set.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\Set.Designer.cs">
+      <DependentUpon>Set.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\Travel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\UserFriendlyCommandEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\Utils\ControlUtils.cs" />
+    <Compile Include="Grimoire\Utils\EnumerableUtils.cs" />
+    <Compile Include="Grimoire\Utils\NetworkUtils.cs" />
+    <Compile Include="Grimoire\Utils\ReflectUtils.cs" />
+    <Compile Include="Grimoire\Utils\StringUtils.cs" />
+    <Compile Include="Grimoire\Utils\TimeLimiter.cs" />
+    <Compile Include="Grimoire\Utils\TypedValueProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Grimoire.Properties\Settings.cs" />
-    <Compile Include="Grimoire.Tools.Buyback\AutoBuyBack.cs" />
-    <Compile Include="Grimoire.Tools.Buyback\BuyBackPage.cs" />
-    <Compile Include="Grimoire.Tools.Plugins\GrimoirePlugin.cs" />
-    <Compile Include="Grimoire.Tools.Plugins\GrimoirePluginEntry.cs" />
-    <Compile Include="Grimoire.Tools.Plugins\IGrimoirePlugin.cs" />
-    <Compile Include="Grimoire.Tools\AutoRelogin.cs" />
-    <Compile Include="Grimoire.Tools\BoolConverter.cs" />
-    <Compile Include="Grimoire.Tools\IntStringConverter.cs" />
-    <Compile Include="Grimoire.Tools\Flash.cs" />
-    <Compile Include="Grimoire.Tools\Grabber.cs" />
-    <Compile Include="Grimoire.Tools\Hotkey.cs" />
-    <Compile Include="Grimoire.Tools\KeyboardHook.cs" />
-    <Compile Include="Grimoire.Tools\QuestReqConverter.cs" />
-    <Compile Include="Grimoire.Tools\QuestRewardConverter.cs" />
-    <Compile Include="Grimoire.Tools\Spammer.cs" />
-    <Compile Include="Grimoire.Tools\StringBoolConverter.cs" />
-    <Compile Include="Grimoire.Tools\TrimConverter.cs" />
-    <Compile Include="Grimoire.UI\AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\AboutForm.Designer.cs">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Grimoire.UI\BankForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\BankForm.Designer.cs">
-      <DependentUpon>BankForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Grimoire.UI\BotManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\CommandColorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\CommandColorForm.Designer.cs">
-      <DependentUpon>CommandColorForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Grimoire.UI\CosmeticForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\CosmeticForm.Designer.cs">
-      <DependentUpon>CosmeticForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Grimoire.UI\EyeDropper.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\EyeDropper.Designer.cs">
-      <DependentUpon>EyeDropper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Grimoire.UI\Hotkeys.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\Loaders.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\LogForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\Notepad.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\Notepad.Designer.cs">
-      <DependentUpon>Notepad.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Grimoire.UI\PacketLogger.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\PacketSpammer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\PacketTamperer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\PluginManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\UserFriendlyCommandEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\RawCommandEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\Root.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\Set.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.UI\Set.Designer.cs">
-      <DependentUpon>Set.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Grimoire.UI\Travel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grimoire.Utils\ControlUtils.cs" />
-    <Compile Include="Grimoire.Utils\EnumerableUtils.cs" />
-    <Compile Include="Grimoire.Utils\NetworkUtils.cs" />
-    <Compile Include="Grimoire.Utils\ReflectUtils.cs" />
-    <Compile Include="Grimoire.Utils\TimeLimiter.cs" />
-    <Compile Include="Grimoire.Utils\TypedValueProvider.cs" />
     <Compile Include="Grimoire\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -461,52 +533,91 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Grimoire.UI\CommandNode.resx">
+    <EmbeddedResource Include="Grimoire\UI\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\BankForm.resx">
+      <DependentUpon>BankForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\BotManager.resx">
+      <DependentUpon>BotManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\CommandColorForm.resx">
+      <DependentUpon>CommandColorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\CommandNode.resx">
       <DependentUpon>CommandNode.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Grimoire.UI\DPSForm.resx">
+    <EmbeddedResource Include="Grimoire\UI\CommandNodeEditor.resx">
+      <DependentUpon>CommandNodeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\CosmeticForm.resx">
+      <DependentUpon>CosmeticForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\DevTest.resx">
+      <DependentUpon>DevTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\DPSForm.resx">
       <DependentUpon>DPSForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Grimoire.UI\CommandNodeEditor.resx">
-      <DependentUpon>CommandNodeEditor.cs</DependentUpon>
+    <EmbeddedResource Include="Grimoire\UI\EyeDropper.resx">
+      <DependentUpon>EyeDropper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\Hotkeys.resx">
+      <DependentUpon>Hotkeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\Egg.resx">
+      <DependentUpon>Egg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\PacketInterceptor.resx">
+      <DependentUpon>PacketInterceptor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\Loaders.resx">
+      <DependentUpon>Loaders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\LogForm.resx">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\Notepad.resx">
+      <DependentUpon>Notepad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\PacketLogger.resx">
+      <DependentUpon>PacketLogger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\PacketSpammer.resx">
+      <DependentUpon>PacketSpammer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\PacketTamperer.resx">
+      <DependentUpon>PacketTamperer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\PluginManager.resx">
+      <DependentUpon>PluginManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\PvP.resx">
+      <DependentUpon>PvP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\RawCommandEditor.resx">
+      <DependentUpon>RawCommandEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\Root.resx">
+      <DependentUpon>Root.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\Set.resx">
+      <DependentUpon>Set.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\SkillPreset.resx">
+      <DependentUpon>SkillPreset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\Travel.resx">
+      <DependentUpon>Travel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\UserFriendlyCommandEditor.resx">
+      <DependentUpon>UserFriendlyCommandEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Grimoire.UI\AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Grimoire.UI\BankForm.resx">
-      <DependentUpon>BankForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Grimoire.UI\BotManager.resx" />
-    <EmbeddedResource Include="Grimoire.UI\CommandColorForm.resx">
-      <DependentUpon>CommandColorForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Grimoire.UI\CosmeticForm.resx" />
-    <EmbeddedResource Include="Grimoire.UI\EyeDropper.resx">
-      <DependentUpon>EyeDropper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Grimoire.UI\Hotkeys.resx" />
-    <EmbeddedResource Include="Grimoire.UI\Loaders.resx" />
-    <EmbeddedResource Include="Grimoire.UI\LogForm.resx" />
-    <EmbeddedResource Include="Grimoire.UI\Notepad.resx">
-      <DependentUpon>Notepad.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Grimoire.UI\PacketLogger.resx" />
-    <EmbeddedResource Include="Grimoire.UI\PacketSpammer.resx" />
-    <EmbeddedResource Include="Grimoire.UI\PacketTamperer.resx" />
-    <EmbeddedResource Include="Grimoire.UI\PluginManager.resx" />
-    <EmbeddedResource Include="Grimoire.UI\RawCommandEditor.resx" />
-    <EmbeddedResource Include="Grimoire.UI\Root.resx" />
-    <EmbeddedResource Include="Grimoire.UI\Set.resx">
-      <DependentUpon>Set.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Grimoire.UI\Travel.resx" />
-    <EmbeddedResource Include="Grimoire.UI\UserFriendlyCommandEditor.resx">
-      <DependentUpon>UserFriendlyCommandEditor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -528,24 +639,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EasyHook32.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EasyHook32Svc.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EasyHook64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EasyHook64Svc.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EasyLoad32.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EasyLoad64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="4zvbZ3m.ico" />
+    <None Include="Resources\astolfo.jpg" />
+    <None Include="Resources\Discord.ico" />
+    <None Include="Resources\Artix.ico" />
+    <None Include="Resources\pdipic.png" />
+    <None Include="Resources\defaulttext.txt" />
+    <None Include="Resources\statementcmds.txt" />
     <None Include="Resources\MPGHfavicon16.png" />
     <None Include="Resources\MPGHfavicon.png" />
     <None Include="Resources\GrimoireIconBig.png" />
@@ -581,11 +681,15 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('packages\Fody.6.5.2\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Fody.6.5.2\build\Fody.targets'))" />
+    <Error Condition="!Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.6.0\build\Costura.Fody.props'))" />
+    <Error Condition="!Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.6.0\build\Costura.Fody.targets'))" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>
@@ -595,4 +699,6 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
+  <Import Project="packages\Fody.6.5.2\build\Fody.targets" Condition="Exists('packages\Fody.6.5.2\build\Fody.targets')" />
+  <Import Project="packages\Costura.Fody.5.6.0\build\Costura.Fody.targets" Condition="Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.targets')" />
 </Project>
