@@ -3145,6 +3145,9 @@ namespace Grimoire.UI
 					case "Auto Zone - Ultradage":
 						SpecialJsonHandler = new HandlerAutoZoneUltraDage();
 						break;
+					case "Auto Zone - Dark Carnax":
+						SpecialJsonHandler = new HandlerAutoZoneDarkCarnax();
+						break;
 				}
 			} 
 			else
