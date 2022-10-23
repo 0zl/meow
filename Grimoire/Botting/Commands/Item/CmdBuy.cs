@@ -20,6 +20,12 @@ namespace Grimoire.Botting.Commands.Item
             set;
         }
 
+        public int Qty
+        {
+            get;
+            set;
+        } = 1;
+
         public async Task Execute(IBotEngine instance)
         {
             BotData.BotState = BotData.State.Transaction;
@@ -31,19 +37,19 @@ namespace Grimoire.Botting.Commands.Item
             InventoryItem i = Player.Inventory.Items.FirstOrDefault((InventoryItem item) => item.Name.Equals(ItemName, StringComparison.OrdinalIgnoreCase));
             if (i != null)
             {
-                Shop.BuyItem(ItemName);
+                Shop.BuyItemQty(ItemName, Qty);
                 await instance.WaitUntil(() => Player.Inventory.Items.FirstOrDefault((InventoryItem it) => it.Name.Equals(ItemName, StringComparison.OrdinalIgnoreCase)).Quantity != i.Quantity);
             }
             else
             {
-                Shop.BuyItem(ItemName);
+                Shop.BuyItemQty(ItemName, Qty);
                 await instance.WaitUntil(() => Player.Inventory.Items.FirstOrDefault((InventoryItem it) => it.Name.Equals(ItemName, StringComparison.OrdinalIgnoreCase)) != null);
             }
         }
 
         public override string ToString()
         {
-            return "Buy item: " + ItemName;
+            return $"Buy item [{Qty}x] : {ItemName}";
         }
     }
 }

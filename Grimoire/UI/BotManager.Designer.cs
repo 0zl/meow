@@ -402,6 +402,8 @@ namespace Grimoire.UI
 			this.chkPickupAcTag = new DarkUI.Controls.DarkCheckBox();
 			this.chkBankOnStop = new DarkUI.Controls.DarkCheckBox();
 			this.darkGroupBox3 = new DarkUI.Controls.DarkGroupBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.numBuyQty = new DarkUI.Controls.DarkNumericUpDown();
 			this.numShopId = new DarkUI.Controls.DarkNumericUpDown();
 			this.btnLoadShop = new DarkUI.Controls.DarkButton();
 			this.txtShopItem = new DarkUI.Controls.DarkTextBox();
@@ -424,24 +426,33 @@ namespace Grimoire.UI
 			this.txtItem = new DarkUI.Controls.DarkTextBox();
 			this.cbItemCmds = new DarkUI.Controls.DarkComboBox();
 			this.tabQuest = new System.Windows.Forms.TabPage();
-			this.questOptions = new DarkUI.Controls.DarkGroupBox();
-			this.chkReloginCompleteQuest = new DarkUI.Controls.DarkCheckBox();
-			this.darkLabel8 = new DarkUI.Controls.DarkLabel();
-			this.numQuestDelay = new DarkUI.Controls.DarkNumericUpDown();
-			this.darkLabel5 = new DarkUI.Controls.DarkLabel();
+			this.darkGroupBox26 = new DarkUI.Controls.DarkGroupBox();
+			this.darkLabel4 = new DarkUI.Controls.DarkLabel();
+			this.numQQuestId = new DarkUI.Controls.DarkNumericUpDown();
+			this.btnQAddToWhitelist = new DarkUI.Controls.DarkButton();
 			this.chkQRequirements = new DarkUI.Controls.DarkCheckBox();
 			this.chkQRewards = new DarkUI.Controls.DarkCheckBox();
-			this.btnQAddToWhitelist = new DarkUI.Controls.DarkButton();
-			this.numQQuestId = new DarkUI.Controls.DarkNumericUpDown();
-			this.darkLabel4 = new DarkUI.Controls.DarkLabel();
-			this.numEnsureTries = new DarkUI.Controls.DarkNumericUpDown();
-			this.btnQuestAccept = new DarkUI.Controls.DarkButton();
-			this.btnQuestComplete = new DarkUI.Controls.DarkButton();
+			this.darkGroupBox25 = new DarkUI.Controls.DarkGroupBox();
+			this.chkReloginCompleteQuest = new DarkUI.Controls.DarkCheckBox();
+			this.darkLabel13 = new DarkUI.Controls.DarkLabel();
+			this.darkLabel8 = new DarkUI.Controls.DarkLabel();
+			this.numQuestListID = new DarkUI.Controls.DarkNumericUpDown();
+			this.numQuestDelay = new DarkUI.Controls.DarkNumericUpDown();
+			this.btnAddQuestList = new DarkUI.Controls.DarkButton();
+			this.chkQuestListItem = new DarkUI.Controls.DarkCheckBox();
+			this.darkLabel5 = new DarkUI.Controls.DarkLabel();
+			this.numQuestListItem = new DarkUI.Controls.DarkNumericUpDown();
+			this.darkButton1 = new DarkUI.Controls.DarkButton();
 			this.btnQuestAdd = new DarkUI.Controls.DarkButton();
-			this.numQuestItem = new DarkUI.Controls.DarkNumericUpDown();
-			this.chkQuestItem = new DarkUI.Controls.DarkCheckBox();
-			this.numQuestID = new DarkUI.Controls.DarkNumericUpDown();
+			this.darkGroupBox24 = new DarkUI.Controls.DarkGroupBox();
+			this.darkLabel12 = new DarkUI.Controls.DarkLabel();
 			this.label4 = new DarkUI.Controls.DarkLabel();
+			this.numQuestID = new DarkUI.Controls.DarkNumericUpDown();
+			this.chkQuestItem = new DarkUI.Controls.DarkCheckBox();
+			this.numQuestItem = new DarkUI.Controls.DarkNumericUpDown();
+			this.btnQuestComplete = new DarkUI.Controls.DarkButton();
+			this.btnQuestAccept = new DarkUI.Controls.DarkButton();
+			this.numEnsureTries = new DarkUI.Controls.DarkNumericUpDown();
 			this.tabMisc = new System.Windows.Forms.TabPage();
 			this.darkGroupBox11 = new DarkUI.Controls.DarkGroupBox();
 			this.lbLabels = new DarkUI.Controls.DarkListBox(this.components);
@@ -592,6 +603,7 @@ namespace Grimoire.UI
 			this.btnchangeGuild = new DarkUI.Controls.DarkButton();
 			this.txtGuild = new DarkUI.Controls.DarkTextBox();
 			this.tabHunt = new System.Windows.Forms.TabPage();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.darkLabel9 = new DarkUI.Controls.DarkLabel();
 			this.btnAddCmdHunt = new DarkUI.Controls.DarkButton();
 			this.chkIsTempF = new DarkUI.Controls.DarkCheckBox();
@@ -671,15 +683,20 @@ namespace Grimoire.UI
 			((System.ComponentModel.ISupportInitialize)(this.numMapItem)).BeginInit();
 			this.darkGroupBox4.SuspendLayout();
 			this.darkGroupBox3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numBuyQty)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numShopId)).BeginInit();
 			this.darkGroupBox2.SuspendLayout();
 			this.tabQuest.SuspendLayout();
-			this.questOptions.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numQuestDelay)).BeginInit();
+			this.darkGroupBox26.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numQQuestId)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numEnsureTries)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numQuestItem)).BeginInit();
+			this.darkGroupBox25.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numQuestListID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numQuestDelay)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numQuestListItem)).BeginInit();
+			this.darkGroupBox24.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numQuestID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numQuestItem)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numEnsureTries)).BeginInit();
 			this.tabMisc.SuspendLayout();
 			this.darkGroupBox11.SuspendLayout();
 			this.darkGroupBox10.SuspendLayout();
@@ -724,6 +741,7 @@ namespace Grimoire.UI
 			this.grpAccessLevel.SuspendLayout();
 			this.grpAlignment.SuspendLayout();
 			this.tabHunt.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.tabBots.SuspendLayout();
 			this.darkPanel1.SuspendLayout();
 			this.tabInfo.SuspendLayout();
@@ -1829,9 +1847,9 @@ namespace Grimoire.UI
 			// 
 			this.darkGroupBox5.Controls.Add(this.btnMapItem);
 			this.darkGroupBox5.Controls.Add(this.numMapItem);
-			this.darkGroupBox5.Location = new System.Drawing.Point(148, 227);
+			this.darkGroupBox5.Location = new System.Drawing.Point(189, 228);
 			this.darkGroupBox5.Name = "darkGroupBox5";
-			this.darkGroupBox5.Size = new System.Drawing.Size(132, 67);
+			this.darkGroupBox5.Size = new System.Drawing.Size(98, 67);
 			this.darkGroupBox5.TabIndex = 161;
 			this.darkGroupBox5.TabStop = false;
 			this.darkGroupBox5.Text = "Map Item";
@@ -1841,7 +1859,7 @@ namespace Grimoire.UI
 			this.btnMapItem.Checked = false;
 			this.btnMapItem.Location = new System.Drawing.Point(6, 40);
 			this.btnMapItem.Name = "btnMapItem";
-			this.btnMapItem.Size = new System.Drawing.Size(120, 22);
+			this.btnMapItem.Size = new System.Drawing.Size(85, 22);
 			this.btnMapItem.TabIndex = 29;
 			this.btnMapItem.Text = "Get map item";
 			this.btnMapItem.Click += new System.EventHandler(this.btnMapItem_Click);
@@ -1866,7 +1884,7 @@ namespace Grimoire.UI
             0,
             0});
 			this.numMapItem.Name = "numMapItem";
-			this.numMapItem.Size = new System.Drawing.Size(120, 20);
+			this.numMapItem.Size = new System.Drawing.Size(85, 20);
 			this.numMapItem.TabIndex = 30;
 			this.numMapItem.Value = new decimal(new int[] {
             1,
@@ -1950,6 +1968,8 @@ namespace Grimoire.UI
 			// 
 			// darkGroupBox3
 			// 
+			this.darkGroupBox3.Controls.Add(this.label1);
+			this.darkGroupBox3.Controls.Add(this.numBuyQty);
 			this.darkGroupBox3.Controls.Add(this.numShopId);
 			this.darkGroupBox3.Controls.Add(this.btnLoadShop);
 			this.darkGroupBox3.Controls.Add(this.txtShopItem);
@@ -1957,10 +1977,47 @@ namespace Grimoire.UI
 			this.darkGroupBox3.Controls.Add(this.btnBuyFast);
 			this.darkGroupBox3.Location = new System.Drawing.Point(6, 205);
 			this.darkGroupBox3.Name = "darkGroupBox3";
-			this.darkGroupBox3.Size = new System.Drawing.Size(137, 90);
+			this.darkGroupBox3.Size = new System.Drawing.Size(177, 90);
 			this.darkGroupBox3.TabIndex = 159;
 			this.darkGroupBox3.TabStop = false;
 			this.darkGroupBox3.Text = "Shop";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(134, 26);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(23, 13);
+			this.label1.TabIndex = 136;
+			this.label1.Text = "Qty";
+			// 
+			// numBuyQty
+			// 
+			this.numBuyQty.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+			this.numBuyQty.Location = new System.Drawing.Point(137, 40);
+			this.numBuyQty.LoopValues = false;
+			this.numBuyQty.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+			this.numBuyQty.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numBuyQty.Name = "numBuyQty";
+			this.numBuyQty.Size = new System.Drawing.Size(37, 20);
+			this.numBuyQty.TabIndex = 135;
+			this.numBuyQty.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numShopId
 			// 
@@ -2201,20 +2258,9 @@ namespace Grimoire.UI
 			// tabQuest
 			// 
 			this.tabQuest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
-			this.tabQuest.Controls.Add(this.questOptions);
-			this.tabQuest.Controls.Add(this.chkQRequirements);
-			this.tabQuest.Controls.Add(this.chkQRewards);
-			this.tabQuest.Controls.Add(this.btnQAddToWhitelist);
-			this.tabQuest.Controls.Add(this.numQQuestId);
-			this.tabQuest.Controls.Add(this.darkLabel4);
-			this.tabQuest.Controls.Add(this.numEnsureTries);
-			this.tabQuest.Controls.Add(this.btnQuestAccept);
-			this.tabQuest.Controls.Add(this.btnQuestComplete);
-			this.tabQuest.Controls.Add(this.btnQuestAdd);
-			this.tabQuest.Controls.Add(this.numQuestItem);
-			this.tabQuest.Controls.Add(this.chkQuestItem);
-			this.tabQuest.Controls.Add(this.numQuestID);
-			this.tabQuest.Controls.Add(this.label4);
+			this.tabQuest.Controls.Add(this.darkGroupBox26);
+			this.tabQuest.Controls.Add(this.darkGroupBox25);
+			this.tabQuest.Controls.Add(this.darkGroupBox24);
 			this.tabQuest.ForeColor = System.Drawing.Color.Gainsboro;
 			this.tabQuest.Location = new System.Drawing.Point(4, 23);
 			this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
@@ -2224,39 +2270,168 @@ namespace Grimoire.UI
 			this.tabQuest.TabIndex = 3;
 			this.tabQuest.Text = "Quest";
 			// 
-			// questOptions
+			// darkGroupBox26
 			// 
-			this.questOptions.Controls.Add(this.chkReloginCompleteQuest);
-			this.questOptions.Controls.Add(this.darkLabel8);
-			this.questOptions.Controls.Add(this.numQuestDelay);
-			this.questOptions.Controls.Add(this.darkLabel5);
-			this.questOptions.Location = new System.Drawing.Point(143, 6);
-			this.questOptions.Name = "questOptions";
-			this.questOptions.Size = new System.Drawing.Size(169, 99);
-			this.questOptions.TabIndex = 27;
-			this.questOptions.TabStop = false;
-			this.questOptions.Text = "Options";
+			this.darkGroupBox26.Controls.Add(this.darkLabel4);
+			this.darkGroupBox26.Controls.Add(this.numQQuestId);
+			this.darkGroupBox26.Controls.Add(this.btnQAddToWhitelist);
+			this.darkGroupBox26.Controls.Add(this.chkQRequirements);
+			this.darkGroupBox26.Controls.Add(this.chkQRewards);
+			this.darkGroupBox26.Location = new System.Drawing.Point(6, 126);
+			this.darkGroupBox26.Name = "darkGroupBox26";
+			this.darkGroupBox26.Size = new System.Drawing.Size(123, 122);
+			this.darkGroupBox26.TabIndex = 31;
+			this.darkGroupBox26.TabStop = false;
+			this.darkGroupBox26.Text = "Grabber";
+			// 
+			// darkLabel4
+			// 
+			this.darkLabel4.AutoSize = true;
+			this.darkLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.darkLabel4.Location = new System.Drawing.Point(6, 16);
+			this.darkLabel4.Name = "darkLabel4";
+			this.darkLabel4.Size = new System.Drawing.Size(49, 13);
+			this.darkLabel4.TabIndex = 19;
+			this.darkLabel4.Text = "Quest ID";
+			// 
+			// numQQuestId
+			// 
+			this.numQQuestId.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+			this.numQQuestId.Location = new System.Drawing.Point(9, 32);
+			this.numQQuestId.LoopValues = false;
+			this.numQQuestId.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+			this.numQQuestId.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numQQuestId.Name = "numQQuestId";
+			this.numQQuestId.Size = new System.Drawing.Size(105, 20);
+			this.numQQuestId.TabIndex = 20;
+			this.numQQuestId.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// btnQAddToWhitelist
+			// 
+			this.btnQAddToWhitelist.Checked = false;
+			this.btnQAddToWhitelist.Location = new System.Drawing.Point(9, 94);
+			this.btnQAddToWhitelist.Name = "btnQAddToWhitelist";
+			this.btnQAddToWhitelist.Size = new System.Drawing.Size(105, 22);
+			this.btnQAddToWhitelist.TabIndex = 21;
+			this.btnQAddToWhitelist.Text = "Add item whitelist";
+			this.btnQAddToWhitelist.Click += new System.EventHandler(this.btnQAddToWhitelist_Click);
+			// 
+			// chkQRequirements
+			// 
+			this.chkQRequirements.AutoSize = true;
+			this.chkQRequirements.Checked = true;
+			this.chkQRequirements.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkQRequirements.Location = new System.Drawing.Point(9, 75);
+			this.chkQRequirements.Name = "chkQRequirements";
+			this.chkQRequirements.Size = new System.Drawing.Size(85, 17);
+			this.chkQRequirements.TabIndex = 23;
+			this.chkQRequirements.Text = "Requirments";
+			// 
+			// chkQRewards
+			// 
+			this.chkQRewards.AutoSize = true;
+			this.chkQRewards.Checked = true;
+			this.chkQRewards.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkQRewards.Location = new System.Drawing.Point(9, 56);
+			this.chkQRewards.Name = "chkQRewards";
+			this.chkQRewards.Size = new System.Drawing.Size(68, 17);
+			this.chkQRewards.TabIndex = 22;
+			this.chkQRewards.Text = "Rewards";
+			// 
+			// darkGroupBox25
+			// 
+			this.darkGroupBox25.Controls.Add(this.chkReloginCompleteQuest);
+			this.darkGroupBox25.Controls.Add(this.darkLabel13);
+			this.darkGroupBox25.Controls.Add(this.darkLabel8);
+			this.darkGroupBox25.Controls.Add(this.numQuestListID);
+			this.darkGroupBox25.Controls.Add(this.numQuestDelay);
+			this.darkGroupBox25.Controls.Add(this.btnAddQuestList);
+			this.darkGroupBox25.Controls.Add(this.chkQuestListItem);
+			this.darkGroupBox25.Controls.Add(this.darkLabel5);
+			this.darkGroupBox25.Controls.Add(this.numQuestListItem);
+			this.darkGroupBox25.Controls.Add(this.darkButton1);
+			this.darkGroupBox25.Controls.Add(this.btnQuestAdd);
+			this.darkGroupBox25.Location = new System.Drawing.Point(167, 6);
+			this.darkGroupBox25.Name = "darkGroupBox25";
+			this.darkGroupBox25.Size = new System.Drawing.Size(306, 135);
+			this.darkGroupBox25.TabIndex = 30;
+			this.darkGroupBox25.TabStop = false;
+			this.darkGroupBox25.Text = "Quest List";
 			// 
 			// chkReloginCompleteQuest
 			// 
 			this.chkReloginCompleteQuest.Checked = true;
 			this.chkReloginCompleteQuest.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.chkReloginCompleteQuest.Location = new System.Drawing.Point(6, 59);
+			this.chkReloginCompleteQuest.Location = new System.Drawing.Point(151, 58);
 			this.chkReloginCompleteQuest.Name = "chkReloginCompleteQuest";
 			this.chkReloginCompleteQuest.Size = new System.Drawing.Size(157, 32);
 			this.chkReloginCompleteQuest.TabIndex = 18;
 			this.chkReloginCompleteQuest.Text = "Logout after 5 times failed to complete a quest";
 			this.chkReloginCompleteQuest.MouseHover += new System.EventHandler(this.chkReloginCompleteQuest_MouseHover);
 			// 
+			// darkLabel13
+			// 
+			this.darkLabel13.AutoSize = true;
+			this.darkLabel13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.darkLabel13.Location = new System.Drawing.Point(6, 16);
+			this.darkLabel13.Name = "darkLabel13";
+			this.darkLabel13.Size = new System.Drawing.Size(49, 13);
+			this.darkLabel13.TabIndex = 7;
+			this.darkLabel13.Text = "Quest ID";
+			// 
 			// darkLabel8
 			// 
 			this.darkLabel8.AutoSize = true;
 			this.darkLabel8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.darkLabel8.Location = new System.Drawing.Point(6, 17);
+			this.darkLabel8.Location = new System.Drawing.Point(151, 16);
 			this.darkLabel8.Name = "darkLabel8";
 			this.darkLabel8.Size = new System.Drawing.Size(34, 13);
 			this.darkLabel8.TabIndex = 26;
 			this.darkLabel8.Text = "Delay";
+			// 
+			// numQuestListID
+			// 
+			this.numQuestListID.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+			this.numQuestListID.Location = new System.Drawing.Point(9, 32);
+			this.numQuestListID.LoopValues = false;
+			this.numQuestListID.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+			this.numQuestListID.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numQuestListID.Name = "numQuestListID";
+			this.numQuestListID.Size = new System.Drawing.Size(66, 20);
+			this.numQuestListID.TabIndex = 8;
+			this.numQuestListID.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// numQuestDelay
 			// 
@@ -2265,7 +2440,7 @@ namespace Grimoire.UI
             0,
             0,
             0});
-			this.numQuestDelay.Location = new System.Drawing.Point(6, 33);
+			this.numQuestDelay.Location = new System.Drawing.Point(151, 32);
 			this.numQuestDelay.LoopValues = false;
 			this.numQuestDelay.Maximum = new decimal(new int[] {
             10000,
@@ -2286,174 +2461,123 @@ namespace Grimoire.UI
             0,
             0});
 			// 
+			// btnAddQuestList
+			// 
+			this.btnAddQuestList.Checked = false;
+			this.btnAddQuestList.Enabled = false;
+			this.btnAddQuestList.Location = new System.Drawing.Point(9, 81);
+			this.btnAddQuestList.Name = "btnAddQuestList";
+			this.btnAddQuestList.Size = new System.Drawing.Size(134, 22);
+			this.btnAddQuestList.TabIndex = 28;
+			this.btnAddQuestList.Text = "Add (cmd)";
+			this.btnAddQuestList.Click += new System.EventHandler(this.btnAddQuestList_Click);
+			// 
+			// chkQuestListItem
+			// 
+			this.chkQuestListItem.AutoSize = true;
+			this.chkQuestListItem.Location = new System.Drawing.Point(78, 14);
+			this.chkQuestListItem.Name = "chkQuestListItem";
+			this.chkQuestListItem.Size = new System.Drawing.Size(60, 17);
+			this.chkQuestListItem.TabIndex = 9;
+			this.chkQuestListItem.Text = "Item ID";
+			this.chkQuestListItem.CheckedChanged += new System.EventHandler(this.chkQuestListItem_CheckedChanged);
+			// 
 			// darkLabel5
 			// 
 			this.darkLabel5.AutoSize = true;
 			this.darkLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.darkLabel5.Location = new System.Drawing.Point(67, 38);
+			this.darkLabel5.Location = new System.Drawing.Point(212, 37);
 			this.darkLabel5.Name = "darkLabel5";
 			this.darkLabel5.Size = new System.Drawing.Size(20, 13);
 			this.darkLabel5.TabIndex = 25;
 			this.darkLabel5.Text = "ms";
 			// 
-			// chkQRequirements
+			// numQuestListItem
 			// 
-			this.chkQRequirements.AutoSize = true;
-			this.chkQRequirements.Location = new System.Drawing.Point(80, 207);
-			this.chkQRequirements.Name = "chkQRequirements";
-			this.chkQRequirements.Size = new System.Drawing.Size(85, 17);
-			this.chkQRequirements.TabIndex = 23;
-			this.chkQRequirements.Text = "Requirments";
-			// 
-			// chkQRewards
-			// 
-			this.chkQRewards.AutoSize = true;
-			this.chkQRewards.Location = new System.Drawing.Point(6, 207);
-			this.chkQRewards.Name = "chkQRewards";
-			this.chkQRewards.Size = new System.Drawing.Size(68, 17);
-			this.chkQRewards.TabIndex = 22;
-			this.chkQRewards.Text = "Rewards";
-			// 
-			// btnQAddToWhitelist
-			// 
-			this.btnQAddToWhitelist.Checked = false;
-			this.btnQAddToWhitelist.Location = new System.Drawing.Point(7, 232);
-			this.btnQAddToWhitelist.Name = "btnQAddToWhitelist";
-			this.btnQAddToWhitelist.Size = new System.Drawing.Size(129, 22);
-			this.btnQAddToWhitelist.TabIndex = 21;
-			this.btnQAddToWhitelist.Text = "Add item whitelist";
-			this.btnQAddToWhitelist.Click += new System.EventHandler(this.btnQAddToWhitelist_Click);
-			// 
-			// numQQuestId
-			// 
-			this.numQQuestId.IncrementAlternate = new decimal(new int[] {
+			this.numQuestListItem.Enabled = false;
+			this.numQuestListItem.IncrementAlternate = new decimal(new int[] {
             10,
             0,
             0,
             65536});
-			this.numQQuestId.Location = new System.Drawing.Point(6, 181);
-			this.numQQuestId.LoopValues = false;
-			this.numQQuestId.Maximum = new decimal(new int[] {
+			this.numQuestListItem.Location = new System.Drawing.Point(78, 32);
+			this.numQuestListItem.LoopValues = false;
+			this.numQuestListItem.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-			this.numQQuestId.Minimum = new decimal(new int[] {
+			this.numQuestListItem.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-			this.numQQuestId.Name = "numQQuestId";
-			this.numQQuestId.Size = new System.Drawing.Size(129, 20);
-			this.numQQuestId.TabIndex = 20;
-			this.numQQuestId.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			// 
-			// darkLabel4
-			// 
-			this.darkLabel4.AutoSize = true;
-			this.darkLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.darkLabel4.Location = new System.Drawing.Point(3, 165);
-			this.darkLabel4.Name = "darkLabel4";
-			this.darkLabel4.Size = new System.Drawing.Size(49, 13);
-			this.darkLabel4.TabIndex = 19;
-			this.darkLabel4.Text = "Quest ID";
-			// 
-			// numEnsureTries
-			// 
-			this.numEnsureTries.IncrementAlternate = new decimal(new int[] {
-            10,
-            0,
-            0,
-            65536});
-			this.numEnsureTries.Location = new System.Drawing.Point(105, 73);
-			this.numEnsureTries.LoopValues = false;
-			this.numEnsureTries.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numEnsureTries.Name = "numEnsureTries";
-			this.numEnsureTries.Size = new System.Drawing.Size(32, 20);
-			this.numEnsureTries.TabIndex = 15;
-			this.numEnsureTries.Value = new decimal(new int[] {
+			this.numQuestListItem.Name = "numQuestListItem";
+			this.numQuestListItem.Size = new System.Drawing.Size(65, 20);
+			this.numQuestListItem.TabIndex = 10;
+			this.numQuestListItem.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
 			// 
-			// btnQuestAccept
+			// darkButton1
 			// 
-			this.btnQuestAccept.Checked = false;
-			this.btnQuestAccept.Location = new System.Drawing.Point(8, 99);
-			this.btnQuestAccept.Name = "btnQuestAccept";
-			this.btnQuestAccept.Size = new System.Drawing.Size(129, 22);
-			this.btnQuestAccept.TabIndex = 13;
-			this.btnQuestAccept.Text = "Accept (cmd)";
-			this.btnQuestAccept.Click += new System.EventHandler(this.btnQuestAccept_Click);
-			// 
-			// btnQuestComplete
-			// 
-			this.btnQuestComplete.Checked = false;
-			this.btnQuestComplete.Location = new System.Drawing.Point(8, 72);
-			this.btnQuestComplete.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
-			this.btnQuestComplete.Name = "btnQuestComplete";
-			this.btnQuestComplete.Size = new System.Drawing.Size(95, 22);
-			this.btnQuestComplete.TabIndex = 12;
-			this.btnQuestComplete.Text = "Complete (cmd)";
-			this.btnQuestComplete.Click += new System.EventHandler(this.btnQuestComplete_Click);
+			this.darkButton1.Checked = false;
+			this.darkButton1.Enabled = false;
+			this.darkButton1.Location = new System.Drawing.Point(9, 106);
+			this.darkButton1.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
+			this.darkButton1.Name = "darkButton1";
+			this.darkButton1.Size = new System.Drawing.Size(134, 22);
+			this.darkButton1.TabIndex = 12;
+			this.darkButton1.Text = "Remove (cmd)";
 			// 
 			// btnQuestAdd
 			// 
 			this.btnQuestAdd.Checked = false;
-			this.btnQuestAdd.Location = new System.Drawing.Point(8, 45);
+			this.btnQuestAdd.Location = new System.Drawing.Point(9, 56);
 			this.btnQuestAdd.Name = "btnQuestAdd";
-			this.btnQuestAdd.Size = new System.Drawing.Size(129, 22);
+			this.btnQuestAdd.Size = new System.Drawing.Size(134, 22);
 			this.btnQuestAdd.TabIndex = 11;
 			this.btnQuestAdd.Text = "Add to quest list";
 			this.btnQuestAdd.Click += new System.EventHandler(this.btnQuestAdd_Click);
 			// 
-			// numQuestItem
+			// darkGroupBox24
 			// 
-			this.numQuestItem.Enabled = false;
-			this.numQuestItem.IncrementAlternate = new decimal(new int[] {
-            10,
-            0,
-            0,
-            65536});
-			this.numQuestItem.Location = new System.Drawing.Point(77, 21);
-			this.numQuestItem.LoopValues = false;
-			this.numQuestItem.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-			this.numQuestItem.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numQuestItem.Name = "numQuestItem";
-			this.numQuestItem.Size = new System.Drawing.Size(60, 20);
-			this.numQuestItem.TabIndex = 10;
-			this.numQuestItem.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.darkGroupBox24.Controls.Add(this.darkLabel12);
+			this.darkGroupBox24.Controls.Add(this.label4);
+			this.darkGroupBox24.Controls.Add(this.numQuestID);
+			this.darkGroupBox24.Controls.Add(this.chkQuestItem);
+			this.darkGroupBox24.Controls.Add(this.numQuestItem);
+			this.darkGroupBox24.Controls.Add(this.btnQuestComplete);
+			this.darkGroupBox24.Controls.Add(this.btnQuestAccept);
+			this.darkGroupBox24.Controls.Add(this.numEnsureTries);
+			this.darkGroupBox24.Location = new System.Drawing.Point(6, 6);
+			this.darkGroupBox24.Name = "darkGroupBox24";
+			this.darkGroupBox24.Size = new System.Drawing.Size(155, 114);
+			this.darkGroupBox24.TabIndex = 29;
+			this.darkGroupBox24.TabStop = false;
+			this.darkGroupBox24.Text = "Quest";
 			// 
-			// chkQuestItem
+			// darkLabel12
 			// 
-			this.chkQuestItem.AutoSize = true;
-			this.chkQuestItem.Location = new System.Drawing.Point(77, 3);
-			this.chkQuestItem.Name = "chkQuestItem";
-			this.chkQuestItem.Size = new System.Drawing.Size(60, 17);
-			this.chkQuestItem.TabIndex = 9;
-			this.chkQuestItem.Text = "Item ID";
-			this.chkQuestItem.CheckedChanged += new System.EventHandler(this.chkQuestItem_CheckedChanged);
+			this.darkLabel12.AutoSize = true;
+			this.darkLabel12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.darkLabel12.Location = new System.Drawing.Point(106, 69);
+			this.darkLabel12.Name = "darkLabel12";
+			this.darkLabel12.Size = new System.Drawing.Size(21, 13);
+			this.darkLabel12.TabIndex = 25;
+			this.darkLabel12.Text = "qty";
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.label4.Location = new System.Drawing.Point(6, 16);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(49, 13);
+			this.label4.TabIndex = 7;
+			this.label4.Text = "Quest ID";
 			// 
 			// numQuestID
 			// 
@@ -2462,7 +2586,7 @@ namespace Grimoire.UI
             0,
             0,
             65536});
-			this.numQuestID.Location = new System.Drawing.Point(8, 21);
+			this.numQuestID.Location = new System.Drawing.Point(9, 32);
 			this.numQuestID.LoopValues = false;
 			this.numQuestID.Maximum = new decimal(new int[] {
             100000,
@@ -2483,15 +2607,88 @@ namespace Grimoire.UI
             0,
             0});
 			// 
-			// label4
+			// chkQuestItem
 			// 
-			this.label4.AutoSize = true;
-			this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-			this.label4.Location = new System.Drawing.Point(5, 5);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(49, 13);
-			this.label4.TabIndex = 7;
-			this.label4.Text = "Quest ID";
+			this.chkQuestItem.AutoSize = true;
+			this.chkQuestItem.Location = new System.Drawing.Point(78, 14);
+			this.chkQuestItem.Name = "chkQuestItem";
+			this.chkQuestItem.Size = new System.Drawing.Size(60, 17);
+			this.chkQuestItem.TabIndex = 9;
+			this.chkQuestItem.Text = "Item ID";
+			this.chkQuestItem.CheckedChanged += new System.EventHandler(this.chkQuestItem_CheckedChanged);
+			// 
+			// numQuestItem
+			// 
+			this.numQuestItem.Enabled = false;
+			this.numQuestItem.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+			this.numQuestItem.Location = new System.Drawing.Point(78, 32);
+			this.numQuestItem.LoopValues = false;
+			this.numQuestItem.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+			this.numQuestItem.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numQuestItem.Name = "numQuestItem";
+			this.numQuestItem.Size = new System.Drawing.Size(65, 20);
+			this.numQuestItem.TabIndex = 10;
+			this.numQuestItem.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// btnQuestComplete
+			// 
+			this.btnQuestComplete.Checked = false;
+			this.btnQuestComplete.Location = new System.Drawing.Point(9, 83);
+			this.btnQuestComplete.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
+			this.btnQuestComplete.Name = "btnQuestComplete";
+			this.btnQuestComplete.Size = new System.Drawing.Size(95, 22);
+			this.btnQuestComplete.TabIndex = 12;
+			this.btnQuestComplete.Text = "Complete (cmd)";
+			this.btnQuestComplete.Click += new System.EventHandler(this.btnQuestComplete_Click);
+			// 
+			// btnQuestAccept
+			// 
+			this.btnQuestAccept.Checked = false;
+			this.btnQuestAccept.Location = new System.Drawing.Point(9, 56);
+			this.btnQuestAccept.Name = "btnQuestAccept";
+			this.btnQuestAccept.Size = new System.Drawing.Size(95, 22);
+			this.btnQuestAccept.TabIndex = 13;
+			this.btnQuestAccept.Text = "Accept (cmd)";
+			this.btnQuestAccept.Click += new System.EventHandler(this.btnQuestAccept_Click);
+			// 
+			// numEnsureTries
+			// 
+			this.numEnsureTries.IncrementAlternate = new decimal(new int[] {
+            10,
+            0,
+            0,
+            65536});
+			this.numEnsureTries.Location = new System.Drawing.Point(106, 84);
+			this.numEnsureTries.LoopValues = false;
+			this.numEnsureTries.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numEnsureTries.Name = "numEnsureTries";
+			this.numEnsureTries.Size = new System.Drawing.Size(37, 20);
+			this.numEnsureTries.TabIndex = 15;
+			this.numEnsureTries.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// tabMisc
 			// 
@@ -3238,7 +3435,7 @@ namespace Grimoire.UI
 			this.darkGroupBox9.Controls.Add(this.txtDescription);
 			this.darkGroupBox9.Location = new System.Drawing.Point(246, 6);
 			this.darkGroupBox9.Name = "darkGroupBox9";
-			this.darkGroupBox9.Size = new System.Drawing.Size(289, 192);
+			this.darkGroupBox9.Size = new System.Drawing.Size(289, 190);
 			this.darkGroupBox9.TabIndex = 116;
 			this.darkGroupBox9.TabStop = false;
 			this.darkGroupBox9.Text = "Save/Load";
@@ -3250,7 +3447,7 @@ namespace Grimoire.UI
 			this.txtAuthor.Location = new System.Drawing.Point(7, 45);
 			this.txtAuthor.Multiline = true;
 			this.txtAuthor.Name = "txtAuthor";
-			this.txtAuthor.Size = new System.Drawing.Size(283, 20);
+			this.txtAuthor.Size = new System.Drawing.Size(276, 20);
 			this.txtAuthor.TabIndex = 119;
 			this.txtAuthor.Text = "Author";
 			// 
@@ -3270,7 +3467,7 @@ namespace Grimoire.UI
 			// 
 			this.splitContainer3.Panel2.Controls.Add(this.btnLoad);
 			this.splitContainer3.Size = new System.Drawing.Size(276, 22);
-			this.splitContainer3.SplitterDistance = 124;
+			this.splitContainer3.SplitterDistance = 125;
 			this.splitContainer3.TabIndex = 118;
 			// 
 			// btnSave
@@ -3279,7 +3476,7 @@ namespace Grimoire.UI
 			this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.btnSave.Location = new System.Drawing.Point(0, 0);
 			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(124, 22);
+			this.btnSave.Size = new System.Drawing.Size(125, 22);
 			this.btnSave.TabIndex = 75;
 			this.btnSave.Text = "Save bot";
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -3290,7 +3487,7 @@ namespace Grimoire.UI
 			this.btnLoad.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.btnLoad.Location = new System.Drawing.Point(0, 0);
 			this.btnLoad.Name = "btnLoad";
-			this.btnLoad.Size = new System.Drawing.Size(148, 22);
+			this.btnLoad.Size = new System.Drawing.Size(147, 22);
 			this.btnLoad.TabIndex = 67;
 			this.btnLoad.Text = "Load bot";
 			this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
@@ -3304,7 +3501,7 @@ namespace Grimoire.UI
 			this.txtDescription.MaxLength = 2147483647;
 			this.txtDescription.Multiline = true;
 			this.txtDescription.Name = "txtDescription";
-			this.txtDescription.Size = new System.Drawing.Size(276, 118);
+			this.txtDescription.Size = new System.Drawing.Size(276, 114);
 			this.txtDescription.TabIndex = 109;
 			this.txtDescription.Text = "Description (Write in RTF)";
 			this.txtDescription.Enter += new System.EventHandler(this.TextboxEnter);
@@ -3452,7 +3649,7 @@ namespace Grimoire.UI
 			this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
 			this.tabOptions.Name = "tabOptions";
 			this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-			this.tabOptions.Size = new System.Drawing.Size(192, 73);
+			this.tabOptions.Size = new System.Drawing.Size(541, 301);
 			this.tabOptions.TabIndex = 5;
 			this.tabOptions.Text = "Options";
 			// 
@@ -4420,6 +4617,7 @@ namespace Grimoire.UI
 			// tabHunt
 			// 
 			this.tabHunt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
+			this.tabHunt.Controls.Add(this.pictureBox1);
 			this.tabHunt.Controls.Add(this.darkLabel9);
 			this.tabHunt.Controls.Add(this.btnAddCmdHunt);
 			this.tabHunt.Controls.Add(this.chkIsTempF);
@@ -4441,9 +4639,20 @@ namespace Grimoire.UI
 			this.tabHunt.Margin = new System.Windows.Forms.Padding(0);
 			this.tabHunt.Name = "tabHunt";
 			this.tabHunt.Padding = new System.Windows.Forms.Padding(3);
-			this.tabHunt.Size = new System.Drawing.Size(192, 73);
+			this.tabHunt.Size = new System.Drawing.Size(541, 301);
 			this.tabHunt.TabIndex = 3;
 			this.tabHunt.Text = "Hunt";
+			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Image = global::Properties.Resources.astolfo_head;
+			this.pictureBox1.Location = new System.Drawing.Point(409, 182);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(133, 122);
+			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pictureBox1.TabIndex = 172;
+			this.pictureBox1.TabStop = false;
+			this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
 			// 
 			// darkLabel9
 			// 
@@ -5134,17 +5343,23 @@ namespace Grimoire.UI
 			this.darkGroupBox4.PerformLayout();
 			this.darkGroupBox3.ResumeLayout(false);
 			this.darkGroupBox3.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numBuyQty)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numShopId)).EndInit();
 			this.darkGroupBox2.ResumeLayout(false);
 			this.tabQuest.ResumeLayout(false);
-			this.tabQuest.PerformLayout();
-			this.questOptions.ResumeLayout(false);
-			this.questOptions.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numQuestDelay)).EndInit();
+			this.darkGroupBox26.ResumeLayout(false);
+			this.darkGroupBox26.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numQQuestId)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numEnsureTries)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numQuestItem)).EndInit();
+			this.darkGroupBox25.ResumeLayout(false);
+			this.darkGroupBox25.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numQuestListID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numQuestDelay)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numQuestListItem)).EndInit();
+			this.darkGroupBox24.ResumeLayout(false);
+			this.darkGroupBox24.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numQuestID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numQuestItem)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numEnsureTries)).EndInit();
 			this.tabMisc.ResumeLayout(false);
 			this.tabMisc.PerformLayout();
 			this.darkGroupBox11.ResumeLayout(false);
@@ -5208,6 +5423,7 @@ namespace Grimoire.UI
 			this.grpAlignment.ResumeLayout(false);
 			this.tabHunt.ResumeLayout(false);
 			this.tabHunt.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.tabBots.ResumeLayout(false);
 			this.tabBots.PerformLayout();
 			this.darkPanel1.ResumeLayout(false);
@@ -5250,9 +5466,6 @@ namespace Grimoire.UI
 		private DarkGroupBox darkGroupBox22;
 		private DarkButton btnHideLoading;
 		private DarkGroupBox darkGroupBox23;
-		private DarkLabel darkLabel5;
-		public DarkNumericUpDown numQuestDelay;
-		private DarkLabel darkLabel8;
 		private DarkListBox lbLabels;
 		public ListBox lstCommands;
 		public ListBox lstSkills;
@@ -5260,10 +5473,25 @@ namespace Grimoire.UI
 		public ListBox lstDrops;
 		private ListBox lstBoosts;
 		private ListBox lstItems;
-		private DarkGroupBox questOptions;
 		private DarkCheckBox chkAntiCounter;
 		private DarkLabel darkLabel9;
 		private DarkLabel darkLabel10;
 		private DarkNumericUpDown numJoinTry;
+		private DarkButton btnAddQuestList;
+		private Label label1;
+		private DarkNumericUpDown numBuyQty;
+		private DarkLabel darkLabel8;
+		public DarkNumericUpDown numQuestDelay;
+		private DarkLabel darkLabel5;
+		private DarkGroupBox darkGroupBox24;
+		private DarkLabel darkLabel12;
+		private DarkGroupBox darkGroupBox26;
+		private DarkGroupBox darkGroupBox25;
+		private DarkLabel darkLabel13;
+		private DarkNumericUpDown numQuestListID;
+		private DarkCheckBox chkQuestListItem;
+		private DarkNumericUpDown numQuestListItem;
+		private DarkButton darkButton1;
+		private PictureBox pictureBox1;
 	}
 }

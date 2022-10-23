@@ -1138,7 +1138,8 @@ namespace Grimoire.UI
 				AddCommand(new CmdBuy
 				{
 					ItemName = txtShopItem.Text,
-					ShopId = (int)numShopId.Value
+					ShopId = (int)numShopId.Value,
+					Qty = (int)numBuyQty.Value,
 				}, (ModifierKeys & Keys.Control) == Keys.Control);
 			}
 		}
@@ -1146,8 +1147,8 @@ namespace Grimoire.UI
 		private void btnQuestAdd_Click(object sender, EventArgs e)
 		{
 			AddQuest(
-				(int)numQuestID.Value, 
-				chkQuestItem.Checked ? numQuestItem.Value.ToString() : null, 
+				(int)numQuestListID.Value,
+				chkQuestListItem.Checked ? numQuestListItem.Value.ToString() : null, 
 				chkReloginCompleteQuest.Checked
 				);
 		}
@@ -1950,7 +1951,8 @@ namespace Grimoire.UI
 			{
 				AddCommand(new CmdBuyFast
 				{
-					ItemName = txtShopItem.Text
+					ItemName = txtShopItem.Text,
+					Qty = (int)numBuyQty.Value
 				}, (ModifierKeys & Keys.Control) == Keys.Control);
 			}
 		}
@@ -2775,6 +2777,7 @@ namespace Grimoire.UI
 
 		private void btnQAddToWhitelist_Click(object sender, EventArgs e)
 		{
+			if (!Player.IsLoggedIn) return;
 			int idQuest = Decimal.ToInt32(numQQuestId.Value);
 			Player.Quests.Load(idQuest);
 
@@ -3184,6 +3187,37 @@ namespace Grimoire.UI
 		private void btnHideLoading_Click(object sender, EventArgs e)
 		{
 			Flash.Call2("HideConnMC", new object[0]);
+		}
+
+		private void chkQuestListItem_CheckedChanged(object sender, EventArgs e)
+		{
+			numQuestListItem.Enabled = chkQuestListItem.Checked;
+		}
+
+		private void btnAddQuestList_Click(object sender, EventArgs e)
+		{
+			string itemId = null;
+			if (chkQuestListItem.Checked)
+			{
+				itemId = numQuestListItem.Value.ToString();
+			}
+			AddCommand(new CmdAddQuestList
+			{
+				QuestID = (int)numQuestListID.Value,
+				ItemID = itemId,
+				SafeRelogin = chkReloginCompleteQuest.Checked,
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		int clickCounter = 0;
+		private void pictureBox1_Click(object sender, EventArgs e)
+		{
+			clickCounter++;
+			if (clickCounter >= 3)
+			{
+				Root.Instance.ShowForm(new Egg());
+				clickCounter = 0;
+			}
 		}
 	}
 }

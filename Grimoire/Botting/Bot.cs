@@ -257,6 +257,10 @@ namespace Grimoire.Botting
 				{
 					ToggleSpammer(cmd);
 				}
+				else if (cmd is CmdAddQuestList)
+				{
+					AddQuestList(cmd);
+				}
 				else
 				{
 					lastCommand = cmd.ToString();
@@ -363,6 +367,12 @@ namespace Grimoire.Botting
 					await Task.Delay(bSpammer.Delay);
 				}
 			}
+		}
+
+		private async void AddQuestList(IBotCommand cmd)
+		{
+			CmdAddQuestList cmdQuest = (CmdAddQuestList)cmd;
+			BotManager.Instance.AddQuest(cmdQuest.QuestID, cmdQuest.ItemID, cmdQuest.SafeRelogin);
 		}
 
 		private async Task RestHealth()
