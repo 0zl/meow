@@ -141,9 +141,6 @@ namespace Grimoire.UI
 		}
 
 		private DarkButton btnSetSpawn2;
-		private DarkGroupBox darkGroupBox15;
-		private DarkButton btnFollowCmd;
-		private DarkTextBox tbFollowPlayer;
 		private DarkGroupBox darkGroupBox16;
 		private DarkCheckBox chkAMStopBot;
 		private DarkCheckBox chkAMLogout;
@@ -300,7 +297,8 @@ namespace Grimoire.UI
 				AntiCounter = chkAntiCounter.Checked,
 				DisableAnimations = chkDisableAnims.Checked,
 				FollowCheck = chkFollowOnly.Checked,
-				FollowName = tbFollowPlayer2.Text
+				FollowName = tbFollowPlayer2.Text,
+
 			};
 		}
 
@@ -1133,15 +1131,46 @@ namespace Grimoire.UI
 
 		private void btnBuy_Click(object sender, EventArgs e)
 		{
-			if (txtShopItem.TextLength > 0)
+			if (tbShopItemName.TextLength > 0)
 			{
-				AddCommand(new CmdBuy
+				Int32.TryParse(tbShopId.Text, out int shopId);
+				Int32.TryParse(tbItemId.Text, out int itemId);
+				Int32.TryParse(tbShopItemId.Text, out int shopItemId);
+				int qty = (int)numBuyQty.Value;
+
+				if (radBuyByID.Checked)
 				{
-					ItemName = txtShopItem.Text,
-					ShopId = (int)numShopId.Value,
-					Qty = (int)numBuyQty.Value,
-				}, (ModifierKeys & Keys.Control) == Keys.Control);
+					if (shopId == 0 || itemId == 0 || shopItemId == 0) return;
+					AddCommand(new CmdBuy
+					{
+						ShopId = shopId,
+						ItemId = itemId,
+						ShopItemId = shopItemId,
+						Qty = qty,
+						ByID = radBuyByID.Checked,
+					}, (ModifierKeys & Keys.Control) == Keys.Control);
+
+				}
+
+				if (radBuyByName.Checked)
+				{
+					if (shopId == 0) return;
+					AddCommand(new CmdBuy
+					{
+						ItemName = tbShopItemName.Text,
+						ShopId = shopId,
+						Qty = qty,
+						ByID = radBuyByID.Checked,
+					}, (ModifierKeys & Keys.Control) == Keys.Control);
+				}
 			}
+		}
+
+		private void radBuyByName_CheckedChanged(object sender, EventArgs e)
+		{
+			tbShopItemId.Enabled = !radBuyByName.Checked;
+			tbItemId.Enabled = !radBuyByName.Checked;
+			tbShopItemName.Enabled = radBuyByName.Checked;
 		}
 
 		private void btnQuestAdd_Click(object sender, EventArgs e)
@@ -1947,11 +1976,11 @@ namespace Grimoire.UI
 
 		private void btnBuyFast_Click(object sender, EventArgs e)
 		{
-			if (txtShopItem.TextLength > 0)
+			if (tbShopItemName.TextLength > 0)
 			{
 				AddCommand(new CmdBuyFast
 				{
-					ItemName = txtShopItem.Text,
+					ItemName = tbShopItemName.Text,
 					Qty = (int)numBuyQty.Value
 				}, (ModifierKeys & Keys.Control) == Keys.Control);
 			}
@@ -1959,9 +1988,11 @@ namespace Grimoire.UI
 
 		private void btnLoadShop_Click(object sender, EventArgs e)
 		{
-			AddCommand(new Botting.Commands.Item.CmdLoad
+			Int32.TryParse(tbShopId.Text, out int shopId);
+			if (shopId == 0) return;
+			AddCommand(new CmdLoad
 			{
-				ShopId = (int)numShopId.Value
+				ShopId = shopId,
 			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
