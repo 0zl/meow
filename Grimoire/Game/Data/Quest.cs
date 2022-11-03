@@ -161,6 +161,7 @@ namespace Grimoire.Game.Data
 			get;
 			set;
 		}
+
 		public bool SafeRelogin
 		{
 			get;
@@ -200,24 +201,23 @@ namespace Grimoire.Game.Data
 			Flash.Call("Accept", Id.ToString());
 		}
 
-		public void Complete()
+		public void Complete(int qty = 1)
 		{
 			if (!string.IsNullOrEmpty(ItemId))
 			{
-				Flash.Call("Complete", Id.ToString(), ItemId);
+				Flash.Call("Complete", Id.ToString(), qty, ItemId);
 			}
 			else
 			{
-				Flash.Call("Complete", Id.ToString());
+				Flash.Call("Complete", Id.ToString(), qty);
 			}
 		}
 
 		public override string ToString()
 		{
-			string isInBlank = CompleteInBlank ? " [InBlank]" : "";
 			string itemId = ItemId != null ? $": {ItemId}" : "";
 			string safeRelogin = SafeRelogin ? " [SafeRelogin]" : "";
-			return $"{Id}{itemId}{isInBlank}{safeRelogin}";
+			return $"{Id}{itemId}{safeRelogin}";
 		}
 
 		#region ShouldSerialize

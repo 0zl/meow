@@ -14,7 +14,8 @@ namespace Grimoire.Botting
             { EquipType.Armor, "co" },
             { EquipType.Class, "ar" },
             { EquipType.Pet, "pe" },
-            { EquipType.Weapon, "Weapon" }
+            { EquipType.Weapon, "Weapon" },
+            { EquipType.Ground, "mi" }
         };
 
         private static Dictionary<string, EquipType> _backMap = _cosMap.ToDictionary(kvp => kvp.Value, kvp => kvp.Key);

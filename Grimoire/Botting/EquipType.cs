@@ -9,6 +9,7 @@
         Class,
         Pet,
         Weapon,
-        Offhand
+        Offhand,
+        Ground
     }
 }

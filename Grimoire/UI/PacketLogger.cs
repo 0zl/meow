@@ -357,12 +357,13 @@ namespace Grimoire.UI
             }
         }
 
+		private bool usingSpammer = true;
         private async void btnSpam_Click(object sender, EventArgs e)
         {
-            if (textToSend.TextLength < 1) return;
             if (btnSpam.Text.Equals("Spam"))
-            {
-                btnSpam.Text = "Stop";
+			{
+				if (textToSend.TextLength < 1) return;
+				btnSpam.Text = "Stop";
                 btnSendOnce.Enabled = false;
                 List<string> listPackets = new List<string>();
                 int spamTimes = Decimal.ToInt32(numSpamTimes.Value);
@@ -371,34 +372,31 @@ namespace Grimoire.UI
                 {
                     listPackets.Add(textToSend.Text);
                     if (spamTimes > 0)
-                    {
-                        for (int i = 1; i <= spamTimes; i++)
-                        {
-                            if (btnSpam.Text.Equals("Stop"))
-                            {
-                                await Proxy.Instance.SendToServer(textToSend.Text);
-                                await Task.Delay(spamDelay);
-                            }
-                        }
-                        stopSpammer(false);
-                    }
+					{
+						usingSpammer = false;
+						int i = 1;
+						while (i <= spamTimes && btnSpam.Text.Equals("Stop"))
+						{
+							await Proxy.Instance.SendToServer(textToSend.Text);
+							await Task.Delay(spamDelay);
+							i++;
+						}
+						btnSpam.Text = "Spam";
+						btnSendOnce.Enabled = true;
+					}
                     else
                     {
-                        Spammer.Instance.Start(listPackets, spamDelay);
+						usingSpammer = true;
+						Spammer.Instance.Start(listPackets, spamDelay);
                     }
                 }
             }
             else
-            {
-                stopSpammer(true);
-            }
-        }
-
-        private void stopSpammer(bool stopInstance)
-        {
-            btnSpam.Text = "Spam";
-            btnSendOnce.Enabled = true;
-            if (stopInstance) Spammer.Instance.Stop();
+			{
+				btnSpam.Text = "Spam";
+				btnSendOnce.Enabled = true;
+				if (usingSpammer) Spammer.Instance.Stop();
+			}
         }
     }
 }

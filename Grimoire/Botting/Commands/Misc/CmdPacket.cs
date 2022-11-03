@@ -42,7 +42,9 @@ namespace Grimoire.Botting.Commands.Misc
         {
             string text;
 
-            for (int i = 1; i <= SpamTimes; i++) {
+            int i = 1;
+            while (i <= SpamTimes && Player.IsLoggedIn && instance.IsRunning)
+			{
                 if (IsVar(Packet))
                 {
                     text = Configuration.Tempvariable[GetVar(Packet)];
@@ -59,7 +61,7 @@ namespace Grimoire.Botting.Commands.Misc
                     text = new Regex("-{1,}", RegexOptions.IgnoreCase).Replace(text, (Match m) => "-");
                 }
                 text = new Regex("(1e)[0-9]{1,}", RegexOptions.IgnoreCase).Replace(text, (Match m) => new Random().Next(1001, 99999).ToString());
-                
+
                 if (ForClient || Client)
                 {
                     if (text.Split(' ')[0] == "Level")
@@ -75,7 +77,8 @@ namespace Grimoire.Botting.Commands.Misc
                     await Proxy.Instance.SendToServer(text);
                     await Task.Delay(Delay);
                 }
-            }
+                i++;
+			}
         }
 
         public override string ToString()
