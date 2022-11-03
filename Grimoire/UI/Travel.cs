@@ -86,7 +86,6 @@ namespace Grimoire.UI
 		{
 			ExecuteTravel(new List<IBotCommand>
 			{
-				CreateJoinCommand("citadel", "m22", "Left"),
 				CreateJoinCommand("tercessuinotlim")
 			});
 		}
@@ -95,7 +94,6 @@ namespace Grimoire.UI
 		{
 			ExecuteTravel(new List<IBotCommand>
 			{
-				CreateJoinCommand("citadel", "m22", "Left"),
 				CreateJoinCommand("tercessuinotlim", "Twins", "Left")
 			});
 		}
@@ -104,7 +102,6 @@ namespace Grimoire.UI
 		{
 			ExecuteTravel(new List<IBotCommand>
 			{
-				CreateJoinCommand("citadel", "m22", "Left"),
 				CreateJoinCommand("tercessuinotlim", "Taro", "Left")
 			});
 		}
@@ -113,7 +110,6 @@ namespace Grimoire.UI
 		{
 			ExecuteTravel(new List<IBotCommand>
 			{
-				CreateJoinCommand("citadel", "m22", "Left"),
 				CreateJoinCommand("tercessuinotlim", "Swindle", "Left")
 			});
 		}
@@ -122,7 +118,6 @@ namespace Grimoire.UI
 		{
 			ExecuteTravel(new List<IBotCommand>
 			{
-				CreateJoinCommand("citadel", "m22", "Left"),
 				CreateJoinCommand("tercessuinotlim", "Boss2", "Right")
 			});
 		}
@@ -145,6 +140,10 @@ namespace Grimoire.UI
 
 		private CmdTravel CreateJoinCommand(string map, string cell = "Enter", string pad = "Spawn")
 		{
+			if (map == "tercessuinotlim" && Player.Map != "tercessuinotlim")
+			{
+				Player.MoveToCell("m22", "Left");
+			}
 			return new CmdTravel
 			{
 				Map = chkPriv.Checked ? (map + $"-{numPriv.Value}") : map,
@@ -786,7 +785,6 @@ namespace Grimoire.UI
 		{
 			ExecuteTravel(new List<IBotCommand>
 			{
-				CreateJoinCommand("citadel", "m22", "Left"),
 				CreateJoinCommand("tercessuinotlim", "m4", "Top")
 			});
 		}
@@ -795,7 +793,6 @@ namespace Grimoire.UI
 		{
 			ExecuteTravel(new List<IBotCommand>
 			{
-				CreateJoinCommand("citadel", "m22", "Left"),
 				CreateJoinCommand("tercessuinotlim", "m5", "Top")
 			});
 		}
@@ -804,7 +801,6 @@ namespace Grimoire.UI
 		{
 			ExecuteTravel(new List<IBotCommand>
 			{
-				CreateJoinCommand("citadel", "m22", "Left"),
 				CreateJoinCommand("tercessuinotlim", "m12", "Top")
 			});
 		}
@@ -821,7 +817,7 @@ namespace Grimoire.UI
 
 			ExecuteTravel(new List<IBotCommand>
 			{
-				CreateJoinCommand("museum"),
+				//CreateJoinCommand("museum"),
 				
 				// Staircase to hell.
 				// Sorry Satan :3
@@ -868,9 +864,12 @@ namespace Grimoire.UI
 		private async Task SkipMap(string clientPacket, string map, string cell = null, string pad = null)
 		{
 			await Proxy.Instance.SendToClient(clientPacket);
-			await Task.Delay(500);
+			await Task.Delay(1000);
 			string room = chkPriv.Checked ? $"-{numPriv.Value}" : "";
-			Player.JoinMap(map + room, cell, pad);
+			ExecuteTravel(new List<IBotCommand>
+			{
+				CreateJoinCommand(map + room, cell, pad)
+			});
 		}
 
 		private async void btnTreeTitan_Click(object sender, EventArgs e)

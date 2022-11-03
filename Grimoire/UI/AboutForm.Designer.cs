@@ -199,7 +199,6 @@ namespace Grimoire.UI
 			this.pbGrimoireBig.Size = new System.Drawing.Size(256, 256);
 			this.pbGrimoireBig.TabIndex = 0;
 			this.pbGrimoireBig.TabStop = false;
-			this.pbGrimoireBig.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbGrimoireBig_Click);
 			// 
 			// darkLabel5
 			// 

@@ -201,15 +201,15 @@ namespace Grimoire.Game.Data
 			Flash.Call("Accept", Id.ToString());
 		}
 
-		public void Complete()
+		public void Complete(int qty = 1)
 		{
 			if (!string.IsNullOrEmpty(ItemId))
 			{
-				Flash.Call("Complete", Id.ToString(), ItemId);
+				Flash.Call("Complete", Id.ToString(), qty, ItemId);
 			}
 			else
 			{
-				Flash.Call("Complete", Id.ToString());
+				Flash.Call("Complete", Id.ToString(), qty);
 			}
 		}
 

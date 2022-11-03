@@ -93,17 +93,5 @@ namespace Grimoire.UI
 		{
 			return $"Version {Program.Version} ({Program.ReleaseDate.Replace("-", "")})";
 		}
-
-		int clickCounter = 0;
-
-		private void pbGrimoireBig_Click(object sender, MouseEventArgs e)
-		{
-			clickCounter++;
-			if (clickCounter >= 3)
-			{
-				Root.EggsForm = new Egg();
-				this.appName.Text = "You found the Treasure !!";
-			}
-		}
 	}
 }

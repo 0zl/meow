@@ -1,4 +1,5 @@
 using Grimoire.Botting.Commands.Misc;
+using Grimoire.Botting.Commands.Quest;
 using Grimoire.Game;
 using Grimoire.Game.Data;
 using Grimoire.Networking;
@@ -150,6 +151,7 @@ namespace Grimoire.Botting
 			_bsLabels.Clear();
 			IsRunning = false;
 			BotData.BotState = BotData.State.Others;
+			this.StopCommands();
 		}
 
 		private bool litePrefReAccept = false;
@@ -177,7 +179,6 @@ namespace Grimoire.Botting
 		{
 			if (Configuration.Quests.Count > 0)
 			{
-				_isRunningQuestList = true;
 				StartQuestList();
 			}
 
@@ -194,7 +195,7 @@ namespace Grimoire.Botting
 				if (!Player.IsLoggedIn)
 				{
 					LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Disconnected. Last cmd: [{Index}]{lastCommand}");
-					_isRunningQuestList = false;
+					StopQuestList();
 
 					if (Configuration.AutoRelogin)
 					{
@@ -213,13 +214,6 @@ namespace Grimoire.Botting
 						this.LoadBankItems();
 						OptionsManager.Start();
 						LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Relogin success.");
-
-
-						if (Configuration.Quests.Count > 0)
-						{
-							_isRunningQuestList = true;
-							StartQuestList();
-						}
 
 						OptionsManager.InfiniteRange = infiniteRange;
 						OptionsManager.ProvokeMonsters = provoke;
@@ -286,8 +280,9 @@ namespace Grimoire.Botting
 
 		private Dictionary<int, int> qFailures = new Dictionary<int, int>();
 
-		private async void StartQuestList()
+		public async void StartQuestList()
 		{
+			_isRunningQuestList = true;
 			int questDelay = (int)BotManager.Instance.numQuestDelay.Value;
 			if (Configuration.Quests.Count > 0)
 			{
@@ -339,6 +334,11 @@ namespace Grimoire.Botting
 					}
 				}
 			}
+		}
+
+		public void StopQuestList()
+		{
+			_isRunningQuestList = false;
 		}
 
 		private async void ToggleSpammer(IBotCommand cmd)
