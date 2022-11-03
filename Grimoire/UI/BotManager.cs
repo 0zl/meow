@@ -1960,6 +1960,13 @@ namespace Grimoire.UI
 			}
 		}
 
+		public void RemoveQuest(int QuestID, string ItemID = null, bool safeRelogin = false)
+		{
+			var i = lstQuests.Items.Cast<Quest>().ToList().FirstOrDefault((Quest q) =>
+				q.Id == QuestID && q.ItemId == ItemID && q.SafeRelogin == safeRelogin);
+			lstQuests.Items.Remove(i);
+		}
+
 		public void AddDrop(string Name)
 		{
 			if (!lstDrops.Items.Contains(Name))
@@ -2290,14 +2297,14 @@ namespace Grimoire.UI
 			IBotCommand cmd;
 			switch (((Button)sender).Text)
 			{
-				case "Up++":
+				case "++":
 					cmd = new CmdIndex
 					{
 						Type = CmdIndex.IndexCommand.Up,
 						Index = (int)numIndexCmd.Value
 					};
 					break;
-				case "Down--":
+				case "--":
 					cmd = new CmdIndex
 					{
 						Type = CmdIndex.IndexCommand.Down,
@@ -3234,9 +3241,24 @@ namespace Grimoire.UI
 			}
 			AddCommand(new CmdAddQuestList
 			{
-				QuestID = (int)numQuestListID.Value,
-				ItemID = itemId,
-				SafeRelogin = chkReloginCompleteQuest.Checked,
+				Id = (int)numQuestListID.Value,
+				ItemId = itemId,
+				SafeRelogin = chkReloginCompleteQuest.Checked
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnRemoveQuestList_Click(object sender, EventArgs e)
+		{
+			string itemId = null;
+			if (chkQuestListItem.Checked)
+			{
+				itemId = numQuestListItem.Value.ToString();
+			}
+			AddCommand(new CmdRemoveQuestList
+			{
+				Id = (int)numQuestListID.Value,
+				ItemId = itemId,
+				SafeRelogin = chkReloginCompleteQuest.Checked
 			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 

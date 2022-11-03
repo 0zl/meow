@@ -48,11 +48,14 @@ namespace Grimoire.Botting
                 if (command is CmdAcceptQuest cmdAcceptQuest)
                 {
                     list.Add(cmdAcceptQuest.Quest.Id);
-                    
                 }
                 else if (command is CmdCompleteQuest cmdCompleteQuest)
                 {
                     list.Add(cmdCompleteQuest.Quest.Id);
+                }
+                else if (command is CmdAddQuestList cmdAddQuestList)
+                {
+                    list.Add(cmdAddQuestList.Id);
                 }
             }
             list.AddRange(instance.Configuration.Quests.Select((Quest q) => q.Id));
@@ -62,7 +65,25 @@ namespace Grimoire.Botting
             }
         }
 
-		public static void LoadBankItems(this IBotEngine instance)
+
+        public static async void StopCommands(this IBotEngine instance)
+        {
+            foreach (IBotCommand command in instance.Configuration.Commands)
+            {
+                if (command is CmdAddQuestList cmdAddQuestList)
+                {
+                    var remove = new CmdRemoveQuestList
+					{
+                        Id = cmdAddQuestList.Id,
+                        ItemId = cmdAddQuestList.ItemId,
+                        SafeRelogin = cmdAddQuestList.SafeRelogin,
+					};
+					await remove.Execute(instance);
+                }
+            }
+        }
+
+        public static void LoadBankItems(this IBotEngine instance)
         {
 			if (instance.Configuration.Commands.Any((IBotCommand c) =>
 				c is CmdBankSwap || 
