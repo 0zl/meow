@@ -50,6 +50,7 @@ namespace Grimoire.Botting.Commands.Combat
 				Flash.FlashCall += AntiCounterHandler;
 			}
 
+			Console.WriteLine("Mon:" + Monster);
 			Player.AttackMonster(Monster);
 
 			if (instance.Configuration.Skills.Count > 0)

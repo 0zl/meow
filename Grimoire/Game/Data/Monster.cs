@@ -33,6 +33,13 @@ namespace Grimoire.Game.Data
             set;
         }
 
+        [JsonProperty("MonMapID")]
+        public int MonMapID
+        {
+            get;
+            set;
+        }
+
         [JsonProperty("iLvl")]
         public int Level
         {

@@ -266,7 +266,29 @@ namespace Grimoire.Game
         /// Attacks Monster
         /// </summary>
         /// <param name="name"></param>
-        public static void AttackMonster(string name) => Flash.Call("AttackMonster", name);
+        public static void AttackMonster(string name)
+		{
+            if(name.StartsWith("id'"))
+			{
+                Flash.Call("AttackMonsterByMonMapId", name.Split('\'')[1]);
+            } 
+            else if (name.StartsWith("id."))
+            {
+                Flash.Call("AttackMonsterByMonMapId", name.Split('.')[1]);
+            }
+            else if (name.StartsWith("id:"))
+            {
+                Flash.Call("AttackMonsterByMonMapId", name.Split(':')[1]);
+            }
+            else if (name.StartsWith("id-"))
+            {
+                Flash.Call("AttackMonsterByMonMapId", name.Split('-')[1]);
+            }
+            else
+            {
+                Flash.Call("AttackMonster", name);
+            }
+		}
 
         /// <summary>
         /// Sets Respawn Point to Current Cell Pad
@@ -305,6 +327,11 @@ namespace Grimoire.Game
         public static void Logout() => Flash.Call("Logout", new string[0]);
 
         public static void SetTargetPlayer(string username) => Flash.Call("SetTargetPlayer", username);
+
+        /// <summary>
+        /// Gets Auras.
+        /// </summary>
+        public static int GetAuras(bool isSelf, string auraName) => Flash.Call<int>("GetAurasValue", isSelf.ToString(), auraName);
 
         static Player()
         {

@@ -12,6 +12,8 @@ namespace Grimoire.Tools
 		public const string C_LOG_DEBUG_SWF = "logDebugSwf";
 		public const string C_SAFE_CELL = "safeCell";
 		public const string C_QUEST_LIST_DELAY = "questListDelay";
+		public const string C_ACCESS_LEVEL = "accessLevel";
+		public const string C_NAME_COLOR = "nameColor";
 
 		public static string GetValue(string key)
 		{
