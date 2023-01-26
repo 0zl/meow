@@ -2511,7 +2511,7 @@ namespace Grimoire.UI
 			if (cmdText.Contains(':'))
 			{
 				toDraw = lstCommands.Items[e.Index].ToString().Split(':');
-				Region second = DrawString(e.Graphics, toDraw[0], font, color, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
+				Region second = DrawString(e.Graphics, toDraw[0] + ": ", font, color, region, GetCurrentBoolCentered(scmd) ? centered : StringFormat.GenericDefault);
 				region = new RectangleF(region.X + second.GetBounds(e.Graphics).Width + 3, region.Y, region.Width, region.Height);
 				if (toDraw[1].Contains(","))
 				{

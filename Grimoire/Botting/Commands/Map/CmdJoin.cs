@@ -15,10 +15,17 @@ namespace Grimoire.Botting.Commands.Map
 
 		public int Try { get; set; } = 1;
 
+		private string _Cell;
+
+		private string _Pad;
+
 		public async Task Execute(IBotEngine instance)
 		{
 			BotData.BotState = BotData.State.Move;
 			await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer), null, 15);
+
+			_Cell = instance.IsVar(Cell) ? Configuration.Tempvariable[instance.GetVar(Cell)] : Cell;
+			_Pad = instance.IsVar(Pad) ? Configuration.Tempvariable[instance.GetVar(Pad)] : Pad;
 
 			//[MAP]-[NUMBER]
 
@@ -50,15 +57,15 @@ namespace Grimoire.Botting.Commands.Map
 
 			if (namName.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
 			{
-				if (!Player.Cell.Equals(this.Cell, StringComparison.OrdinalIgnoreCase))
+				if (!Player.Cell.Equals(_Cell, StringComparison.OrdinalIgnoreCase))
 				{
-					Player.MoveToCell(this.Cell, this.Pad);
+					Player.MoveToCell(_Cell, _Pad);
 					await Task.Delay(500);
 				}
 				World.SetSpawnPoint();
 				BotData.BotMap = namName;
-				BotData.BotCell = this.Cell;
-				BotData.BotPad = this.Pad;
+				BotData.BotCell = _Cell;
+				BotData.BotPad = _Pad;
 			}
 		}
 
@@ -73,7 +80,7 @@ namespace Grimoire.Botting.Commands.Map
 				await Task.Delay(1500);
 			}
 			String join = RoomNumber.Length > 0 ? $"{MapName}-{RoomNumber}" : MapName;
-			Player.JoinMap(join, this.Cell, this.Pad);
+			Player.JoinMap(join, _Cell, _Pad);
 			await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 10);
 			await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
 		}

@@ -1544,6 +1544,7 @@ namespace Grimoire.UI
 				this.Icon = global::Properties.Resources.Artix;
 				this.nTray.Icon = global::Properties.Resources.Artix;
 				this.splitContainer1.Visible = false;
+				this.Height -= this.darkMenuStrip1.Height;
 			}
 			else
 			{
@@ -1551,6 +1552,7 @@ namespace Grimoire.UI
 				this.Icon = global::Properties.Resources.GrimoireIcon;
 				this.nTray.Icon = global::Properties.Resources.GrimoireIcon;
 				this.splitContainer1.Visible = true;
+				this.Height += this.darkMenuStrip1.Height;
 			}
 		}
 	}

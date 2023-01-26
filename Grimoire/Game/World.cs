@@ -85,7 +85,29 @@ namespace Grimoire.Game
 
         public static int GetMonsterHealth(string monster) => Flash.Call<int>("GetMonsterHealth", new string[] { monster });
 
-        public static bool IsMonsterAvailable(string name) => Flash.Call<bool>("IsMonsterAvailable", new string[1]{name});
+        public static bool IsMonsterAvailable(string name)
+		{
+			if (name.StartsWith("id'"))
+			{
+                return Flash.Call<bool>("IsMonsterAvailableByMonMapID", new string[1] { name.Split('\'')[1] });
+            } 
+            else if (name.StartsWith("id."))
+            {
+                return Flash.Call<bool>("IsMonsterAvailableByMonMapID", new string[1] { name.Split('.')[1] });
+            }
+            else if (name.StartsWith("id:"))
+            {
+                return Flash.Call<bool>("IsMonsterAvailableByMonMapID", new string[1] { name.Split(':')[1] });
+            }
+            else if (name.StartsWith("id-"))
+            {
+                return Flash.Call<bool>("IsMonsterAvailableByMonMapID", new string[1] { name.Split('-')[1] });
+            }
+            else
+            {
+                return Flash.Call<bool>("IsMonsterAvailable", new string[1] { name });
+            }
+		}
 
         static World()
         {

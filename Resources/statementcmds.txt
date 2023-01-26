@@ -448,6 +448,48 @@
       "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdNotHasTarget, Grimoire",
       "Tag": "This player",
       "Text": "Is not has target"
-    }
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdPlayerAuraEquals, Grimoire",
+      "Tag": "Aura",
+      "Text": "Player aura value equals",
+      "Description1": "Aura name",
+      "Description2": "Aura value"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdPlayerAuraGreaterThan, Grimoire",
+      "Tag": "Aura",
+      "Text": "Player aura value greater than",
+      "Description1": "Aura name",
+      "Description2": "Aura value"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdPlayerAuraLessThan, Grimoire",
+      "Tag": "Aura",
+      "Text": "Player aura value less than",
+      "Description1": "Aura name",
+      "Description2": "Aura value"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdTargetAuraEquals, Grimoire",
+      "Tag": "Aura",
+      "Text": "Target aura value equals",
+      "Description1": "Aura name",
+      "Description2": "Aura value"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdTargetAuraGreaterThan, Grimoire",
+      "Tag": "Aura",
+      "Text": "Target aura value greater than",
+      "Description1": "Aura name",
+      "Description2": "Aura value"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdTargetAuraLessThan, Grimoire",
+      "Tag": "Aura",
+      "Text": "Target aura value less than",
+      "Description1": "Aura name",
+      "Description2": "Aura value"
+    },
   ]
 }

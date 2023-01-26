@@ -161,6 +161,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerAuraEquals.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerAuraGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerAuraLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetAuraEquals.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetAuraGreaterThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetAuraLessThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Quest\CmdAddQuestList.cs" />
     <Compile Include="Grimoire\Botting\Commands\Quest\CmdRemoveQuestList.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerAutoZoneDarkCarnax.cs" />

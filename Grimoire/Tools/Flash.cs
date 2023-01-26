@@ -486,6 +486,14 @@ namespace Grimoire.Tools
 			return packet;
 		}
 
+		public static void setPreVars()
+		{
+			Configuration.Tempvariable["UID"] = Call<int>("UserID", new object[0]).ToString();
+			Configuration.Tempvariable["Username"] = Call<string>("GetUsername", new string[0]);
+			string nameColor = ClientConfig.GetValue(ClientConfig.C_NAME_COLOR);
+			if (nameColor != "0") Call("ChangeColorName", nameColor);
+		}
+
 		public static string ProcessPext(string text)
 		{
 			dynamic packet = JsonConvert.DeserializeObject<dynamic>(text);
@@ -493,9 +501,13 @@ namespace Grimoire.Tools
 			dynamic data = packet["params"].dataObj;
 			if (type == "json")
 			{
-				//Console.WriteLine($"cmd: {data.cmd}");
+				Console.WriteLine($"cmd: {data.cmd}");
 				switch ((string)data.cmd)
 				{
+					case "initUserDatas":
+						Flash.setPreVars();
+						break;
+
 					case "loadInventoryBig":
 						Player.Bank.GetBank();
 						break;
