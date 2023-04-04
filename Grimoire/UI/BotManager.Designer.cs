@@ -1561,7 +1561,7 @@ namespace Grimoire.UI
 			this.tabMap.Margin = new System.Windows.Forms.Padding(0);
 			this.tabMap.Name = "tabMap";
 			this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMap.Size = new System.Drawing.Size(192, 73);
+			this.tabMap.Size = new System.Drawing.Size(541, 301);
 			this.tabMap.TabIndex = 2;
 			this.tabMap.Text = "Map";
 			// 
@@ -1839,7 +1839,7 @@ namespace Grimoire.UI
 			this.tabItem.Margin = new System.Windows.Forms.Padding(0);
 			this.tabItem.Name = "tabItem";
 			this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-			this.tabItem.Size = new System.Drawing.Size(192, 73);
+			this.tabItem.Size = new System.Drawing.Size(541, 301);
 			this.tabItem.TabIndex = 1;
 			this.tabItem.Text = "Item";
 			// 
@@ -2295,7 +2295,7 @@ namespace Grimoire.UI
 			this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
 			this.tabQuest.Name = "tabQuest";
 			this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-			this.tabQuest.Size = new System.Drawing.Size(192, 73);
+			this.tabQuest.Size = new System.Drawing.Size(541, 301);
 			this.tabQuest.TabIndex = 3;
 			this.tabQuest.Text = "Quest";
 			// 
@@ -2753,7 +2753,7 @@ namespace Grimoire.UI
 			this.tabMisc.Margin = new System.Windows.Forms.Padding(0);
 			this.tabMisc.Name = "tabMisc";
 			this.tabMisc.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMisc.Size = new System.Drawing.Size(192, 73);
+			this.tabMisc.Size = new System.Drawing.Size(541, 301);
 			this.tabMisc.TabIndex = 4;
 			this.tabMisc.Text = "Misc";
 			// 
@@ -2762,7 +2762,7 @@ namespace Grimoire.UI
 			this.darkGroupBox15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.darkGroupBox15.Controls.Add(this.btnFollowCmd);
 			this.darkGroupBox15.Controls.Add(this.tbFollowPlayer);
-			this.darkGroupBox15.Location = new System.Drawing.Point(321, 0);
+			this.darkGroupBox15.Location = new System.Drawing.Point(321, 228);
 			this.darkGroupBox15.Name = "darkGroupBox15";
 			this.darkGroupBox15.Size = new System.Drawing.Size(136, 45);
 			this.darkGroupBox15.TabIndex = 173;
@@ -3657,7 +3657,7 @@ namespace Grimoire.UI
 			this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
 			this.tabOptions.Name = "tabOptions";
 			this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-			this.tabOptions.Size = new System.Drawing.Size(192, 73);
+			this.tabOptions.Size = new System.Drawing.Size(541, 301);
 			this.tabOptions.TabIndex = 5;
 			this.tabOptions.Text = "Options";
 			// 
@@ -4647,7 +4647,7 @@ namespace Grimoire.UI
 			this.tabHunt.Margin = new System.Windows.Forms.Padding(0);
 			this.tabHunt.Name = "tabHunt";
 			this.tabHunt.Padding = new System.Windows.Forms.Padding(3);
-			this.tabHunt.Size = new System.Drawing.Size(192, 73);
+			this.tabHunt.Size = new System.Drawing.Size(541, 301);
 			this.tabHunt.TabIndex = 3;
 			this.tabHunt.Text = "Hunt";
 			// 

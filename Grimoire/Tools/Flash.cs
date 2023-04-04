@@ -397,7 +397,7 @@ namespace Grimoire.Tools
 					SwfLoadProgress?.Invoke(int.Parse(args[0].ToString()));
 					if (args[0].ToString() == "100")
 					{
-						Flash.Call2("SetTitle", $"Grimlite Li {Program.Version}");
+						Flash.Call("SetTitle", $"Grimlite Li {Program.Version}");
 					}
 					break;
 
@@ -501,7 +501,7 @@ namespace Grimoire.Tools
 			dynamic data = packet["params"].dataObj;
 			if (type == "json")
 			{
-				Console.WriteLine($"cmd: {data.cmd}");
+				//Console.WriteLine($"cmd: {data.cmd}");
 				switch ((string)data.cmd)
 				{
 					case "initUserDatas":
