@@ -11,7 +11,6 @@ namespace Grimoire.Botting.Commands.Combat
         public string Cell { get; set; }
         public string Pad { get; set; }
         public string Monster { get; set; }
-        public string MonId { get; set; }
         public string ItemName { get; set; }
         public ItemType ItemType { get; set; }
         public string Quantity { get; set; }

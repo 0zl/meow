@@ -46,7 +46,7 @@ namespace Grimoire.UI
 			this.imgAstolfo.TabStop = false;
 			this.imgAstolfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.imgAstolfo_MouseClick);
 			// 
-			// IceCreamForm
+			// Egg
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -55,8 +55,8 @@ namespace Grimoire.UI
 			this.Controls.Add(this.imgAstolfo);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "IceCreamForm";
-			this.Text = "Dig your treasure here !!";
+			this.Name = "Egg";
+			this.Text = "Heheh...";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			((System.ComponentModel.ISupportInitialize)(this.imgAstolfo)).EndInit();
 			this.ResumeLayout(false);

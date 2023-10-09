@@ -231,7 +231,7 @@ namespace Grimoire.Tools
 
         public static void GrabMonsters(TreeView tree)
         {
-            List<Monster> list = (from x in World.AvailableMonsters?.GroupBy((Monster m) => m.Name)
+            List<Monster> list = (from x in World.AvailableMonsters?.GroupBy((Monster m) => m.MonMapID)
                                   select x.First()).ToList();
             if (list != null && list.Count > 0)
             {
@@ -240,6 +240,7 @@ namespace Grimoire.Tools
                     TreeNode treeNode = tree.Nodes.Add(item.Name);
                     treeNode.ContextMenuStrip = Wiki(item.Name);
                     treeNode.Nodes.Add($"ID: {item.Id}");
+                    treeNode.Nodes.Add($"MonMapID: {item.MonMapID}");
                     treeNode.Nodes.Add($"Race: {item.Race}");
                     treeNode.Nodes.Add($"Level: {item.Level}");
                     treeNode.Nodes.Add($"Health: {item.Health}/{item.MaxHealth}");

@@ -116,7 +116,6 @@ namespace Grimoire.UI
 			Program.PluginsManager.LoadRange(Directory.GetFiles(Program.PluginsPath));
 		}
 
-
 		class CharInfo
 		{
 			public string Username;
@@ -202,6 +201,7 @@ namespace Grimoire.UI
 			//flashPlayer.FlashCall += Flash.ProcessFlashCall;
 			flashPlayer.FlashCall -= Flash.CallHandler;
 			flashPlayer.FlashCall += Flash.CallHandler;
+			flashPlayer.Visible = true;
 			gameContainer.Controls.Add(flashPlayer);
 			flashPlayer.EndInit();
 
@@ -226,7 +226,7 @@ namespace Grimoire.UI
 		{
 			if (progress < 100) return;
 			FlashUtil.SwfLoadProgress -= OnLoadProgress;
-			flashPlayer.Visible = true;
+			//flashPlayer.Visible = true;
 		}
 
 		public BotManager botManager = BotManager.Instance;
@@ -1544,6 +1544,7 @@ namespace Grimoire.UI
 				this.Icon = global::Properties.Resources.Artix;
 				this.nTray.Icon = global::Properties.Resources.Artix;
 				this.splitContainer1.Visible = false;
+				this.Height -= this.darkMenuStrip1.Height;
 			}
 			else
 			{
@@ -1551,6 +1552,7 @@ namespace Grimoire.UI
 				this.Icon = global::Properties.Resources.GrimoireIcon;
 				this.nTray.Icon = global::Properties.Resources.GrimoireIcon;
 				this.splitContainer1.Visible = true;
+				this.Height += this.darkMenuStrip1.Height;
 			}
 		}
 	}

@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Grimoire.Networking.Handlers
 {
-	public class HandlerAutoZoneDarkCarnax: IJsonMessageHandler
+	public class HandlerAutoZoneDarkCarnax : IJsonMessageHandler
 	{
 		public string[] HandledCommands { get; } = { "event" };
 

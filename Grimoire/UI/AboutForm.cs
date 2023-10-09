@@ -31,6 +31,16 @@ namespace Grimoire.UI
 			Process.Start("https://github.com/Froztt13/Grimlite-Li");
 		}
 
+		private void pbDropbox_Click(object sender, EventArgs e)
+		{
+			Process.Start("https://www.dropbox.com/sh/zdmgaqrrxt4bc1x/AAB_kKx1eV9wWrfox7VGoNXWa?dl=0");
+		}
+
+		private void lblDropbox_Click(object sender, EventArgs e)
+		{
+			Process.Start("https://www.dropbox.com/sh/zdmgaqrrxt4bc1x/AAB_kKx1eV9wWrfox7VGoNXWa?dl=0");
+		}
+
 		private void pbCatGithub_Click(object sender, EventArgs e)
 		{
 			Process.Start("https://github.com/0zl");
@@ -92,18 +102,6 @@ namespace Grimoire.UI
 		public string getVersion()
 		{
 			return $"Version {Program.Version} ({Program.ReleaseDate.Replace("-", "")})";
-		}
-
-		int clickCounter = 0;
-
-		private void pbGrimoireBig_Click(object sender, MouseEventArgs e)
-		{
-			clickCounter++;
-			if (clickCounter >= 3)
-			{
-				Root.EggsForm = new Egg();
-				this.appName.Text = "You found the Treasure !!";
-			}
 		}
 	}
 }

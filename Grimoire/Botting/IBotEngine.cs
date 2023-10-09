@@ -1,3 +1,4 @@
+using Grimoire.Botting.Commands.Quest;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -35,6 +36,10 @@ namespace Grimoire.Botting
         event Action<int> IndexChanged;
 
         event Action<Configuration> ConfigurationChanged;
+
+        void StartQuestList();
+
+        void StopQuestList();
 
         void Start(Configuration config);
 

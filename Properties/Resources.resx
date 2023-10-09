@@ -118,40 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pdipic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pdipic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="statementcmds" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\statementcmds.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="GrimoireIconBig1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GrimoireIconBig.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MPGHfavicon16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MPGHfavicon16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Discord" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Discord.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pdip1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pdip.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="GrimoireIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\big.Ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Artix" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Artix.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="statementcmds" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\statementcmds.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="defaulttext" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\defaulttext.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="astolfo_head" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\astolfo_head.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GitHub" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GitHub.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pdip1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pdip.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="defaulttext" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\defaulttext.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="MPGHfavicon16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MPGHfavicon16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Artix" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Artix.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pdipic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pdipic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GrimoireIconBig1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GrimoireIconBig.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MPGHfavicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MPGHfavicon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GrimoireIconBig" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GrimoireIconBig.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dropbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dropbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -42,6 +42,17 @@ namespace Grimoire.Game.Data
             Flash.Call("BuyItem", name);
         }
 
+        public static void BuyItemQty(string name, int qty)
+        {
+            Flash.Call("BuyItemQty", new string[] {name, qty.ToString()});
+        }
+
+        public static void BuyItemQty(int itemId, int shopItemId, int qty)
+        {
+            Flash.Call("BuyItemQtyById", new string[] { qty.ToString(), itemId.ToString(), shopItemId.ToString() });
+        }
+
+
         public static void ResetShopInfo()
         {
             Flash.Call("ResetShopInfo", new string[0]);

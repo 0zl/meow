@@ -50,6 +50,7 @@ namespace Grimoire.Botting.Commands.Combat
 				Flash.FlashCall += AntiCounterHandler;
 			}
 
+			Console.WriteLine("Mon:" + Monster);
 			Player.AttackMonster(Monster);
 
 			if (instance.Configuration.Skills.Count > 0)
@@ -223,37 +224,6 @@ namespace Grimoire.Botting.Commands.Combat
 								}
 							}
 					}
-			}
-		}
-
-		private void CapturePlayerData(Message message)
-		{
-			string msg = message.ToString();
-
-			try
-			{
-				//"cmd":"aura++","auras":[{"nam":"Counter Attack"
-				//prepares a counter attack!!
-				string c1 = "\"cmd\":\"aura++\",\"auras\":[{\"nam\":\"Counter Attack\"";
-				string c2 = "prepares a counter attack";
-				if (msg.Contains(c2))
-				{
-					Console.WriteLine("Counter Attack: active");
-					Player.CancelTarget();
-					onPause = true;
-				}
-
-				//"cmd":"aura--","aura":{"nam":"Counter Attack"
-				if (msg.Contains("\"cmd\":\"aura--\",\"aura\":{\"nam\":\"Counter Attack\""))
-				{
-					Console.WriteLine("Counter Attack: fades");
-					onPause = false;
-				}
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine("MyMsg: " + msg);
-				Console.WriteLine("MyError: " + e.Message);
 			}
 		}
 

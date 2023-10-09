@@ -7,36 +7,35 @@ namespace Grimoire.Botting.Commands.Combat
 {
 	public class CmdUseSkill : IBotCommand
 	{
-		public Skill Skill { get; set; }
+		public string Monster { get; set; } = "*";
+
+		public string Index { get; set; }
 
 		public bool Wait { get; set; }
 
-		public bool Targeted { get; set; }
-
-		public string Target { get; set; } = "*";
+		public bool Force { get; set; }
 
 		public async Task Execute(IBotEngine instance)
 		{
-			string target = instance.IsVar(Target) ? Configuration.Tempvariable[instance.GetVar(Target)] : Target;
+			string target = instance.IsVar(Monster) ? Configuration.Tempvariable[instance.GetVar(Monster)] : Monster;
 			if (instance.Configuration.SkipAttack)
 			{
-				if (Player.HasTarget) Player.CancelTarget();
+				if (Player.HasTarget) Player.CancelTarget(); 
 				return;
 			}
 			Player.AttackMonster(target);
-			if (Targeted)
-			{
+			if (!Force)
+            {
 				if (!Player.HasTarget) return;
-			}
-			bool waitSkillCD = instance.Configuration.WaitForSkill;
-			if (Wait)
-				await Task.Delay(Player.SkillAvailable(Skill.Index));
-			Player.UseSkill(Skill.Index);
+            }
+			if (Wait) 
+				await Task.Delay(Player.SkillAvailable(Index));
+			Player.UseSkill(Index);
 		}
 
 		public override string ToString()
 		{
-			return "Skill " + $"[{Target}] " + (Wait ? "[Wait] " : " ") + (!Targeted ? "[Force] " : " ") + Skill.Index + ": " + Skill.GetSkillName(Skill.Index);
+			return "Skill " + $"[{Monster}] " + (Wait? "[Wait] " : " ") + (Force ? "[Force] " : " ") + Index + ": " + Skill.GetSkillName(Index);
 		}
 	}
 }
