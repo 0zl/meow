@@ -2864,6 +2864,14 @@ namespace Grimoire.UI
 			Flash.Call("SetFPS", (int)numSetFPS.Value);
 		}
 
+		private void btnSetFPSCmd_Click(object sender, EventArgs e)
+		{
+			this.AddCommand(new CmdSetFPS
+			{
+				FPS = (int)numSetFPS.Value
+			});
+		}
+
 		private void btnBSStart_Click(object sender, EventArgs e)
 		{
 			this.AddCommand(new CmdBackgroundPacket
