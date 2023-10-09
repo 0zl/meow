@@ -116,7 +116,6 @@ namespace Grimoire.UI
 			Program.PluginsManager.LoadRange(Directory.GetFiles(Program.PluginsPath));
 		}
 
-
 		class CharInfo
 		{
 			public string Username;
@@ -202,6 +201,7 @@ namespace Grimoire.UI
 			//flashPlayer.FlashCall += Flash.ProcessFlashCall;
 			flashPlayer.FlashCall -= Flash.CallHandler;
 			flashPlayer.FlashCall += Flash.CallHandler;
+			flashPlayer.Visible = true;
 			gameContainer.Controls.Add(flashPlayer);
 			flashPlayer.EndInit();
 
@@ -226,7 +226,7 @@ namespace Grimoire.UI
 		{
 			if (progress < 100) return;
 			FlashUtil.SwfLoadProgress -= OnLoadProgress;
-			flashPlayer.Visible = true;
+			//flashPlayer.Visible = true;
 		}
 
 		public BotManager botManager = BotManager.Instance;

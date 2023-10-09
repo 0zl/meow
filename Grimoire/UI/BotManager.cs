@@ -35,6 +35,7 @@ using System.IO.Compression;
 using System.Text;
 using Grimoire.Networking.Handlers;
 using Grimoire.Utils;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Grimoire.UI
 {
@@ -2983,10 +2984,10 @@ namespace Grimoire.UI
 						}
 				}
 
-				if (data.cmd == "initUserData")
+				if (data.cmd == "uotls")
 				{
-					JObject playerData = (JObject)data.data;
-					showLog(playerData["strUsername"]?.ToString(), playerData["intAccessLevel"]?.ToString());
+					string unm = data.unm;
+					if (unm != null) showLog(unm, Player.GetAccessLevel(unm));
 				}
 			}
 		}
@@ -3014,6 +3015,7 @@ namespace Grimoire.UI
 					color = "Unknown";
 					break;
 			}
+			Console.WriteLine($"{username}: {accessLevel}");
 
 			if (_accessLevel >= 30)
 			{

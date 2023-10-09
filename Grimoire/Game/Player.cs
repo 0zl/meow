@@ -318,6 +318,7 @@ namespace Grimoire.Game
         public static void UseBoost(int id) => Flash.Call("UseBoost", id.ToString());
 
         public static void UseSkill(string index) => Flash.Call("UseSkill", index);
+
         public static void ForceUseSkill(string index) => Flash.Call("ForceUseSkill", index);
 
         public static void GetMapItem(string id) => Flash.Call("GetMapItem", id);
@@ -328,10 +329,12 @@ namespace Grimoire.Game
 
         public static void SetTargetPlayer(string username) => Flash.Call("SetTargetPlayer", username);
 
-        /// <summary>
-        /// Gets Auras.
-        /// </summary>
-        public static int GetAuras(bool isSelf, string auraName) => Flash.Call<int>("GetAurasValue", isSelf.ToString(), auraName);
+		public static string GetAccessLevel(string username) => Flash.Call<string>("GetAccessLevel", username);
+
+		/// <summary>
+		/// Gets Auras.
+		/// </summary>
+		public static int GetAuras(bool isSelf, string auraName) => Flash.Call<int>("GetAurasValue", isSelf.ToString(), auraName);
 
         static Player()
         {

@@ -24,9 +24,9 @@ namespace Grimoire.Game
 
         private static readonly Dictionary<LockActions, string> LockedActions;
 
-        public static List<Monster> VisibleMonsters;
+        public static List<Monster> VisibleMonsters => Flash.Call<List<Monster>>("GetVisibleMonstersInCell", new string[0]);
 
-        public static List<Monster> AvailableMonsters => Flash.Call<List<Monster>>("GetMonstersInCell", new string[0]);
+		public static List<Monster> AvailableMonsters => Flash.Call<List<Monster>>("GetMonstersInCell", new string[0]);
 
         public static void ReloadMap()
         {
@@ -172,7 +172,6 @@ namespace Grimoire.Game
                     "tfer"
                 }
             };
-            VisibleMonsters = Flash.Call<List<Monster>>("GetVisibleMonstersInCell", new string[0]);
         }
     }
 }
