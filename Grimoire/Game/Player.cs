@@ -329,10 +329,12 @@ namespace Grimoire.Game
 
         public static void SetTargetPlayer(string username) => Flash.Call("SetTargetPlayer", username);
 
-        /// <summary>
-        /// Gets Auras.
-        /// </summary>
-        public static int GetAuras(bool isSelf, string auraName) => Flash.Call<int>("GetAurasValue", isSelf.ToString(), auraName);
+		public static string GetAccessLevel(string username) => Flash.Call<string>("GetAccessLevel", username);
+
+		/// <summary>
+		/// Gets Auras.
+		/// </summary>
+		public static int GetAuras(bool isSelf, string auraName) => Flash.Call<int>("GetAurasValue", isSelf.ToString(), auraName);
 
         static Player()
         {

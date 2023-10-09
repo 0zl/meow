@@ -664,6 +664,7 @@
   <ItemGroup>
     <Content Include="4zvbZ3m.ico" />
     <Content Include="Resources\astolfo_head.png" />
+    <None Include="Resources\Dropbox.png" />
     <None Include="Resources\astolfo.jpg" />
     <None Include="Resources\Discord.ico" />
     <None Include="Resources\Artix.ico" />

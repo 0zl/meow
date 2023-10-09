@@ -276,8 +276,8 @@ namespace Grimoire.Networking
 		{
 			//new HandlerLogin(),
 			new HandlerAFK(),
-			//new HandlerChat(),
-			//new HandlerXtJoin(),
+			new HandlerChat(),
+			new HandlerXtJoin(),
 			//new HandlerXtCellJoin()
 			new HandlerWarnings()
 		};
