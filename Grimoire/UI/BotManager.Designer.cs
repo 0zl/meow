@@ -662,6 +662,8 @@ namespace Grimoire.UI
 			this.toggleTabpagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.commandColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+			this.btnSetFPSCmd = new DarkUI.Controls.DarkButton();
+			this.darkLabel11 = new DarkUI.Controls.DarkLabel();
 			this.mainTabControl.SuspendLayout();
 			this.tabCombat.SuspendLayout();
 			this.darkGroupBox20.SuspendLayout();
@@ -1839,7 +1841,7 @@ namespace Grimoire.UI
 			this.tabItem.Margin = new System.Windows.Forms.Padding(0);
 			this.tabItem.Name = "tabItem";
 			this.tabItem.Padding = new System.Windows.Forms.Padding(3);
-			this.tabItem.Size = new System.Drawing.Size(192, 73);
+			this.tabItem.Size = new System.Drawing.Size(541, 301);
 			this.tabItem.TabIndex = 1;
 			this.tabItem.Text = "Item";
 			// 
@@ -2295,7 +2297,7 @@ namespace Grimoire.UI
 			this.tabQuest.Margin = new System.Windows.Forms.Padding(0);
 			this.tabQuest.Name = "tabQuest";
 			this.tabQuest.Padding = new System.Windows.Forms.Padding(3);
-			this.tabQuest.Size = new System.Drawing.Size(192, 73);
+			this.tabQuest.Size = new System.Drawing.Size(541, 301);
 			this.tabQuest.TabIndex = 3;
 			this.tabQuest.Text = "Quest";
 			// 
@@ -3657,7 +3659,7 @@ namespace Grimoire.UI
 			this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
 			this.tabOptions.Name = "tabOptions";
 			this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
-			this.tabOptions.Size = new System.Drawing.Size(541, 301);
+			this.tabOptions.Size = new System.Drawing.Size(192, 73);
 			this.tabOptions.TabIndex = 5;
 			this.tabOptions.Text = "Options";
 			// 
@@ -4147,6 +4149,8 @@ namespace Grimoire.UI
 			// tabOptions2
 			// 
 			this.tabOptions2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(46)))));
+			this.tabOptions2.Controls.Add(this.darkLabel11);
+			this.tabOptions2.Controls.Add(this.btnSetFPSCmd);
 			this.tabOptions2.Controls.Add(this.darkGroupBox23);
 			this.tabOptions2.Controls.Add(this.darkGroupBox22);
 			this.tabOptions2.Controls.Add(this.btnHideLoading);
@@ -4357,7 +4361,7 @@ namespace Grimoire.UI
 			// chkGender
 			// 
 			this.chkGender.AutoSize = true;
-			this.chkGender.Location = new System.Drawing.Point(11, 220);
+			this.chkGender.Location = new System.Drawing.Point(202, 170);
 			this.chkGender.Name = "chkGender";
 			this.chkGender.Size = new System.Drawing.Size(89, 17);
 			this.chkGender.TabIndex = 155;
@@ -4371,10 +4375,10 @@ namespace Grimoire.UI
             0,
             0,
             65536});
-			this.numSetFPS.Location = new System.Drawing.Point(10, 196);
+			this.numSetFPS.Location = new System.Drawing.Point(10, 195);
 			this.numSetFPS.LoopValues = false;
 			this.numSetFPS.Name = "numSetFPS";
-			this.numSetFPS.Size = new System.Drawing.Size(40, 20);
+			this.numSetFPS.Size = new System.Drawing.Size(44, 20);
 			this.numSetFPS.TabIndex = 154;
 			this.numSetFPS.Value = new decimal(new int[] {
             30,
@@ -4385,11 +4389,11 @@ namespace Grimoire.UI
 			// btnSetFPS
 			// 
 			this.btnSetFPS.Checked = false;
-			this.btnSetFPS.Location = new System.Drawing.Point(52, 196);
+			this.btnSetFPS.Location = new System.Drawing.Point(90, 195);
 			this.btnSetFPS.Name = "btnSetFPS";
-			this.btnSetFPS.Size = new System.Drawing.Size(59, 20);
+			this.btnSetFPS.Size = new System.Drawing.Size(45, 20);
 			this.btnSetFPS.TabIndex = 153;
-			this.btnSetFPS.Text = "Set FPS";
+			this.btnSetFPS.Text = "Set";
 			this.btnSetFPS.Click += new System.EventHandler(this.btnSetFPS_Click);
 			// 
 			// btnSetLevelCmd
@@ -4647,7 +4651,7 @@ namespace Grimoire.UI
 			this.tabHunt.Margin = new System.Windows.Forms.Padding(0);
 			this.tabHunt.Name = "tabHunt";
 			this.tabHunt.Padding = new System.Windows.Forms.Padding(3);
-			this.tabHunt.Size = new System.Drawing.Size(541, 301);
+			this.tabHunt.Size = new System.Drawing.Size(192, 73);
 			this.tabHunt.TabIndex = 3;
 			this.tabHunt.Text = "Hunt";
 			// 
@@ -5302,6 +5306,26 @@ namespace Grimoire.UI
 			this.commandColorsToolStripMenuItem.Text = "Command Customizer";
 			this.commandColorsToolStripMenuItem.Click += new System.EventHandler(this.commandColorsToolStripMenuItem_Click);
 			// 
+			// btnSetFPSCmd
+			// 
+			this.btnSetFPSCmd.Checked = false;
+			this.btnSetFPSCmd.Location = new System.Drawing.Point(136, 195);
+			this.btnSetFPSCmd.Name = "btnSetFPSCmd";
+			this.btnSetFPSCmd.Size = new System.Drawing.Size(53, 20);
+			this.btnSetFPSCmd.TabIndex = 176;
+			this.btnSetFPSCmd.Text = "(cmd)";
+			this.btnSetFPSCmd.Click += new System.EventHandler(this.btnSetFPSCmd_Click);
+			// 
+			// darkLabel11
+			// 
+			this.darkLabel11.AutoSize = true;
+			this.darkLabel11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+			this.darkLabel11.Location = new System.Drawing.Point(57, 199);
+			this.darkLabel11.Name = "darkLabel11";
+			this.darkLabel11.Size = new System.Drawing.Size(27, 13);
+			this.darkLabel11.TabIndex = 168;
+			this.darkLabel11.Text = "FPS";
+			// 
 			// BotManager
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -5509,5 +5533,7 @@ namespace Grimoire.UI
 		private DarkGroupBox darkGroupBox15;
 		private DarkButton btnFollowCmd;
 		private DarkTextBox tbFollowPlayer;
+		private DarkLabel darkLabel11;
+		private DarkButton btnSetFPSCmd;
 	}
 }
