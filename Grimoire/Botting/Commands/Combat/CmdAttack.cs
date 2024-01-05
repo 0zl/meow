@@ -21,7 +21,17 @@ namespace Grimoire.Botting.Commands.Combat
 
             if (instance.IsRunning && Player.IsAlive && Player.IsLoggedIn)
             {
-                Player.AttackMonster(instance.IsVar(Monster) ? Configuration.Tempvariable[instance.GetVar(Monster)] : Monster);
+                if (Monster == "*")
+				{
+					if (!Player.HasTarget)
+					{
+						Player.AttackMonster("*");
+					}
+				} 
+                else
+                {
+					Player.AttackMonster(instance.IsVar(Monster) ? Configuration.Tempvariable[instance.GetVar(Monster)] : Monster);
+				}
             }
 
             if (UseSkill)

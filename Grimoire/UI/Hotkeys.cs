@@ -57,6 +57,14 @@ namespace Grimoire.UI
 			},
 			delegate
 			{
+				Root.Instance.ShowForm(Maid.MaidRemake.Instance);
+			},
+			delegate
+			{
+				Maid.MaidRemake.Instance.cbEnablePlugin.Checked = !Maid.MaidRemake.Instance.cbEnablePlugin.Checked;
+			},
+			delegate
+			{
 				Root.Instance.ToggleLauncherSkin();
 			},
 			delegate
@@ -380,6 +388,8 @@ namespace Grimoire.UI
             "Show Packet Spammer",
             "Show Packet Tamperer",
             "Show Fast Travels",
+            "Show Maid",
+            "Start/Stop Maid",
             "Change Launcher Skin",
             "Cancel Target",
             "Minimize to tray",
@@ -389,8 +399,7 @@ namespace Grimoire.UI
             "Show Notepad",
             "Load Hair shop",
             "Load Armor Customizer",
-            "Toggle Options",
-            "Execute Debug"});
+            "Toggle Options"});
 			this.cbActions.Location = new System.Drawing.Point(124, 12);
 			this.cbActions.MaxDropDownItems = 20;
 			this.cbActions.Name = "cbActions";

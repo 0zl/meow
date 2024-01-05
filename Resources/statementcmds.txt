@@ -386,6 +386,20 @@
       "Description2": "Int2"
     },
     {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdVarEqualVar, Grimoire",
+      "Tag": "Misc",
+      "Text": "Var is equal to Var",
+      "Description1": "Var1",
+      "Description2": "Var2"
+    },
+    {
+      "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdVarNotEqualVar, Grimoire",
+      "Tag": "Misc",
+      "Text": "Var is not equal to Var",
+      "Description1": "Var1",
+      "Description2": "Var2"
+    },
+    {
       "$type": "Grimoire.Botting.Commands.Misc.Statements.CmdIsMaxStack, Grimoire",
       "Tag": "Item",
       "Text": "Item is max in inventory",

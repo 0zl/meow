@@ -294,6 +294,7 @@ namespace Grimoire.UI
 				RestMp = (int)numRestMP.Value,
 				RestHp = (int)numRest.Value,
 				RestartUponDeath = chkRestartDeath.Checked,
+				RestartOnAFK = chkRestartAFK.Checked,
 				AFK = chkAFK.Checked,
 				AntiCounter = chkAntiCounter.Checked,
 				DisableAnimations = chkDisableAnims.Checked,
@@ -349,6 +350,7 @@ namespace Grimoire.UI
 				RestMp = (int)numRestMP.Value,
 				RestHp = (int)numRest.Value,
 				RestartUponDeath = chkRestartDeath.Checked,
+				RestartOnAFK = chkRestartAFK.Checked,
 				AFK = chkAFK.Checked,
 				AntiCounter = chkAntiCounter.Checked,
 				DisableAnimations = chkDisableAnims.Checked,
@@ -454,6 +456,7 @@ namespace Grimoire.UI
 				chkHP.Checked = config.RestIfHp;
 				chkBankOnStop.Checked = config.BankOnStop;
 				chkRestartDeath.Checked = config.RestartUponDeath;
+				chkRestartAFK.Checked = config.RestartOnAFK;
 				chkAFK.Checked = config.AFK;
 				chkAntiCounter.Checked = config.AntiCounter;
 				txtAuthor.Text = config.Author;
@@ -1373,13 +1376,19 @@ namespace Grimoire.UI
 			}
 		}
 
+		private void lbLabels_DoubleClick(object sender, EventArgs e)
+		{
+			string data2 = this.lbLabels.SelectedItem.ToString().Replace("[", "").Replace("]", "");
+			this.txtLabel.Text = $"{data2}";
+		}
+
 		private void btnGotoLabel_Click(object sender, EventArgs e)
 		{
 			if (txtLabel.TextLength > 0)
 			{
 				AddCommand(new CmdGotoLabel
 				{
-					Label = txtLabel.Text
+					Label = txtLabel.Text.ToUpper()
 				}, (ModifierKeys & Keys.Control) == Keys.Control);
 			}
 			GetAllCommands<CmdLabel>(lbLabels);
@@ -1391,7 +1400,7 @@ namespace Grimoire.UI
 			{
 				AddCommand(new CmdLabel
 				{
-					Name = txtLabel.Text
+					Name = txtLabel.Text.ToUpper()
 				}, (ModifierKeys & Keys.Control) == Keys.Control);
 			}
 			GetAllCommands<CmdLabel>(lbLabels);
@@ -2774,8 +2783,6 @@ namespace Grimoire.UI
 					}
 				}
 
-				int times = 0;
-
 				CmdShortHunt cmd = new CmdShortHunt
 				{
 					Map = tbMapF.Text,
@@ -2785,8 +2792,6 @@ namespace Grimoire.UI
 					Monster = monster.Trim(),
 					ItemName = itemName.Trim(),
 					Quantity = itemQty.Trim(),
-					IsGetDrops = chkGetAfterF.Checked,
-					AfterKills = int.TryParse(this.tbGetAfterF.Text, out times) ? times : 1,
 					BlankFirst = cbBlankFirstF.Checked
 				};
 
@@ -2866,10 +2871,10 @@ namespace Grimoire.UI
 
 		private void btnSetFPSCmd_Click(object sender, EventArgs e)
 		{
-			this.AddCommand(new CmdSetFPS
+			AddCommand(new CmdSetFPS
 			{
 				FPS = (int)numSetFPS.Value
-			});
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
 		private void btnBSStart_Click(object sender, EventArgs e)
@@ -2942,7 +2947,7 @@ namespace Grimoire.UI
 		{
 			AddCommand(new CmdFollow
 			{
-				PlayerName = tbFollowPlayer.Text
+				PlayerName = tbFollowPlayer.Text.ToLower(),
 			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 
@@ -3105,7 +3110,7 @@ namespace Grimoire.UI
 		{
 			if (chkFollowOnly.Checked && chkEnableSettings.Checked)
 			{
-				string PlayerName = tbFollowPlayer2.Text;
+				string PlayerName = tbFollowPlayer2.Text.ToLower();
 				string[] safeCell = ClientConfig.GetValue(ClientConfig.C_SAFE_CELL).Split(',');
 				Proxy.Instance.RegisterHandler(HandlerFollow);
 				while (chkFollowOnly.Checked && chkEnableSettings.Checked)
@@ -3281,6 +3286,19 @@ namespace Grimoire.UI
 				Root.Instance.ShowForm(new Egg());
 				clickCounter = 0;
 			}
+		}
+
+		private void btnStopAttack_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdCancelTarget(), (ModifierKeys & Keys.Control) == Keys.Control);
+		}
+
+		private void btnLeaveCombat_Click(object sender, EventArgs e)
+		{
+			AddCommand(new CmdCancelTarget
+			{
+				LeaveCombat = true
+			}, (ModifierKeys & Keys.Control) == Keys.Control);
 		}
 	}
 }

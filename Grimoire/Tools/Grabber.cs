@@ -224,8 +224,8 @@ namespace Grimoire.Tools
                     TreeNode treeNode = tree.Nodes.Add(item.Name);
                     treeNode.ContextMenuStrip = Wiki(item.Name);
                     treeNode.Nodes.Add($"ID: {item.Id}");
-                    treeNode.Nodes.Add($"Quantity: {item.Quantity}");
-                }
+					treeNode.Nodes.Add($"Quantity: {item.Quantity}");
+				}
             }
         }
 

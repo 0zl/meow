@@ -23,7 +23,17 @@ namespace Grimoire.Botting.Commands.Combat
 				if (Player.HasTarget) Player.CancelTarget(); 
 				return;
 			}
-			Player.AttackMonster(target);
+			if (Monster == "*")
+			{
+				if (!Player.HasTarget)
+				{
+					Player.AttackMonster("*");
+				}
+			}
+			else
+			{
+				Player.AttackMonster(target);
+			}
 			if (!Force)
             {
 				if (!Player.HasTarget) return;

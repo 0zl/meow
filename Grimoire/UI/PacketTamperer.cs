@@ -4,6 +4,7 @@ using Grimoire.Networking;
 using Grimoire.Tools;
 using System;
 using System.ComponentModel;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace Grimoire.UI
@@ -48,12 +49,12 @@ namespace Grimoire.UI
             if (chkFromServer.Checked)
             {
                 //Proxy.Instance.ReceivedFromServer += ReceivedFromServer;
-                Flash.FlashCall += FlashUtil_FlashCallServer;
+                Flash.FlashCall2 += FlashUtil_FlashCallServer;
             }
             else
             {
                 //Proxy.Instance.ReceivedFromServer -= ReceivedFromServer;
-                Flash.FlashCall -= FlashUtil_FlashCallServer;
+                Flash.FlashCall2 -= FlashUtil_FlashCallServer;
             }
         }
 
@@ -71,14 +72,14 @@ namespace Grimoire.UI
             }
         }
 
-        private void FlashUtil_FlashCallServer(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
-        {
-            if (function == "packetFromServer")
+        private void FlashUtil_FlashCallServer(string function, params object[] args)
+		{
+			if (function == "packetFromServer")
             {
                 string packet = args[0].ToString();
-                if (packet.Contains(tbFilter.Text))
-                {
-                    this.txtSend.Invoke(new Action(delegate ()
+				if (packet.Contains(tbFilter.Text))
+				{
+					this.txtSend.Invoke(new Action(delegate ()
                     {
                         this.Append("From server: " + packet);
                     }));

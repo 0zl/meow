@@ -14,6 +14,7 @@ namespace Grimoire.Tools
 		public const string C_QUEST_LIST_DELAY = "questListDelay";
 		public const string C_ACCESS_LEVEL = "accessLevel";
 		public const string C_NAME_COLOR = "nameColor";
+		public const string C_FPS = "fps";
 
 		public static string GetValue(string key)
 		{

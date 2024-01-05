@@ -230,9 +230,15 @@ namespace Grimoire.Botting
         {
             get;
             set;
-        }
+		}
 
-        public List<string> Items
+		public bool RestartOnAFK
+		{
+			get;
+			set;
+		}
+
+		public List<string> Items
         {
             get;
             set;

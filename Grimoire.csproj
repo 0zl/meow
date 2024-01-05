@@ -175,16 +175,50 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Grimoire\Botting\Commands\Combat\CmdCancelTarget.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerAuraEquals.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerAuraGreaterThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdPlayerAuraLessThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetAuraEquals.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetAuraGreaterThan.cs" />
     <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdTargetAuraLessThan.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdVarEqualVar.cs" />
+    <Compile Include="Grimoire\Botting\Commands\Misc\Statements\CmdVarNotEqualVar.cs" />
     <Compile Include="Grimoire\Botting\Commands\Quest\CmdAddQuestList.cs" />
     <Compile Include="Grimoire\Botting\Commands\Quest\CmdRemoveQuestList.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\HandlerAntiMod.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerAutoZoneDarkCarnax.cs" />
     <Compile Include="Grimoire\Networking\Handlers\HandlerFollow.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\Maid\CellJumperHandler.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\Maid\CopyWalkHandler.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\Maid\JoinMapHandler.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\Maid\PartyChatHandler.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\Maid\PartyInvitationHandler.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\Maid\TargetHandler.cs" />
+    <Compile Include="Grimoire\Networking\Handlers\Maid\WarningMsgHandler.cs" />
+    <Compile Include="Grimoire\Tools\Maid\ClassPreset.cs" />
+    <Compile Include="Grimoire\Tools\LowLevelKeyboardHook.cs" />
+    <Compile Include="Grimoire\Tools\Maid\MaidConfig.cs" />
+    <Compile Include="Grimoire\Tools\Maid\MessageBoxEx.cs" />
+    <Compile Include="Grimoire\UI\Maid\LockedMapHandle\AlternativeMap.cs" />
+    <Compile Include="Grimoire\UI\Maid\LockedMapHandle\LockedMapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\Maid\LockedMapHandle\LockedMapForm.Designer.cs">
+      <DependentUpon>LockedMapForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\Maid\MaidRemake.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\Maid\MaidRemake.designer.cs">
+      <DependentUpon>MaidRemake.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grimoire\UI\Maid\WhitelistMap\WhitelistMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grimoire\UI\Maid\WhitelistMap\WhitelistMap.Designer.cs">
+      <DependentUpon>WhitelistMap.cs</DependentUpon>
+    </Compile>
     <Compile Include="Grimoire\UI\SkillPreset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -590,6 +624,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Grimoire\UI\Egg.resx">
       <DependentUpon>Egg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\Maid\LockedMapHandle\LockedMapForm.resx">
+      <DependentUpon>LockedMapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\Maid\MaidRemake.resx">
+      <DependentUpon>MaidRemake.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grimoire\UI\Maid\WhitelistMap\WhitelistMap.resx">
+      <DependentUpon>WhitelistMap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Grimoire\UI\PacketInterceptor.resx">
       <DependentUpon>PacketInterceptor.cs</DependentUpon>

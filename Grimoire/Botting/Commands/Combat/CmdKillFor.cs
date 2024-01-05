@@ -32,11 +32,8 @@ namespace Grimoire.Botting.Commands.Combat
 			get;
 			set;
 		}
-
 		public string KillPriority { get; set; } = "";
 		public bool AntiCounter { get; set; } = false;
-		public bool IsGetDrops { get; set; } = false;
-		public int AfterKills { get; set; } = 1;
 		public string QuestId { get; set; }
 		public int DelayAfterKill { get; set; } = 500;
 
@@ -76,21 +73,8 @@ namespace Grimoire.Botting.Commands.Combat
 
 				string[] quantities = Quantity.Split(new char[] { ',' });
 
-				if (IsGetDrops)
-				{
-					foreach (string _itemName in itemsName)
-					{
-						if (config.Drops.Any((string d) => d.Equals(_itemName, StringComparison.OrdinalIgnoreCase)))
-						{
-							config.Drops.Remove(_itemName);
-							removedList.Add(_itemName);
-						}
-					}
-				}
-
 				if (ItemType == ItemType.Items)
 				{
-					int times = 0;
 					while (instance.IsRunning && 
 						Player.IsLoggedIn && 
 						Player.IsAlive &&
@@ -99,16 +83,6 @@ namespace Grimoire.Botting.Commands.Combat
 					{
 						await kill.Execute(instance);
 						await Task.Delay(DelayAfterKill);
-						if (IsGetDrops && times >= AfterKills)
-						{
-							foreach (string _itemName in itemsName)
-							{
-								CmdGetDrop getDrop = new CmdGetDrop { ItemName = _itemName };
-								await getDrop.Execute(instance);
-							}
-							times = 0;
-						}
-						times++;
 					}
 				}
 				else
@@ -125,14 +99,6 @@ namespace Grimoire.Botting.Commands.Combat
 
 				Player.CancelTarget();
 				await Task.Delay(500);
-
-				if (IsGetDrops)
-				{
-					foreach (string _removed in removedList)
-					{
-						if (!config.Drops.Contains(_removed)) config.Drops.Add(_removed);
-					}
-				}
 			}
 		}
 
@@ -145,7 +111,7 @@ namespace Grimoire.Botting.Commands.Combat
 			}
 			else if (ItemType == ItemType.Items)
 			{
-				text = $"KFItems: {(IsGetDrops ? $"[{AfterKills}kill drop] " : "")}[{ItemName} {Quantity}x] [{Monster}]";
+				text = $"KFItems: [{ItemName} {Quantity}x] [{Monster}]";
 			}
 			else
 			{

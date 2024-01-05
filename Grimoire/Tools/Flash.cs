@@ -21,6 +21,8 @@ using System.Xml.Linq;
 namespace Grimoire.Tools
 {
 	public delegate void FlashCallHandler(AxShockwaveFlash flash, string function, params object[] args);
+	
+	public delegate void FlashCallHandler2(string function, params object[] args);
 
 	public delegate void FlashErrorHandler(AxShockwaveFlash flash, Exception e, string function, params object[] args);
 
@@ -32,6 +34,8 @@ namespace Grimoire.Tools
 		public static AxShockwaveFlash flash;
 
 		public static event FlashCallHandler FlashCall;
+
+		public static event FlashCallHandler2 FlashCall2;
 
 		public static event FlashErrorHandler FlashError;
 
@@ -386,6 +390,7 @@ namespace Grimoire.Tools
 					{
 						case "OnConnection":
 							Root.Instance.HideCharSelect();
+							Flash.Call("SetFPS", int.Parse(ClientConfig.GetValue(ClientConfig.C_FPS)));
 							break;
 						case "OnConnectionLost":
 							Root.Instance.LoadCharSelect();
@@ -440,6 +445,7 @@ namespace Grimoire.Tools
 				case "packetFromServer":
 					Proxy.Instance.OnServerMessage(args[0].ToString());
 					args[0] = ProcessPacketFromServer((string)args[0]);
+					FlashCall2?.Invoke(name, args[0]);
 					FlashCall?.Invoke(flash, name, args[0]);
 					break;
 
