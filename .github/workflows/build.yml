@@ -1,0 +1,43 @@
+name: Build Grimoire
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.1.1
+
+    - name: Restore NuGet packages
+      run: nuget restore "Project Grimlite.sln"
+
+    - name: Build solution
+      run: msbuild "Project Grimlite.sln" /p:Configuration=Release /p:TargetFrameworkVersion=v4.8
+
+    - name: Prepare files for upload
+      run: |
+        mkdir artifact
+        copy bin\Release\Grimoire.exe artifact\
+        copy bin\Debug\CharSelect.cfg artifact\
+        copy bin\Debug\ClientConfig.cfg artifact\
+        copy bin\Debug\config.cfg artifact\
+        copy bin\Debug\hotkeys.json artifact\
+        xcopy /E /I bin\Debug\Loader artifact\Loader
+        xcopy /E /I resources\Bots artifact\Bots
+        xcopy /E /I resources\Notes artifact\Notes
+        xcopy /E /I resources\Plugins artifact\Plugins
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Grimoire
+        path: artifact

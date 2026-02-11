@@ -16,7 +16,7 @@ namespace Grimoire.Botting.Commands.Item
             BotData.BotState = BotData.State.Others;
             await instance.WaitUntil(() => World.IsActionAvailable(LockActions.GetMapItem));
             Player.GetMapItem(ItemId);
-            await Task.Delay(2000);
+            await Task.Delay(1500);
         }
 
         public override string ToString()

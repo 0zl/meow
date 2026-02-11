@@ -6,197 +6,197 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
 using DarkUI.Forms;
 using DarkUI.Controls;
 using Grimoire.Networking;
 using Grimoire.Game;
 using Grimoire.Game.Data;
+using Grimoire.Tools;
 
 namespace Grimoire.UI
 {
-	public class Travel : DarkForm
-	{
-		private IContainer components;
-		private DarkButton btnDage;
-		private DarkButton btnEscherion;
-		private DarkButton btnNulgath;
-		private DarkButton btnSwindle;
-		private DarkButton btnTaro;
-		private DarkButton btnTwins;
-		private DarkButton btnTercess;
-		private DarkGroupBox grpTravel;
-		private DarkNumericUpDown numPriv;
-		private DarkCheckBox chkPriv;
-		private DarkButton btnPolish;
-		private DarkButton btnLae;
-		private DarkButton btnCarnage;
-		private DarkButton AweTravel;
-		private DarkGroupBox aweGroup;
-		private RadioButton aweWizard;
-		private RadioButton aweLucky;
-		private Panel panel1;
-		private RadioButton aweThief;
-		private RadioButton aweHybrid;
-		private RadioButton aweHealer;
-		private TableLayoutPanel tableLayoutPanel1;
-		private RadioButton aweFigther;
-		private DarkButton btnKlunk;
-		private DarkButton btnDoomvaultB;
-		private DarkGroupBox darkGroupBox1;
-		private DarkButton btnTreeTitan;
-		private DarkButton btnUltraDrakath;
-		private DarkButton btnTowerOfDoom;
-		private DarkButton btnNecroDungeon;
-		private DarkGroupBox darkGroupBox2;
-		public DarkLabel lblVersion;
-		private DarkNumericUpDown numStoryQuestId;
-		private DarkButton btnUnlockMap;
-		private DarkButton btnIceSpiritIcetormarena;
-		private DarkTextBox tbGeneratedPacket;
-		public DarkLabel darkLabel1;
-		private DarkButton btnCopyPacket;
-		private DarkButton btnBinky;
+    public class Travel : DarkForm
+    {
+        private IContainer components;
+        private DarkButton btnDage;
+        private DarkButton btnEscherion;
+        private DarkButton btnNulgath;
+        private DarkButton btnSwindle;
+        private DarkButton btnTaro;
+        private DarkButton btnTwins;
+        private DarkButton btnTercess;
+        private DarkGroupBox grpTravel;
+        private DarkNumericUpDown numPriv;
+        private DarkCheckBox chkPriv;
+        private DarkButton btnPolish;
+        private DarkButton btnLae;
+        private DarkButton btnCarnage;
+        private DarkButton AweTravel;
+        private DarkGroupBox aweGroup;
+        private DarkRadioButton aweWizard;
+        private DarkRadioButton aweLucky;
+        private DarkPanel panel1;
+        private DarkRadioButton aweThief;
+        private DarkRadioButton aweHybrid;
+        private DarkRadioButton aweHealer;
+        private TableLayoutPanel tableLayoutPanel1;
+        private DarkRadioButton aweFigther;
+        private DarkButton btnKlunk;
+        private DarkButton btnDoomvaultB;
+        private DarkGroupBox darkGroupBox1;
+        private DarkButton btnTreeTitan;
+        private DarkButton btnUltraDrakath;
+        private DarkButton btnTowerOfDoom;
+        private DarkButton btnNecroDungeon;
+        private DarkGroupBox darkGroupBox2;
+        public DarkLabel lblVersion;
+        private DarkNumericUpDown numStoryQuestId;
+        private DarkButton btnUnlockMap;
+        private DarkButton btnIceSpiritIcetormarena;
+        private DarkTextBox tbGeneratedPacket;
+        public DarkLabel darkLabel1;
+        private DarkButton btnCopyPacket;
+        private DarkButton darkButton1;
+        private DarkButton btnBinky;
 
-		public static Travel Instance
-		{
-			get;
-		}
+        public static Travel Instance
+        {
+            get;
+        }
 
-		private Travel()
-		{
-			InitializeComponent();
-		}
+        private Travel()
+        {
+            InitializeComponent();
+        }
 
-		private void Travel_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			if (e.CloseReason == CloseReason.UserClosing)
-			{
-				e.Cancel = true;
-				Hide();
-			}
-		}
+        private void Travel_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        }
 
-		private void chkPriv_CheckedChanged(object sender, EventArgs e)
-		{
-			numPriv.Enabled = chkPriv.Checked;
-		}
+        private void chkPriv_CheckedChanged(object sender, EventArgs e)
+        {
+            numPriv.Enabled = chkPriv.Checked;
+        }
 
-		private void btnTercess_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("citadel", "m22", "Left"),
-				CreateJoinCommand("tercessuinotlim")
-			});
-		}
+        private void btnTercess_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("tercessuinotlim")
+            });
+        }
 
-		private void btnTwins_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("citadel", "m22", "Left"),
-				CreateJoinCommand("tercessuinotlim", "Twins", "Left")
-			});
-		}
+        private void btnTwins_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("tercessuinotlim", "Twins", "Left")
+            });
+        }
 
-		private void btnTaro_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("citadel", "m22", "Left"),
-				CreateJoinCommand("tercessuinotlim", "Taro", "Left")
-			});
-		}
+        private void btnTaro_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("tercessuinotlim", "Taro", "Left")
+            });
+        }
 
-		private void btnSwindle_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("citadel", "m22", "Left"),
-				CreateJoinCommand("tercessuinotlim", "Swindle", "Left")
-			});
-		}
+        private void btnSwindle_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("tercessuinotlim", "Swindle", "Left")
+            });
+        }
 
-		private void btnNulgath_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("citadel", "m22", "Left"),
-				CreateJoinCommand("tercessuinotlim", "Boss2", "Right")
-			});
-		}
+        private void btnNulgath_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("tercessuinotlim", "Boss2", "Right")
+            });
+        }
 
-		private void btnEscherion_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("escherion", "Boss", "Left")
-			});
-		}
+        private void btnEscherion_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("escherion", "Boss", "Left")
+            });
+        }
 
-		private void btnDage_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("underworld", "s1", "Left")
-			});
-		}
+        private void btnDage_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("underworld", "s1", "Left")
+            });
+        }
 
-		private CmdTravel CreateJoinCommand(string map, string cell = "Enter", string pad = "Spawn")
-		{
-			return new CmdTravel
-			{
-				Map = chkPriv.Checked ? (map + $"-{numPriv.Value}") : map,
-				Cell = cell,
-				Pad = pad
-			};
-		}
+        private CmdTravel CreateJoinCommand(string map, string cell = "Enter", string pad = "Spawn")
+        {
+            if (map == "tercessuinotlim" && Player.Map != "tercessuinotlim")
+            {
+                Player.MoveToCell("m22", "Left");
+            }
+            return new CmdTravel
+            {
+                Map = chkPriv.Checked ? (map + $"-{numPriv.Value}") : map,
+                Cell = cell,
+                Pad = pad
+            };
+        }
 
-		private CmdLoadTravel CreateShopCommand(int shopid)
-		{
-			return new CmdLoadTravel
-			{
-				ShopId = shopid
-			};
-		}
+        private CmdLoadTravel CreateShopCommand(int shopid)
+        {
+            return new CmdLoadTravel
+            {
+                ShopId = shopid
+            };
+        }
 
-		private async void ExecuteTravel(List<IBotCommand> cmds)
-		{
-			if (!Player.IsLoggedIn) return;
-			grpTravel.Enabled = false;
-			aweGroup.Enabled  = false;
-			foreach (IBotCommand cmd in cmds)
-			{
-				await cmd.Execute(null);
-				await Task.Delay(1000);
-			}
-			if (InvokeRequired)
-			{
-				Invoke((Action)delegate
-				{
-					grpTravel.Enabled = true;
-					aweGroup.Enabled  = true;
-				});
-			}
-			else
-			{
-				grpTravel.Enabled = true;
-				aweGroup.Enabled  = true;
-			}
-		}
+        private async void ExecuteTravel(List<IBotCommand> cmds)
+        {
+            if (!Player.IsLoggedIn) return;
+            grpTravel.Enabled = false;
+            aweGroup.Enabled = false;
+            foreach (IBotCommand cmd in cmds)
+            {
+                await cmd.Execute(null);
+                await Task.Delay(1000);
+            }
+            if (InvokeRequired)
+            {
+                Invoke((Action)delegate
+                {
+                    grpTravel.Enabled = true;
+                    aweGroup.Enabled = true;
+                });
+            }
+            else
+            {
+                grpTravel.Enabled = true;
+                aweGroup.Enabled = true;
+            }
+        }
 
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && components != null)
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && components != null)
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		private void InitializeComponent()
-		{
+        private void InitializeComponent()
+        {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Travel));
 			this.btnDage = new DarkUI.Controls.DarkButton();
 			this.btnEscherion = new DarkUI.Controls.DarkButton();
@@ -207,6 +207,7 @@ namespace Grimoire.UI
 			this.btnTwins = new DarkUI.Controls.DarkButton();
 			this.btnTercess = new DarkUI.Controls.DarkButton();
 			this.grpTravel = new DarkUI.Controls.DarkGroupBox();
+			this.darkButton1 = new DarkUI.Controls.DarkButton();
 			this.btnIceSpiritIcetormarena = new DarkUI.Controls.DarkButton();
 			this.btnKlunk = new DarkUI.Controls.DarkButton();
 			this.numPriv = new DarkUI.Controls.DarkNumericUpDown();
@@ -337,6 +338,7 @@ namespace Grimoire.UI
 			// 
 			// grpTravel
 			// 
+			this.grpTravel.Controls.Add(this.darkButton1);
 			this.grpTravel.Controls.Add(this.btnIceSpiritIcetormarena);
 			this.grpTravel.Controls.Add(this.btnKlunk);
 			this.grpTravel.Controls.Add(this.numPriv);
@@ -360,6 +362,17 @@ namespace Grimoire.UI
 			this.grpTravel.TabIndex = 8;
 			this.grpTravel.TabStop = false;
 			this.grpTravel.Text = "Fast travels";
+			// 
+			// darkButton1
+			// 
+			this.darkButton1.Checked = false;
+			this.darkButton1.Location = new System.Drawing.Point(9, 551);
+			this.darkButton1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.darkButton1.Name = "darkButton1";
+			this.darkButton1.Size = new System.Drawing.Size(228, 35);
+			this.darkButton1.TabIndex = 10;
+			this.darkButton1.Text = "Bypass All";
+			this.darkButton1.Click += new System.EventHandler(this.chkBypass_clicked);
 			// 
 			// btnIceSpiritIcetormarena
 			// 
@@ -520,7 +533,6 @@ namespace Grimoire.UI
 			this.aweLucky.TabIndex = 9;
 			this.aweLucky.TabStop = true;
 			this.aweLucky.Text = "Lucky";
-			this.aweLucky.UseVisualStyleBackColor = true;
 			// 
 			// aweHybrid
 			// 
@@ -531,7 +543,6 @@ namespace Grimoire.UI
 			this.aweHybrid.Size = new System.Drawing.Size(79, 24);
 			this.aweHybrid.TabIndex = 14;
 			this.aweHybrid.Text = "Hybrid";
-			this.aweHybrid.UseVisualStyleBackColor = true;
 			// 
 			// aweHealer
 			// 
@@ -542,7 +553,6 @@ namespace Grimoire.UI
 			this.aweHealer.Size = new System.Drawing.Size(81, 24);
 			this.aweHealer.TabIndex = 15;
 			this.aweHealer.Text = "Healer";
-			this.aweHealer.UseVisualStyleBackColor = true;
 			// 
 			// aweFigther
 			// 
@@ -553,7 +563,6 @@ namespace Grimoire.UI
 			this.aweFigther.Size = new System.Drawing.Size(84, 24);
 			this.aweFigther.TabIndex = 11;
 			this.aweFigther.Text = "Fighter";
-			this.aweFigther.UseVisualStyleBackColor = true;
 			// 
 			// aweThief
 			// 
@@ -564,7 +573,6 @@ namespace Grimoire.UI
 			this.aweThief.Size = new System.Drawing.Size(69, 24);
 			this.aweThief.TabIndex = 13;
 			this.aweThief.Text = "Thief";
-			this.aweThief.UseVisualStyleBackColor = true;
 			// 
 			// aweWizard
 			// 
@@ -575,7 +583,6 @@ namespace Grimoire.UI
 			this.aweWizard.Size = new System.Drawing.Size(83, 24);
 			this.aweWizard.TabIndex = 10;
 			this.aweWizard.Text = "Wizard";
-			this.aweWizard.UseVisualStyleBackColor = true;
 			// 
 			// btnDoomvaultB
 			// 
@@ -679,7 +686,7 @@ namespace Grimoire.UI
 			// 
 			this.btnCopyPacket.Checked = false;
 			this.btnCopyPacket.Location = new System.Drawing.Point(129, 137);
-			this.btnCopyPacket.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+			this.btnCopyPacket.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
 			this.btnCopyPacket.Name = "btnCopyPacket";
 			this.btnCopyPacket.Size = new System.Drawing.Size(108, 31);
 			this.btnCopyPacket.TabIndex = 20;
@@ -691,10 +698,12 @@ namespace Grimoire.UI
 			this.tbGeneratedPacket.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.tbGeneratedPacket.Location = new System.Drawing.Point(14, 137);
 			this.tbGeneratedPacket.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.tbGeneratedPacket.Multiline = true;
 			this.tbGeneratedPacket.Name = "tbGeneratedPacket";
 			this.tbGeneratedPacket.ReadOnly = true;
-			this.tbGeneratedPacket.Size = new System.Drawing.Size(112, 26);
+			this.tbGeneratedPacket.Size = new System.Drawing.Size(112, 30);
 			this.tbGeneratedPacket.TabIndex = 19;
+			this.tbGeneratedPacket.WordWrap = false;
 			// 
 			// numStoryQuestId
 			// 
@@ -707,7 +716,7 @@ namespace Grimoire.UI
 			this.numStoryQuestId.LoopValues = false;
 			this.numStoryQuestId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.numStoryQuestId.Maximum = new decimal(new int[] {
-            1000000,
+            99999,
             0,
             0,
             0});
@@ -767,180 +776,205 @@ namespace Grimoire.UI
 			((System.ComponentModel.ISupportInitialize)(this.numStoryQuestId)).EndInit();
 			this.ResumeLayout(false);
 
-		}
+        }
 
-		static Travel()
-		{
-			Instance = new Travel();
-		}
+        static Travel()
+        {
+            Instance = new Travel();
+        }
 
-		private void btnBinky_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("doomvault", "r5", "Left")
-			});
-		}
+        private void btnBinky_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("doomvault", "r5", "Left")
+            });
+        }
 
-		private void btnCarnage_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("citadel", "m22", "Left"),
-				CreateJoinCommand("tercessuinotlim", "m4", "Top")
-			});
-		}
+        private void btnCarnage_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("tercessuinotlim", "m4", "Top")
+            });
+        }
 
-		private void btnLae_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("citadel", "m22", "Left"),
-				CreateJoinCommand("tercessuinotlim", "m5", "Top")
-			});
-		}
+        private void btnLae_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("tercessuinotlim", "m5", "Top")
+            });
+        }
 
-		private void btnPolish_Click(object sender, EventArgs e)
-		{
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("citadel", "m22", "Left"),
-				CreateJoinCommand("tercessuinotlim", "m12", "Top")
-			});
-		}
+        private void btnPolish_Click(object sender, EventArgs e)
+        {
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand("tercessuinotlim", "m12", "Top")
+            });
+        }
 
-		private void AweTravel_Click(object sender, EventArgs e)
-		{
-			// Sorry Satan :*
-			bool IsLucky   = aweLucky.Checked;
-			bool IsWizard  = aweWizard.Checked;
-			bool IsHybrid  = aweHybrid.Checked;
-			bool IsThief   = aweThief.Checked;
-			bool IsFighter = aweFigther.Checked;
-			bool IsHealer  = aweHealer.Checked;
+        private void AweTravel_Click(object sender, EventArgs e)
+        {
+            // Sorry Satan :*
+            bool IsLucky = aweLucky.Checked;
+            bool IsWizard = aweWizard.Checked;
+            bool IsHybrid = aweHybrid.Checked;
+            bool IsThief = aweThief.Checked;
+            bool IsFighter = aweFigther.Checked;
+            bool IsHealer = aweHealer.Checked;
 
-			ExecuteTravel(new List<IBotCommand>
-			{
-				CreateJoinCommand("museum"),
+            ExecuteTravel(new List<IBotCommand>
+            {
+				//CreateJoinCommand("museum"),
 				
 				// Staircase to hell.
 				// Sorry Satan :3
 				CreateShopCommand(
-					IsHybrid ? 633 :
-						IsFighter ? 635 :
-							IsWizard ? 636 :
-								IsThief ? 637 :
-									IsHealer ? 638 :
-										IsLucky ? 639 : 633
-				)
-			});
-		}
+                    IsHybrid ? 633 :
+                        IsFighter ? 635 :
+                            IsWizard ? 636 :
+                                IsThief ? 637 :
+                                    IsHealer ? 638 :
+                                        IsLucky ? 639 : 633
+                )
+            });
+        }
 
-		private void btnKlunk_Click(object sender, EventArgs e)
-		{
-			this.ExecuteTravel(new List<IBotCommand>
-			{
-				this.CreateJoinCommand("underworld", "r11", "Left")
-			});
-		}
+        private void btnKlunk_Click(object sender, EventArgs e)
+        {
+            this.ExecuteTravel(new List<IBotCommand>
+            {
+                this.CreateJoinCommand("underworld", "r11", "Left")
+            });
+        }
 
-		private async void btnDoomvaultB_Click(object sender, EventArgs e)
-		{
-			btnDoomvaultB.Enabled = false;
-			string toClient1 = "{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":20,\"iIndex\":126}}}";
-			await Proxy.Instance.SendToClient(toClient1);
-			await Task.Delay(500);
+        private async void btnDoomvaultB_Click(object sender, EventArgs e)
+        {
+            btnDoomvaultB.Enabled = false;
+            string toClient1 = "{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":20,\"iIndex\":126}}}";
+            await Proxy.Instance.SendToClient(toClient1);
+            await Task.Delay(500);
 
-			string toServer = "%xt%zm%setAchievement%79%ia0%18%1%";
-			await Proxy.Instance.SendToServer(toServer);
-			await Task.Delay(1000);
+            string toServer = "%xt%zm%setAchievement%79%ia0%18%1%";
+            await Proxy.Instance.SendToServer(toServer);
+            await Task.Delay(1000);
 
-			string toClient2 = "{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":27,\"iIndex\":127}}}";
-			await Proxy.Instance.SendToClient(toClient2);
-			await Task.Delay(500);
+            string toClient2 = "{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":27,\"iIndex\":127}}}";
+            await Proxy.Instance.SendToClient(toClient2);
+            await Task.Delay(500);
 
-			string room = chkPriv.Checked ? $"-{numPriv.Value}" : "";
-			Player.JoinMap("doomvaultb" + room);
+            string room = chkPriv.Checked ? $"-{numPriv.Value}" : "";
+            Player.JoinMap("doomvaultb" + room);
 
-			btnDoomvaultB.Enabled = true;
-		}
+            btnDoomvaultB.Enabled = true;
+        }
 
-		private async Task SkipMap(string clientPacket, string map, string cell = null, string pad = null)
-		{
-			await Proxy.Instance.SendToClient(clientPacket);
-			await Task.Delay(500);
-			string room = chkPriv.Checked ? $"-{numPriv.Value}" : "";
-			Player.JoinMap(map + room, cell, pad);
-		}
+        private async Task SkipMap(string clientPacket, string map, string cell = null, string pad = null)
+        {
+            await Proxy.Instance.SendToClient(clientPacket);
+            await Task.Delay(1000);
+            ExecuteTravel(new List<IBotCommand>
+            {
+                CreateJoinCommand(map, cell, pad)
+            });
+        }
 
-		private async void btnTreeTitan_Click(object sender, EventArgs e)
-		{
-			btnTreeTitan.Enabled = false;
-			await SkipMap("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":30,\"iIndex\":196}}}", "treetitanbattle");
-			btnTreeTitan.Enabled = true;
-		}
+        private async void btnTreeTitan_Click(object sender, EventArgs e)
+        {
+            btnTreeTitan.Enabled = false;
+            await SkipMap("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":30,\"iIndex\":196}}}", "treetitanbattle");
+            btnTreeTitan.Enabled = true;
+        }
 
-		private async void btnUltraDrakath_Click(object sender, EventArgs e)
-		{
-			btnUltraDrakath.Enabled = false;
-			await SkipMap("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":30,\"iIndex\":182}}}", "ultradrakath");
-			btnUltraDrakath.Enabled = true;
-		}
+        private async void btnUltraDrakath_Click(object sender, EventArgs e)
+        {
+            btnUltraDrakath.Enabled = false;
+            await SkipMap("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":30,\"iIndex\":182}}}", "ultradrakath");
+            btnUltraDrakath.Enabled = true;
+        }
 
-		private async void btnTowerOfDoom_Click(object sender, EventArgs e)
-		{
-			btnTowerOfDoom.Enabled = false;
-			await SkipMap("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":30,\"iIndex\":159}}}", "towerofdoom10");
-			btnTowerOfDoom.Enabled = true;
-		}
+        private async void btnTowerOfDoom_Click(object sender, EventArgs e)
+        {
+            btnTowerOfDoom.Enabled = false;
+            await SkipMap("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":30,\"iIndex\":159}}}", "towerofdoom10");
+            btnTowerOfDoom.Enabled = true;
+        }
 
-		private async void btnNecroDungeon_Click(object sender, EventArgs e)
-		{
-			btnNecroDungeon.Enabled = false;
-			await SkipMap("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":30,\"iIndex\":77}}}", "necrodungeon");
-			btnNecroDungeon.Enabled = true;
-		}
+        private async void btnNecroDungeon_Click(object sender, EventArgs e)
+        {
+            btnNecroDungeon.Enabled = false;
+            await SkipMap("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":30,\"iIndex\":77}}}", "necrodungeon");
+            btnNecroDungeon.Enabled = true;
+        }
 
-		private async void btnIceSpiritIcetormarena_Click(object sender, EventArgs e)
-		{
-			btnIceSpiritIcetormarena.Enabled = false;
-			await SkipMap("client {\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"levelUp\",\"intExpToLevel\":\"26580000\",\"intLevel\":100}}}", "icestormarena", "r3c", "Left");
-			btnIceSpiritIcetormarena.Enabled = true;
-		}
+        private async void btnIceSpiritIcetormarena_Click(object sender, EventArgs e)
+        {
+            btnIceSpiritIcetormarena.Enabled = false;
+            await SkipMap("client {\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"levelUp\",\"intExpToLevel\":\"26580000\",\"intLevel\":100}}}", "icestormarena", "r3c", "Left");
+            btnIceSpiritIcetormarena.Enabled = true;
+        }
 
-		private async void btnUnlockMap_Click(object sender, EventArgs e)
-		{
-			btnUnlockMap.Enabled = false;
-			tbGeneratedPacket.Text = "";
-			int questId = (int)numStoryQuestId.Value;
-			bool questOnTree = Player.Quests.QuestTree.Exists(q => q.Id == questId);
-			int waitCount = 0;
-			if (!questOnTree)
-			{
-				Player.Quests.Load(questId);
-				while (!questOnTree && waitCount < 8)
-				{
-					await Task.Delay(500);
-					waitCount++;
-				}
-			}
-			try
-			{
-				Quest quest = Player.Quests.QuestTree.Find(q => q.Id == questId);
-				string packet = "{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":" + quest.IValue + ",\"iIndex\":" + quest.ISlot + "}}}";
-				await Proxy.Instance.SendToClient(packet);
-				tbGeneratedPacket.Text = packet;
-			} 
-			catch (Exception ex)
-			{
+        private async void btnUnlockMap_Click(object sender, EventArgs e)
+        {
+            btnUnlockMap.Enabled = false;
+            tbGeneratedPacket.Text = "";
+            int questId = (int)numStoryQuestId.Value;
+            bool questOnTree = Player.Quests.QuestTree.Exists(q => q.Id == questId);
+            int waitCount = 0;
+            if (!questOnTree)
+            {
+                Player.Quests.Load(questId);
+                while (!questOnTree && waitCount < 8)
+                {
+                    await Task.Delay(500);
+                    waitCount++;
+                }
+            }
+            try
+            {
+                Quest quest = Player.Quests.QuestTree.Find(q => q.Id == questId);
+                string packet = "{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"cmd\":\"updateQuest\",\"iValue\":" + quest.IValue + ",\"iIndex\":" + quest.ISlot + "}}}";
+                await Proxy.Instance.SendToClient(packet);
+                tbGeneratedPacket.Text = packet;
+            }
+            catch (Exception ex)
+            {
 
-			}
-			btnUnlockMap.Enabled = true;
-		}
+            }
+            btnUnlockMap.Enabled = true;
+        }
 
-		private void btnCopyPacket_Click(object sender, EventArgs e)
-		{
-			Clipboard.SetText(tbGeneratedPacket.Text);
-		}
-	}
+        private void btnCopyPacket_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(tbGeneratedPacket.Text);
+        }
+        public void bypasses()
+        {
+            if (!Player.IsLoggedIn)
+                return;
+
+            string sekai = "world.myAvatar.objData.";
+            for (int i = 1; i <= 7; i++)
+            {
+                string key = i == 1 ? "strQuests" : $"strQuests{i}";
+                string ambatu = Flash.GetGameObject(sekai + key).Replace("\"", "");
+                //if (Player.realProgress.ContainsKey(i))
+                //    Player.realProgress[i] = ambatu;
+                //else Player.realProgress.Add(i, ambatu);
+                Flash.SetGameObject(sekai + key, new String('Z', ambatu.Length));
+            }
+            MessageBox.Show(
+                    $"All storyline are bypassed, if u want to restore the original progression. Please relogin", "",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+        }
+
+        private void chkBypass_clicked(object sender, EventArgs e)
+        {
+            bypasses();
+        }
+    }
 }

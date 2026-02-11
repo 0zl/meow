@@ -1,5 +1,6 @@
 using Grimoire.Game;
 using Grimoire.Game.Data;
+using Grimoire.Networking;
 using Grimoire.UI;
 using System;
 using System.Text.RegularExpressions;
@@ -16,6 +17,12 @@ namespace Grimoire.Botting.Commands.Misc
         }
 
         public bool Debug
+        {
+            get;
+            set;
+        } = false;
+
+        public bool ModMessage
         {
             get;
             set;
@@ -86,6 +93,11 @@ namespace Grimoire.Botting.Commands.Misc
                 LogForm.Instance.txtLogScript.Clear();
             else
                 LogForm.Instance.AppendScript(text);
+                
+            if (ModMessage)
+            {
+                await Proxy.Instance.SendToClient($"%xt%moderator%-1%{text}%");
+            }
         }
 
         public override string ToString()

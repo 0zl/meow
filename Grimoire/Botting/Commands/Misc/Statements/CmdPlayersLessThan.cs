@@ -13,7 +13,8 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (World.PlayersInMap.Count >= int.Parse((instance.IsVar(Value1)  ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1)))
+            if (int.TryParse(Bot.Instance.ResolveVars(Value1), out int pCount) &&
+            World.PlayersInMap.Count >= pCount)
             {
                 instance.Index++;
             }

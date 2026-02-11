@@ -17,7 +17,6 @@ namespace Grimoire.Botting.Commands.Item
         {
             BotData.BotState = BotData.State.Transaction;
             await WaitUntil(() => World.IsActionAvailable(LockActions.LoadShop));
-            Shop.ResetShopInfo();
             Shop.Load(ShopId);
             await WaitUntil(() => Shop.IsShopLoaded);
         }

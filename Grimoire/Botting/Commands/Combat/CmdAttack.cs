@@ -12,8 +12,9 @@ namespace Grimoire.Botting.Commands.Combat
         public bool UseSkill { get; set; } = false;
 
         public async Task Execute(IBotEngine instance)
-        {
-            if (instance.Configuration.SkipAttack)
+		{
+			BotData.BotState = BotData.State.Combat;
+			if (instance.Configuration.SkipAttack)
             {
                 if (Player.HasTarget) Player.CancelTarget();
                 return;
@@ -21,13 +22,24 @@ namespace Grimoire.Botting.Commands.Combat
 
             if (instance.IsRunning && Player.IsAlive && Player.IsLoggedIn)
             {
-                Player.AttackMonster(instance.IsVar(Monster) ? Configuration.Tempvariable[instance.GetVar(Monster)] : Monster);
+                if (Monster == "*")
+				{
+					if (!Player.HasTarget)
+					{
+						Player.AttackMonster("*");
+					}
+				} 
+                else
+                {
+					Player.AttackMonster(instance.IsVar(Monster) ? Configuration.Tempvariable[instance.GetVar(Monster)] : Monster);
+				}
             }
 
             if (UseSkill)
             {
                 if (instance.Configuration.Skills.Count > 0)
-                    Task.Run(() => UseSkillsSet(instance));
+                    UseSkillsSet(instance);
+                    //Task.Run(() => UseSkillsSet(instance));
             }
 
         }

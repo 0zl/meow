@@ -1,0 +1,87 @@
+v 1.7.3
+- Setvar support for current equipped item
+- Equip support for finding specific forge enh
+- Killcmd optimized
+
+v 1.7.2
+- Autoattack & Maid tweak to support CSH, Arcana & Archmage
+
+v 1.7.1
+- Fixed Ultra Gramiel handler phase 1 taunting
+
+v 1.7.0
+- Added Ultra Boss w/ Extra: Ultra Gramiel
+
+v 1.6.0
+- Added "Auto Zone - Colossal Vordred"
+
+v 1.5.4
+- Fixed "Fast Travels 2" duplicated room number
+- Added Maid Ultra boss handler for "Astral Empyrean"
+- Added "Auto Zone - Queen Iona"
+- Made "Special Handlers" auto-toggle on bot start/stop
+- Save "Special Handlers" to gbot
+- Add statement "This player name equals" statement
+
+v 1.5.3
+- added PartyCmd on Maid, to give orders to your Maid party members
+
+v 1.5.2
+- add Auto Zone - Astral Empyrean
+
+v 1.5.1
+- join map command with custom SWF file
+
+v 1.5
+- built-in Maid
+- Grimoire hotkeys for show and toggle on Maid
+- botting with Maid's anims handler and Bot Manager now should work properly
+- Restart bot on AFK's option in Misc
+- cmd combat Stop Attack
+- cmd combat Leave Combat
+- a bit optimizing for combat skills
+
+V 1.4.4
+- Add statement Misc CmdVarEqualVar and CmdVarNotEqualVar
+- default FPS now is changeable from ClientConfig.cfg
+
+V 1.4.3
+- forgor
+
+V 1.4.2
+- nganu 
+
+V 1.4.1
+- Bugfix "Questlist" feature not completing quest after relogin
+
+V 1.4
+- Attack, Kill, Kill For, Attack Priority, Hunt, now support targeting monster by MonMapID
+  using format monster name: id'MonID or id.MonID or id:MonID or id-MonID
+  example: id.50
+  You can get the MonMapID from Loaders/Grabbers tools
+- Add vars support for Map Cell, Map Pad, and Aura statements
+
+V 1.3
+- Add Auras statement
+
+V 1.2
+- Add questlist cmd
+- Remove questlist cmd
+- Release
+
+V 1.1.3
+- Add shop buy by Item Id
+
+V 1.1.2
+- Add multi turn in quest
+
+V 1.1.1
+- Add multi buy item
+
+V 1.1
+- Add Feature: Auto Zone - Dark Carnax
+
+V 1.0
+- Same as 2.3.6 but different Skill Command
+  You have to update all your .gbot files too if using Skill Command
+- Some improvement maybe? i forgot it

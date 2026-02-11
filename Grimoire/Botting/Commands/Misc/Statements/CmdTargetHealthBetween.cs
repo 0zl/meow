@@ -8,7 +8,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
         public CmdTargetHealthBetween()
         {
             Tag = "This player";
-            Text = "Target health betwwen";
+            Text = "Target health between";
         }
 
         public Task Execute(IBotEngine instance)

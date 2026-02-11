@@ -1,1 +1,52 @@
-[{"Text":"F10: Show Bot","Key":121,"ActionIndex":1},{"Text":"F9: Show Packet Logger","Key":120,"ActionIndex":4},{"Text":"F8: Show Loaders","Key":119,"ActionIndex":3},{"Text":"F7: Show Fast Travels","Key":118,"ActionIndex":7},{"Text":"F6: Show Logs","Key":117,"ActionIndex":13},{"Text":"F1: Change Launcher Skin","Key":112,"ActionIndex":8},{"Text":"F2: Load Hair shop","Key":113,"ActionIndex":15},{"Text":"F3: Load Armor Customizer","Key":114,"ActionIndex":16}]
+[
+    {
+        "Text": "F10: Show Bot",
+        "Key": 121,
+        "ActionIndex": 1
+    },
+    {
+        "Text": "F9: Show Packet Logger",
+        "Key": 120,
+        "ActionIndex": 4
+    },
+    {
+        "Text": "F8: Show Loaders",
+        "Key": 119,
+        "ActionIndex": 3
+    },
+    {
+        "Text": "F7: Show Fast Travels",
+        "Key": 118,
+        "ActionIndex": 7
+    },
+    {
+        "Text": "F6: Show Logs",
+        "Key": 117,
+        "ActionIndex": 15
+    },
+    {
+        "Text": "F1: Change Launcher Skin",
+        "Key": 112,
+        "ActionIndex": 10
+    },
+    {
+        "Text": "F2: Show Bank",
+        "Key": 113,
+        "ActionIndex": 13
+    },
+    {
+        "Text": "F3: Show Maid",
+        "Key": 114,
+        "ActionIndex": 8
+    },
+    {
+        "Text": "F4: Start/Stop Maid",
+        "Key": 115,
+        "ActionIndex": 9
+    },
+    {
+        "Text": "F5: Show Packet Tamperer",
+        "Key": 116,
+        "ActionIndex": 6
+    }
+]

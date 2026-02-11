@@ -17,8 +17,6 @@ namespace Grimoire.Botting.Commands.Misc.Statements
             var v1 = Configuration.Tempvalues[(instance.IsVar(Value1) ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1)];
             var v2 = Configuration.Tempvalues[(instance.IsVar(Value2) ? Configuration.Tempvariable[instance.GetVar(Value2)] : Value2)];
 
-            Console.WriteLine($"v1: {v1} | v2: {v2}");
-
             if (!(v1.ToString() == v2.ToString()))
             {
                 instance.Index++;

@@ -1,7 +1,9 @@
 using Grimoire.Tools;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using Grimoire.Botting;
+using Grimoire.Networking;
+using System.Linq;
+using System;
 
 namespace Grimoire.Game.Data
 {
@@ -65,7 +67,8 @@ namespace Grimoire.Game.Data
 			set;
 		}
 
-		[JsonProperty("turnin")]
+		//[JsonProperty("turnin")] changed to the custom one from the SWF
+		[JsonProperty("RequiredItems")]
 		public List<InventoryItem> RequiredItems
 		{
 			get;
@@ -137,14 +140,15 @@ namespace Grimoire.Game.Data
 			set;
 		}
 
-		[JsonProperty("iSlot")]
-		public int ISlot
-		{
-			get;
-			set;
-		}
+        private int? _iSlot;
+        [JsonProperty("iSlot")]
+        public int? ISlot
+        {
+            get => (_iSlot == null || _iSlot == -1) ? 0 : _iSlot;
+            set => _iSlot = value;
+        }
 
-		[JsonProperty("iValue")]
+        [JsonProperty("iValue")]
 		public int IValue
 		{
 			get;
@@ -201,19 +205,51 @@ namespace Grimoire.Game.Data
 			Flash.Call("Accept", Id.ToString());
 		}
 
-		public void Complete()
+        public void GhostAccept()
+        {
+			Proxy.Instance.SendToServer($"%xt%zm%acceptQuest%1%{Id}%");
+        }
+
+        public void Complete(int qty = 1, bool max = false)
 		{
-			if (!string.IsNullOrEmpty(ItemId))
+			if (max)
+				qty = getMax();
+            if (!string.IsNullOrEmpty(ItemId))
 			{
-				Flash.Call("Complete", Id.ToString(), ItemId);
+				Flash.Call("Complete", Id.ToString(), qty, ItemId);
 			}
 			else
 			{
-				Flash.Call("Complete", Id.ToString());
+				Flash.Call("Complete", Id.ToString(), qty);
 			}
 		}
+        private int getMax()
+        {
+            var quest = Player.Quests.Quest(Id);
+            int complete = 10000;
+            foreach (var req in quest.RequiredItems)
+            {
+                //LogForm.Instance.devDebug($"{req.Name} is temp? {req.IsTemporary}");
+                int owned = 0;
+                if (req.IsTemporary)
+                {
+                    var tempItem = Player.TempInventory.Items.FirstOrDefault(i => i.Id == req.Id);
+                    owned = tempItem?.Quantity ?? 0;
+                }
+                else
+                {
+                    var invItem = Player.Inventory.Items.FirstOrDefault(i => i.Id == req.Id);
+                    owned = invItem?.Quantity ?? 0;
+                }
 
-		public override string ToString()
+                int required = req.Quantity;
+                int possible = owned / required;
+
+                complete = Math.Min(complete, owned / req.Quantity);
+            }
+			return complete;
+        }
+        public override string ToString()
 		{
 			string itemId = ItemId != null ? $": {ItemId}" : "";
 			string safeRelogin = SafeRelogin ? " [SafeRelogin]" : "";
@@ -222,8 +258,9 @@ namespace Grimoire.Game.Data
 
 		#region ShouldSerialize
 		public bool ShouldSerializeFaction() => false;
+        public bool ShouldSerializeISlot() => false;
 
-		public bool ShouldSerializeClassPointsReward() => false;
+        public bool ShouldSerializeClassPointsReward() => false;
 
 		public bool ShouldSerializeDescription() => false;
 

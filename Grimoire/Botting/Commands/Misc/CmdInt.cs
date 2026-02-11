@@ -32,13 +32,12 @@ namespace Grimoire.Botting.Commands.Misc
 
         public Task Execute(IBotEngine instance)
         {
+            if (!Configuration.Tempvalues.ContainsKey(Int))
+                Configuration.Tempvalues.Add(Int, 0);
             switch (type)
             {
                 case Types.Set:
-                    if (Configuration.Tempvalues.ContainsKey(Int))
-                        Configuration.Tempvalues[Int] = Value;
-                    else
-                        Configuration.Tempvalues.Add(Int, Value);
+                    Configuration.Tempvalues[Int] = Value;
                     break;
                 case Types.Upper:
                     Configuration.Tempvalues[Int]++;

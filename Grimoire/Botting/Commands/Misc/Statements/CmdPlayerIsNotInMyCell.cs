@@ -33,7 +33,6 @@ namespace Grimoire.Botting.Commands.Misc.Statements
                 instance.Index++;
             }
 
-            Console.WriteLine(isExists);
             return Task.FromResult<object>(null);
         }
 

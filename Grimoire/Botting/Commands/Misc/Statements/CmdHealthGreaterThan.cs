@@ -13,7 +13,20 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (Player.Health <= int.Parse(instance.IsVar(Value1)  ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1))
+            string checkHP = instance.IsVar(Value1) ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1;
+            int playerHP = Player.Health;
+
+            if (checkHP.Contains("%"))
+            {
+                int targetPercent = int.Parse(checkHP.TrimEnd('%'));
+
+                int currentPercent = (playerHP * 100) / Player.HealthMax;
+                if (currentPercent <= targetPercent)
+                {
+                    instance.Index++;
+                }
+            }
+            else if (playerHP <= int.Parse(checkHP))
             {
                 instance.Index++;
             }

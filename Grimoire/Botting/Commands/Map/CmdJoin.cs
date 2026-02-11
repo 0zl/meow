@@ -15,50 +15,62 @@ namespace Grimoire.Botting.Commands.Map
 
 		public int Try { get; set; } = 1;
 
+		public string MapSwf { get; set; } = "";
+		private string _Cell;
+		private string _Pad;
 		public async Task Execute(IBotEngine instance)
 		{
 			BotData.BotState = BotData.State.Move;
 			await instance.WaitUntil(() => World.IsActionAvailable(LockActions.Transfer), null, 15);
 
+			_Cell = instance.ResolveVars(Cell);
+			_Pad  = instance.ResolveVars(Pad);
+			string _Map = instance.ResolveVars(Map);
 			//[MAP]-[NUMBER]
 
-			string _mapName = this.Map.Contains("-") ? this.Map.Split('-')[0] : this.Map;
-			string namName = (instance.IsVar(_mapName) ? Configuration.Tempvariable[instance.GetVar(_mapName)] : _mapName);
+			string MapName = _Map.Contains("-") ? _Map.Split('-')[0] : _Map;
+			//string MapName = (instance.IsVar(MapName) ? Configuration.Tempvariable[instance.GetVar(MapName)] : MapName);
 
-			string _roomNumber = this.Map.Contains("-") ? this.Map.Split('-')[1] : "";
-			string roomNumber = (instance.IsVar(_roomNumber) ? Configuration.Tempvariable[instance.GetVar(_roomNumber)] : _roomNumber);
+			string RoomNumber = _Map.Contains("-") ? _Map.Split('-')[1] : "";
+			//string RoomNumber = (instance.IsVar(RoomNumber) ? Configuration.Tempvariable[instance.GetVar(RoomNumber)] : RoomNumber);
 
 			int _try = Try;
 
-			if (!namName.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
+			if (!MapName.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
 			{
-				if (!int.TryParse(roomNumber, out int n) && roomNumber != "")
+				if (!int.TryParse(RoomNumber, out int n) && RoomNumber != "")
 				{
 					Random random = new Random();
 					int num = random.Next(1000, 99999);
-					roomNumber = num.ToString();
+					RoomNumber = num.ToString();
 				}
-				bool provoke = instance.Configuration.ProvokeMonsters;
-				if (provoke) instance.Configuration.ProvokeMonsters = false;
 				while (_try > 0 && Player.Map != Map)
 				{
-					await this.TryJoin(instance, namName, roomNumber);
+                    using (new pauseProvoke(instance.Configuration))
+                    {
+						await this.TryJoin(instance, MapName, RoomNumber);
+                    }
 					_try--;
 				}
-				if (provoke) instance.Configuration.ProvokeMonsters = true;
 			}
 
-			if (namName.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
+			if (MapName.Equals(Player.Map, StringComparison.OrdinalIgnoreCase))
 			{
-				if (!Player.Cell.Equals(this.Cell, StringComparison.OrdinalIgnoreCase))
+				if (!Player.Cell.Equals(_Cell, StringComparison.OrdinalIgnoreCase))
 				{
-					Player.MoveToCell(this.Cell, this.Pad);
+					Player.MoveToCell(_Cell, _Pad);
 					await Task.Delay(500);
 				}
 				World.SetSpawnPoint();
-				BotData.BotMap = namName;
-				BotData.BotCell = this.Cell;
-				BotData.BotPad = this.Pad;
+				BotData.BotMap = MapName;
+				BotData.BotCell = _Cell;
+				BotData.BotPad = _Pad;
+			}
+
+			if (MapSwf.Contains(".swf") && !MapSwf.Contains("(.swf)"))
+			{
+				World.LoadMap(MapSwf);
+				await instance.WaitUntil(() => !World.IsMapLoading, null, 15);
 			}
 		}
 
@@ -73,16 +85,17 @@ namespace Grimoire.Botting.Commands.Map
 				await Task.Delay(1500);
 			}
 			String join = RoomNumber.Length > 0 ? $"{MapName}-{RoomNumber}" : MapName;
-			Player.JoinMap(join, this.Cell, this.Pad);
-			await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 10);
+			Player.JoinMap(join, _Cell, _Pad);
+			await instance.WaitUntil(() => Player.Map.Equals(MapName, StringComparison.OrdinalIgnoreCase), null, 5);
 			await instance.WaitUntil(() => !World.IsMapLoading, null, 40);
 		}
 
 		public override string ToString()
 		{
+			string withSwf = MapSwf != "" ? "[SWF] " : "";
 			return string.Concat(new string[]
 			{
-				$"Join: [{Try}x] ",
+				$"Join: [{Try}x] {withSwf}",
 				this.Map,
 				", ",
 				this.Cell,

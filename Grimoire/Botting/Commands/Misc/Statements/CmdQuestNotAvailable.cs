@@ -13,7 +13,8 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (Player.Quests.IsAvailable(int.Parse((instance.IsVar(Value1)  ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1))))
+            int id = int.Parse(instance.ResolveVars(Value1));
+            if (Player.Quests.IsAvailable(id))
             {
                 instance.Index++;
             }

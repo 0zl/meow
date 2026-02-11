@@ -1,14 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Grimoire.Game;
 using Grimoire.Game.Data;
 using Grimoire.Networking;
 using Grimoire.Tools;
 using Grimoire.UI;
+using Grimoire.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Grimoire.Botting.Commands.Combat
 {
@@ -22,6 +23,8 @@ namespace Grimoire.Botting.Commands.Combat
 
 		public async Task Execute(IBotEngine instance)
 		{
+			BotData.BotState = BotData.State.Combat;
+
 			onPause = false;
 
 			if (instance.Configuration.SkipAttack)
@@ -46,23 +49,22 @@ namespace Grimoire.Botting.Commands.Combat
 			if (AntiCounter)
 			{
 				OptionsManager.DisableAnimations = false;
-				//Proxy.Instance.ReceivedFromServer += CapturePlayerData;
-				Flash.FlashCall += AntiCounterHandler;
+				Flash.FlashCall2 += AntiCounterHandler;
 			}
 
+			//Console.WriteLine("Mon:" + Monster);
 			Player.AttackMonster(Monster);
 
 			if (instance.Configuration.Skills.Count > 0)
-				Task.Run(() => UseSkillsSet(instance));
+				await UseSkillsSet(instance);
 
-			await instance.WaitUntil(() => !Player.HasTarget && !onPause, null, 360);
-			Player.CancelTarget();
+			await instance.WaitUntil(() => !Player.HasTarget && !onPause, timeout:20);
+			Player.CancelTarget(); //timeout increased to 20 for Autoattack/empty skills users
 
 			if (AntiCounter)
 			{
 				OptionsManager.DisableAnimations = disableAnims;
-				//Proxy.Instance.ReceivedFromServer -= CapturePlayerData;
-				Flash.FlashCall -= AntiCounterHandler;
+				Flash.FlashCall2 -= AntiCounterHandler;
 			}
 
 			_cts?.Cancel(false);
@@ -85,8 +87,7 @@ namespace Grimoire.Botting.Commands.Combat
 			int Count = instance.Configuration.Skills.Count - 1;
 			this.Index = ClassIndex;
 
-			bool hasTarget = Player.HasTarget;
-			while (!this._cts.IsCancellationRequested && !onPause && hasTarget)
+			while (!this._cts.IsCancellationRequested && !onPause && Player.HasTarget)
 			{
 				switch (this.Monster.ToLower())
 				{
@@ -94,6 +95,10 @@ namespace Grimoire.Botting.Commands.Combat
 						if (World.IsMonsterAvailable("Staff of Inversion"))
 							Player.AttackMonster("Staff of Inversion");
 						break;
+					case "commander gallaeon":
+						if (World.IsMonsterAvailable("hydra crew"))
+							Player.AttackMonster("hydra crew");
+						break;	
 					case "vath":
 						if (World.IsMonsterAvailable("Stalagbite"))
 							Player.AttackMonster("Stalagbite");
@@ -139,7 +144,7 @@ namespace Grimoire.Botting.Commands.Combat
 						continue;
 					}
 
-					if (instance.Configuration.WaitForSkill)
+					if (instance.Configuration.WaitForSkill || s.Type == Skill.SkillType.Wait)
 					{
 						BotManager.Instance.OnSkillIndexChanged(Index);
 						await Task.Delay(Player.SkillAvailable(s.Index));
@@ -159,14 +164,14 @@ namespace Grimoire.Botting.Commands.Combat
 						index = ClassIndex;
 					}
 					this.Index = index;
-					s = null;
 				}
 				else
 				{
 					//non label
+					
 					Skill s = instance.Configuration.Skills[_skillIndex];
-
-					if (instance.Configuration.WaitForSkill)
+                    //LogForm.Instance.AppendDebug($"Trying to execute Skill-{s.Index} at index {_skillIndex}/{Count}");
+                    if (instance.Configuration.WaitForSkill)
 					{
 						BotManager.Instance.OnSkillIndexChanged(Index);
 						await Task.Delay(Player.SkillAvailable(s.Index));
@@ -177,10 +182,8 @@ namespace Grimoire.Botting.Commands.Combat
 					int count = instance.Configuration.Skills.Count - 1;
 
 					_skillIndex = _skillIndex >= count ? 0 : ++_skillIndex;
-					await Task.Delay(instance.Configuration.SkillDelay);
 				}
 				await Task.Delay(instance.Configuration.SkillDelay);
-				hasTarget = Player.HasTarget;
 			}
 
 			if (Player.HasTarget)
@@ -189,71 +192,58 @@ namespace Grimoire.Botting.Commands.Combat
 			}
 		}
 
-		private void AntiCounterHandler(AxShockwaveFlashObjects.AxShockwaveFlash flash, string function, params object[] args)
+		private void AntiCounterHandler(string function, params object[] args)
 		{
-			string msg = args[0].ToString();
-			if (!msg.StartsWith("{")) return;
-			if (function == "pext")
+			if (function != "packetFromServer") return;
+			try
 			{
-				dynamic packet = JsonConvert.DeserializeObject<dynamic>(msg);
-				string type = packet["params"].type;
-				dynamic data = packet["params"].dataObj;
-				if (type == "json")
-					if (data.cmd == "ct")
+				Message message = NetworkUtils.CreateMessage((string)args[0]);
+				JsonMessage jsonMessage = message as JsonMessage;
+				if (jsonMessage != null)
+				{
+					if (jsonMessage.DataObject?["anims"] != null)
 					{
-						JArray anims = (JArray)data.anims;
+						JArray anims = (JArray)jsonMessage.DataObject["anims"];
 						if (anims != null)
-							if (anims[0]["msg"].ToString().ToLower().Contains("prepares a counter attack"))
+						{
+							foreach (JObject anim in anims)
 							{
-								Player.CancelAutoAttack();
-								Player.CancelTarget();
-								onPause = true;
-								Console.WriteLine("Counter Attack: active");
+								string msg = anim?["msg"]?.ToString()?.ToLower();
+								if (msg != null)
+								{
+									if (msg.Contains("prepares a counter attack"))
+									{
+										Player.CancelAutoAttack();
+										Player.CancelTarget();
+										onPause = true;
+										Console.WriteLine("Counter Attack: active");
+									}
+								}
 							}
-						JArray a = (JArray)data.a;
+						}
+					}
+					if (jsonMessage.DataObject?["a"] != null)
+					{
+						JArray a = (JArray)jsonMessage.DataObject?["a"];
 						if (a != null)
+						{
 							foreach (JObject aura in a)
 							{
 								JObject aura2 = (JObject)aura["aura"];
-								if (aura2.GetValue("nam")?.ToString() == "Counter Attack" && aura.GetValue("cmd")?.ToString() == "aura--")
+								if (aura2?["nam"]?.ToString() == "Counter Attack" && aura.GetValue("cmd")?.ToString().Contains("aura-") == true)
 								{
 									onPause = false;
 									Console.WriteLine("Counter Attack: fades");
 									break;
 								}
 							}
+						}
 					}
-			}
-		}
-
-		private void CapturePlayerData(Message message)
-		{
-			string msg = message.ToString();
-
-			try
-			{
-				//"cmd":"aura++","auras":[{"nam":"Counter Attack"
-				//prepares a counter attack!!
-				string c1 = "\"cmd\":\"aura++\",\"auras\":[{\"nam\":\"Counter Attack\"";
-				string c2 = "prepares a counter attack";
-				if (msg.Contains(c2))
-				{
-					Console.WriteLine("Counter Attack: active");
-					Player.CancelTarget();
-					onPause = true;
-				}
-
-				//"cmd":"aura--","aura":{"nam":"Counter Attack"
-				if (msg.Contains("\"cmd\":\"aura--\",\"aura\":{\"nam\":\"Counter Attack\""))
-				{
-					Console.WriteLine("Counter Attack: fades");
-					onPause = false;
 				}
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine("MyMsg: " + msg);
-				Console.WriteLine("MyError: " + e.Message);
+				Console.WriteLine($"err: {e}");
 			}
 		}
 

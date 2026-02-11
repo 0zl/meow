@@ -191,16 +191,8 @@ namespace Grimoire.Botting
                 }
                 bool flagprovoke = ProvokeMonsters && Player.IsAlive && BotData.BotState != BotData.State.Move && BotData.BotState != BotData.State.Rest && BotData.BotState != BotData.State.Transaction;
                 if (flagprovoke)
-                {
-                    if (BotData.BotState == BotData.State.Quest)
-                    {
-                        await Task.Delay(1500);
-                        SetProvokeMonsters();
-                        BotData.BotState = BotData.State.Combat;
-                    }
-                    SetProvokeMonsters();
-                }
-                if (EnemyMagnet && Player.IsAlive)
+					SetProvokeMonsters();
+				if (EnemyMagnet && Player.IsAlive)
                     SetEnemyMagnet();
                 if (SkipCutscenes)
                     SetSkipCutscenes();

@@ -6,533 +6,530 @@ using Grimoire.Tools;
 using Grimoire.UI;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Grimoire.Botting
 {
-	public class Bot : IBotEngine
-	{
-		public bool IsVar(string value)
-		{
-			return Regex.IsMatch(value, @"\[([^\)]*)\]");
-		}
+    public class Bot : IBotEngine
+    {
+        public bool IsVar(string value)
+        {
+            return Regex.IsMatch(value, @"\[([^\)]*)\]");
+        }
 
-		public string GetVar(string value)
-		{
-			return Regex.Replace(value, @"[\[\]']+", "");
-		}
+        public string GetVar(string value)
+        {
+            return Regex.Replace(value, @"[\[\]']+", "");
+        }
 
-		public static Bot Instance = new Bot();
+        public string ResolveVars(string value)
+        {
+            // Match and replace all Tempvariable ex : "[var1]*[var2]"
+            string replaced = Regex.Replace(value, @"\[(.*?)\]", match =>
+            {
+                string key = match.Groups[1].Value;
+                if (Configuration.Tempvariable.ContainsKey(key))
+                    return Configuration.Tempvariable[key];
+                if (Configuration.Tempvalues.ContainsKey(key))
+                    return Configuration.Tempvalues[key].ToString();
 
-		private int _index;
+                LogForm.Instance.AppendDebug($"[Var Error] Key for [{match.Value}] not found");
+                return match.Value;
+            });
 
-		private Configuration _config;
+            // Try to evaluate if the whole string is math operation (only support -,+,*,/)
+            string evaluated = TryEvaluateExpression(replaced);
 
-		private bool _isRunning;
+            //LogForm.Instance.AppendDebug($"Raw : {value}\r\nReplaced : {replaced}\r\nEvaluated/Final : {evaluated}");
+            return evaluated;
+        }
 
-		private bool _isRunningQuestList;
+        private string TryEvaluateExpression(string input)
+        {
+            try
+            {
+                // kalau input hanya angka atau ekspresi matematis
+                if (Regex.IsMatch(input, @"^[0-9\+\-\*\/\.\(\)\s]+$"))
+                {
+                    var dt = new DataTable();
+                    var result = dt.Compute(input, "");
+                    return result.ToString();
+                }
+            }
+            catch { }
+            return input;
+        }
 
-		private bool _onCompletingQuest;
+        public static Bot Instance = new Bot();
 
-		private CancellationTokenSource _ctsBot;
+        private int _index;
 
-		private Stopwatch _questDelayCounter;
+        private Configuration _config;
 
-		private Stopwatch _boostDelayCounter;
+        private bool _isRunning;
 
-		private List<string> _bsLabels = new List<string>();
+        private CancellationTokenSource _ctsQuestList;
 
-		private string lastCommand = null;
+        private bool _onCompletingQuest = false;
 
-		public int Index
-		{
-			get
-			{
-				return _index;
-			}
-			set
-			{
-				_index = (value < Configuration.Commands.Count) ? value : 0;
-			}
-		}
+        private CancellationTokenSource _ctsBot;
 
-		public Configuration Configuration
-		{
-			get
-			{
-				return _config;
-			}
-			set
-			{
-				if (value != _config)
-				{
-					_config = value;
-					this.ConfigurationChanged?.Invoke(_config);
-				}
-			}
-		}
+        private Stopwatch _questDelayCounter;
 
-		public static Dictionary<int, Configuration> Configurations = new Dictionary<int, Configuration>();
+        private Stopwatch _boostDelayCounter;
 
-		public static Dictionary<int, int> OldIndex = new Dictionary<int, int>();
+        private List<string> _bsLabels = new List<string>();
 
-		public int CurrentConfiguration { get; set; } = 0;
+        private string lastCommand = null;
 
-		public bool IsRunning
-		{
-			get
-			{
-				return _isRunning;
-			}
-			set
-			{
-				_isRunning = value;
-				this.IsRunningChanged?.Invoke(_isRunning);
-			}
-		}
+        public int Index
+        {
+            get
+            {
+                return _index;
+            }
+            set
+            {
+                _index = (value < Configuration.Commands.Count) ? value : 0;
+            }
+        }
 
-		public event Action<bool> IsRunningChanged;
+        public Configuration Configuration
+        {
+            get
+            {
+                return _config;
+            }
+            set
+            {
+                if (value != _config)
+                {
+                    _config = value;
+                    this.ConfigurationChanged?.Invoke(_config);
+                }
+            }
+        }
 
-		public event Action<int> IndexChanged;
+        public static Dictionary<int, Configuration> Configurations = new Dictionary<int, Configuration>();
 
-		public event Action<Configuration> ConfigurationChanged;
+        public static Dictionary<int, int> OldIndex = new Dictionary<int, int>();
 
-		public void Start(Configuration config)
-		{
-			SetLitePrefSettings();
-			IsRunning = true;
-			Configuration = config;
-			Index = 0;
-			BotData.BotState = BotData.State.Others;
-			_ctsBot = new CancellationTokenSource();
-			_questDelayCounter = new Stopwatch();
-			_boostDelayCounter = new Stopwatch();
-			World.ItemDropped += OnItemDropped;
-			Player.Quests.QuestsLoaded += OnQuestsLoaded;
-			Player.Quests.QuestCompleted += OnQuestCompleted;
-			_questDelayCounter.Start();
-			this.LoadAllQuests();
-			this.LoadBankItems();
-			CheckBoosts();
-			_boostDelayCounter.Start();
-			OptionsManager.Start();
-			Task.Factory.StartNew(Activate, _ctsBot.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
-			BotData.BotMap = null;
-			BotData.BotCell = null;
-			BotData.BotPad = null;
-			BotData.BotSkill = null;
-			BotData.BotState = BotData.State.Others;
-			BotData.SkillSet.Clear();
-			for (int i = 0; i < Configuration.Skills.Count; i++)
-			{
-				if (Configuration.Skills[i].Type == Skill.SkillType.Label)
-				{
-					BotData.SkillSet.Add(Configuration.Skills[i].Text.ToUpper(), i);
-				}
-			}
-		}
+        public int CurrentConfiguration { get; set; } = 0;
 
-		public void Stop()
-		{
-			SetLitePrefSettings(restore: true);
-			_ctsBot?.Cancel(throwOnFirstException: false);
-			World.ItemDropped -= OnItemDropped;
-			Player.Quests.QuestsLoaded -= OnQuestsLoaded;
-			Player.Quests.QuestCompleted -= OnQuestCompleted;
-			_questDelayCounter.Stop();
-			_boostDelayCounter.Stop();
-			OptionsManager.Stop();
-			_bsLabels.Clear();
-			IsRunning = false;
-			BotData.BotState = BotData.State.Others;
-		}
+        public bool IsRunning
+        {
+            get
+            {
+                return _isRunning;
+            }
+            set
+            {
+                _isRunning = value;
+                this.IsRunningChanged?.Invoke(_isRunning);
+            }
+        }
 
-		private bool litePrefReAccept = false;
-		private bool litePrefCustomDrop = false;
-		private void SetLitePrefSettings(bool restore = false)
-		{
-			return;
-			if (restore)
-			{
-				Flash.SetGameObject("litePreference.data.bReaccept", litePrefReAccept);
-				Flash.SetGameObject("litePreference.data.bCustomDrops", litePrefCustomDrop);
-				Flash.SetGameObject("cDropsUI.visible", litePrefCustomDrop);
-			}
-			else
-			{
-				litePrefReAccept = Flash.GetGameObject("litePreference.data.bReaccept") == "True";
-				litePrefReAccept = Flash.GetGameObject("litePreference.data.bCustomDrops") == "True";
-				Flash.SetGameObject("litePreference.data.bReaccept", false);
-				Flash.SetGameObject("litePreference.data.bCustomDrops", true);
-				Flash.SetGameObject("cDropsUI.visible", true);
-			}
-		}
+        public event Action<bool> IsRunningChanged;
 
-		private async Task Activate()
-		{
-			if (Configuration.Quests.Count > 0)
-			{
-				_isRunningQuestList = true;
-				StartQuestList();
-			}
+        public event Action<int> IndexChanged;
 
-			while (!_ctsBot.IsCancellationRequested)
-			{
-				if (Player.IsLoggedIn && !Player.IsAlive)
-				{
-					World.SetSpawnPoint();
-					await this.WaitUntil(() => Player.IsAlive, () => IsRunning && Player.IsLoggedIn, -1);
-					await Task.Delay(1000);
-					Index = Configuration.RestartUponDeath ? 0 : Index - 1;
-				}
+        public event Action<Configuration> ConfigurationChanged;
 
-				if (!Player.IsLoggedIn)
-				{
-					LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Disconnected. Last cmd: [{Index}]{lastCommand}");
-					_isRunningQuestList = false;
+        public void Start(Configuration config)
+        {
+            IsRunning = true;
+            Configuration = config;
+            Index = 0;
+            BotData.BotState = BotData.State.Others;
+            _ctsBot = new CancellationTokenSource();
+            _questDelayCounter = new Stopwatch();
+            _boostDelayCounter = new Stopwatch();
+            World.ItemDropped += OnItemDropped;
+            Player.Quests.QuestsLoaded += OnQuestsLoaded;
+            Player.Quests.QuestCompleted += OnQuestCompleted;
+            _questDelayCounter.Start();
+            this.LoadAllQuests();
+            this.LoadBankItems();
+            CheckBoosts();
+            _boostDelayCounter.Start();
+            OptionsManager.Start();
+            Task.Factory.StartNew(Activate, _ctsBot.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+            BotData.BotMap = null;
+            BotData.BotCell = null;
+            BotData.BotPad = null;
+            BotData.BotSkill = null;
+            BotData.BotState = BotData.State.Others;
+            BotData.SkillSet.Clear();
+            for (int i = 0; i < Configuration.Skills.Count; i++)
+            {
+                if (Configuration.Skills[i].Type == Skill.SkillType.Label)
+                {
+                    BotData.SkillSet.Add(Configuration.Skills[i].Text.ToUpper(), i);
+                }
+            }
+        }
 
-					if (Configuration.AutoRelogin)
-					{
-						bool infiniteRange = OptionsManager.InfiniteRange;
-						bool provoke = OptionsManager.ProvokeMonsters;
-						bool lagKiller = OptionsManager.LagKiller;
-						bool skipCutscene = OptionsManager.SkipCutscenes;
-						bool playerAnim = OptionsManager.DisableAnimations;
-						bool enemyMagnet = OptionsManager.EnemyMagnet;
-						bool reloginOnAFK = OptionsManager.AFK;
+        public void Stop()
+        {
+            _ctsBot?.Cancel(throwOnFirstException: false);
+            World.ItemDropped -= OnItemDropped;
+            Player.Quests.QuestsLoaded -= OnQuestsLoaded;
+            Player.Quests.QuestCompleted -= OnQuestCompleted;
+            _questDelayCounter.Stop();
+            _boostDelayCounter.Stop();
+            OptionsManager.Stop();
+            StopBackGroundSpammer();
+            IsRunning = false;
+			_onCompletingQuest = false;
+            paused = false;
+            BotData.BotState = BotData.State.Others;
+            this.StopCommands();
+        }
+        public bool paused
+        {
+            get;
+            set;
+        }
+        private async Task Activate()
+        {
+            if (Configuration.Quests.Count > 0)
+                StartQuestList();
 
-						OptionsManager.Stop();
-						await AutoRelogin.Login(Configuration.Server, Configuration.RelogDelay, _ctsBot, Configuration.RelogRetryUponFailure);
-						Index = 0;
-						this.LoadAllQuests();
-						this.LoadBankItems();
-						OptionsManager.Start();
-						LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Relogin success.");
+            while (!_ctsBot.IsCancellationRequested)
+            {
+                if (Player.IsLoggedIn && !Player.IsAlive)
+                {
+                    World.SetSpawnPoint();
+                    await this.WaitUntil(() => Player.IsAlive, () => IsRunning && Player.IsLoggedIn, -1);
+                    await Task.Delay(1000);
+                    Index = Configuration.RestartUponDeath ? 0 : Index - 1;
+                }
 
+                if (!Player.IsLoggedIn)
+                {
+                    LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Disconnected. Last cmd: [{Index}]{lastCommand}");
+                    StopQuestList();
+                    StopBackGroundSpammer();
+                    World.LoadedShops.Clear();
 
-						if (Configuration.Quests.Count > 0)
-						{
-							_isRunningQuestList = true;
-							StartQuestList();
-						}
+                    if (Configuration.AutoRelogin)
+                    {
+                        bool infiniteRange = OptionsManager.InfiniteRange;
+                        bool provoke = OptionsManager.ProvokeMonsters;
+                        bool lagKiller = OptionsManager.LagKiller;
+                        bool skipCutscene = OptionsManager.SkipCutscenes;
+                        bool playerAnim = OptionsManager.DisableAnimations;
+                        bool enemyMagnet = OptionsManager.EnemyMagnet;
+                        bool reloginOnAFK = OptionsManager.AFK;
 
-						OptionsManager.InfiniteRange = infiniteRange;
-						OptionsManager.ProvokeMonsters = provoke;
-						OptionsManager.LagKiller = lagKiller;
-						OptionsManager.SkipCutscenes = skipCutscene;
-						OptionsManager.DisableAnimations = playerAnim;
-						OptionsManager.EnemyMagnet = enemyMagnet;
-						OptionsManager.AFK = reloginOnAFK;
-					}
-					else
-					{
-						Stop();
-						return;
-					}
-				}
+                        OptionsManager.Stop();
+                        await AutoRelogin.Login(Configuration.Server, Configuration.RelogDelay, _ctsBot, Configuration.RelogRetryUponFailure);
+                        Index = 0;
+                        this.LoadAllQuests();
+                        this.LoadBankItems();
+                        if (Configuration.Quests.Count > 0)
+                            StartQuestList();
+                        LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Relogin success.");
 
-				if (_ctsBot.IsCancellationRequested)
-					return;
+                        OptionsManager.InfiniteRange = infiniteRange;
+                        OptionsManager.ProvokeMonsters = provoke;
+                        OptionsManager.LagKiller = lagKiller;
+                        OptionsManager.SkipCutscenes = skipCutscene;
+                        OptionsManager.DisableAnimations = playerAnim;
+                        OptionsManager.EnemyMagnet = enemyMagnet;
+                        OptionsManager.AFK = reloginOnAFK;
+                        OptionsManager.Start();
+                    }
+                    else
+                    {
+                        Stop();
+                        return;
+                    }
+                }
 
-				if (Configuration.RestIfHp)
-					await RestHealth();
+                if (_ctsBot.IsCancellationRequested)
+                    return;
 
-				if (_ctsBot.IsCancellationRequested)
-					return;
+                if (Configuration.RestIfHp)
+                    await RestHealth();
 
-				if (Configuration.RestIfMp)
-					await RestMana();
+                if (_ctsBot.IsCancellationRequested)
+                    return;
 
-				if (_ctsBot.IsCancellationRequested)
-					return;
+                if (Configuration.RestIfMp)
+                    await RestMana();
 
-				IndexChanged?.Invoke(Index);
-				IBotCommand cmd = Configuration.Commands[Index];
-				if (cmd is CmdBackgroundPacket)
-				{
-					ToggleSpammer(cmd);
-				}
-				else
-				{
-					lastCommand = cmd.ToString();
-					await cmd.Execute(this);
-				}
+                if (_ctsBot.IsCancellationRequested)
+                    return;
 
-				if (_ctsBot.IsCancellationRequested)
-					return;
+                IndexChanged?.Invoke(Index);
+                IBotCommand cmd = Configuration.Commands[Index];
+                if (cmd is CmdBackgroundPacket)
+                {
+                    ToggleSpammer(cmd);
+                }
+                else
+                {
+                    lastCommand = cmd.ToString();
+                    while (paused) //Might be useful for handler uses in the future
+                        await Task.Delay(100);
+                    await cmd.Execute(this);
+                }
 
-				if (Configuration.BotDelay > 0 &&
-					(!Configuration.SkipDelayIndexIf || Configuration.SkipDelayIndexIf && cmd.RequiresDelay()))
-					await Task.Delay(_config.BotDelay);
+                if (_ctsBot.IsCancellationRequested)
+                    return;
 
-				if (_ctsBot.IsCancellationRequested)
-					return;
+                if (Configuration.BotDelay > 0 &&
+                    (!Configuration.SkipDelayIndexIf || Configuration.SkipDelayIndexIf && cmd.RequiresDelay()))
+                    await Task.Delay(_config.BotDelay);
 
-				//if (Configuration.Quests.Count > 0)
-				//	await CheckQuests();
+                if (_ctsBot.IsCancellationRequested)
+                    return;
 
-				if (Configuration.Boosts.Count > 0)
-					CheckBoosts();
+                if (Configuration.Boosts.Count > 0)
+                    CheckBoosts();
 
-				if (!_ctsBot.IsCancellationRequested)
-					Index++;
-			}
-		}
+                if (!_ctsBot.IsCancellationRequested)
+                    Index++;
+            }
+        }
 
-		private Dictionary<int, int> qFailures = new Dictionary<int, int>();
+        private Dictionary<int, int> qFailures = new Dictionary<int, int>();
 
-		private async void StartQuestList()
-		{
-			int questDelay = (int)BotManager.Instance.numQuestDelay.Value;
-			if (Configuration.Quests.Count > 0)
-			{
-				qFailures.Clear();
-				foreach (var quest in Configuration.Quests)
-				{
-					qFailures.Add(quest.Id, 0);
-				}
-				while (!_ctsBot.IsCancellationRequested && _isRunningQuestList && Player.IsLoggedIn)
-				{
-					Quest quest = Configuration.Quests.FirstOrDefault((Quest q) => q.CanComplete);
-					if (quest != null)
-					{
-						//bool provoke = OptionsManager.ProvokeMonsters;
-						//if (provoke) OptionsManager.ProvokeMonsters = false;
-						BotData.State TempState = BotData.BotState;
-						BotData.BotState = BotData.State.Quest;
-						_onCompletingQuest = true;
+        public async void StartQuestList()
+        {
+            if (_ctsQuestList != null && !_ctsQuestList.IsCancellationRequested)
+            {
+                LogForm.Instance.devDebug($"QuestList Restarted");
+                StopQuestList();
+            }
 
-						quest.Complete();
-						await Task.Delay(questDelay);
+            _ctsQuestList = new CancellationTokenSource();
+            var token = _ctsQuestList.Token;
 
-						if (quest.CanComplete)
-						{
-							int f = qFailures[quest.Id];
-							if (f >= 5)
-							{
-								Player.Logout();
-								LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Failed to complete quest [{quest.Id}] {f} times.");
-							}
-							else
-							{
-								qFailures[quest.Id] = f++;
-								Console.WriteLine($"qFailures[{quest.Id}] : {f++}");
-							}
-						}
-						else
-						{
-							qFailures[quest.Id] = 0;
-						}
+            int questDelay = (int)BotManager.Instance.numQuestDelay.Value;
 
-						//if (provoke) OptionsManager.ProvokeMonsters = true;
-						BotData.BotState = TempState;
-						_onCompletingQuest = false;
-					}
-					else
-					{
-						await Task.Delay(questDelay);
-					}
-				}
-			}
-		}
+            if (Configuration.Quests.Count == 0)
+                return;
 
-		private async void ToggleSpammer(IBotCommand cmd)
-		{
-			CmdBackgroundPacket bSpammer = (CmdBackgroundPacket)cmd;
-			switch (bSpammer.ActionW)
-			{
-				case CmdBackgroundPacket.Action.ADD:
-					_bsLabels.Add(bSpammer.Label);
-					break;
+            qFailures.Clear();
+            foreach (var quest in Configuration.Quests)
+            {
+                qFailures.Add(quest.Id, 0);
+            }
 
-				case CmdBackgroundPacket.Action.STOP:
-					_bsLabels.RemoveAll(label => label == bSpammer.Label);
-					break;
-			}
+            try
+            {
+                while (!_ctsBot.IsCancellationRequested && !token.IsCancellationRequested && Player.IsLoggedIn)
+                {
+                    Quest quest = Configuration.Quests.FirstOrDefault((Quest q) => q.CanComplete);
+                    if (quest != null)
+                    {
+                        BotData.State TempState = BotData.BotState;
+                        BotData.BotState = BotData.State.Quest;
+                        _onCompletingQuest = true;
 
-			while (_bsLabels.Contains(bSpammer.Label) && bSpammer.Packet != null)
-			{
-				if (!_onCompletingQuest)
-				{
-					await Proxy.Instance.SendToServer(bSpammer.Packet);
-					await Task.Delay(bSpammer.Delay);
-				}
-			}
-		}
+                        quest.Complete();
+                        await Task.Delay(questDelay, token);
 
-		private async Task RestHealth()
-		{
-			if (Player.Health / (double)Player.HealthMax <= Configuration.RestHp / 100.0)
-			{
-				BotData.State TempState = BotData.BotState;
-				BotData.BotState = BotData.State.Rest;
-				bool provokeMons = this.Configuration.ProvokeMonsters;
-				if (provokeMons) this.Configuration.ProvokeMonsters = false;
-				if (Configuration.ExitCombatBeforeRest)
-				{
-					Player.MoveToCell(Player.Cell, Player.Pad);
-					await Task.Delay(2000);
-				}
-				Player.Rest();
-				await this.WaitUntil(() => Player.Health >= Player.HealthMax);
-				BotData.BotState = TempState;
-				if (provokeMons) this.Configuration.ProvokeMonsters = true;
-			}
-		}
+                        if (quest.CanComplete)
+                        {
+                            int f = qFailures[quest.Id];
+                            if (f >= 5)
+                            {
+                                Player.Logout();
+                                LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Failed to complete quest [{quest.Id}] {f} times.");
+                            }
+                            else
+                            {
+                                qFailures[quest.Id] = f++;
+                                Console.WriteLine($"qFailures[{quest.Id}] : {f++}");
+                            }
+                        }
+                        else
+                        {
+                            qFailures[quest.Id] = 0;
+                        }
 
-		private async Task RestMana()
-		{
-			if (Player.Mana / (double)Player.ManaMax <= Configuration.RestMp / 100.0)
-			{
-				BotData.State TempState = BotData.BotState;
-				BotData.BotState = BotData.State.Rest;
-				bool provokeMons = this.Configuration.ProvokeMonsters;
-				if (provokeMons) this.Configuration.ProvokeMonsters = false;
-				if (Configuration.ExitCombatBeforeRest)
-				{
-					Player.MoveToCell(Player.Cell, Player.Pad);
-					await Task.Delay(2000);
-				}
-				Player.Rest();
-				await this.WaitUntil(() => Player.Mana >= Player.ManaMax);
-				BotData.BotState = TempState;
-				if (provokeMons) this.Configuration.ProvokeMonsters = true;
-			}
-		}
+                        BotData.BotState = TempState;
+                        _onCompletingQuest = false;
+                    }
+                    else
+                    {
+                        await Task.Delay(questDelay, token);
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+            }
+        }
 
-		private void CheckBoosts()
-		{
-			if (_boostDelayCounter.ElapsedMilliseconds >= 10000)
-			{
-				foreach (InventoryItem boost in Configuration.Boosts)
-				{
-					if (!Player.HasActiveBoost(boost.Name))
-					{
-						Player.UseBoost(boost.Id);
-					}
-				}
-				_boostDelayCounter.Restart();
-			}
-		}
+        public void StopQuestList()
+        {
+			_onCompletingQuest = false;
+            _ctsQuestList?.Cancel();
+            _ctsQuestList?.Dispose();
+        }
 
-		private async Task CheckQuests()
-		{
-			if (!World.IsActionAvailable(LockActions.TryQuestComplete) || _questDelayCounter.ElapsedMilliseconds < 1500)
-			{
-				return;
-			}
-			Quest quest = Configuration.Quests.FirstOrDefault((Quest q) => q.CanComplete);
-			if (quest == null)
-			{
-				return;
-			}
-			BotData.State TempState = BotData.BotState;
-			BotData.BotState = BotData.State.Quest;
-			/*string pCell = Player.Cell;
-			string pPad = Player.Pad;
-			bool provokeMons = this.Configuration.ProvokeMonsters;
-			if (provokeMons) this.Configuration.ProvokeMonsters = false;
-			if (_config.ExitCombatBeforeQuest)
-			{
-				if (quest.CompleteInBlank)
-				{
-					Player.MoveToCell("Grimlite", "Left");
-				}
-				else
-				{
-					Player.MoveToCell(pCell, pPad);
-				}
-				await this.WaitUntil(() => Player.CurrentState != Player.State.InCombat);
-			}*/
-			if (quest.SafeRelogin)
-			{
-				int tryComplete = 0;
-				while (quest.CanComplete)
-				{
-					quest.Complete();
-					await Task.Delay(1000);
-					tryComplete++;
-					if (tryComplete > 5 && quest.SafeRelogin) Player.Logout();
-				}
-			}
-			else
-			{
-				quest.Complete();
-			}
-			/*if (quest.CompleteInBlank)
-			{
-				Player.MoveToCell(pCell, pPad);
-			}
-			this.Configuration.ProvokeMonsters = provokeMons;*/
-			BotData.BotState = TempState;
-			_questDelayCounter.Restart();
-		}
+        public void StopBackGroundSpammer()
+        {
+            _bsLabels.Clear();
+        }
 
-		private void OnItemDropped(InventoryItem drop)
-		{
-			NotifyDrop(drop);
-			bool flag = Configuration.Drops.Any((string d) => d.Equals(drop.Name, StringComparison.OrdinalIgnoreCase));
-			if (Configuration.EnablePickupAll)
-			{
-				World.DropStack.GetDrop(drop.Id);
-			}
-			else if (Configuration.EnablePickup && flag)
-			{
-				World.DropStack.GetDrop(drop.Id);
-			}
+        private async void ToggleSpammer(IBotCommand cmd)
+        {
+            CmdBackgroundPacket bSpammer = (CmdBackgroundPacket)cmd;
+            switch (bSpammer.ActionW)
+            {
+                case CmdBackgroundPacket.Action.ADD:
+                    _bsLabels.Add(bSpammer.Label);
+                    break;
 
-			if (Configuration.EnablePickupAcTagged)
-			{
-				if (drop.IsAcItem)
-				{
-					World.DropStack.GetDrop(drop.Id);
-				}
-			}
-		}
+                case CmdBackgroundPacket.Action.STOP:
+                    _bsLabels.RemoveAll(label => label == bSpammer.Label);
+                    break;
+            }
 
-		private void NotifyDrop(InventoryItem drop)
-		{
-			if (Configuration.NotifyUponDrop.Count > 0 && Configuration.NotifyUponDrop.Any((string d) => d.Equals(drop.Name, StringComparison.OrdinalIgnoreCase)))
-			{
-				for (int i = 0; i < 10; i++)
-				{
-					Console.Beep();
-				}
-			}
-		}
+            while (_bsLabels.Contains(bSpammer.Label) && bSpammer.Packet != null)
+            {
+                if (!_onCompletingQuest)
+                {
+                    await Proxy.Instance.SendToServer(bSpammer.Packet);
+                    await Task.Delay(bSpammer.Delay);
+                }
+            }
+        }
+
+        private async Task RestHealth()
+        {
+            if (Player.Health / (double)Player.HealthMax <= Configuration.RestHp / 100.0)
+            {
+                BotData.State TempState = BotData.BotState;
+                BotData.BotState = BotData.State.Rest;
+                bool provokeMons = this.Configuration.ProvokeMonsters;
+                if (provokeMons) this.Configuration.ProvokeMonsters = false;
+                if (Configuration.ExitCombatBeforeRest)
+                {
+                    Player.MoveToCell(Player.Cell, Player.Pad);
+                    await Task.Delay(2000);
+                }
+                Player.Rest();
+                await this.WaitUntil(() => Player.Health >= Player.HealthMax);
+                BotData.BotState = TempState;
+                if (provokeMons) this.Configuration.ProvokeMonsters = true;
+            }
+        }
+
+        private async Task RestMana()
+        {
+            if (Player.Mana / (double)Player.ManaMax <= Configuration.RestMp / 100.0)
+            {
+                BotData.State TempState = BotData.BotState;
+                BotData.BotState = BotData.State.Rest;
+                bool provokeMons = this.Configuration.ProvokeMonsters;
+                if (provokeMons) this.Configuration.ProvokeMonsters = false;
+                if (Configuration.ExitCombatBeforeRest)
+                {
+                    Player.MoveToCell(Player.Cell, Player.Pad);
+                    await Task.Delay(2000);
+                }
+                Player.Rest();
+                await this.WaitUntil(() => Player.Mana >= Player.ManaMax);
+                BotData.BotState = TempState;
+                if (provokeMons) this.Configuration.ProvokeMonsters = true;
+            }
+        }
+
+        private void CheckBoosts()
+        {
+            if (_boostDelayCounter.ElapsedMilliseconds >= 10000)
+            {
+                foreach (InventoryItem boost in Configuration.Boosts)
+                {
+                    if (!Player.HasActiveBoost(boost.Name))
+                    {
+                        Player.UseBoost(boost.Id);
+                    }
+                }
+                _boostDelayCounter.Restart();
+            }
+        }
+
+        private void OnItemDropped(InventoryItem drop)
+        {
+            NotifyDrop(drop);
+            bool flag = Configuration.Drops.Any((string d) => d.Equals(drop.Name, StringComparison.OrdinalIgnoreCase));
+            if (Configuration.EnablePickupAll)
+            {
+                World.DropStack.GetDrop(drop.Id);
+            }
+            else if (Configuration.EnablePickup && flag)
+            {
+                World.DropStack.GetDrop(drop.Id);
+            }
+
+            if (Configuration.EnablePickupAcTagged)
+            {
+                if (drop.IsAcItem)
+                {
+                    World.DropStack.GetDrop(drop.Id);
+                }
+            }
+        }
+
+        private void NotifyDrop(InventoryItem drop)
+        {
+            if (Configuration.NotifyUponDrop.Count > 0 && Configuration.NotifyUponDrop.Any((string d) => d.Equals(drop.Name, StringComparison.OrdinalIgnoreCase)))
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.Beep();
+                }
+            }
+        }
 
 		private void OnQuestsLoaded(List<Quest> quests)
 		{
-			List<Quest> qs = quests.Where((Quest q) => Configuration.Quests.Any((Quest qq) => qq.Id == q.Id)).ToList();
-			int count = qs.Count;
-			if (qs.Count <= 0)
+			var matchingQuests = quests
+				.Where(q => Configuration.Quests.Any(configQuest => configQuest.Id == q.Id))
+				.ToList();
+			switch (matchingQuests.Count)
 			{
-				return;
-			}
-			if (count == 1)
-			{
-				qs[0].Accept();
-				return;
-			}
-			for (int i = 0; i < count; i++)
-			{
-				int ii = i;
-				Task.Run(async delegate
-				{
-					await Task.Delay(1000 * ii);
-					qs[ii].Accept();
-				});
+				case 0:
+					return;
+
+				case 1:
+					matchingQuests[0].Accept();
+					return;
+
+				default:
+					// for better performance, use GhostAccept for multiple quests accepting
+					for (int i = 0; i < matchingQuests.Count; i++)
+					{
+						int index = i;
+						Task.Run(async () =>
+						{
+							await Task.Delay(700 * index);
+							matchingQuests[index].GhostAccept();
+						});
+					}
+					break;
 			}
 		}
 
 		private void OnQuestCompleted(CompletedQuest quest)
-		{
-			Configuration.Quests.FirstOrDefault((Quest q) => q.Id == quest.Id)?.Accept();
-		}
-	}
+        {
+            Task.Run(async () =>
+            {
+                await Task.Delay(600);
+                Configuration.Quests.FirstOrDefault((Quest q) => q.Id == quest.Id)?.GhostAccept();
+            });
+        }
+    }
 }

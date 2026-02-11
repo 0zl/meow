@@ -1,4 +1,8 @@
 using Grimoire.Game;
+using Grimoire.Game.Data;
+using Grimoire.Tools;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Grimoire.Botting.Commands.Misc.Statements
@@ -13,7 +17,7 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (World.VisibleMonsters.Count >= int.Parse((instance.IsVar(Value1)  ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1)))
+			if (World.VisibleMonsters.Count >= int.Parse((instance.IsVar(Value1)  ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1)))
             {
                 instance.Index++;
             }

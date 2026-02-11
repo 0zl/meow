@@ -71,6 +71,16 @@ namespace Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap astolfo_head {
+            get {
+                object obj = ResourceManager.GetObject("astolfo_head", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {
         ///  &quot;txtMonster&quot;: &quot;Monster (* = random)&quot;,
         ///  &quot;txtKillFMon&quot;: &quot;Monster (* = random)&quot;,
@@ -101,6 +111,16 @@ namespace Properties {
         public static System.Drawing.Bitmap Discord {
             get {
                 object obj = ResourceManager.GetObject("Discord", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Dropbox {
+            get {
+                object obj = ResourceManager.GetObject("Dropbox", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -161,26 +181,6 @@ namespace Properties {
         public static System.Drawing.Bitmap MPGHfavicon16 {
             get {
                 object obj = ResourceManager.GetObject("MPGHfavicon16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon pdip1 {
-            get {
-                object obj = ResourceManager.GetObject("pdip1", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap pdipic {
-            get {
-                object obj = ResourceManager.GetObject("pdipic", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

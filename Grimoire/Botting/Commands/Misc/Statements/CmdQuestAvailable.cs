@@ -13,16 +13,22 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
         public Task Execute(IBotEngine instance)
         {
-            if (!Player.Quests.IsAvailable(int.Parse((instance.IsVar(Value1)  ? Configuration.Tempvariable[instance.GetVar(Value1)] : Value1))))
+            int id = int.Parse(instance.ResolveVars(Value1));
+            //int req = Player.Quests.Quest(id).IValue;
+            if (!Player.Quests.IsAvailable(id))
             {
                 instance.Index++;
             }
+            //else if(Player.Quests.progress(id) >= req && Player.Quests.Quest(id).IsNotRepeatable)
+            //{
+            //    instance.Index++;
+            //}
             return Task.FromResult<object>(null);
         }
 
         public override string ToString()
         {
-            return "Quest is available: " + Value1;
+            return $"Quest is available:{Value1}" ;
         }
     }
 }

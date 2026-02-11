@@ -45,14 +45,15 @@ namespace Grimoire.Botting.Commands.Misc
             int i = 1;
             while (i <= SpamTimes && Player.IsLoggedIn && instance.IsRunning)
 			{
-                if (IsVar(Packet))
+                /*if (IsVar(Packet))
                 {
                     text = Configuration.Tempvariable[GetVar(Packet)];
                 }
                 else
                 {
                     text = Packet;
-                }
+                }*/
+                text = Bot.Instance.ResolveVars(Packet);
 
                 text = text.Replace("{ROOM_ID}", World.RoomId.ToString()).Replace("{ROOM_NUMBER}", World.RoomNumber.ToString()).Replace("PLAYERNAME", Player.Username);
                 text = text.Replace("{GETMAP}", Player.Map);

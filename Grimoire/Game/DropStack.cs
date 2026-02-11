@@ -85,11 +85,9 @@ namespace Grimoire.Game
                 _cooldown.RemoveAll((KeyValuePair<int, Stopwatch> c) => c.Value.ElapsedMilliseconds >= 3000);
                 if (!IsCoolingDown(itemId))
                 {
-                    //Console.WriteLine($"picking item: {itemId}");
                     await Proxy.Instance.SendToServer($"%xt%zm%getDrop%{World.RoomId}%{itemId}%");
                     _cooldown.Add(new KeyValuePair<int, Stopwatch>(itemId, Stopwatch.StartNew()));
                     _drops.RemoveAll((InventoryItem d) => d.Id == itemId);
-                    //Console.WriteLine($"picking done.");
                     return true;
                 }
             }

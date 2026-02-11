@@ -14,10 +14,10 @@ namespace Grimoire.Networking.Handlers
 
         public void Handle(JsonMessage message)
         {
-            if (message.DataObject["anims"] != null)
+            /*if (message.DataObject["anims"] != null)
             {
                 message.DataObject["anims"] = new JArray();
-            }
+            }*/
             /*if (message.DataObject["a"] != null)
             {
                 message.DataObject["a"] = new JArray();

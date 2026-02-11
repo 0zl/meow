@@ -35,16 +35,29 @@ namespace Grimoire.UI
 
         private void txtCmd_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            // Tekan Ctrl + Enter
+            if (e.Control && e.KeyCode == Keys.Return)
             {
-                /*case Keys.Return:
-                    btnOK.PerformClick();
-                    break;*/
-
-                case Keys.Escape:
-                    btnCancel.PerformClick();
-                    break;
+                e.SuppressKeyPress = true; // cegah bunyi "ding"
+                btnOK.PerformClick();
             }
+            // Tekan Esc untuk cancel
+            else if (e.KeyCode == Keys.Escape)
+            {
+                e.SuppressKeyPress = true;
+                btnCancel.PerformClick();
+            }
+
+            //switch (e.KeyCode)
+            //{
+            //    case Keys.Return:
+            //        btnOK.PerformClick();
+            //        break;
+
+            //    case Keys.Escape:
+            //        btnCancel.PerformClick();
+            //        break;
+            //}
         }
 
         public static string Show(string content)

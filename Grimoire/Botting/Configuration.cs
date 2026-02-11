@@ -230,9 +230,15 @@ namespace Grimoire.Botting
         {
             get;
             set;
-        }
+		}
 
-        public List<string> Items
+		public bool RestartOnAFK
+		{
+			get;
+			set;
+		}
+
+		public List<string> Items
         {
             get;
             set;
@@ -280,6 +286,18 @@ namespace Grimoire.Botting
         }
 
         public string FollowName
+        {
+            get;
+            set;
+        }
+
+        public string RelogUponItemBuyFailure
+        {
+            get;
+            set;
+        }
+
+        public string AutoZone
         {
             get;
             set;

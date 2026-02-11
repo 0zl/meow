@@ -99,7 +99,7 @@ namespace Grimoire.Game
         public static string Password => Flash.Call<string>("GetPassword", new string[0]);
 
         /// <summary>
-        /// Grabs Player Equipped Class string.
+        /// Grabs Player Equipped Class string (FULLY UPPERCASE).
         /// </summary>
         public static string EquippedClass => Flash.Call<string>("Class", new string[0]);
 
@@ -125,6 +125,16 @@ namespace Grimoire.Game
         /// Gets Current State (Dead, Idle or InCombat).
         /// </summary>
         public static State CurrentState => (State)Flash.Call<int>("State", new string[0]);
+
+        public static async Task ExitCombat()
+        {
+
+            if (State.InCombat == CurrentState)
+            {
+                MoveToCell(Cell, Pad);
+                await Task.Delay(1500);
+            }
+        }
 
         /// <summary>
         /// Gets Current Health.
@@ -190,13 +200,14 @@ namespace Grimoire.Game
         /// Checks if the player is a member (upgrade).
         /// </summary>
         public static bool IsMember => bool.Parse(Flash.Call<string>("IsMember", new string[0]));
-            //Flash.Instance.GetGameObject<int>("world.myAvatar.objData.iUpgDays") >= 0;
+        //Flash.Instance.GetGameObject<int>("world.myAvatar.objData.iUpgDays") >= 0;
 
         /// <summary>
         /// Checks if int skill is available (i think if its also off cooldown).
+        /// 0 = Skill is ready to use, else is the remaining cooldown in Miliseconds.
         /// </summary>
         /// <param name="index"></param>
-        public static int SkillAvailable(string index) => Flash.Call<int>("SkillAvailable", new string[1]{index});
+        public static int SkillAvailable(string index) => Flash.Call<int>("SkillAvailable", new string[1] { index });
 
         /// <summary>
         /// Get Skill Cooldown.
@@ -266,13 +277,35 @@ namespace Grimoire.Game
         /// Attacks Monster
         /// </summary>
         /// <param name="name"></param>
-        public static void AttackMonster(string name) => Flash.Call("AttackMonster", name);
+        public static void AttackMonster(string name)
+        {
+            if (name.StartsWith("id'"))
+            {
+                Flash.Call("AttackMonsterByMonMapId", name.Split('\'')[1]);
+            }
+            else if (name.StartsWith("id."))
+            {
+                Flash.Call("AttackMonsterByMonMapId", name.Split('.')[1]);
+            }
+            else if (name.StartsWith("id:"))
+            {
+                Flash.Call("AttackMonsterByMonMapId", name.Split(':')[1]);
+            }
+            else if (name.StartsWith("id-"))
+            {
+                Flash.Call("AttackMonsterByMonMapId", name.Split('-')[1]);
+            }
+            else
+            {
+                Flash.Call("AttackMonster", name);
+            }
+        }
 
         /// <summary>
         /// Sets Respawn Point to Current Cell Pad
         /// </summary>
         public static void SetSpawnPoint() => Flash.Call("SetSpawnPoint", new string[0]);
-        
+
         public static int GetTargetHealth() => Flash.Call<int>("GetTargetHealth", new string[0]);
 
         public static void MoveToCell(string cell, string pad = "Spawn") => Flash.Call("Jump", cell, pad);
@@ -289,13 +322,14 @@ namespace Grimoire.Game
         //public static void GotoPlayer(string name) => Flash.Call("GoTo", name);
         public static void GoToPlayer(string name) => Flash.Call("GoTo", name);
 
-        public static bool HasActiveBoost(string name) => Flash.Call<bool>("HasActiveBoost", new string[1]{name});
+        public static bool HasActiveBoost(string name) => Flash.Call<bool>("HasActiveBoost", new string[1] { name });
 
         public static void UseBoost(string id) => Flash.Call("UseBoost", id);
 
         public static void UseBoost(int id) => Flash.Call("UseBoost", id.ToString());
 
         public static void UseSkill(string index) => Flash.Call("UseSkill", index);
+
         public static void ForceUseSkill(string index) => Flash.Call("ForceUseSkill", index);
 
         public static void GetMapItem(string id) => Flash.Call("GetMapItem", id);
@@ -305,7 +339,31 @@ namespace Grimoire.Game
         public static void Logout() => Flash.Call("Logout", new string[0]);
 
         public static void SetTargetPlayer(string username) => Flash.Call("SetTargetPlayer", username);
+        /// <summary>
+        /// Gets Monstername.
+        /// Returned as null if targeted into player/no target
+        /// </summary>
+        public static string GetTargetName() => Flash.GetGameObject("world.myAvatar.target.objData.strMonName");
+        public static string GetAccessLevel(string username) => Flash.Call<string>("GetAccessLevel", username);
 
+        /// <summary>
+        /// Gets Auras.
+        /// Returned as int aura stack <br></br>
+        /// (note : the actual aura can be Float, but only on specific cases like LR's defense buff)
+        /// </summary>
+        /// <param name="isSelf">False = enemy | True = self aura</param>
+        /// <param name="auraName"></param>
+        public static int GetAuras(bool isSelf, string auraName) => Flash.Call<int>("GetAurasValue", isSelf.ToString(), auraName);
+        public static bool AuraDuration(bool isSelf, string auraName, int target)
+        {
+            string[] aura = (Flash.Call<string>("AuraDuration", isSelf.ToString(), auraName).Split('/'));
+            if (aura.Length < 2) return false;
+            int.TryParse(aura[1], out int runTime);
+            runTime /= 1000;
+            return runTime > target;
+        }
+
+        public static Dictionary<int, string> recentMapItem = new Dictionary<int, string>();
         static Player()
         {
             Bank = new Bank();

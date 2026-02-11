@@ -1,6 +1,7 @@
 using Grimoire.Tools;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using System.Linq;
 
 namespace Grimoire.Game.Data
@@ -48,6 +49,47 @@ namespace Grimoire.Game.Data
             "Cape",
             "Pet"
         };
+
+        public enum forgeID
+        {
+            ForgeCape = 71406,
+            Lament = 71543,
+            Penitence = 71542,
+            Vainglory = 70968,
+            Absolution = 70969,
+            Avarice = 70970,
+
+            ForgeHelm = 71537,
+            Hearty = 81467,
+            Examen = 71539,
+            Anima = 71541,
+            Pneuma = 71540,
+            Vim = 71538,
+
+            ForgeWeapon = 70753,
+            Praxis = 76979,
+            Dauntless = 76980,
+            Ravenous = 83500,
+            Acheron = 71628,
+            Elysium = 71629,
+            Smite = 70751,
+            Valiance = 70752,
+            Arcana = 70991,
+            Lacerate = 70750
+        }
+        [JsonProperty("iEnh")]
+        public int Enhancement
+        {
+            get;
+            set;
+        }
+
+        [JsonIgnore]
+        public forgeID? ForgeEnhancement
+        {
+            get => Enum.IsDefined(typeof(forgeID), Enhancement) ? (forgeID?)Enhancement : null;
+            set => Enhancement = value.HasValue ? (int)value.Value : 0;
+        }
 
         [JsonProperty("iQty")]
         public int Quantity

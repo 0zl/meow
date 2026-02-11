@@ -1,3 +1,4 @@
+using Grimoire.Networking;
 using Grimoire.Tools;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Grimoire.Game.Data
 
         public void Accept(int questId) => Flash.Call("Accept", questId.ToString());
 
-        public void Accept(string questId) => Flash.Call("Accept", questId);
+        public void Accept(string questId) => Proxy.Instance.SendToServer($"%xt%zm%acceptQuest%1%{questId}");
 
         public void Complete(int questId) => Flash.Call("Complete", questId.ToString());
 
@@ -50,5 +51,7 @@ namespace Grimoire.Game.Data
         public bool CanComplete(string id) => Flash.Call<bool>("CanComplete", id);
 
         public bool IsAvailable(int id) => Flash.Call<bool>("IsAvailable", id.ToString());
+        public int progress(int id) => int.Parse(Flash.CallGameFunction2("world.getQuestValue", Quest(id).ISlot));
+        public Quest Quest (int id) => Player.Quests.QuestTree.Find(q => q.Id == id);
     }
 }

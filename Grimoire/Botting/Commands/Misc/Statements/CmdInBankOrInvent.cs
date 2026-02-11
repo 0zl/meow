@@ -14,11 +14,11 @@ namespace Grimoire.Botting.Commands.Misc.Statements
 
 		public Task Execute(IBotEngine instance)
 		{
-			string Value1 = instance.IsVar(this.Value1) ? Configuration.Tempvariable[instance.GetVar(this.Value1)] : this.Value1;
-			string Value2 = instance.IsVar(this.Value2) ? Configuration.Tempvariable[instance.GetVar(this.Value2)] : this.Value2;
+			string name = Bot.Instance.ResolveVars(Value1);
+            string qty  = Bot.Instance.ResolveVars(Value2);
 
-			bool inBank = Player.Bank.ContainsItem(Value1, Value2);
-			bool inInventory = Player.Inventory.ContainsItem(Value1, Value2);
+			bool inBank = Player.Bank.ContainsItem(name, qty);
+			bool inInventory = Player.Inventory.ContainsItem(name, qty);
 
 			if (inBank || inInventory)
 			{

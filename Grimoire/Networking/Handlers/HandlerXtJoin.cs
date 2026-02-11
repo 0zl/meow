@@ -21,7 +21,7 @@ namespace Grimoire.Networking.Handlers
 				BotManager.Instance.CustomName = BotManager.Instance.CustomName;
 			if (BotManager.Instance.CustomGuild != null)
 				BotManager.Instance.CustomGuild = BotManager.Instance.CustomGuild;
-			LogForm.Instance.AppendChat(string.Format("[{0:hh:mm:ss}] {1}", DateTime.Now, message.Arguments[4]));
+			//LogForm.Instance.AppendChat(string.Format("[{0:hh:mm:ss}] {1}", DateTime.Now, message.Arguments[4]));
 		}
 	}
 

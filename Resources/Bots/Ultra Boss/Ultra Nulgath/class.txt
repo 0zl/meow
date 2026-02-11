@@ -1,0 +1,9 @@
+CAV, AP, LR, SC
+
+AP-Nulgath.gbot		-> AP
+Generic-Nulgath.gbot	-> LR, SC
+
+
+*use CAV manually
+*CAV attacks 'Blade' first until its HP drop to ~200k, then switch to 'Nulgath', repeat
+*CAV with damage boots potion

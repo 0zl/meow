@@ -1,0 +1,5 @@
+LOO -> Dene-First-Taunt.gbot using Scroll of Enrage
+
+CAV, LR, AP -> Algie-Fist.gbot
+
+*LR with damage boost pots

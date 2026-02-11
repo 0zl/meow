@@ -3,6 +3,7 @@ using Grimoire.Botting;
 using Grimoire.Game;
 using Grimoire.Game.Data;
 using Grimoire.Networking;
+using Grimoire.Networking.Handlers;
 using Grimoire.UI;
 using Grimoire.Utils;
 using Newtonsoft.Json;
@@ -20,507 +21,584 @@ using System.Xml.Linq;
 
 namespace Grimoire.Tools
 {
-	public delegate void FlashCallHandler(AxShockwaveFlash flash, string function, params object[] args);
+    public delegate void FlashCallHandler(AxShockwaveFlash flash, string function, params object[] args);
 
-	public delegate void FlashErrorHandler(AxShockwaveFlash flash, Exception e, string function, params object[] args);
+    public delegate void FlashCallHandler2(string function, params object[] args);
 
-	public class Flash
-	{
-		private static Flash _instance;
-		public static Flash Instance => _instance ?? (_instance = new Flash());
+    public delegate void FlashErrorHandler(AxShockwaveFlash flash, Exception e, string function, params object[] args);
 
-		public static AxShockwaveFlash flash;
+    public class Flash
+    {
+        private static Flash _instance;
+        public static Flash Instance => _instance ?? (_instance = new Flash());
 
-		public static event FlashCallHandler FlashCall;
+        public static AxShockwaveFlash flash;
 
-		public static event FlashErrorHandler FlashError;
+        public static event FlashCallHandler FlashCall;
 
-		public static event Action<int> SwfLoadProgress;
+        public static event FlashCallHandler2 FlashCall2;
 
-		/// <summary>
-		/// Sends the specified packet to the server.
-		/// </summary>
-		/// <param name="packet">The packet to be sent.</param>
-		/// <param name="type">The type of the packet being sent (String, Json). The default is string.</param>
-		/// <remarks>Be careful when using this method. Incorrect use of this method may cause you to be kicked (or banned, although very unlikely).</remarks>
-		public static void SendPacket(string packet, string type = "String")
-		{
-			CallGameFunction2("sfc.send" + type, packet);
-		}
+        public static event FlashErrorHandler FlashError;
 
-		/// <summary>
-		/// Sends the specified packet to the client (simulates a response as if the server sent the packet).
-		/// </summary>
-		/// <param name="packet">The packet to send.</param>
-		/// <param name="type">The type of the packet. This can be xml, json or str.</param>
-		public static void SendClientPacket(string packet, string type = "str")
-		{
-			Flash.Call("sendClientPacket", packet, type);
-		}
+        public static event Action<int> SwfLoadProgress;
 
-		/// <summary>
-		/// Calls the actionscript object with the given name at the given location.
-		/// </summary>
-		/// <param name="path">The path to the object and its function name.</param>
-		/// <param name="args">The arguments to pass to the function.</param>
-		/// <returns>The value of the object returned by calling the function as a serialzied JSON string.</returns>
-		public static string CallGameFunction2(string path, params object[] args)
-		{
-			return args.Length > 0 ? Flash.Call("callGameFunction", new object[] { path }.Concat(args).ToArray()) : Flash.Call2("callGameFunction0", path);
-		}
+        /// <summary>
+        /// Sends the specified packet to the server.
+        /// </summary>
+        /// <param name="packet">The packet to be sent.</param>
+        /// <param name="type">The type of the packet being sent (String, Json). The default is string.</param>
+        /// <remarks>Be careful when using this method. Incorrect use of this method may cause you to be kicked (or banned, although very unlikely).</remarks>
+        public static void SendPacket(string packet, string type = "String")
+        {
+            CallGameFunction2("sfc.send" + type, packet);
+        }
 
-		public static void ProcessFlashCall(object sender, _IShockwaveFlashEvents_FlashCallEvent e)
-		{
-			XElement xElement = XElement.Parse(e.request);
-			string text = xElement.Attribute("name")?.Value;
-			string text2 = xElement.Element("arguments")?.Value;
-			if (text == null)
-			{
-				return;
-			}
-			if (!(text == "progress"))
-			{
-				if (text == "modifyServers")
-				{
-					Root.Instance.flashPlayer.SetReturnValue("<string>" + ModifyServerList(text2.Trim()) + "</string>");
-				}
-			}
-			else
-			{
-				SwfLoadProgress?.Invoke(int.Parse(text2));
-				if (text2 == "100") Flash.Call2("SetTitle", $"Grimlite Li {Program.Version}");
-			}
-		}
+        /// <summary>
+        /// Sends the specified packet to the client (simulates a response as if the server sent the packet).
+        /// </summary>
+        /// <param name="packet">The packet to send.</param>
+        /// <param name="type">The type of the packet. This can be xml, json or str.</param>
+        public static void SendClientPacket(string packet, string type = "str")
+        {
+            Flash.Call("sendClientPacket", packet, type);
+        }
 
-		public static string GetGameObject(string path)
-		{
-			return Call2("getGameObject", path);
-		}
+        /// <summary>
+        /// Calls the actionscript object with the given name at the given location.
+        /// </summary>
+        /// <param name="path">The path to the object and its function name.</param>
+        /// <param name="args">The arguments to pass to the function.</param>
+        /// <returns>The value of the object returned by calling the function as a serialzied JSON string.</returns>
+        public static string CallGameFunction2(string path, params object[] args)
+        {
+            return args.Length > 0 ? Flash.Call("callGameFunction", new object[] { path }.Concat(args).ToArray()) : Flash.Call2("callGameFunction0", path);
+        }
 
-		public static string GetGameObjectStatic(string path)
-		{
-			return Call2("getGameObjectS", path);
-		}
+        public static void ProcessFlashCall(object sender, _IShockwaveFlashEvents_FlashCallEvent e)
+        {
+            XElement xElement = XElement.Parse(e.request);
+            string text = xElement.Attribute("name")?.Value;
+            string text2 = xElement.Element("arguments")?.Value;
+            if (text == null)
+            {
+                return;
+            }
+            if (!(text == "progress"))
+            {
+                if (text == "modifyServers")
+                {
+                    Root.Instance.flashPlayer.SetReturnValue("<string>" + ModifyServerList(text2.Trim()) + "</string>");
+                }
+            }
+            else
+            {
+                SwfLoadProgress?.Invoke(int.Parse(text2));
+                if (text2 == "100") Flash.Call2("SetTitle", $"Grimlite Li {Program.Version}");
+            }
+        }
 
-		public T GetGameObject<T>(string path, T def = default)
-		{
-			try
-			{
-				return JsonConvert.DeserializeObject<T>(GetGameObject(path));
-			}
-			catch
-			{
-				return def;
-			}
-		}
+        public static string GetGameObject(string path)
+        {
+            return Call2("getGameObject", path);
+        }
 
-		public static string CallGameFunction(string path, params object[] args)
-		{
-			return args.Length > 0 ? Call("callGameFunction", new object[] { path }.Concat(args).ToArray()) : Call<string>("callGameFunction0", path);
-		}
+        public static string GetGameObjectStatic(string path)
+        {
+            return Call2("getGameObjectS", path);
+        }
 
-		public static void SetGameObject(string path, object value)
-		{
-			Call("setGameObject", path, value);
-		}
+        public T GetGameObject<T>(string path, T def = default)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(GetGameObject(path));
+            }
+            catch
+            {
+                return def;
+            }
+        }
 
-		public static string Call2(string function, params object[] args)
-		{
-			return Call<string>(function, args);
-		}
+        public static string CallGameFunction(string path, params object[] args)
+        {
+            return args.Length > 0 ? Call("callGameFunction", new object[] { path }.Concat(args).ToArray()) : Call<string>("callGameFunction0", path);
+        }
 
-		public static string Call(string function, params object[] args)
-		{
-			return Call<string>(function, args);
-		}
+        public static void SetGameObject(string path, object value)
+        {
+            Call("setGameObject", path, value);
+        }
 
-		public static T Call<T>(string function, params object[] args)
-		{
-			try
-			{
-				object o = Call(function, typeof(T), args);
-				if (o != null)
-					return (T)o;
-				return default;
-			}
-			catch
-			{
-				return default;
-			}
-		}
+        public static string Call2(string function, params object[] args)
+        {
+            return Call<string>(function, args);
+        }
 
-		public static object Call(string function, Type type, params object[] args)
-		{
-			try
-			{
-				StringBuilder req = new StringBuilder().Append($"<invoke name=\"{function}\" returntype=\"xml\">");
-				if (args.Length > 0)
-				{
-					req.Append("<arguments>");
-					args.ForEach(o => req.Append(ToFlashXml(o)));
-					req.Append("</arguments>");
-				}
-				req.Append("</invoke>");
-				string result = flash.CallFunction(req.ToString());
-				XElement el = XElement.Parse(result);
-				return el == null || el.FirstNode == null ? default : Convert.ChangeType(el.FirstNode.ToString(), type);
-			}
-			catch (Exception e)
-			{
-				FlashError?.Invoke(flash, e, function, args);
-				return default;
-			}
-		}
+        public static string Call(string function, params object[] args)
+        {
+            return Call<string>(function, args);
+        }
 
-		public static T Call<T>(string function, params string[] args)
-		{
-			return TryDeserialize<T>(GetResponse(BuildRequest(function, args)));
-		}
+        public static T Call<T>(string function, params object[] args)
+        {
+            try
+            {
+                object o = Call(function, typeof(T), args);
+                if (o != null)
+                    return (T)o;
+                return default;
+            }
+            catch
+            {
+                return default;
+            }
+        }
 
-		public static void Call(string function, params string[] args)
-		{
-			Call<string>(function, args);
-		}
+        public static object Call(string function, Type type, params object[] args)
+        {
+            try
+            {
+                StringBuilder req = new StringBuilder().Append($"<invoke name=\"{function}\" returntype=\"xml\">");
+                if (args.Length > 0)
+                {
+                    req.Append("<arguments>");
+                    args.ForEach(o => req.Append(ToFlashXml(o)));
+                    req.Append("</arguments>");
+                }
+                req.Append("</invoke>");
+                string result = flash.CallFunction(req.ToString());
+                XElement el = XElement.Parse(result);
+                return el == null || el.FirstNode == null ? default : Convert.ChangeType(el.FirstNode.ToString(), type);
+            }
+            catch (Exception e)
+            {
+                FlashError?.Invoke(flash, e, function, args);
+                return default;
+            }
+        }
 
-		private static string BuildRequest(string method, params string[] args)
-		{
-			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.Append("<invoke name=\"" + method + "\" returntype=\"xml\">");
-			if (args != null && args.Length != 0)
-			{
-				stringBuilder.Append("<arguments>");
-				foreach (string str in args)
-				{
-					stringBuilder.Append("<string>" + str + "</string>");
-				}
-				stringBuilder.Append("</arguments>");
-			}
-			stringBuilder.Append("</invoke>");
-			return stringBuilder.ToString();
-		}
+        public static T Call<T>(string function, params string[] args)
+        {
+            return TryDeserialize<T>(GetResponse(BuildRequest(function, args)));
+        }
 
-		private static string GetResponse(string request)
-		{
-			try
-			{
-				return HttpUtility.HtmlDecode(XElement.Parse(Root.Instance.flashPlayer.CallFunction(request)).FirstNode?.ToString() ?? string.Empty);
-			}
-			catch
-			{
-				return string.Empty;
-			}
-		}
+        public static void Call(string function, params string[] args)
+        {
+            Call<string>(function, args);
+        }
 
-		private static T TryDeserialize<T>(string str)
-		{
-			try
-			{
-				return JsonConvert.DeserializeObject<T>(str);
-			}
-			catch
-			{
-				return default;
-			}
-		}
+        private static string BuildRequest(string method, params string[] args)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("<invoke name=\"" + method + "\" returntype=\"xml\">");
+            if (args != null && args.Length != 0)
+            {
+                stringBuilder.Append("<arguments>");
+                foreach (string str in args)
+                {
+                    stringBuilder.Append("<string>" + str + "</string>");
+                }
+                stringBuilder.Append("</arguments>");
+            }
+            stringBuilder.Append("</invoke>");
+            return stringBuilder.ToString();
+        }
 
-		public static string ToFlashXml(object o)
-		{
-			switch (o)
-			{
-				case null:
-					return "<null/>";
+        private static string GetResponse(string request)
+        {
+            try
+            {
+                return HttpUtility.HtmlDecode(XElement.Parse(Root.Instance.flashPlayer.CallFunction(request)).FirstNode?.ToString() ?? string.Empty);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
 
-				case bool _:
-					return $"<{o.ToString().ToLower()}/>";
+        private static T TryDeserialize<T>(string str)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(str);
+            }
+            catch
+            {
+                return default;
+            }
+        }
 
-				case double _:
-				case float _:
-				case long _:
-				case int _:
-					return $"<number>{o}</number>";
+        public static string ToFlashXml(object o)
+        {
+            switch (o)
+            {
+                case null:
+                    return "<null/>";
 
-				case ExpandoObject _:
-					StringBuilder sb = new StringBuilder().Append("<object>");
-					foreach (KeyValuePair<string, object> kvp in o as IDictionary<string, object>)
-						sb.Append($"<property id=\"{kvp.Key}\">{ToFlashXml(kvp.Value)}</property>");
-					return sb.Append("</object>").ToString();
+                case bool _:
+                    return $"<{o.ToString().ToLower()}/>";
 
-				default:
-					if (o is Array)
-					{
-						StringBuilder _sb = new StringBuilder().Append("<array>");
-						int k = 0;
-						foreach (object el in o as Array)
-							_sb.Append($"<property id=\"{k++}\">{ToFlashXml(el)}</property>");
-						return _sb.Append("</array>").ToString();
-					}
-					return $"<string>{SecurityElement.Escape(o.ToString())}</string>";
-			}
-		}
+                case double _:
+                case float _:
+                case long _:
+                case int _:
+                    return $"<number>{o}</number>";
 
-		private static string ModifyServerList(string response)
-		{
-			if (response.StartsWith("{\"login\"") && response.EndsWith("]}"))
-			{
-				return ServersFromJson(response);
-			}
-			if (response.StartsWith("<login") && response.EndsWith("</login>"))
-			{
-				return ServersFromXml(response);
-			}
-			return response;
-		}
+                case ExpandoObject _:
+                    StringBuilder sb = new StringBuilder().Append("<object>");
+                    foreach (KeyValuePair<string, object> kvp in o as IDictionary<string, object>)
+                        sb.Append($"<property id=\"{kvp.Key}\">{ToFlashXml(kvp.Value)}</property>");
+                    return sb.Append("</object>").ToString();
 
-		private static string ServersFromJson(String json)
-		{
-			JObject packet = (JObject)JObject.Parse(json);
-			JObject login = (JObject)packet["login"];
-			JArray servers = (JArray)packet["servers"];
-			Server[] array = new Server[servers.Count];
+                default:
+                    if (o is Array)
+                    {
+                        StringBuilder _sb = new StringBuilder().Append("<array>");
+                        int k = 0;
+                        foreach (object el in o as Array)
+                            _sb.Append($"<property id=\"{k++}\">{ToFlashXml(el)}</property>");
+                        return _sb.Append("</array>").ToString();
+                    }
+                    return $"<string>{SecurityElement.Escape(o.ToString())}</string>";
+            }
+        }
 
-			login["iUpg"] = 10;
-			login["iUpgDays"] = 999;
+        private static string ModifyServerList(string response)
+        {
+            if (response.StartsWith("{\"login\"") && response.EndsWith("]}"))
+            {
+                return ServersFromJson(response);
+            }
+            if (response.StartsWith("<login") && response.EndsWith("</login>"))
+            {
+                return ServersFromXml(response);
+            }
+            return response;
+        }
 
-			for (int i = 0; i < servers.Count; i++)
-			{
-				JObject server = (JObject)servers[i];
-				array[i] = new Server
-				{
-					IsChatRestricted = server.GetValue("iChat")?.ToString() == "0",
-					PlayerCount = int.Parse(server.GetValue("iCount")?.ToString()),
-					IsMemberOnly = server.GetValue("bUpg")?.ToString() == "1",
-					IsOnline = server.GetValue("bOnline")?.ToString() == "1",
-					Name = server.GetValue("sName")?.ToString(),
-					Port = int.Parse(server.GetValue("iPort")?.ToString())
-				};
-				server["RealAddress"] = server["sIP"];
-				server["RealPort"] = server["iPort"].ToString();
-				server["sIP"] = "127.0.0.1";
-				server["iPort"] = Proxy.Instance.ListenerPort;
-			}
-			BotManager.Instance.OnServersLoaded(array);
-			return packet.ToString(Newtonsoft.Json.Formatting.None);
-		}
+        private static string ServersFromJson(String json)
+        {
+            JObject packet = (JObject)JObject.Parse(json);
+            JObject login = (JObject)packet["login"];
+            JArray servers = (JArray)packet["servers"];
+            Server[] array = new Server[servers.Count];
 
-		private static string ServersFromXml(String xml)
-		{
-			XmlDocument xmlDocument = new XmlDocument();
-			xmlDocument.LoadXml(xml);
-			XmlElement xmlElement = xmlDocument["login"];
+            login["iUpg"] = 10;
+            login["iUpgDays"] = 999;
 
-			xmlElement.Attributes["iUpg"].Value = "1";
-			xmlElement.Attributes["iUpgDays"].Value = "999";
+            for (int i = 0; i < servers.Count; i++)
+            {
+                JObject server = (JObject)servers[i];
+                array[i] = new Server
+                {
+                    IsChatRestricted = server.GetValue("iChat")?.ToString() == "0",
+                    PlayerCount = int.Parse(server.GetValue("iCount")?.ToString()),
+                    IsMemberOnly = server.GetValue("bUpg")?.ToString() == "1",
+                    IsOnline = server.GetValue("bOnline")?.ToString() == "1",
+                    Name = server.GetValue("sName")?.ToString(),
+                    Port = int.Parse(server.GetValue("iPort")?.ToString())
+                };
+                server["RealAddress"] = server["sIP"];
+                server["RealPort"] = server["iPort"].ToString();
+                server["sIP"] = "127.0.0.1";
+                server["iPort"] = Proxy.Instance.ListenerPort;
+            }
+            BotManager.Instance.OnServersLoaded(array);
+            return packet.ToString(Newtonsoft.Json.Formatting.None);
+        }
 
-			Server[] array = new Server[xmlElement.ChildNodes.Count];
-			for (int i = 0; i < xmlElement.ChildNodes.Count; i++)
-			{
-				XmlElement xmlElement2 = (XmlElement)xmlElement.ChildNodes[i];
-				XmlAttribute xmlAttribute = xmlElement2.Attributes["sIP"];
-				if (xmlAttribute == null)
-				{
-					return xml;
-				}
-				XmlAttribute xmlAttribute2 = xmlElement2.Attributes["iPort"];
-				xmlElement2.Attributes.Append(xmlDocument.CreateAttribute("RealAddress")).Value = xmlAttribute.Value;
-				xmlElement2.Attributes.Append(xmlDocument.CreateAttribute("RealPort")).Value = xmlAttribute2.Value;
-				xmlElement2.Attributes["iPort"].Value = Proxy.Instance.ListenerPort.ToString();
-				xmlAttribute.Value = "127.0.0.1";
-				array[i] = new Server
-				{
-					IsChatRestricted = xmlElement2.Attributes["iChat"].Value == "0",
-					PlayerCount = int.Parse(xmlElement2.Attributes["iCount"].Value),
-					IsMemberOnly = xmlElement2.Attributes["bUpg"].Value == "1",
-					IsOnline = xmlElement2.Attributes["bOnline"].Value == "1",
-					Name = xmlElement2.Attributes["sName"].Value,
-					Port = int.Parse(xmlElement2.Attributes["iPort"].Value)
-				};
-			}
-			BotManager.Instance.OnServersLoaded(array);
-			return xmlDocument.OuterXml;
-		}
+        private static string ServersFromXml(String xml)
+        {
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(xml);
+            XmlElement xmlElement = xmlDocument["login"];
 
-		public static object FromFlashXml(XElement el)
-		{
-			switch (el.Name.ToString())
-			{
-				case "number":
-					return int.TryParse(el.Value, out int i) ? i : float.TryParse(el.Value, out float f) ? f : 0;
-				case "true":
-					return true;
-				case "false":
-					return false;
-				case "null":
-					return null;
-				case "array":
-					return el.Elements().Select(e => FromFlashXml(e)).ToArray();
-				case "object":
-					dynamic d = new ExpandoObject();
-					el.Elements().ForEach(e => d[e.Attribute("id").Value] = FromFlashXml(e.Elements().First()));
-					return d;
-				default:
-					return el.Value;
-			}
-		}
+            xmlElement.Attributes["iUpg"].Value = "1";
+            xmlElement.Attributes["iUpgDays"].Value = "999";
 
-		public static void CallHandler(object sender, _IShockwaveFlashEvents_FlashCallEvent e)
-		{
-			XElement el = XElement.Parse(e.request);
-			string name = el.Attribute("name").Value;
+            Server[] array = new Server[xmlElement.ChildNodes.Count];
+            for (int i = 0; i < xmlElement.ChildNodes.Count; i++)
+            {
+                XmlElement xmlElement2 = (XmlElement)xmlElement.ChildNodes[i];
+                XmlAttribute xmlAttribute = xmlElement2.Attributes["sIP"];
+                if (xmlAttribute == null)
+                {
+                    return xml;
+                }
+                XmlAttribute xmlAttribute2 = xmlElement2.Attributes["iPort"];
+                xmlElement2.Attributes.Append(xmlDocument.CreateAttribute("RealAddress")).Value = xmlAttribute.Value;
+                xmlElement2.Attributes.Append(xmlDocument.CreateAttribute("RealPort")).Value = xmlAttribute2.Value;
+                xmlElement2.Attributes["iPort"].Value = Proxy.Instance.ListenerPort.ToString();
+                xmlAttribute.Value = "127.0.0.1";
+                array[i] = new Server
+                {
+                    IsChatRestricted = xmlElement2.Attributes["iChat"].Value == "0",
+                    PlayerCount = int.Parse(xmlElement2.Attributes["iCount"].Value),
+                    IsMemberOnly = xmlElement2.Attributes["bUpg"].Value == "1",
+                    IsOnline = xmlElement2.Attributes["bOnline"].Value == "1",
+                    Name = xmlElement2.Attributes["sName"].Value,
+                    Port = int.Parse(xmlElement2.Attributes["iPort"].Value)
+                };
+            }
+            BotManager.Instance.OnServersLoaded(array);
+            return xmlDocument.OuterXml;
+        }
 
-			if (name == null)
-				return;
+        public static object FromFlashXml(XElement el)
+        {
+            switch (el.Name.ToString())
+            {
+                case "number":
+                    return int.TryParse(el.Value, out int i) ? i : float.TryParse(el.Value, out float f) ? f : 0;
+                case "true":
+                    return true;
+                case "false":
+                    return false;
+                case "null":
+                    return null;
+                case "array":
+                    return el.Elements().Select(e => FromFlashXml(e)).ToArray();
+                case "object":
+                    dynamic d = new ExpandoObject();
+                    el.Elements().ForEach(e => d[e.Attribute("id").Value] = FromFlashXml(e.Elements().First()));
+                    return d;
+                default:
+                    return el.Value;
+            }
+        }
 
-			object[] args = el.Elements().Select(x => FromFlashXml(x)).ToArray();
+        public static void CallHandler(object sender, _IShockwaveFlashEvents_FlashCallEvent e)
+        {
+            XElement el = XElement.Parse(e.request);
+            string name = el.Attribute("name").Value;
 
-			//Console.WriteLine($"name: {name}");
-			switch (name)
-			{
-				case "debug":
-					Console.WriteLine($"SWFDebug: {args[0]}");
-					if (ClientConfig.GetValue(ClientConfig.C_LOG_DEBUG_SWF) == "true")
-						LogForm.Instance.AppendDebug($"SWFDebug: {args[0]}");
-					break;
+            if (name == null)
+                return;
 
-				case "connection":
-					switch (args[0].ToString())
-					{
-						case "OnConnection":
-							Root.Instance.HideCharSelect();
-							break;
-						case "OnConnectionLost":
-							Root.Instance.LoadCharSelect();
-							break;
-					}
-					break;
+            object[] args = el.Elements().Select(x => FromFlashXml(x)).ToArray();
 
-				case "progress":
-					SwfLoadProgress?.Invoke(int.Parse(args[0].ToString()));
-					if (args[0].ToString() == "100")
-					{
-						Flash.Call2("SetTitle", $"Grimlite Li {Program.Version}");
-					}
-					break;
+            switch (name)
+            {
+                case "debug":
+                    Console.WriteLine($"SWFDebug: {args[0]}");
+                    if (ClientConfig.GetValue(ClientConfig.C_LOG_DEBUG_SWF) == "true")
+                        LogForm.Instance.AppendDebug($"SWFDebug: {args[0]}");
+                    break;
 
-				case "modifyServers":
-					Root.Instance.flashPlayer.SetReturnValue("<string>" + ModifyServerList(args[0].ToString().Trim()) + "</string>");
-					break;
+                case "connection":
+                    switch (args[0].ToString())
+                    {
+                        case "OnConnection":
+                            Root.Instance.HideCharSelect();
+                            Flash.Call("SetFPS", int.Parse(ClientConfig.GetValue(ClientConfig.C_FPS)));
+                            break;
+                        case "OnConnectionLost":
+                            Root.Instance.LoadCharSelect();
+                            break;
+                    }
+                    break;
 
-				case "getServers":
-				case "getServers2":
-					JObject packet = (JObject)JObject.Parse(args[0].ToString());
-					JObject login = (JObject)packet["login"];
-					JArray servers = (JArray)packet["servers"];
-					Server[] array = new Server[servers.Count];
-					for (int i = 0; i < servers.Count; i++)
-					{
-						JObject server = (JObject)servers[i];
-						array[i] = new Server
-						{
-							IsChatRestricted = server.GetValue("iChat")?.ToString() == "0",
-							PlayerCount = int.Parse(server.GetValue("iCount")?.ToString()),
-							IsMemberOnly = server.GetValue("bUpg")?.ToString() == "1",
-							IsOnline = server.GetValue("bOnline")?.ToString() == "1",
-							Name = server.GetValue("sName")?.ToString(),
-							Port = int.Parse(server.GetValue("iPort")?.ToString()),
-							Ip = server.GetValue("sIP")?.ToString()
-						};
-						server["sIP"] = server["sIP"];
-						server["iPort"] = server["iPort"].ToString();
-					}
-					BotManager.Instance.OnServersLoaded(array);
-					PacketInterceptor.Instance.OnServersLoaded(array);
-					break;
+                case "progress":
+                    SwfLoadProgress?.Invoke(int.Parse(args[0].ToString()));
+                    if (args[0].ToString() == "100")
+                    {
+                        Flash.Call("SetTitle", $"Grimlite Li {Program.Version}");
+                    }
+                    break;
 
-				case "packetFromClient":
-					Proxy.Instance.OnClientMessage(args[0].ToString());
-					args[0] = ProcessPacketFromClient((string)args[0]);
-					FlashCall?.Invoke(flash, name, args[0]);
-					break;
+                case "modifyServers":
+                    Root.Instance.flashPlayer.SetReturnValue("<string>" + ModifyServerList(args[0].ToString().Trim()) + "</string>");
+                    break;
 
-				case "packetFromServer":
-					Proxy.Instance.OnServerMessage(args[0].ToString());
-					args[0] = ProcessPacketFromServer((string)args[0]);
-					FlashCall?.Invoke(flash, name, args[0]);
-					break;
+                case "getServers":
+                case "getServers2":
+                    JObject packet = (JObject)JObject.Parse(args[0].ToString());
+                    JObject login = (JObject)packet["login"];
+                    JArray servers = (JArray)packet["servers"];
+                    Server[] array = new Server[servers.Count];
+                    for (int i = 0; i < servers.Count; i++)
+                    {
+                        JObject server = (JObject)servers[i];
+                        array[i] = new Server
+                        {
+                            IsChatRestricted = server.GetValue("iChat")?.ToString() == "0",
+                            PlayerCount = int.Parse(server.GetValue("iCount")?.ToString()),
+                            IsMemberOnly = server.GetValue("bUpg")?.ToString() == "1",
+                            IsOnline = server.GetValue("bOnline")?.ToString() == "1",
+                            Name = server.GetValue("sName")?.ToString(),
+                            Port = int.Parse(server.GetValue("iPort")?.ToString()),
+                            Ip = server.GetValue("sIP")?.ToString()
+                        };
+                        server["sIP"] = server["sIP"];
+                        server["iPort"] = server["iPort"].ToString();
+                    }
+                    BotManager.Instance.OnServersLoaded(array);
+                    PacketInterceptor.Instance.OnServersLoaded(array);
+                    break;
 
-				case "pext":
-					args[0] = ProcessPext((string)args[0]);
-					FlashCall?.Invoke(flash, name, args[0]);
-					break;
-			}
+                case "packetFromClient":
+                    Proxy.Instance.OnClientMessage(args[0].ToString());
+                    args[0] = ProcessPacketFromClient((string)args[0]);
+                    FlashCall?.Invoke(flash, name, args[0]);
+                    break;
 
-			//FlashCall?.Invoke(flash, name, args[0]);
-		}
+                case "packetFromServer":
+                    Proxy.Instance.OnServerMessage(args[0].ToString());
+                    args[0] = ProcessPacketFromServer((string)args[0]);
+                    FlashCall2?.Invoke(name, args[0]);
+                    FlashCall?.Invoke(flash, name, args[0]);
+                    break;
 
-		private static string ProcessPacketFromClient(string packet)
-		{
-			if (packet.Contains(":"))
-				packet = packet.Remove(0, packet.IndexOf(':') + 1);
-			packet = packet.Trim(new char[] { ' ', '[', ']' });
+                case "pext":
+                    args[0] = ProcessPext((string)args[0]);
+                    FlashCall?.Invoke(flash, name, args[0]);
+                    break;
+            }
 
-			switch (packet.Split('%')[3])
-			{
-				case "moveToCell":
-					if (OptionsManager.WalkSpeed != 8)
-						OptionsManager.SetWalkSpeed();
-					break;
+            //FlashCall?.Invoke(flash, name, args[0]);
+        }
 
-				/*case "afk":
+        private static string ProcessPacketFromClient(string packet)
+        {
+            if (packet.Contains(":"))
+                packet = packet.Remove(0, packet.IndexOf(':') + 1);
+            packet = packet.Trim(new char[] { ' ', '[', ']' });
+
+            switch (packet.Split('%')[3])
+            {
+                case "moveToCell":
+                    if (OptionsManager.WalkSpeed != 8)
+                        OptionsManager.SetWalkSpeed();
+                    break;
+
+                /*case "afk":
 					if (OptionsManager.AFK && packet.Split('%')[5] == "true" && Root.Instance.chkStartBot.Checked)
 					{
 						LogForm.Instance.AppendDebug($"[{DateTime.Now:HH:mm:ss}] Logout on AFK.");
 						Player.Logout();
 					}
 					break;*/
+                case "getMapItem":
+                    int itemId = int.Parse(packet.Split('%')[5]);
+                    if (Player.recentMapItem.ContainsKey(itemId))
+                        break;
 
-				case "firstJoin":
-					break;
-			}
-			//Console.WriteLine($"client: {packet}");
-			return packet;
-		}
+                    Task.Run(async () =>
+                    {
+                        var tcs = new TaskCompletionSource<bool>();
+                        var handler = new MapItemHandler(tcs, itemId);
+                        Proxy.Instance.RegisterHandler(handler);
+                        try
+                        {
+                            await Task.WhenAny(tcs.Task, Task.Delay(5000));
+                        }
+                        catch (Exception)
+                        {
+                            LogForm.Instance.devDebug("Nothing came out");
+                        }
+                        Proxy.Instance.UnregisterHandler(handler);
 
-		private static string ProcessPacketFromServer(string packet)
-		{
-			//Console.WriteLine($"server: {packet}");
-			return packet;
-		}
+                    });
+                    break;
 
-		public static string ProcessPext(string text)
-		{
-			dynamic packet = JsonConvert.DeserializeObject<dynamic>(text);
-			string type = packet["params"].type;
-			dynamic data = packet["params"].dataObj;
-			if (type == "json")
-			{
-				//Console.WriteLine($"cmd: {data.cmd}");
-				switch ((string)data.cmd)
-				{
-					case "loadInventoryBig":
-						Player.Bank.GetBank();
-						break;
+                case "firstJoin":
+                    if (BotManager.Instance.chkEnableSettings.Checked)
+                    {
+                        Task.Run(async () =>
+                        {
+                            await Task.Delay(1500);
+                            OptionsManager.Start();
+                        }
+                        );
+                    }
+                    break;
+            }
+            //Console.WriteLine($"client: {packet}");
+            return packet;
+        }
 
-					case "dropItem":
-						JObject items = (JObject)data["items"];
-						if (items != null)
-						{
-							InventoryItem item = items.ToObject<Dictionary<int, InventoryItem>>().First().Value;
-							World.OnItemDropped(item);
-							if (BotManager.Instance.ActiveBotEngine.IsRunning)
-							{
-								Configuration configuration = BotManager.Instance.ActiveBotEngine.Configuration;
-								List<string> whiteList = new List<string>();
-								if (configuration.Drops != null)
-									whiteList = configuration.Drops;
-								if (configuration.EnableRejection && !whiteList.ConvertAll<string>(a => a.ToLower()).Contains(item.Name.ToLower()))
-								{
-									Call("RejectDrop", new string[2] { item.Name.ToLower(), item.Id.ToString() });
-								}
-							}
-						}
-						break;
+        private static string ProcessPacketFromServer(string packet)
+        {
+            //Console.WriteLine($"server: {packet}");
+            //case "aura+":
+            dynamic ptext = JsonConvert.DeserializeObject<dynamic>(packet);
+            JObject bigObject = (JObject)ptext["b"]["o"];
+            JArray actions = (JArray)bigObject["a"];
+            if (actions != null)
+            {
+                foreach (JObject action in actions.Cast<JObject>())
+                {
+                    string cmd = (string)action["cmd"];
+                    string tInf = (string)action["tInf"];
+                    if (cmd == "aura+" && tInf == $"p:{Player.UserID}")
+                    {
 
-					/*case "getQuests":
+                        if ((bool)action["auras"][0]["isNew"]) { }
+                            //desc += "Aura added:";
+                        else { }
+                            //desc += "Aura refreshed:";
+                    }
+                }
+            }
+            return packet;
+        }
+
+        public static void setPreVars()
+        {
+            Configuration.Tempvariable["UID"] = Call<int>("UserID", new object[0]).ToString();
+            Configuration.Tempvariable["Username"] = Call<string>("GetUsername", new string[0]);
+            string[] nameColor = ClientConfig.GetValue(ClientConfig.C_NAME_COLOR).Split(',');
+            bool ismember = Call<bool>("IsMember", new string[0]);
+            if (ismember && nameColor.Length > 1)
+            {
+                Call("ChangeColorName", nameColor[1]);
+            }
+            else if (nameColor[0] != "0")
+            {
+                Call("ChangeColorName", nameColor[0]);
+            }
+            //if (nameColor != "0") Call("ChangeColorName", nameColor[0]);
+        }
+
+        public static string ProcessPext(string text)
+        {
+            dynamic packet = JsonConvert.DeserializeObject<dynamic>(text);
+            string type = packet["params"].type;
+            dynamic data = packet["params"].dataObj;
+            if (type == "json")
+            {
+                //Console.WriteLine($"cmd: {data.cmd}");
+                switch ((string)data.cmd)
+                {
+                    case "initUserDatas":
+                        Flash.setPreVars();
+                        break;
+
+                    case "loadInventoryBig":
+                        Player.Bank.GetBank();
+                        break;
+
+                    case "dropItem":
+                        JObject items = (JObject)data["items"];
+                        if (items != null)
+                        {
+                            InventoryItem item = items.ToObject<Dictionary<int, InventoryItem>>().First().Value;
+                            World.OnItemDropped(item);
+                            if (BotManager.Instance.ActiveBotEngine.IsRunning)
+                            {
+                                Configuration configuration = BotManager.Instance.ActiveBotEngine.Configuration;
+                                List<string> whiteList = new List<string>();
+                                if (configuration.Drops != null)
+                                    whiteList = configuration.Drops;
+                                if (configuration.EnableRejection && !whiteList.ConvertAll<string>(a => a.ToLower()).Contains(item.Name.ToLower()))
+                                {
+                                    Call("RejectDrop", new string[2] { item.Name.ToLower(), item.Id.ToString() });
+                                }
+                            }
+                        }
+                        break;
+
+                    /*case "getQuests":
 						JObject quests = (JObject)data["quests"];
 						Dictionary<int, Quest> dictionary = quests?.ToObject<Dictionary<int, Quest>>();
 						if (dictionary != null && dictionary.Count > 0)
@@ -529,12 +607,12 @@ namespace Grimoire.Tools
 						}
 						break;*/
 
-					/*case "ccqr":
+                    /*case "ccqr":
 						var comp = data.ToObject<CompletedQuest>();
 						Player.Quests.OnQuestCompleted(comp);
 						break;*/
 
-					/*case "loadShop":
+                    /*case "loadShop":
 						JObject shopinfo = (JObject)data["shopinfo"];
 						if (shopinfo != null)
 						{
@@ -542,26 +620,26 @@ namespace Grimoire.Tools
 						}
 						break;*/
 
-					case "sAct":
-						if (OptionsManager.InfiniteRange)
-							OptionsManager.SetInfiniteRange();
-						break;
+                    case "sAct":
+                        if (OptionsManager.InfiniteRange)
+                            OptionsManager.SetInfiniteRange();
+                        break;
 
-					/*case "retrieveUserData":
+                    /*case "retrieveUserData":
 					case "retrieveUserDatas":
 						if (OptionsManager.HidePlayers)
 							OptionsManager.DestroyPlayers();
 						break;*/
 
-					default:
-						return text;
-				}
-			}
-			if (type == "str")
-			{
+                    default:
+                        return text;
+                }
+            }
+            if (type == "str")
+            {
 
-			}
-			return text;
-		}
-	}
+            }
+            return text;
+        }
+    }
 }
